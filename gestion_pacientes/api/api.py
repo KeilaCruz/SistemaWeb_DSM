@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from gestion_pacientes.models import Paciente, Cita
+from django.db.models import Q
 from rest_framework import status
 from .serializers import PacienteSerializer, CitaSerializer
 
@@ -18,20 +19,21 @@ class PacienteAPIView(APIView):
             return Response(paciente_serializer.data, status=status.HTTP_201_CREATED)
         return Response(paciente_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-class BuscarPacienteAPIView(APIView):
     def get(self, request, *args, **kwargs):
         query = request.GET.get("query", "")
 
         pacientes = Paciente.objects.filter(
             Q(datos_personales__nombre__icontains=query)
-            | Q(datos_contacto__telefono__contains=query)
+            | Q(datos_contacto__telefono__icontains=query)
             | Q(CURP__icontains=query)
         )
-
+        if not pacientes.exists():
+            return Response(
+                {"error": "No se encontraron pacientes que coincidan con la consulta"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
         paciente_serializer = PacienteSerializer(pacientes, many=True)
         return Response(paciente_serializer.data, status=status.HTTP_200_OK)
-
 
 class CitaAPIView(APIView):
     def get(self, request):
