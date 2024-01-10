@@ -1,3 +1,3 @@
 ## Librerias instaladas
-* django-rest-framework
+* djangorestframework
 * django-cors-headers
