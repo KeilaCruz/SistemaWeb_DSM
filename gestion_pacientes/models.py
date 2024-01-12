@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 import datetime
 
 
@@ -12,17 +13,17 @@ class Rol(models.Model):
         return str(self.idRol)
 
 
-class Usuario(models.Model):
+class Usuario(AbstractUser):
     idUsuario = models.BigAutoField(primary_key=True)
-    email = models.EmailField(max_length=60, default="")
-    password = models.CharField(max_length=60, default="")
-    datos_usuario = models.JSONField()
-    # idRol = models.ForeignKey(Rol, on_delete=models.CASCADE)
+    idRol = models.ForeignKey(Rol, on_delete=models.DO_NOTHING)
 
-    # nombre = models.CharField(max_length=50, default="")
-    # ape_paterno = models.CharField(max_length=30, default="" null=True)
-    # ape_materno = models.CharField(max_length=30, default="", null=True)
-
+    last_login = None
+    is_superuser = None
+    is_staff = None
+    date_joined = None
+    groups = None
+    user_permissions = None
+    
     def __str__(self):
         return self.idUsuario
 

@@ -1,9 +1,11 @@
 from rest_framework.response import Response
+from django.contrib.auth.hashers import make_password
 from rest_framework.views import APIView
-from gestion_pacientes.models import Paciente, Cita
+from rest_framework.generics import CreateAPIView
+from gestion_pacientes.models import Paciente, Cita, Usuario
 from django.db.models import Q
 from rest_framework import status
-from .serializers import PacienteSerializer, CitaSerializer
+from .serializers import PacienteSerializer, CitaSerializer, UsuarioSerializer
 
 
 class PacienteAPIView(APIView):
@@ -35,6 +37,7 @@ class PacienteAPIView(APIView):
         paciente_serializer = PacienteSerializer(pacientes, many=True)
         return Response(paciente_serializer.data, status=status.HTTP_200_OK)
 
+
 class CitaAPIView(APIView):
     def get(self, request):
         citas = Cita.objects.all()
@@ -47,3 +50,21 @@ class CitaAPIView(APIView):
             cita_serializer.save()
             return Response(cita_serializer.data, status=status.HTTP_201_CREATED)
         return Response(cita_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class VisualizarUsuarioView(APIView):
+    def get(self, request):
+        usuarios = Usuario.objects.all()
+        usuario_serializer = UsuarioSerializer(usuarios, many=True)
+        return Response(usuario_serializer.data)
+
+
+class CrearUsuarioView(CreateAPIView):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        instance.password = make_password(serializer.validated_data["password"])
+        instance.save()
+        return instance

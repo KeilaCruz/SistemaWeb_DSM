@@ -27,7 +27,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 
+    'DEFAULT_PERMISSIONS_CLASSES':(
+        'rest_framework.permissions.IsAuthenticated'
+    )
+}
+AUTH_USER_MODEL = 'gestion_pacientes.Usuario'
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gestion_pacientes',
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders'
 ]
 
