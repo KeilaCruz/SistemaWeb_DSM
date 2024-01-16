@@ -5,17 +5,35 @@ from django.db.models import Q
 from rest_framework import status
 from .serializers import PacienteSerializer, CitaSerializer
 from django.http import Http404
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['username'] = user.username
+        # ...
+
+        return token
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
+@api_view(["GET"])
+def getRoutes(request):
+    routes=[
+        'api/token',
+        'api/token/refresh',
+    ]
+    return Response(routes)
 
 
 
 class PacienteAPIView(APIView):
-    
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-    
     def get(self, request):
         pacientes = Paciente.objects.all()
         paciente_serializer = PacienteSerializer(pacientes, many=True)
@@ -43,40 +61,33 @@ class PacienteAPIView(APIView):
             )
         paciente_serializer = PacienteSerializer(pacientes, many=True)
         return Response(paciente_serializer.data, status=status.HTTP_200_OK)
-    
-    
 
 class PacienteDetailAPIView(APIView):
-    
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-    
-    def get_object(self, pk):
+    def get_object(self, curp):
         try:
-            return Paciente.objects.get(pk=pk)
+            return Paciente.objects.get(CURP = curp)
         except Paciente.DoesNotExist:
             raise Http404
-        
-    def get(self, request, pk, format=None):
-        paciente = self.get_object(pk)
-        paciente_serializer = PacienteSerializer(paciente)
-        return Response(paciente_serializer.data)
     
-    def put(self, request, pk, format=None):
-        paciente = self.get_object(pk)
-        paciente_serializer = PacienteSerializer(paciente, data=request.data)
+    def get(self, request, curp, format=None):
+        paciente = self.get_object(curp)
+        paciente_serializer = PacienteSerializer(paciente)
+        return Response(paciente_serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, curp, format=None):
+        paciente = self.get_object(curp)
+        paciente_serializer = PacienteSerializer(instance=paciente, data=request.data)
+
         if paciente_serializer.is_valid():
             paciente_serializer.save()
-            return Response(paciente_serializer.data)
-        return Response(paciente_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def delete(self, request, pk, format=None):
-        paciente = self.get_object(pk)
-        paciente.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(paciente_serializer.data, status=status.HTTP_200_OK)
 
-    
-    
+        return Response(paciente_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, curp, format=None):
+        paciente = self.get_object(curp)
+        paciente.delete()
+        return Response({"message": "Paciente eliminado correctamente"}, status=status.HTTP_204_NO_CONTENT)
 
 class CitaAPIView(APIView):
     def get(self, request):
