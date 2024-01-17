@@ -14,9 +14,9 @@ class Rol(models.Model):
 
 
 class Usuario(AbstractUser):
-    idUsuario = models.BigAutoField(primary_key=True)
     idRol = models.ForeignKey(Rol, on_delete=models.DO_NOTHING)
-
+    second_last_name = models.CharField(max_length=50, default="")
+    
     last_login = None
     is_superuser = None
     is_staff = None
@@ -25,7 +25,7 @@ class Usuario(AbstractUser):
     user_permissions = None
     
     def __str__(self):
-        return self.idUsuario
+        return self.id
 
 
 class Paciente(models.Model):
