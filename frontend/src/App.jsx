@@ -1,39 +1,17 @@
-import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
-import { PrivateRoute } from "./utils/PrivateRoute";
-import { HomePage } from "./pages/HomePage";
-import { Header } from "./components/Header"; 
-import { LoginPage } from "./pages/LoginPage"
-import { AuthProvider } from "./context/AuthContext";
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { LoginPage } from './pages/LoginPage'
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <div className="">
-          <AuthProvider>
-            <Header /> {/* Agrega el componente Header aquí */}
-            <Routes>
-              <Route path="/" element={<Navigate to="/login" />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route
-                path="/home"
-                element={
-                  <PrivateRoute>
-                    <HomePage />
-                  </PrivateRoute>
-                }
-              />
-              {/* Puedes usar Navigate para redirigir a la página de inicio si no está autenticado */}
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-            <Toaster />
-          </AuthProvider>
-        </div>
+        <Routes>
+          <Route path='/login' element={<LoginPage />} />
+        </Routes>
       </BrowserRouter>
     </>
-  );
+  )
 }
+export default App
 
-export default App;
+
