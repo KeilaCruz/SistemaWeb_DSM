@@ -1,4 +1,5 @@
 from datetime import timedelta
+
 """
 Django settings for sistema_dsm_api project.
 
@@ -45,13 +46,13 @@ INSTALLED_APPS = [
     "corsheaders",
 ]
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Ejemplo: 15 minutos
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # Ejemplo: 1 día
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  # Ejemplo: 15 minutos
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),  # Ejemplo: 1 día
 }
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -137,4 +138,4 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ALLOWED_ORIGINS = []
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]

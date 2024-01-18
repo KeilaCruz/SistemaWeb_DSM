@@ -20,7 +20,7 @@ class PacienteAPIView(APIView):
         return Response(paciente_serializer.data)
 
 
-@permission_classes([IsAuthenticated])
+#@permission_classes([IsAuthenticated])
 class RegistrarPacienteAPIView(APIView):
     def post(self, request, *args, **kwargs):
         paciente_serializer = PacienteSerializer(data=request.data)
