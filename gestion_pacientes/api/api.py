@@ -1,13 +1,18 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from gestion_pacientes.models import Paciente, Cita
+from gestion_pacientes.models import Paciente, Cita, Notas
 from django.db.models import Q
 from rest_framework import status
-from .serializers import PacienteSerializer, CitaSerializer
+from .serializers import PacienteSerializer, CitaSerializer, NotasSerializer
 from django.http import Http404
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -30,6 +35,21 @@ def getRoutes(request):
         'api/token/refresh',
     ]
     return Response(routes)
+
+class NotasAPIView(APIView):
+     def get(self, request):
+        # Verifica si el usuario está autenticado
+        if request.user.is_authenticated:
+            # Filtra las notas relacionadas con el usuario actual
+            notas = Notas.objects.filter(user=request.user)
+            notas_serializer = NotasSerializer(notas, many=True)
+            return Response(notas_serializer.data)
+        else:
+            # El usuario no está autenticado, puedes manejar esto según tus necesidades
+            return Response({"error": "Usuario no autenticado"}, status=status.HTTP_401_UNAUTHORIZED)
+    
+
+
 
 
 

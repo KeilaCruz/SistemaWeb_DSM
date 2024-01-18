@@ -25,8 +25,7 @@ function App() {
                   </PrivateRoute>
                 }
               />
-              {/* Puedes usar Navigate para redirigir a la página de inicio si no está autenticado */}
-              <Route path="*" element={<Navigate to="/" />} />
+              
             </Routes>
             <Toaster />
           </AuthProvider>

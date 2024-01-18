@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 
 const PrivateRoute = ({ children, ...rest }) => {
-  console.log("Private route works");
 
   // Lógica de autenticación aquí (por ejemplo, verificar si el usuario está autenticado)
   const {user} = useContext(AuthContext)

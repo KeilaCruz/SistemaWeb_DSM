@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from gestion_pacientes.models import Paciente, Cita
+from gestion_pacientes.models import Paciente, Cita, Notas
 
 
 class PacienteSerializer(serializers.ModelSerializer):
@@ -11,4 +11,9 @@ class PacienteSerializer(serializers.ModelSerializer):
 class CitaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cita
-        fiels = "__all__"
+        fields = "__all__"
+        
+class NotasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notas
+        fields = "__all__"

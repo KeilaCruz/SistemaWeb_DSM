@@ -9,8 +9,14 @@ export default AuthContext;
 
 export function AuthProvider({ children }) {
 
+    //alamacenar el token en el local storage
     const [authTokens, setAuthTokens] = useState( () =>localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null )
+
+    // The initial value is determined by checking if 'authTokens' exist in the local storage.
+    // If 'authTokens' exist, decode them using 'jwtDecode' and set it as the initial value.
     const [user, setUser] = useState(() =>  localStorage.getItem('authTokens') ? jwtDecode(localStorage.getItem('authTokens')) : null )
+
+    const [loading, setLoading] = useState(true) 
 
     const navigate = useNavigate()
 
@@ -35,6 +41,48 @@ export function AuthProvider({ children }) {
 
     }
 
+    const updateTokens = async () =>{
+        console.log('updating tokens')
+        const response = await fetch('http://localhost:8000/paciente/api/token/refresh/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({'refresh':authTokens?.refresh })
+        })
+        const data = await response.json()
+
+        if (response.status === 200){
+            setAuthTokens(data)
+            setUser(jwtDecode(data.access))
+            localStorage.setItem('authTokens', JSON.stringify(data))
+        }else{
+            logoutUser()
+        }
+
+        if (loading){
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+
+        if (loading){
+            updateTokens()
+        }
+
+        const refreshTime = 1000 * 60 * 4
+        const interval = setInterval(()=>{
+            if (authTokens){
+                updateTokens()
+            }
+        }, refreshTime) //tiempo en el que sera llamado el updateTokens
+        return () => clearInterval(interval)
+        
+    }, [authTokens, loading])
+
+
+
     const logoutUser = () =>{
         setAuthTokens(null)
         setUser(null)
@@ -44,13 +92,14 @@ export function AuthProvider({ children }) {
 
     const contextData = {
         user:user,
+        authTokens:authTokens,
         loginUser:loginUser,
         logoutUser:logoutUser
     }
 
   return (
     <AuthContext.Provider value={contextData}>
-      {children}
+      {loading ? null : children}
     </AuthContext.Provider>
   );
 };

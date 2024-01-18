@@ -1,5 +1,6 @@
 from django.db import models
 import datetime
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -133,3 +134,8 @@ class Evento(models.Model):
 
     def __str__(self):
         return self.idEvento
+    
+
+class Notas(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    nota = models.TextField(default="")
