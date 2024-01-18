@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext'
 
-const PrivateRoute = ({ children, ...rest }) => {
+export function PrivateRoute({ children, ...rest }) {
   console.log("Private route works");
 
   // Lógica de autenticación aquí (por ejemplo, verificar si el usuario está autenticado)
@@ -17,4 +17,3 @@ const PrivateRoute = ({ children, ...rest }) => {
   );
 };
 
-export default PrivateRoute;

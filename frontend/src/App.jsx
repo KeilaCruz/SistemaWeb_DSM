@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import PrivateRoute from "./utils/PrivateRoute";
-import HomePage from "./pages/HomePage";
-import Header from "./components/Header";
+import { PrivateRoute } from "./utils/PrivateRoute";
+import { HomePage } from "./pages/HomePage";
+import { Header } from "./components/Header"; 
 import { LoginPage } from "./pages/LoginPage"
 import { AuthProvider } from "./context/AuthContext";
 

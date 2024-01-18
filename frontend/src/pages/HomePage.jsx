@@ -1,13 +1,10 @@
 import React from 'react'
-import Header from '../components/Header'
-
-const HomePage = () => {
+export function HomePage() {
   return (
     <>
-    <div>You are logged to the home page</div>
+      <div>You are logged to the home page</div>
     </>
-    
+
   )
 }
 
-export default HomePage
