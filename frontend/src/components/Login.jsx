@@ -1,23 +1,23 @@
 import { useContext } from "react"
-import AuthContext from "../context/AuthProvider"
-import axios from "axios"
 import { useForm } from "react-hook-form";
-
-const LOGIN_URL = "http://127.0.0.1:8000/api/iniciosesion"
+import { useNavigate } from "react-router-dom"
+import AuthContext from "../context/AuthProvider";
 export function Login() {
-    const { setAuth } = useContext(AuthContext)
+    const { login, logout } = useContext(AuthContext);
+    const navigate = useNavigate("")
     const { register, handleSubmit } = useForm();
 
     const onSubmit = handleSubmit(async (data) => {
         try {
-            const response = await axios.post(LOGIN_URL, data, { headers: { 'Content-Type': 'application/json' } });
-            console.log(JSON.stringify(response?.data))
-            const accessToken = response?.data?.token_access;
-            setAuth({ accessToken })
+            await login(data)
+            navigate("/")
         } catch (error) {
             console.error(error)
         }
     })
+    const cerrarSesion = async () => {
+        await logout()
+    }
     return (
         <>
             <div>
@@ -26,8 +26,8 @@ export function Login() {
                     <input type="password" name="password" id="password" placeholder="Enter password" {...register("password", { required: true })} />
                     <input type="submit" />
                 </form>
+                <button onSubmit={cerrarSesion}>Cerrar</button>
             </div>
         </>
     )
 }
-

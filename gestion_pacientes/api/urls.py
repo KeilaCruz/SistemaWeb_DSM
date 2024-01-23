@@ -1,7 +1,16 @@
 from django.urls import path
-from gestion_pacientes.api.logueo import LoginAPIView, CrearUsuarioView,VisualizarUsuarioView
-from gestion_pacientes.api.cita import CitaAPIView,AgendarCitaAPIView
-from gestion_pacientes.api.paciente import PacienteAPIView, RegistrarPacienteAPIView, BuscarPacienteAPIView
+from gestion_pacientes.api.logueo import (
+    LoginAPIView,
+    CrearUsuarioView,
+    VisualizarUsuarioView,
+    RefreshTokenAPIView,
+)
+from gestion_pacientes.api.cita import CitaAPIView, AgendarCitaAPIView
+from gestion_pacientes.api.paciente import (
+    PacienteAPIView,
+    RegistrarPacienteAPIView,
+    BuscarPacienteAPIView,
+)
 
 urlpatterns = [
     path("paciente/", PacienteAPIView.as_view()),
@@ -12,4 +21,5 @@ urlpatterns = [
     path("crearusuario/", CrearUsuarioView.as_view()),
     path("visualizarusuario/", VisualizarUsuarioView.as_view()),
     path("iniciosesion", LoginAPIView.as_view()),
+    path("actualizartoken", RefreshTokenAPIView.as_view()),
 ]
