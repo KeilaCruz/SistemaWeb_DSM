@@ -24,7 +24,8 @@ export const AuthProvider = ({ children }) => {
                 setAuthTokens(response.data)
                 setUser(jwtDecode(response.data.access))
                 localStorage.setItem('authTokens', JSON.stringify(response.data))
-                console.log(localStorage.getItem('authTokens'))
+                //console.log(localStorage.getItem('authTokens'))
+                //console.log("hOLA", user.username)
             } else {
                 alert("Fallo al iniciar sesion")
             }
