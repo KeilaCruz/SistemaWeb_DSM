@@ -19,11 +19,12 @@ export const AuthProvider = ({ children }) => {
     const login = async (usuario) => {
         try {
             const response = await axios.post(LOGIN_URL, usuario, { headers: { 'Content-Type': 'application/json' } });
-            const data = await response.data
-            if (data.status === 200) {
-                setAuthTokens(data)
-                setUser(jwtDecode(data.access))
-                localStorage.setItem('authTokens', JSON.stringify(data))
+            if (response.status === 200) {
+                console.log(response.data)
+                setAuthTokens(response.data)
+                setUser(jwtDecode(response.data.access))
+                localStorage.setItem('authTokens', JSON.stringify(response.data))
+                console.log(localStorage.getItem('authTokens'))
             } else {
                 alert("Fallo al iniciar sesion")
             }
@@ -37,14 +38,15 @@ export const AuthProvider = ({ children }) => {
         setUser(null)
         localStorage.removeItem('authTokens')
     }
+
     const updateToken = async () => {
         try {
-            const response = await axios.post(UPDATE_TOKEN_URL, { headers: { 'Content-type': 'application/json' }, refresh: authTokens?.refresh, })
-            const data = await response.data
-            if (data.status === 200) {
-                setAuthTokens(data)
-                setUser(jwtDecode(data.access))
-                localStorage.setItem('authTokens', JSON.stringify(data))
+            const response = await axios.post(UPDATE_TOKEN_URL, { refresh: authTokens?.refresh }, { headers: { 'Content-type': 'application/json' } })
+            if (response.status === 200) {
+                console.log("Actualizacion", response.data)
+                setAuthTokens(response.data)
+                setUser(jwtDecode(response.data.access))
+                localStorage.setItem('authTokens', JSON.stringify(response.data))
             } else {
                 logout()
             }
@@ -69,9 +71,9 @@ export const AuthProvider = ({ children }) => {
                 updateToken();
             }
         }, fourMinutes);
+
         return () => clearInterval(intervalo);
     }, [authTokens, loading]);
-
     const contextData = {
         user,
         authTokens,

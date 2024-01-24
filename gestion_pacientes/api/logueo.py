@@ -22,9 +22,8 @@ class RefreshTokenAPIView(TokenRefreshView):
             token_refresh = response.data["refresh"]
             return Response(
                 {
-                    "message": "Token de inicio de sesion actualizado",
-                    "token_access": token_access,
-                    "token_refresh": token_refresh,
+                    "access": token_access,
+                    "refresh": token_refresh,
                 },
                 status=status.HTTP_200_OK,
             )
