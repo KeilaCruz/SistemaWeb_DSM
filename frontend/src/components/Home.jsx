@@ -1,8 +1,9 @@
 
 export function Home() {
+    console.log("Home psicologia")
     return (
         <>
-            <p>Bienvenido al sitio</p>
+            <h1>Home de la Psicologa</h1>
         </>
     )
 }

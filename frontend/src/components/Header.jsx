@@ -2,9 +2,19 @@ import { Link } from "react-router-dom"
 export function Header() {
     return (
         <>
-            <Link to="/">Home</Link>
-            <span> | </span>
-            <Link to="/Login">Login</Link>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/login">Login</Link>
+                    </li>
+                    <li>
+                        <Link to="/homePsicologia">HomePage Psicologia</Link>
+                    </li>
+                    <li>
+                        <Link to="/homeRecepcionista">HomePage Recepcionista</Link>
+                    </li>
+                </ul>
+            </nav>
         </>
     )
 }

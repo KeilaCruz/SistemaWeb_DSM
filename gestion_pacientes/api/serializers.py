@@ -27,5 +27,5 @@ class LoginSessionInfoSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
 
         token["username"] = user.username
-
+        token["idRol_id"] = user.idRol_id
         return token
