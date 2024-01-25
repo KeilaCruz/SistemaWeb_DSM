@@ -1,18 +1,14 @@
 import { useContext } from "react"
 import { Outlet, Navigate } from "react-router-dom"
 import AuthContext from "../context/AuthProvider"
-export const ProtectedRoute = ({ redirectTo, children }) => {
+export const ProtectedRoute = ({ redirectTo = "/login", rolPermitido, children }) => {
     const { user } = useContext(AuthContext)
     console.log(user)
-    if (!user) {
-        return <Navigate to="/login" />
-    }
-    if (user.idRol_id === 1) {
-        return <Navigate to="/homePsicologia" />;
-    } else if (user.idRol_id === 2) {
-        return <Navigate to="/homeRecepcionista" />;
-    }
+    if (!user) return <Navigate to="/login" />
 
-    return children ? children : <Outlet />
-}
-export default ProtectedRoute;
+    if (user.idRol_id === rolPermitido) {
+        return children ? children : <Outlet />
+    } else {
+        return <Navigate to={redirectTo} replace />;
+    }
+};

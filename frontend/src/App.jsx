@@ -16,8 +16,9 @@ function App() {
             <Route index element={<Login />} />
             <Route path="/login" element={<Login />} />
             <Route path="/noautorizado" element={<NoAutorizado />} />
-            <Route path="/homePsicologia" element={<ProtectedRoute redirectTo={"/noautorizado"}> <Home /></ProtectedRoute>} />
-            <Route path="/homeRecepcionista" element={<ProtectedRoute redirectTo={"/noautorizado"}><HomePageR/></ProtectedRoute>} />
+            {/**Rutas protegidas */}
+            <Route path="/homePsicologia" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><Home /></ProtectedRoute>} />
+            <Route path="/homeRecepcionista" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><HomePageR /></ProtectedRoute>} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
