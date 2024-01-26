@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react'
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const AuthContext = createContext()
 
@@ -20,35 +21,50 @@ export function AuthProvider({ children }) {
 
     const navigate = useNavigate()
 
-    const loginUser = async (e) =>{
-        e.preventDefault()
-        const response = await fetch('http://localhost:8000/paciente/api/token/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({'username': e.target.username.value, 'password': e.target.password.value})
-        })
-        const data = await response.json()
-       if (response.status === 200){
-           setAuthTokens(data)
-           setUser(jwtDecode(data.access))
-           localStorage.setItem('authTokens', JSON.stringify(data))
-           navigate('/home')
-       }else{
-           alert('Usuario o contraseña incorrectos')
-       }
+        const loginUser = async (e) => {
+        e.preventDefault();
 
-    }
+        try {
+            const response = await axios.post(
+            'http://localhost:8000/paciente/api/token/',
+            {
+                username: e.target.username.value,
+                password: e.target.password.value,
+            },
+            {
+                headers: {
+                'Content-Type': 'application/json',
+                },
+            }
+            );
+
+            const data = response.data;
+
+            if (response.status === 200) {
+            setAuthTokens(data);
+            setUser(jwtDecode(data.access));
+            localStorage.setItem('authTokens', JSON.stringify(data));
+            navigate('/home');
+            } else {
+            alert('Usuario o contraseña incorrectos');
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            // Puedes manejar el error de la manera que desees
+            alert('Error durante el inicio de sesión');
+        }
+        };
+
 
     const updateTokens = async () =>{
+
         console.log('updating tokens')
         const response = await fetch('http://localhost:8000/paciente/api/token/refresh/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({'refresh':authTokens?.refresh })
+            body: JSON.stringify({ refresh: authTokens?.refresh || '' })
         })
         const data = await response.json()
 

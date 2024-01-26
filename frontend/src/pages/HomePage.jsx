@@ -1,28 +1,33 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AuthContext from '../context/AuthContext';
+import axios from 'axios';
 
 const HomePage = () => {
   const { authTokens, logoutUser } = useContext(AuthContext);
   const [notas, setNotas] = useState([]);
 
   const getNotas = async () => {
-   
-      const response = await fetch('http://localhost:8000/paciente/notas/', {
+    try {
+      const response = await axios.get('http://localhost:8000/paciente/notas/', {
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + String(authTokens.access),
         },
       });
-      const data = await response.json();
-      setNotas(data);
-
+  
+      const data = response.data;
+  
       if (response.status === 200) {
-       setNotas(data);
-      }else if(response.statusText === 'Unauthorized'){
-        logoutUser()
+        setNotas(data);
+      } else if (response.status === 401) {  // Unauthorized status code
+        logoutUser();
       }
-   
+    } catch (error) {
+      console.error('Error fetching notas:', error);
+      // Puedes manejar el error de la manera que desees
+    }
   };
+  
 
   useEffect(() => {
     getNotas();
