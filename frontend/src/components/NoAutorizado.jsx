@@ -3,7 +3,7 @@ export function NoAutorizado() {
     return (
         <>
             <h1>
-                No autorizado
+                No autorizado, cambios
             </h1>
         </>
     )
