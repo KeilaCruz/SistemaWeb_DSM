@@ -17,7 +17,8 @@ def realizar_solicitud(url, token):
     response = requests.get(url, headers=headers)
     return response.json()
 
-#Ejemplo
+
+# Ejemplo
 username = "KeilaCruz"
 password = "12345678"
 
@@ -33,4 +34,3 @@ if token_result:
         print("accedio sin exito")
 else:
     print("Error al obtener el token")
-

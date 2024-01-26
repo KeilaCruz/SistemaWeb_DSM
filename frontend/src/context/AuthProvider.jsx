@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode"
 
 const LOGIN_URL = "http://127.0.0.1:8000/api/iniciosesion"
 const UPDATE_TOKEN_URL = "http://127.0.0.1:8000/api/actualizartoken"
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
