@@ -6,6 +6,9 @@ import { NoAutorizado } from './components/NoAutorizado'
 import { AuthProvider } from './context/AuthProvider'
 import { ProtectedRoute } from "./utils/ProtectedRoute"
 import { HomePageR } from './pages/HomePageR'
+import { RePacientePage } from './pages/RePacientePage'
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 function App() {
   return (
     <>
@@ -19,6 +22,7 @@ function App() {
             {/**Rutas protegidas */}
             <Route path="/homePsicologia" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><Home /></ProtectedRoute>} />
             <Route path="/homeRecepcionista" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><HomePageR /></ProtectedRoute>} />
+            <Route path="/registrarpaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><RePacientePage /></ProtectedRoute>} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

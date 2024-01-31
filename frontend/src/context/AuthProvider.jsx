@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await axios.post(LOGIN_URL, usuario, { headers: { 'Content-Type': 'application/json' } });
             if (response.status === 200) {
-                console.log(response.data)
+                //console.log(response.data)
                 setAuthTokens(response.data)
                 setUser(jwtDecode(response.data.access))
                 localStorage.setItem('authTokens', JSON.stringify(response.data))
