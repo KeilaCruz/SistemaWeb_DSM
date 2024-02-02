@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 import { useState } from "react"
-
-export function FormularioPaciente({ onSubmit, register }) {
+import "../../css/styles.css"
+export function FormPaciente({ onSubmit, register }) {
     const [showCualEstatal, setShowEstatal] = useState(false)
     const [showCualFederal, setShowFederal] = useState(false)
     const [showCualMunicipal, setShowMunicipal] = useState(false)
@@ -188,4 +188,3 @@ export function FormularioPaciente({ onSubmit, register }) {
     )
 }
 
-export default FormularioPaciente

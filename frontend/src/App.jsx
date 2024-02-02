@@ -9,6 +9,7 @@ import { HomePageR } from './pages/HomePageR'
 import { RePacientePage } from './pages/RePacientePage'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { AgendarCitaPage } from './pages/AgendarCitaPage'
 function App() {
   return (
     <>
@@ -23,6 +24,7 @@ function App() {
             <Route path="/homePsicologia" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><Home /></ProtectedRoute>} />
             <Route path="/homeRecepcionista" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><HomePageR /></ProtectedRoute>} />
             <Route path="/registrarpaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><RePacientePage /></ProtectedRoute>} />
+            <Route path="/agendarcita" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><AgendarCitaPage /></ProtectedRoute>} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

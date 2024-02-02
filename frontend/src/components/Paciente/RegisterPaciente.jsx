@@ -1,14 +1,12 @@
 import { useForm } from "react-hook-form"
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { registerPaciente, setConfig } from "../../services/Recepcionista"
 import { useContext } from "react"
 import AuthContext from "../../context/AuthProvider"
-import FormularioPaciente from "./FormularioPaciente"
+import { FormPaciente } from "./FormPaciente";
+
 export function RegisterPaciente() {
     const { authTokens } = useContext(AuthContext);
     const { register, handleSubmit } = useForm()
-    const navigate = useNavigate()
 
     const onSubmit = handleSubmit(async (data) => {
 
@@ -59,14 +57,14 @@ export function RegisterPaciente() {
             const response = await registerPaciente(pacienteData)
             console.log(response)
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
 
     })
 
     return (
         <>
-            <FormularioPaciente onSubmit={onSubmit} register={register}/>
+            <FormPaciente onSubmit={onSubmit} register={register}/>
         </>
     )
 }

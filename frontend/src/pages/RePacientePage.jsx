@@ -1,4 +1,4 @@
-import { RegisterPaciente } from "../components/RegisterPaciente"
+import { RegisterPaciente } from "../components/Paciente/RegisterPaciente"
 export function RePacientePage() {
     return (
         <>
