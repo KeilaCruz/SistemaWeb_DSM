@@ -2,16 +2,13 @@ import { useContext, useEffect, useState } from "react"
 import { searchPaciente, setConfig } from "../../services/Recepcionista"
 import AuthContext from "../../context/AuthProvider"
 import "../../css/styles.css"
-export function FormCita({ onSubmit, register }) {
+export function FormCita({ onSubmit, register, pacienteSelect }) {
     const { authTokens } = useContext(AuthContext);
     const [criterio, setCriterio] = useState("")
     const [paciente, setPaciente] = useState([])
-    const [pacienteSelect, setPacienteSelect] = useState("")
+    const [selectPaciente, setSelectPaciente] = useState("")
     const handleBarraBusqueda = (evt) => {
         setCriterio(evt.target.value)
-    }
-    const handlePacienteSelect = (evt) => {
-        setPacienteSelect(evt.target.value)
     }
     useEffect(() => {
         const loadPaciente = async () => {
@@ -24,7 +21,12 @@ export function FormCita({ onSubmit, register }) {
             }
         }
         loadPaciente()
+
     }, [criterio])
+
+    useEffect(() => {
+        pacienteSelect(selectPaciente)
+    }, [selectPaciente, pacienteSelect])
     return (
         <>
 
@@ -39,7 +41,7 @@ export function FormCita({ onSubmit, register }) {
                         <input className="form-control input-form" type="text" id="busqueda_paciente" placeholder="Buscar por CURP o nombre" onChange={handleBarraBusqueda} />
                     </div>
                 </div>
-                <form className="row g-3 mt-2">
+                <form onSubmit={onSubmit} className="row g-3 mt-2">
                     <div className="col-md-2 offset-1">
                         <label htmlFor="fecha_cita" className="form-label label-form">Fecha de cita</label>
                         <input className="form-control input-form" id="fecha_cita" type="date" placeholder="fecha de cita" {...register('fecha_cita', { required: true })} />
@@ -50,7 +52,7 @@ export function FormCita({ onSubmit, register }) {
                     </div>
                     <div className="col-md-3 offset-1">
                         <label htmlFor="especialidad_cita" className="form-label label-form">Especialidad de cita</label>
-                        <select className="form-control input-form" id="especialidad" {...register("especialidad", { required: true })} value={data.especialidad}>
+                        <select className="form-control input-form" id="especialidad" {...register("especialidad", { required: true })}>
                             <option value="" disabled>Elija especialidad</option>
                             <option value="Nutricion">Nutrición</option>
                             <option value="Medico-general">Medico general</option>
@@ -74,7 +76,7 @@ export function FormCita({ onSubmit, register }) {
                                 {paciente.map(paciente => (
                                     <tr key={paciente.CURP}>
                                         <td className="fila">
-                                            <input id="select_paciente" name="select_paciente" type="radio" value={paciente.CURP} onChange={handlePacienteSelect} />
+                                            <input id="select_paciente" name="select_paciente" type="radio" value={paciente.CURP} onChange={() => setSelectPaciente(paciente.CURP)} />
                                         </td>
                                         <td className="fila">{paciente.CURP}</td>
                                         <td className="fila">{`${paciente.datos_personales.nombre} ${paciente.datos_personales.apePaterno} ${paciente.datos_personales.apeMaterno}`}</td>
