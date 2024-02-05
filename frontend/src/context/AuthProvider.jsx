@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react"
 import axios from "axios";
 import { jwtDecode } from "jwt-decode"
+import { redirect } from "react-router-dom";
 
 const LOGIN_URL = "http://127.0.0.1:8000/api/iniciosesion"
 const UPDATE_TOKEN_URL = "http://127.0.0.1:8000/api/actualizartoken"
@@ -8,6 +9,8 @@ const UPDATE_TOKEN_URL = "http://127.0.0.1:8000/api/actualizartoken"
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
+
     //almacenar token access y refresh en el localStorage
     const [authTokens, setAuthTokens] = useState(() => {
         const storedTokens = localStorage.getItem('authTokens')
@@ -18,27 +21,27 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     const login = async (usuario) => {
+    
         try {
             const response = await axios.post(LOGIN_URL, usuario, { headers: { 'Content-Type': 'application/json' } });
             if (response.status === 200) {
-                console.log(response.data)
-                setAuthTokens(response.data)
-                setUser(jwtDecode(response.data.access))
-                localStorage.setItem('authTokens', JSON.stringify(response.data))
-                //console.log(localStorage.getItem('authTokens'))
-                //console.log("hOLA", user.username)
+                setAuthTokens(response.data);
+                setUser(jwtDecode(response.data.access));
+                localStorage.setItem('authTokens', JSON.stringify(response.data));
             } else {
-                alert("Fallo al iniciar sesion")
+                alert("Fallo al iniciar sesión");
             }
         } catch (error) {
-            console.error("Error al conectar", error)
+            console.error("Error al conectar", error);
         }
-    }
+    };
 
     const logout = () => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem('authTokens')
+        redirect("/login")
+        
     }
 
     const updateToken = async () => {
@@ -76,6 +79,7 @@ export const AuthProvider = ({ children }) => {
 
         return () => clearInterval(intervalo);
     }, [authTokens, loading]);
+    
     const contextData = {
         user,
         authTokens,

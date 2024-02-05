@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { Outlet, Navigate } from "react-router-dom"
 import AuthContext from "../context/AuthProvider"
+
 export const ProtectedRoute = ({ redirectTo = "/login", rolPermitido, children }) => {
     const { user } = useContext(AuthContext)
     console.log(user)
