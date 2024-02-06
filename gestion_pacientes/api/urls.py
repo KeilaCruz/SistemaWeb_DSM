@@ -10,6 +10,7 @@ from gestion_pacientes.api.paciente import (
     PacienteAPIView,
     RegistrarPacienteAPIView,
     BuscarPacienteAPIView,
+    EditarPacienteAPIView,
 )
 
 urlpatterns = [
@@ -22,4 +23,5 @@ urlpatterns = [
     path("visualizarusuario/", VisualizarUsuarioView.as_view()),
     path("iniciosesion", LoginAPIView.as_view()),
     path("actualizartoken", RefreshTokenAPIView.as_view()),
+    path("editar_paciente/<str:CURP>/", EditarPacienteAPIView.as_view()),
 ]
