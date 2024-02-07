@@ -1,0 +1,97 @@
+.title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    color: #902829;
+    font-size: 40px;
+    letter-spacing: 1px;
+}
+
+.input-form {
+    border-radius: 2px;
+    border: 1px solid gray;
+    box-shadow: 0px 1px 0px rgba(144, 40, 41, 0.5);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F3EDED;
+}
+
+.label-form {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    color: #902829;
+}
+
+.label-section {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    color: #902829;
+    font-size: 20px;
+}
+
+.cabecera {
+    background: #902829;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    color: #FFF;
+}
+
+.colum {
+    padding-left: 73px;
+    padding-right: 73px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.fila {
+    background: #F3EDED;
+    text-align: center;
+}
+
+.button-buscar {
+    background: #902829;
+    border-radius: 2px;
+    border: 1px solid #FFF;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.button-guardar {
+    background: #902829;
+    border-radius: 2px;
+    border: 1px solid #FFF;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.button-guardar:hover {
+    background: #C88A3F;
+}
+
+.button-cancelar {
+    background: #C88A3F;
+    border-radius: 2px;
+    border: 1px solid #FFF;
+    color: #FFF;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.button-cancelar:hover {
+    background: #cfcece;
+    color: #F3EDED;
+}
+
+.cards {
+    background: #902829;
+}
+
+.card-text {
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+}

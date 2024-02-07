@@ -25,9 +25,12 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await axios.post(LOGIN_URL, usuario, { headers: { 'Content-Type': 'application/json' } });
             if (response.status === 200) {
-                setAuthTokens(response.data);
-                setUser(jwtDecode(response.data.access));
-                localStorage.setItem('authTokens', JSON.stringify(response.data));
+                //console.log(response.data)
+                setAuthTokens(response.data)
+                setUser(jwtDecode(response.data.access))
+                localStorage.setItem('authTokens', JSON.stringify(response.data))
+                //console.log(localStorage.getItem('authTokens'))
+                //console.log("hOLA", user.username)
             } else {
                 alert("Fallo al iniciar sesión");
             }
