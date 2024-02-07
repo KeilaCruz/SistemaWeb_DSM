@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { searchPaciente, setConfig } from "../../services/Recepcionista"
 import AuthContext from "../../context/AuthProvider"
 import "../../css/styles.css"
+
 export function FormCita({ onSubmit, register, pacienteSelect }) {
     const { authTokens } = useContext(AuthContext);
     const [criterio, setCriterio] = useState("")
