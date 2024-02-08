@@ -10,7 +10,6 @@ export function AddCita() {
     const [pacienteSelect, setPacienteSelect] = useState("")
 
     const onSubmit = handleSubmit(async (data) => {
-        console.log("datos del form", data)
         const citaData = {
             "datos_cita": {
                 fecha_cita: data.fecha_cita,

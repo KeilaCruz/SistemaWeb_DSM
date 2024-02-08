@@ -8,7 +8,7 @@ from .serializers import HistoriaNutricionSerializer
 
 
 @permission_classes([IsAuthenticated])
-class HistoriaNutricion(APIView):
+class HistoriaNutricionAPIView(APIView):
     def get(self, request):
         historias_nutricion = HistoriaNutricion.objects.all()
         historia_nutricion_serializer = HistoriaNutricionSerializer(
@@ -18,7 +18,7 @@ class HistoriaNutricion(APIView):
 
 
 @permission_classes([IsAuthenticated])
-class RegistrarHistoriaNutricion(APIView):
+class RegistrarHistoriaNutricionAPIView(APIView):
     def post(self, request, *args, **kwargs):
         historia_nutricion_serializer = HistoriaNutricionSerializer(data=request.data)
         if historia_nutricion_serializer.is_valid():

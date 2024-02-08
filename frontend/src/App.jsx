@@ -10,6 +10,7 @@ import { RePacientePage } from './pages/RePacientePage'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { AgendarCitaPage } from './pages/AgendarCitaPage'
+import { ReHistoriaNPage } from './pages/ReHistoriaNPage'
 function App() {
   return (
     <>
@@ -25,6 +26,7 @@ function App() {
             <Route path="/homeRecepcionista" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><HomePageR /></ProtectedRoute>} />
             <Route path="/registrarpaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><RePacientePage /></ProtectedRoute>} />
             <Route path="/agendarcita" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><AgendarCitaPage /></ProtectedRoute>} />
+            <Route path="/registrar_historianutricion" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><ReHistoriaNPage /></ProtectedRoute>} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
