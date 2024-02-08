@@ -1,58 +1,136 @@
-import { Link } from "react-router-dom"
-import { useContext } from "react"
-import AuthContext from "../context/AuthProvider"
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../context/AuthProvider";
 
 export function Header() {
-    const {user, logout} = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
-    return (
-        <>
-        
-{user ? (
-  <>
-    <a onClick={logout}>Logout</a>
-    <span> | </span>
-    <Link to="/crearUsuario">Crear Usuario</Link>
-    <span> | </span>
-    {user.idRol_id === 1 ? (
-      <>
-        <Link to="/homePsicologia">HomePage Psicologia</Link>
-        <span> | </span>
-        <Link to="/otraPagina">Otra Página para Rol 1</Link>
-      </>
-    ) : user.idRol_id === 2 ? (
-      <Link to="/homeRecepcionista">HomePage Recepcionista</Link>
-    ) : user.idRol_id === 3 ? (
-      <>
-        <Link to="/homeRol3Pagina1">Página 1 para Rol 3</Link>
-        <Link to="/homeRol3Pagina2">Página 2 para Rol 3</Link>
-      </>
-    ) : user.idRol_id === 4 ? (
-      <Link to="/homeRol4">HomePage para Rol 4</Link>
-    ) : user.idRol_id === 5 ? (
-      <Link to="/homeRol5">HomePage para Rol 5</Link>
-    ) : user.idRol_id === 6 ? (
-      <>
-        <Link to="/homeRol6Pagina1">Página 1 para Rol 6</Link>
-        <Link to="/homeRol6Pagina2">Página 2 para Rol 6</Link>
-      </>
-    ) : (
-      <Link to="/homeOtroRol">HomePage Otro Rol</Link>
-    )}
-  </>
-) : (
-  <Link to="/login">Login</Link>
-)}
+  return (
+    <>
+      <div className="">
+        <nav className="navbar navbar-expand-lg navbar-dark navbar-custom">
+          <div className="container-fluid">
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav">
+                <li className="nav-item active">
+                  <img
+                    src="/images/logo-1.png"
+                    alt="Logo-coatza"
+                    width="130"
+                    height="35"
+                    className="d-inline-block align-text-top"
+                  />
+                </li>
 
+                {user ? (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" onClick={logout}>
+                        Logout
+                      </Link>
+                    </li>
 
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/crearUsuario">
+                        Crear Usuario
+                      </Link>
+                    </li>
 
-        
-       
+                    {user.idRol_id === 1 ? (
+                      <>
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/homePsicologia">
+                            Home Psicologia
+                          </Link>
+                        </li>
 
-        {user &&  <p>Hello {user.username}</p>}
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/otraPagina">
+                            Otra pagina
+                          </Link>
+                        </li>
+                      </>
+                    ) : user.idRol_id === 2 ? (
+                      <>
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/homeRecepcionista">
+                            Home recepcinista
+                          </Link>
+                        </li>
+                      </>
+                    ) : user.idRol_id === 3 ? (
+                      <>
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/"></Link>
+                        </li>
+                      </>
+                    ) : user.idRol_id === 4 ? (
+                      <>
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/"></Link>
+                        </li>
+                      </>
+                    ) : user.idRol_id === 5 ? (
+                      <>
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/"></Link>
+                        </li>
+                      </>
+                    ) : user.idRol_id === 6 ? (
+                      <>
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/"></Link>
+                        </li>
+                      </>
+                    ) : (
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/">
+                          Default
+                        </Link>
+                      </li>
+                    )}
+                  </>
+                ) : (
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/login">
+                      H. Ayuntamiento de Coatzacoalcos 2022-2025
+                    </Link>
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div
+          aria-label="breadcrumb"
+          style={{ backgroundColor: "#dedad0", height: "30px" }}
+        >
+          {user && <p>Hello {user.username}</p>}
+        </div>
+      </div>
 
+      
+      {!user && <div className="container ">
+        <div className="text-with-lines">
+          <div className="line line-top"></div>
+          <p className="display-5 fw-bold">
+            DIRECCIÓN DE SALUD MUNICIPAL PÚBLICA
+          </p>
+          <div className="line line-bottom"></div>
+        </div>
+      </div> }
 
-        </>
-    )
+    </>
+  );
 }
-
