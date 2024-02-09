@@ -180,7 +180,7 @@ export function FormPaciente({ onSubmit, register }) {
                         )}
                     </div>
                     <div className="col-md-4 offset-md-1">
-                        <button className="button-guardar">Registrar</button>
+                        <button className="btn  btn-danger button-login">Registrar</button>
                     </div>
                 </form>
             </div>

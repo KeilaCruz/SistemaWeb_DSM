@@ -47,6 +47,8 @@ export function Header() {
                       </Link>
                     </li>
 
+                    
+
                     {user.idRol_id === 1 ? (
                       <>
                         <li className="nav-item">
@@ -68,6 +70,18 @@ export function Header() {
                             Home recepcinista
                           </Link>
                         </li>
+
+                        <li className="nav-item">
+                      <Link className="nav-link" to="/registrarpaciente">
+                        Registrar Paciente
+                      </Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/agendarcita">
+                        Agendar cita
+                      </Link>
+                    </li>
                       </>
                     ) : user.idRol_id === 3 ? (
                       <>
@@ -116,7 +130,7 @@ export function Header() {
           aria-label="breadcrumb"
           style={{ backgroundColor: "#dedad0", height: "30px" }}
         >
-          {user && <p>Hello {user.username}</p>}
+          {user && <p className="fw-bold ml-3">Bienvenido {user.username}</p>}
         </div>
       </div>
 

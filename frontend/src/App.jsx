@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { AgendarCitaPage } from './pages/AgendarCitaPage'
 import { Formulario } from './pages/CrearUsuario'
+import { Footer } from './components/Footer'
 import 'bootstrap/dist/css/bootstrap.css';
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/agendarcita" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><AgendarCitaPage /></ProtectedRoute>} />
             <Route path="/crearUsuario" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><Formulario /></ProtectedRoute>} />
           </Routes>
+          <Footer />
         </BrowserRouter>
       </AuthProvider>
     </>
