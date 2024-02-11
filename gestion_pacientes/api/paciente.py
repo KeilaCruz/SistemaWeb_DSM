@@ -1,20 +1,17 @@
 from rest_framework.response import Response
-from django.contrib.auth.hashers import make_password
 from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView
 from rest_framework import status
-from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 from gestion_pacientes.models import Paciente
 from django.db.models import Q
 from .serializers import PacienteSerializer
+from django.shortcuts import get_object_or_404
 
 
 @permission_classes([IsAuthenticated])
 class PacienteAPIView(APIView):
     def get(self, request):
-        print(f"Usuario autenticado: {request.user.username}")
         pacientes = Paciente.objects.all()
         paciente_serializer = PacienteSerializer(pacientes, many=True)
         return Response(paciente_serializer.data)
@@ -47,3 +44,24 @@ class BuscarPacienteAPIView(APIView):
             )
         paciente_serializer = PacienteSerializer(pacientes, many=True)
         return Response(paciente_serializer.data, status=status.HTTP_200_OK)
+
+@permission_classes([IsAuthenticated])
+class EditarPacienteAPIView(APIView):
+    def get(self, request, CURP, format=None):
+        paciente = get_object_or_404(Paciente, CURP=CURP)
+        paciente_serializer = PacienteSerializer(paciente)
+        return Response(paciente_serializer.data)
+
+    def patch(self, request, CURP, format=None):
+        paciente = get_object_or_404(Paciente, CURP=CURP)
+        paciente_serializer = PacienteSerializer(paciente, data=request.data)
+        if paciente_serializer.is_valid():
+            paciente_serializer.save()
+            return Response(paciente_serializer.data)
+        return Response(paciente_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get_paciente(self, CURP):
+        try:
+            return Paciente.objects.get(CURP=CURP)
+        except Paciente.DoesNotExist:
+            raise "No existe"

@@ -1,5 +1,12 @@
 from rest_framework import serializers
-from gestion_pacientes.models import Paciente, Cita, Usuario
+from gestion_pacientes.models import (
+    Paciente,
+    Cita,
+    Usuario,
+    HistoriaNutricion,
+    FichaPsicologicaNiño,
+    FichaPsicologicaAdulto,
+)
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
@@ -18,6 +25,24 @@ class CitaSerializer(serializers.ModelSerializer):
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
+        fields = "__all__"
+
+
+class HistoriaNutricionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HistoriaNutricion
+        fields = "__all__"
+
+
+class FichaPsicoNiñoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FichaPsicologicaNiño
+        fields = "__all__"
+
+
+class FichaPsicoAdultoSerializer(serializers.ModelField):
+    class Meta:
+        model = FichaPsicologicaAdulto
         fields = "__all__"
 
 

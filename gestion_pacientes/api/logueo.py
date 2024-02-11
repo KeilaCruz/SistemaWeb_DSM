@@ -10,7 +10,6 @@ from rest_framework.decorators import permission_classes
 from gestion_pacientes.models import Usuario
 from .serializers import UsuarioSerializer, LoginSessionInfoSerializer
 
-
 class LoginAPIView(TokenObtainPairView):
     serializer_class = LoginSessionInfoSerializer
 

@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 from gestion_pacientes.models import Cita
 from .serializers import CitaSerializer
+from datetime import datetime, timedelta
 
 
 @permission_classes([IsAuthenticated])
@@ -17,9 +18,38 @@ class CitaAPIView(APIView):
 
 @permission_classes([IsAuthenticated])
 class AgendarCitaAPIView(APIView):
+    """Validacion para que no se agenden citas en horarios cercanos o en el mismo horario"""
     def post(self, request, *args, **kwargs):
-        cita_serializer = CitaSerializer(data=request.data)
+        cita_data = request.data.get("datos_cita", {})
+        fecha_cita = cita_data.get("fecha_cita")
+        hora_cita = cita_data.get("horario_cita")
+        especialidad = cita_data.get("especialidad")
+
+        cita_fecha_hora = datetime.strptime(
+            fecha_cita + " " + hora_cita, "%Y-%m-%d %H:%M"
+        )
+
+        ultima_cita = Cita.objects.filter(especialidad=especialidad).last
+
+        if ultima_cita:
+            ultima_cita_fecha_hora = datetime.strptime(
+                ultima_cita["datos_cita"]["fecha_cita"]
+                + " "
+                + ultima_cita["datos_cita"]["horario"],
+                "%Y-%m-%d %H:%M",
+            )
+
+            hora_cita = ultima_cita_fecha_hora + timedelta(minutes=40)
+            if ultima_cita_fecha_hora <= cita_fecha_hora <=hora_cita:
+                return Response({'error': 'La nueva cita debe estar programada al menos 40 minutos después de la última cita.'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            hora_cita = cita_fecha_hora
+
+        cita_data["fecha_cita"] = hora_cita.date().isoformat()
+        cita_data["horario_cita"] = hora_cita.time().strftime("%H:%M")
+        cita_serializer = CitaSerializer(data=cita_data)
         if cita_serializer.is_valid():
             cita_serializer.save()
             return Response(cita_serializer.data, status=status.HTTP_201_CREATED)
         return Response(cita_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
