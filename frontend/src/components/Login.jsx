@@ -73,7 +73,7 @@ export function Login() {
                     required=""
                     id="username"
                     className="form-control form-control-lg border-3"
-                    placeholder="Ingrese un usuario valido"
+                    placeholder="Ingrese usuario"
                     {...register("username", { required: true })}
                   />
                 </div>
@@ -112,6 +112,7 @@ export function Login() {
           </div>
         </div>
       </section>
+      
     </div>
     </>
   );

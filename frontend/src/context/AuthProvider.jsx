@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }) => {
             }
         } catch (error) {
             console.error("Error al conectar", error);
+             alert("Fallo al iniciar sesión");
         }
     };
 
