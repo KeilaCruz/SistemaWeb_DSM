@@ -12,7 +12,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { AgendarCitaPage } from './pages/AgendarCitaPage'
 import { Formulario } from './pages/CrearUsuario'
 import { Footer } from './components/Footer'
-import 'bootstrap/dist/css/bootstrap.css';
+import { ReHistoriaNPage } from './pages/ReHistoriaNPage'
 function App() {
   return (
     <>
@@ -29,6 +29,7 @@ function App() {
             <Route path="/registrarpaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><RePacientePage /></ProtectedRoute>} />
             <Route path="/agendarcita" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><AgendarCitaPage /></ProtectedRoute>} />
             <Route path="/crearUsuario" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><Formulario /></ProtectedRoute>} />
+            <Route path="/registrar_historianutricion" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><ReHistoriaNPage /></ProtectedRoute>} />
           </Routes>
           <Footer />
         </BrowserRouter>
