@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { FormHistoriaNutricion } from "./FormHistoriaNutricion"
-import { setConfig } from "../../services/Recepcionista"
+import { setConfig } from "../../services/Nutriologo"
 import { useContext, useState } from "react"
 import AuthContext from "../../context/AuthProvider"
 import { registerHistoriaNutricion } from "../../services/Nutriologo"
@@ -87,9 +87,9 @@ export function AddHistorialNutricion() {
             idPaciente: pacienteSelect,
         }
         try {
-            //await setConfig(authTokens.access)
-            //await registerHistoriaNutricion(historiaNutricion);
-            console.log(historiaNutricion)
+            await setConfig(authTokens.access);
+            const response = await registerHistoriaNutricion(historiaNutricion);
+            console.log(response)
         } catch (error) {
             console.error(error)
         }

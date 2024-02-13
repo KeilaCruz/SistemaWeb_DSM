@@ -23,11 +23,7 @@ class RegistrarHistoriaNutricionAPIView(APIView):
         historia_nutricion_serializer = HistoriaNutricionSerializer(data=request.data)
         if historia_nutricion_serializer.is_valid():
             historia_nutricion_serializer.save()
-            return Response(
-                historia_nutricion_serializer.data, status=status.HTTP_201_CREATED
-            )
-        return Response(
-            historia_nutricion_serializer.errors, status=status.HTTP_400_BAD_REQUEST
-        )
+            return Response(historia_nutricion_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(historia_nutricion_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         
 

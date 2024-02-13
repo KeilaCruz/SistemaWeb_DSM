@@ -114,7 +114,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect }) {
                                 </label>
                             </div>
                             <div className="col-md-6 offset-1">
-                                <input id="quien_diabetes" className="form-control input-form" type="text" placeholder="¿Quién?" {...register("quien_diabetes", { required: true })} />
+                                <input id="quien_diabetes" className="form-control input-form" type="text" placeholder="¿Quién?" {...register("quien_diabetes")} />
                             </div>
                             <div className="col-md-3 offset-1">
                                 <label htmlFor="hipetension" className="form-label label-form">Hipertensión</label>
