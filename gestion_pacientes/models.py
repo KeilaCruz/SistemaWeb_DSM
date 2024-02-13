@@ -53,7 +53,7 @@ class Cita(models.Model):
 class HistoriaNutricion(models.Model):
     idHistoriaNutricion = models.BigAutoField(primary_key=True)
     idPaciente = models.ForeignKey(Paciente, on_delete=models.DO_NOTHING)
-    fecha_registro = models.DateTimeField(default=datetime.date.today)
+    fecha_registro = models.DateField(default=datetime.date.today)
     datos_personales = models.JSONField()
     indicadores_clinicos = models.JSONField()
     anp = models.JSONField()
