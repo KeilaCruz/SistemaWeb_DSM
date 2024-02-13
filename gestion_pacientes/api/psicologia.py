@@ -29,7 +29,7 @@ class FichaPsicoAdultoAPIView(APIView):
         return Response(ficha_psico_serializer.data)
 
 
-class RegistrarFichaPsiNiñoAPIView(APIView):
+class RegistrarFichaPsiAdultoAPIView(APIView):
     def post(self, request, *args, **kwargs):
         ficha_psico_serializer = FichaPsicoAdultoSerializer(data=request.data)
         if ficha_psico_serializer.is_valid():

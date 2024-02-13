@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from "react"
-import { searchPaciente, setConfig } from "../../services/Recepcionista"
+import { searchPaciente } from "../../services/Recepcionista"
+import { setToken } from "../../services/HeaderAuthorization"
 import { PacienteCard } from "../Paciente/PacienteCard"
 import AuthContext from "../../context/AuthProvider"
-import "../../css/styles.css"
 
 export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect }) {
 
-    //Modificar los campos de los radio en donde si no la respuesta es no, no se muestren
     const { authTokens } = useContext(AuthContext);
     const [showCampusFem, setShowCampus] = useState(false)
     const [criterio, setCriterio] = useState("")
@@ -18,7 +17,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect }) {
 
     const handleBuscarPaciente = async () => {
         try {
-            await setConfig(authTokens.access)
+            await setToken(authTokens.access)
             const data = await searchPaciente(criterio)
             setPaciente(data)
         } catch (error) {
@@ -62,7 +61,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect }) {
                     </div>
                     <div className="col-md-9 offset-1">
                         {paciente.map(paciente => (
-                            <PacienteCard paciente={paciente} key={paciente.CURP} handleSelect={selectPaciente}/>
+                            <PacienteCard paciente={paciente} key={paciente.CURP} handleSelect={selectPaciente} />
                         ))}
                     </div>
                     <form onSubmit={onSubmit}>

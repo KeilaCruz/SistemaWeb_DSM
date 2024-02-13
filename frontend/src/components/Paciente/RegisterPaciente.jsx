@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form"
-import { registerPaciente, setConfig } from "../../services/Recepcionista"
+import { registerPaciente } from "../../services/Recepcionista"
 import { useContext } from "react"
 import AuthContext from "../../context/AuthProvider"
 import { FormPaciente } from "./FormPaciente";
+import { setToken } from "../../services/HeaderAuthorization";
 
 export function RegisterPaciente() {
     const { authTokens } = useContext(AuthContext);
@@ -53,7 +54,7 @@ export function RegisterPaciente() {
         };
 
         try {
-            await setConfig(authTokens.access)
+            await setToken(authTokens.access)
             const response = await registerPaciente(pacienteData)
             console.log(response)
         } catch (error) {
@@ -64,7 +65,7 @@ export function RegisterPaciente() {
 
     return (
         <>
-            <FormPaciente onSubmit={onSubmit} register={register}/>
+            <FormPaciente onSubmit={onSubmit} register={register} />
         </>
     )
 }
