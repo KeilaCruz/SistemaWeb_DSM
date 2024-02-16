@@ -53,10 +53,6 @@ export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect }) {
                 </div>
                 <form onSubmit={onSubmit} className="row g-3 mt-2">
                     <div className="col-md-4 offset-md-1">
-                        <label htmlFor="fecha_registro" className="form-label label-form">Fecha de registro</label>
-                        <input id="fecha_registro" className="form-control input-form" type="date" placeholder="Fecha de registo" {...register("fecha_registro", { required: true })} />
-                    </div>
-                    <div className="col-md-4 offset-md-1">
                         <label htmlFor="codigo_expediente" className="form-label label-form">Expediente</label>
                         <input id="codigo_expediente" className="form-control input-form" type="text" placeholder="Número de expediente" {...register("expedienteFicha", { required: true })} />
                     </div>
@@ -208,7 +204,7 @@ export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect }) {
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="motivo_medicamento" className="form-label label-form">Motivo</label>
-                        <input id="motivo_medicamento" className="form-control input-form" type="text" placeholder="Motivo" {...register("motivo")} />
+                        <input id="motivo_medicamento" className="form-control input-form" type="text" placeholder="Motivo" {...register("motivo_medicamento")} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="nom_medicamento" className="form-label label-form">Nombre</label>
@@ -223,7 +219,7 @@ export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect }) {
                         <input id="otro_estudio" className="form-control input-form" type="text" placeholder="Se le ha realizado algún otro tipo de estudio (señarlo)" {...register("realizado_estudio")} />
                     </div>
                     <div className="col-md-9 offset-md-1">
-                        <label htmlFor="antecedentes_desarrollo" className="form-label label-form">Antecedentes del desarrollo </label>
+                        <label htmlFor="antecedentes_desarrollo" className="form-label label-section">ANTECEDENTES DEL DESARROLLO</label>
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="num_embarazos" className="form-label label-form">Número de embarazos de la madre</label>
@@ -327,7 +323,7 @@ export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect }) {
                     </div>
                     <div className="col-md-9 offset-md-1">
                         <label htmlFor="enfermedad_primer_año" className="form-label label-form">Enfermedades significativas durante el primer año de vida</label>
-                        <textarea id="enfermedad_primer_año" className="form-control input-form" placeholder="Enfermedades significativas" {...register("enfemerdades_primer_año_vida", { required: true })}></textarea>
+                        <textarea id="enfermedad_primer_año" className="form-control input-form" placeholder="Enfermedades significativas" {...register("enfermedades_primer_año_vida", { required: true })}></textarea>
                     </div>
                     <div className="col-md-9 offset-md-1">
                         <label htmlFor="enfermedades_posteriores" className="form-label label-form">Enfermedades posteriores</label>
@@ -335,7 +331,7 @@ export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect }) {
                     </div>
                     <div className="col-md-9 offset-md-1">
                         <label htmlFor="antecedentes_padecimiento" className="form-label label-form">Antecedentes familiares hereditarios vinculados al padecimiento actual</label>
-                        <input id="antecedentes_padecimiento" className="form-control input-form" type="text" placeholder="Antecedentesfamiliares hereditarios" {...register("antecedentes_padecimeinto_actual", { required: true })} />
+                        <input id="antecedentes_padecimiento" className="form-control input-form" type="text" placeholder="Antecedentesfamiliares hereditarios" {...register("antecedentes_padecimiento_actual", { required: true })} />
                     </div>
                     <div className="col-md-9 offset-md-1">
                         <label htmlFor="salud_fisica_actual" className="form-label label-form">Salud física Actual</label>

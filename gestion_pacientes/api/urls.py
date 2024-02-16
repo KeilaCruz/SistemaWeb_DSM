@@ -13,8 +13,11 @@ from gestion_pacientes.api.paciente import (
     EditarPacienteAPIView,
 )
 from gestion_pacientes.api.nutricion import (
-    HistoriaNutricionAPIView,
     RegistrarHistoriaNutricionAPIView,
+)
+from gestion_pacientes.api.psicologia import (
+    RegistrarFichaPsiNiñoAPIView,
+    RegistrarFichaPsiAdultoAPIView,
 )
 
 urlpatterns = [
@@ -29,4 +32,6 @@ urlpatterns = [
     path("actualizartoken", RefreshTokenAPIView.as_view()),
     path("editar_paciente/<str:CURP>/", EditarPacienteAPIView.as_view()),
     path("registrar_historia_nutricion", RegistrarHistoriaNutricionAPIView.as_view()),
+    path("registrar_fichapsi_nino", RegistrarFichaPsiNiñoAPIView.as_view()),
+    path("registrar_fichapsi_adulto", RegistrarFichaPsiAdultoAPIView.as_view()),
 ]
