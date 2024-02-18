@@ -1,8 +1,8 @@
 import { useContext, useState } from "react"
-import { registerCita, setConfig } from "../../services/Recepcionista"
+import { registerCita } from "../../services/Recepcionista"
+import { setToken } from "../../services/HeaderAuthorization";
 import AuthContext from "../../context/AuthProvider"
 import { useForm } from "react-hook-form";
-import "../../css/styles.css"
 import { FormCita } from "./FormCita";
 
 export function AddCita() {
@@ -21,7 +21,7 @@ export function AddCita() {
             idPaciente: pacienteSelect,
         }
         try {
-            await setConfig(authTokens.access)
+            await setToken(authTokens.access)
             const response = await registerCita(citaData)
             console.log(response)
         } catch (error) {
@@ -30,7 +30,7 @@ export function AddCita() {
     })
     return (
         <>
-            <FormCita onSubmit={onSubmit} register={register} pacienteSelect={setPacienteSelect}/>
+            <FormCita onSubmit={onSubmit} register={register} pacienteSelect={setPacienteSelect} />
         </>
     )
 }
