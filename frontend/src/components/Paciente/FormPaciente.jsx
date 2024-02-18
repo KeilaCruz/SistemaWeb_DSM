@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form"
 import { useState } from "react"
 import "../../css/styles.css"
+
 export function FormPaciente({ onSubmit, register }) {
     const [showCualEstatal, setShowEstatal] = useState(false)
     const [showCualFederal, setShowFederal] = useState(false)

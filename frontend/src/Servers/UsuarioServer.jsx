@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL_API = 'http://127.0.0.1:8000/api/crearusuario/';
+const URL_API = 'http://127.0.0.1:8000/api/crear_usuario/';
 
 export const enviarDatosAPI = async (data, token) => {
   try {

@@ -9,6 +9,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 from gestion_pacientes.models import Usuario
 from .serializers import UsuarioSerializer, LoginSessionInfoSerializer
+from django.db.models import Q
+
 
 class LoginAPIView(TokenObtainPairView):
     serializer_class = LoginSessionInfoSerializer
@@ -48,3 +50,24 @@ class CrearUsuarioView(CreateAPIView):
         instance.password = make_password(serializer.validated_data["password"])
         instance.save()
         return instance
+
+@permission_classes([IsAuthenticated])
+class BuscarUsuarioAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get("query", "")
+
+        usuarios = Usuario.objects.filter(
+            Q(username__icontains=query)
+            | Q(first_name__icontains=query)
+            | Q(last_name__icontains=query)
+            | Q(second_last_name__icontains=query)
+        )
+        
+        if not usuarios.exists():
+            return Response(
+                {"error": "No se encontraron usuarios que coincidan con la consulta"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        
+        usuario_serializer = UsuarioSerializer(usuarios, many=True)  # Ajusta el nombre del serializador según el que estés utilizando
+        return Response(usuario_serializer.data, status=status.HTTP_200_OK)

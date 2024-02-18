@@ -6,6 +6,7 @@ from gestion_pacientes.models import (
     HistoriaNutricion,
     FichaPsicologicaNiño,
     FichaPsicologicaAdulto,
+    Evento,
 )
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -54,3 +55,8 @@ class LoginSessionInfoSerializer(TokenObtainPairSerializer):
         token["username"] = user.username
         token["idRol_id"] = user.idRol_id
         return token
+    
+class EventoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Evento
+        fields = "__all__"
