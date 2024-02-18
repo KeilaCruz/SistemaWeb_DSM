@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
-import { searchPaciente, setConfig } from "../../services/Recepcionista"
+import { searchPaciente } from "../../services/Recepcionista"
+import { setToken } from "../../services/HeaderAuthorization";
 import AuthContext from "../../context/AuthProvider"
-import "../../css/styles.css"
 
 export function FormCita({ onSubmit, register, pacienteSelect }) {
     const { authTokens } = useContext(AuthContext);
@@ -14,7 +14,7 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
     useEffect(() => {
         const loadPaciente = async () => {
             try {
-                await setConfig(authTokens.access)
+                await setToken(authTokens.access)
                 const data = await searchPaciente(criterio)
                 setPaciente(data)
             } catch (error) {

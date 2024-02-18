@@ -41,7 +41,7 @@ class FichaPsicoNiñoSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class FichaPsicoAdultoSerializer(serializers.ModelField):
+class FichaPsicoAdultoSerializer(serializers.ModelSerializer):
     class Meta:
         model = FichaPsicologicaAdulto
         fields = "__all__"
