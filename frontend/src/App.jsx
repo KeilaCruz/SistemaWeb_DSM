@@ -13,6 +13,8 @@ import { AgendarCitaPage } from './pages/AgendarCitaPage'
 import { ReHistoriaNPage } from './pages/ReHistoriaNPage'
 import { ReFichaPsicoNiñoPage } from './pages/ReFichaPsicoNiñoPage'
 import { ReFichaPsicoAdultoPage } from './pages/ReFichaPsicoAdultoPage'
+import { BuscarPacientePage } from './pages/BuscarPacientePage';
+import { ViewPaciente } from './components/Paciente/ViewPaciente';
 function App() {
   return (
     <>
@@ -31,6 +33,8 @@ function App() {
             <Route path="/registrar_historianutricion" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><ReHistoriaNPage /></ProtectedRoute>} />
             <Route path="/registrar_fichapsiniño" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReFichaPsicoNiñoPage /></ProtectedRoute>} />
             <Route path="/registrar_fichapsiadulto" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReFichaPsicoAdultoPage /></ProtectedRoute>} />
+            <Route path="/buscar_paciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><BuscarPacientePage /></ProtectedRoute>} />
+            <Route path="/buscar_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ViewPaciente /></ProtectedRoute>} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
