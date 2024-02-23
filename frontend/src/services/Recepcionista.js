@@ -1,10 +1,25 @@
 import axios from "axios";
 import { getConfig } from "./HeaderAuthorization";
 
+const LIST_PACIENTES_URL = "http://127.0.0.1:8000/api/paciente/"
 const SAVE_PACIENTE_URL = "http://127.0.0.1:8000/api/registrar_paciente/";
 const SEARCH_PACIENTE_URL = "http://127.0.0.1:8000/api/buscar_paciente/";
 const SAVE_CITA_URL = "http://127.0.0.1:8000/api/agendar_cita/";
+const EDIT_PACIENTE_URL = "http://127.0.0.1:8000/api/editar_paciente/"
 
+export const getAllPacientes = async () => {
+    try {
+        const config = await getConfig()
+        const response = await axios.get(LIST_PACIENTES_URL, config)
+        if (response.status === 200) {
+            return response.data
+        } else {
+            console.error("error al hacer solicitud")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const registerPaciente = async (paciente) => {
     try {
         const config = await getConfig()
@@ -44,5 +59,24 @@ export const registerCita = async (cita) => {
         }
     } catch (error) {
         console.error(error)
+    }
+}
+export const getPaciente = async (CURP) => {
+    try {
+        const config = await getConfig();
+        const response = await axios.get(`${EDIT_PACIENTE_URL}${CURP}/`, config)
+        if (response.status == 200) {
+            return response.data;
+        } else {
+            console.log("Error al hacer la llamada")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const editarPaciente = async (paciente) => {
+    try {
+
+    } catch (error) {
     }
 }

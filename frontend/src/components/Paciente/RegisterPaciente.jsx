@@ -10,7 +10,9 @@ export function RegisterPaciente() {
     const { register, handleSubmit } = useForm()
 
     const onSubmit = handleSubmit(async (data) => {
-
+        const parseBoolean = (value) => {
+            return value === "true"
+        }
         const pacienteData = {
             CURP: data.CURP,
             "datos_personales": {
@@ -38,15 +40,15 @@ export function RegisterPaciente() {
             "otros_datos": {
                 "programa_gobierno": {
                     federal: {
-                        participa: data.programa_gobierno_federal,
+                        participa: parseBoolean(data.programa_gobierno_federal),
                         nombre: data.cual_programa_federal,
                     },
                     estatal: {
-                        participa: data.programa_gobierno_estatal,
+                        participa: parseBoolean(data.programa_gobierno_estatal),
                         nombre: data.cual_programa_estatal,
                     },
                     municipal: {
-                        participa: data.programa_gobierno_municipal,
+                        participa: parseBoolean(data.programa_gobierno_municipal),
                         nombre: data.cual_programa_municipal,
                     },
                 },

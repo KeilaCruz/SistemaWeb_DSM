@@ -66,13 +66,13 @@ export const AuthProvider = ({ children }) => {
             updateToken();
         }
 
-        const fourMinutes = 1000 * 60 * 4;
+        const timeTokenMinutes = 1000 * 60 * 30;
 
         const intervalo = setInterval(() => {
             if (authTokens) {
                 updateToken();
             }
-        }, fourMinutes);
+        }, timeTokenMinutes);
 
         return () => clearInterval(intervalo);
     }, [authTokens, loading]);
