@@ -54,8 +54,6 @@ export function AddFichaPsiNiño() {
                 numero_embarazos_madre: data.numero_embarazos_madre,
                 tiempo_gestacion: data.tiempo_gestacion,
                 problemas_durante_embarazo: data.problemas_durante_embarazo,
-                tiempo_gestacion: data.tiempo_gestacion,
-                problemas_durante_embarazo: data.problemas_durante_embarazo,
                 medicamentos_embarazo: data.medicamentos_embarazo,
                 motivo_medicamento_embarazo: data.motivo_medicamento_embarazo,
                 nombre_medicamento_embarazo: data.nombre_medicamento_embarazo,

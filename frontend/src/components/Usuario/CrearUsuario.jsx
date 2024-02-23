@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { enviarDatosAPI } from '../Servers/UsuarioServer';
-import AuthContext from '../context/AuthProvider';
+import { enviarDatosAPI } from '../../Servers/UsuarioServer';
+import AuthContext from '../../context/AuthProvider';
 import { useContext, useState } from 'react';
 
 export const Formulario = () => {

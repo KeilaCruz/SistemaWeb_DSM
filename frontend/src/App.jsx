@@ -10,11 +10,12 @@ import { ProtectedRoute } from "./utils/ProtectedRoute"
 import { HomePageR } from './pages/HomePageR'
 import { RePacientePage } from './pages/RePacientePage'
 import { AgendarCitaPage } from './pages/AgendarCitaPage'
-import { Formulario } from './pages/CrearUsuario'
+import { Formulario } from './components/Usuario/CrearUsuario';
 import { Footer } from './components/Footer'
 import { ReHistoriaNPage } from './pages/ReHistoriaNPage'
 import { ReFichaPsicoNiñoPage } from './pages/ReFichaPsicoNiñoPage'
 import { ReFichaPsicoAdultoPage } from './pages/ReFichaPsicoAdultoPage'
+import { ReEvento } from './pages/ReEvento';
 function App() {
   return (
     <>
@@ -34,6 +35,7 @@ function App() {
             <Route path="/registrar_historianutricion" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><ReHistoriaNPage /></ProtectedRoute>} />
             <Route path="/registrar_fichapsiniño" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReFichaPsicoNiñoPage /></ProtectedRoute>} />
             <Route path="/registrar_fichapsiadulto" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReFichaPsicoAdultoPage /></ProtectedRoute>} />
+            <Route path="/registrar_evento" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReEvento /></ProtectedRoute>} />
           </Routes>
           <Footer />
         </BrowserRouter>

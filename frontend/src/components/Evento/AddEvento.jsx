@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form"
-import { registerEvento, setConfig } from "../../services/Recepcionista"
+import { registerEvento } from "../../services/Recepcionista"
 import { useContext, useState } from "react"
 import AuthContext from "../../context/AuthProvider"
 import { FormEvento } from "./FormEvento"
+import { setToken } from "../../services/HeaderAuthorization"
 
-export function RegisterEvento () {
+export function AddEvento () {
     const { authTokens } = useContext(AuthContext)
     const { register, handleSubmit } = useForm()
     const [usuarioSelect, setUsuarioSelect] = useState("")
@@ -12,7 +13,6 @@ export function RegisterEvento () {
     const onSubmit = handleSubmit(async (data) => {
 
         const eventoData = {
-            idEvento: data.idEvento,
             "datos_evento" : {
                 fecha : data.fecha,
                 hora : data.hora,
@@ -25,7 +25,7 @@ export function RegisterEvento () {
         }
 
         try {
-            await setConfig(authTokens.access)
+            await setToken(authTokens.access)
             const response = await registerEvento(eventoData)
             console.log(response)
         } catch (error) {
@@ -34,6 +34,6 @@ export function RegisterEvento () {
     })
 
     return (
-        <FormEvento register={register} onSubmit={onSubmit} usuarioSelect={setUsuarioSelect}/>
+        <FormEvento register={register} onSubmit={onSubmit} usuarioSelect={setUsuarioSelect} />
     )
 }

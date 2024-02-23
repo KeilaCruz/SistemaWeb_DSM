@@ -51,6 +51,7 @@ export const registerCita = async (cita) => {
 
 export const registerEvento = async (evento) => {
     try {
+        const config = await getConfig()
         const response = await axios.post(SAVE_EVENTO_URL, evento, config)
         if (response.status === 201) {
             alert("Evento registrado con exito")
@@ -64,6 +65,7 @@ export const registerEvento = async (evento) => {
 
 export const searchUsuario = async (criterio) => {
     try {
+        const config = await getConfig()
         const response = await axios.get(`${SEARCH_USUARIO_URL}?query=${criterio}`, config)
         if (response.status === 200) {
             return response.data;
@@ -74,5 +76,6 @@ export const searchUsuario = async (criterio) => {
         console.error(error)
     }
 }
+
 
 

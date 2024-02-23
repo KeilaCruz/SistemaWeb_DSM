@@ -419,4 +419,3 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect }) {
         </div>
     )
 }
-
