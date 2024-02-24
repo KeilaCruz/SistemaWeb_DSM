@@ -7,7 +7,6 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
     const { authTokens } = useContext(AuthContext);
     const [criterio, setCriterio] = useState("")
     const [paciente, setPaciente] = useState([])
-    const [selectPaciente, setSelectPaciente] = useState("")
     const handleBarraBusqueda = (evt) => {
         setCriterio(evt.target.value)
     }
@@ -25,9 +24,9 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
 
     }, [criterio])
 
-    useEffect(() => {
-        pacienteSelect(selectPaciente)
-    }, [selectPaciente, pacienteSelect])
+    const selectPaciente = (CURP) => {
+        pacienteSelect(CURP)
+    }
     return (
         <>
 
@@ -77,7 +76,7 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
                                 {paciente.map(paciente => (
                                     <tr key={paciente.CURP}>
                                         <td className="fila">
-                                            <input id="select_paciente" name="select_paciente" type="radio" value={paciente.CURP} onChange={() => setSelectPaciente(paciente.CURP)} />
+                                            <input id="select_paciente" name="select_paciente" type="radio" value={paciente.CURP} onChange={() => selectPaciente(paciente.CURP)} />
                                         </td>
                                         <td className="fila">{paciente.CURP}</td>
                                         <td className="fila">{`${paciente.datos_personales.nombre} ${paciente.datos_personales.apePaterno} ${paciente.datos_personales.apeMaterno}`}</td>
