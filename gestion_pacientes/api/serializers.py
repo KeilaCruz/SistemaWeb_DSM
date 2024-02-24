@@ -45,6 +45,11 @@ class FichaPsicoAdultoSerializer(serializers.ModelSerializer):
     class Meta:
         model = FichaPsicologicaAdulto
         fields = "__all__"
+        
+class EventoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Evento
+        fields = "__all__"
 
 
 class LoginSessionInfoSerializer(TokenObtainPairSerializer):
@@ -56,7 +61,4 @@ class LoginSessionInfoSerializer(TokenObtainPairSerializer):
         token["idRol_id"] = user.idRol_id
         return token
     
-class EventoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Evento
-        fields = "__all__"
+

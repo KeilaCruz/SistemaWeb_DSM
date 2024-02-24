@@ -5,7 +5,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 from gestion_pacientes.models import Evento
 from .serializers import EventoSerializer
-from datetime import datetime, timedelta
 
 @permission_classes([IsAuthenticated])
 class EventoAPIView(APIView):

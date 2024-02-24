@@ -5,7 +5,7 @@ const LIST_PACIENTES_URL = "http://127.0.0.1:8000/api/paciente/"
 const SAVE_PACIENTE_URL = "http://127.0.0.1:8000/api/registrar_paciente/";
 const SEARCH_PACIENTE_URL = "http://127.0.0.1:8000/api/buscar_paciente/";
 const SAVE_CITA_URL = "http://127.0.0.1:8000/api/agendar_cita/";
-const SAVE_EVENTO_URL = "http://127.0.0.1:8000/api/registrar_evento/"
+const SAVE_EVENTO_URL = "http://127.0.0.1:8000/api/registrar_evento/";
 const SEARCH_USUARIO_URL = "http://127.0.0.1:8000/api/buscar_usuario/"
 const EDIT_PACIENTE_URL = "http://127.0.0.1:8000/api/editar_paciente/"
 

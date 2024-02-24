@@ -42,5 +42,5 @@ urlpatterns = [
     path("registrar_historia_nutricion", RegistrarHistoriaNutricionAPIView.as_view()),
     path("registrar_fichapsi_nino", RegistrarFichaPsiNiñoAPIView.as_view()),
     path("registrar_fichapsi_adulto", RegistrarFichaPsiAdultoAPIView.as_view()),
-    path("registrar_evento", RegistrarEventoAPIView.as_view()),
+    path("registrar_evento/", RegistrarEventoAPIView.as_view()),
 ]

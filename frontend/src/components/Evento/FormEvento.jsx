@@ -43,7 +43,7 @@ export function FormEvento({ onSubmit, register, usuarioSelect }) {
                   className="form-control input-form"
                   type="text"
                   id="busqueda_usuario"
-                  placeholder="Buscar nombre"
+                  placeholder="Nombre del creador del evento"
                   onChange={handleBarraBusqueda}
                 />
               </div>
@@ -56,14 +56,18 @@ export function FormEvento({ onSubmit, register, usuarioSelect }) {
           </div>
 
           <div className="col-md-9 offset-1">
-            {usuario.map((usuario) => (
-              <UsuarioCard
-                usuario={usuario}
-                key={usuario.id}
+    {Array.isArray(usuario) && usuario.length > 0 ? (
+        usuario.map((user) => (
+            <UsuarioCard
+                usuario={user}
+                key={user.id}
                 handleSelect={selectUsuario}
-              />
-            ))}
-          </div>
+            />
+        ))
+    ) : (
+        <p>No hay usuarios para mostrar.</p>
+    )}
+</div>
 
           <form className="row g-3" onSubmit={onSubmit}>
             {/* Todo el cuerpo del formulario */}
