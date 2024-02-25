@@ -5,6 +5,7 @@ const LIST_PACIENTES_URL = "http://127.0.0.1:8000/api/paciente/"
 const SAVE_PACIENTE_URL = "http://127.0.0.1:8000/api/registrar_paciente/";
 const SEARCH_PACIENTE_URL = "http://127.0.0.1:8000/api/buscar_paciente/";
 const SAVE_CITA_URL = "http://127.0.0.1:8000/api/agendar_cita/";
+const LIST_CITAS_URL ="http://127.0.0.1:8000/api/cita/"
 const SAVE_EVENTO_URL = "http://127.0.0.1:8000/api/registrar_evento/";
 const SEARCH_USUARIO_URL = "http://127.0.0.1:8000/api/buscar_usuario/"
 const EDIT_PACIENTE_URL = "http://127.0.0.1:8000/api/editar_paciente/"
@@ -20,6 +21,27 @@ export const getAllPacientes = async () => {
         }
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const getPaciente = async (CURP) => {
+    try {
+        const config = await getConfig();
+        const response = await axios.get(`${EDIT_PACIENTE_URL}${CURP}/`, config)
+        if (response.status == 200) {
+            return response.data;
+        } else {
+            console.log("Error al hacer la llamada")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const editarPaciente = async (paciente) => {
+    try {
+
+    } catch (error) {
     }
 }
 export const registerPaciente = async (paciente) => {
@@ -64,6 +86,34 @@ export const registerCita = async (cita) => {
     }
 }
 
+export const getAllCitas = async () => {
+    try {
+        const config = await getConfig()
+        const response = await axios.get(LIST_CITAS_URL, config)
+        if (response.status === 200) {
+            return response.data
+        } else {
+            console.error("error al hacer solicitud")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getCita =async (idCita) => {
+    try {
+        const config = await getConfig()
+        const response = await axios.get(`${LIST_CITAS_URL}${idCita}/`, config)
+        if (response.status === 200) {
+            return response.data
+        } else {
+            console.error("error al hacer solicitud")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const registerEvento = async (evento) => {
     try {
         const config = await getConfig()
@@ -95,22 +145,3 @@ export const searchUsuario = async (criterio) => {
 
 
 
-export const getPaciente = async (CURP) => {
-    try {
-        const config = await getConfig();
-        const response = await axios.get(`${EDIT_PACIENTE_URL}${CURP}/`, config)
-        if (response.status == 200) {
-            return response.data;
-        } else {
-            console.log("Error al hacer la llamada")
-        }
-    } catch (error) {
-        console.log(error)
-    }
-}
-export const editarPaciente = async (paciente) => {
-    try {
-
-    } catch (error) {
-    }
-}
