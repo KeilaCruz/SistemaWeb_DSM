@@ -16,6 +16,7 @@ export function Calendario() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [eventDetails, setEventDetails] = useState({});
   const { authTokens } = useContext(AuthContext);
+  const [events, setEvents] = useState([]);
 
   const handleShowModal = (info) => {
     setSelectedEvent(info.event);
@@ -28,7 +29,7 @@ export function Calendario() {
     setShowModal(false);
   };
 
-  const [events, setEvents] = useState([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,9 +38,12 @@ export function Calendario() {
         const citasData = await getAllCitas();
         const eventsData = await Promise.all(citasData.map(async (cita) => {
           const pacienteData = await getPaciente(cita.idPaciente);
+
           return {
             title: `${pacienteData.datos_personales.nombre} ${pacienteData.datos_personales.apePaterno} ${pacienteData.datos_personales.apeMaterno}`,
             start: new Date(`${cita.datos_cita.fecha_cita}T${cita.datos_cita.horario_cita}`),
+            paciente: pacienteData,
+            cita: citasData.find((c) => c.idCita === cita.idCita),
           };
         }));
         setEvents(eventsData);
@@ -79,7 +83,6 @@ export function Calendario() {
             bootstrap5Plugin,
           ]}
           initialView="timeGridWeek"
-          themeSystem="bootstrap5"
           headerToolbar={{
             start: "today prev,next", // will normally be on the left. if RTL, will be on the right
             center: "title",
@@ -101,6 +104,7 @@ export function Calendario() {
             <div>
               <p>Fecha de la cita: {selectedEvent?.start?.toLocaleString()}</p>
               <p>CURP: {selectedEvent?.extendedProps.paciente.CURP}</p>
+              <p>Especialista: {selectedEvent?.extendedProps.cita.datos_cita.especialidad}</p>
               <p>
                 Edad:{" "}
                 {selectedEvent?.extendedProps.paciente.datos_personales.edad}
