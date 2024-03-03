@@ -72,7 +72,7 @@ export function FormPaciente({ onSubmit, register }) {
                     </div>
                     <div className="col-md-2 offset-md-0.6">
                         <label htmlFor="estado_civil" className="form-label label-form" >Estado civil</label>
-                        <select className="form-control input-form" name="estado_civil" {...register("estado_civil", { required: true })}>
+                        <select className="form-select input-form" name="estado_civil" {...register("estado_civil", { required: true })}>
                             <option value="" disabled selected>Elija estado civil</option>
                             <option value="Soltero">Soltero</option>
                             <option value="Casado">Casado</option>
@@ -85,7 +85,7 @@ export function FormPaciente({ onSubmit, register }) {
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="escolaridad" className="form-label label-form">Escolaridad</label>
-                        <select className="form-control input-form" name="escolaridad" {...register("escolaridad", { required: true })}>
+                        <select className="form-select input-form" name="escolaridad" {...register("escolaridad", { required: true })}>
                             <option value="" disabled selected>Elija escolaridad</option>
                             <option value="Primaria">Primaria</option>
                             <option value="Secundaria">Secundaria</option>
@@ -119,7 +119,7 @@ export function FormPaciente({ onSubmit, register }) {
                     </div>
                     <div className="col-md-2 offset-md-0.8">
                         <label htmlFor="derecho_habiencia" className="form-label label-form" >Derechohabiencia</label>
-                        <select className="form-control input-form" name="derecho_habiencia" {...register("derecho_habiencia", { required: true })}>
+                        <select className="form-select input-form" name="derecho_habiencia" {...register("derecho_habiencia", { required: true })}>
                             <option value="" disabled selected>Elija derechohabiencia</option>
                             <option value="IMSS">IMSS</option>
                             <option value="ISSSTE">ISSSTE</option>
@@ -143,10 +143,10 @@ export function FormPaciente({ onSubmit, register }) {
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="federal" className="form-label label-form">Federal</label>
-                        <label htmlFor="federal_si" className="form-label mx-2" for="federal_si">Si
+                        <label htmlFor="federal_si" className="form-label mx-2">Si
                             <input className="form-check-input" type="radio" id="federal_si" name="federal_option" value={true} {...register("programa_gobierno_federal", { required: true })} onChange={handleRadioFederalChange} />
                         </label>
-                        <label className="form-label mx-2" for="federal_no">No
+                        <label className="form-label mx-2">No
                             <input className="form-check-input" type="radio" id="federal_no" name="federal_option" value={false} {...register("programa_gobierno_federal", { required: true })} onChange={handleRadioFederalChange} />
                         </label>
                     </div>
