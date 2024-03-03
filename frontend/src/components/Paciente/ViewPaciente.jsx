@@ -3,7 +3,7 @@ import { EditPacienteForm } from "./EditPacienteForm"
 import { useForm } from "react-hook-form"
 
 export function ViewPaciente() {
-  const { register, handleSubmit, setValue } = useForm()
+  const { register, handleSubmit } = useForm()
 
 
   //Actualizar la información del paciente
