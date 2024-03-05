@@ -6,7 +6,7 @@ import { useState, useEffect, useContext } from "react"
 import { setToken } from "../../services/HeaderAuthorization"
 import AuthContext from "../../context/AuthProvider"
 
-export function EditPacienteForm() {
+export function EditPacienteForm({ onSubmit, registro }) {
     const { register, setValue } = useForm()
     const { idPaciente } = useParams()
     const [paciente, setPaciente] = useState([])
@@ -21,6 +21,8 @@ export function EditPacienteForm() {
                 await setToken(authTokens.access)
                 const response = await getPaciente(idPaciente);
                 setPaciente(response)
+                console.log(response)
+                console.log(paciente)
                 setValue("nombre", response.datos_personales.nombre)
                 setValue("apePaterno", response.datos_personales.apePaterno)
                 setValue("apeMaterno", response.datos_personales.apeMaterno)
@@ -50,7 +52,7 @@ export function EditPacienteForm() {
             }
         }
         loadInput();
-    }, [idPaciente])
+    }, [])
     return (
         <>
             <div className="container-fluid">
@@ -61,7 +63,7 @@ export function EditPacienteForm() {
                         <hr />
                     </div>
                 </div>
-                <form className="row g-3">
+                <form onSubmit={onSubmit} className="row g-3">
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="CURP" className="form-label label-form">CURP</label>
                         <input id="CURP" className="form-control input-form" type="text" {...register("CURP")} disabled={true} />
@@ -129,44 +131,54 @@ export function EditPacienteForm() {
                         <label htmlFor="num_persona_vive" className="form-label label-form">Número de personas con la que vive</label>
                         <input type="number" id="num_persona_vive" className="form-control input-form"  {...register("numero_personas_vive")} disabled={!activateEdit}></input>
                     </div>
-                    <div className="col-md-4 offset-md-1">
+                    <div className="col-md-10 offset-md-1">
                         <label className="form-label label-form">Es beneficiario de algún programa de gobierno</label>
+                    </div>
+                    <div className="col-md-4 offset-md-1">
                         <label className="form-label label-form">Federal</label>
                         <label htmlFor="federal_si" className="form-label mx-2">Si
-                            <input type="radio" id="federal_si" name="programa_gobierno_federal" defaultChecked={paciente.programa_gobierno_federal === true} {...register("programa_gobierno_federal")} disabled={!activateEdit} />
+                            <input type="radio" id="federal_si" name="programa_gobierno_federal" checked={paciente.programa_gobierno_federal === true} onChange={() => setPaciente({ ...paciente, programa_gobierno_federal: true })}{...register("programa_gobierno_federal")} disabled={!activateEdit} />
                         </label>
                         <label htmlFor="federal_no" className="form-label mx-2">No
-                            <input type="radio" id="federal_no" name="programa_gobierno_federal" defaultChecked={paciente.programa_gobierno_federal === false} {...register("programa_gobierno_federal")} disabled={!activateEdit} />
+                            <input type="radio" id="federal_no" name="programa_gobierno_federal" checked={paciente.programa_gobierno_federal === false} onChange={() => setPaciente({ ...paciente, programa_gobierno_federal: false })}  {...register("programa_gobierno_federal")} disabled={!activateEdit} />
                         </label>
                     </div>
-
-                    {paciente.programa_gobierno_federal && (
+                    
+                    {paciente.otros_datos.programa_gobierno.federal.nombre && (
                         <div>
                             <input type="text" id="programa_federal" {...register("cual_programa_federal")} disabled={!activateEdit} />
                         </div>
                     )}
-                    <label>Estatal</label>
-                    <label>Si
-                        <input type="radio" id="estatal_si" name="programa_gobierno_estatal" checked={paciente.programa_gobierno_estatal === true} {...register("programa_gobierno_estatal")} disabled={!activateEdit} />
-                    </label>
-                    <label>No
-                        <input type="radio" id="estatal_no" name="programa_gobierno_estatal" checked={paciente.programa_gobierno_estatal === false} {...register("programa_gobierno_estatal")} disabled={!activateEdit} />
-                    </label>
-                    {paciente.programa_gobierno_estatal && (
+
+                    <div className="col-md-4 offset-md-1">
+                        <label className="form-label label-form">Estatal</label>
+                        <label htmlFor="estatal_si" className="form-label mx-2">Si
+                            <input type="radio" id="estatal_si" name="programa_gobierno_estatal" checked={paciente.programa_gobierno_estatal === true} {...register("programa_gobierno_estatal")} disabled={!activateEdit} />
+                        </label>
+                        <label htmlFor="estatal_no" className="form-label mx-2">No
+                            <input type="radio" id="estatal_no" name="programa_gobierno_estatal" checked={paciente.programa_gobierno_estatal === false} {...register("programa_gobierno_estatal")} disabled={!activateEdit} />
+                        </label>
+                    </div>
+
+                    {paciente.otros_datos.programa_gobierno.estatal.nombre && (
                         <div>
-                            <input type="text" id="programa_municipal" {...register("cual_programa_estatal")} disabled={!activateEdit} />
+                            <input type="text" id="programa_estatal" {...register("cual_programa_estatal")} disabled={!activateEdit} />
                         </div>
                     )}
-                    <label>Municipal</label>
-                    <label>Si
-                        <input type="radio" id="municipal_si" name="programa_gobierno_municipal" defaultChecked={paciente.programa_gobierno_municipal === true} {...register("programa_gobierno_municipal")} disabled={!activateEdit} />
-                    </label>
-                    <label>No
-                        <input type="radio" id="municipal_no" name="programa_gobierno_municipal" defaultChecked={paciente.programa_gobierno_municipal === false} {...register("programa_gobierno_municipal")} disabled={!activateEdit} />
-                    </label>
-                    {paciente.programa_gobierno_municipal && (
+
+                    <div className="col-md-4 offset-md-1">
+                        <label className="form-label label-form">Municipal</label>
+                        <label htmlFor="municipal_si" className="form-label mx-2">Si
+                            <input type="radio" id="municipal_si" name="programa_gobierno_municipal" defaultChecked={paciente.programa_gobierno_municipal === true} {...register("programa_gobierno_municipal")} disabled={!activateEdit} />
+                        </label>
+                        <label htmlFor="municipal_no" className="form-label mx-2">No
+                            <input type="radio" id="municipal_no" name="programa_gobierno_municipal" defaultChecked={paciente.programa_gobierno_municipal === false} {...register("programa_gobierno_municipal")} disabled={!activateEdit} />
+                        </label>
+                    </div>
+
+                    {paciente.otros_datos.programa_gobierno.municipal.nombre && (
                         <div>
-                            <input type="text" id="programa_federal" {...register("cual_programa_municipal")} disabled={!activateEdit} />
+                            <input type="text" id="programa_municipal" {...register("cual_programa_municipal")} disabled={!activateEdit} />
                         </div>
                     )}
                     {activateEdit && (
