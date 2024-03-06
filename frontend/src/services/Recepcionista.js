@@ -100,7 +100,7 @@ export const getAllCitas = async () => {
     }
 }
 
-export const getCita =async (idCita) => {
+/* export const getCita =async (idCita) => {
     try {
         const config = await getConfig()
         const response = await axios.get(`${LIST_CITAS_URL}${idCita}/`, config)
@@ -112,7 +112,7 @@ export const getCita =async (idCita) => {
     } catch (error) {
         console.log(error)
     }
-}
+} */
 
 export const registerEvento = async (evento) => {
     try {

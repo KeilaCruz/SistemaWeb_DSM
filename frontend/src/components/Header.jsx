@@ -58,10 +58,18 @@ export function Header() {
                         </li>
 
                         <li className="nav-item">
-                          <Link className="nav-link" to="/otraPagina">
-                            Otra pagina
+                          <Link className="nav-link" to="/registrar_historianutricion">
+                            Historia nutrición
                           </Link>
                         </li>
+
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/registrar_fichapsiniño">
+                            Ficha psicologica niño
+                          </Link>
+                        </li>
+
+                        
                       </>
                     ) : user.idRol_id === 2 ? (
                       <>
@@ -82,6 +90,38 @@ export function Header() {
                         Agendar cita
                       </Link>
                     </li>
+
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/registrar_fichapsiadulto">
+                        Ficha psicologica adulto
+                      </Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/registrar_evento">
+                       Registrar evento
+                      </Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/buscar_paciente">
+                        Buscar paciente
+                      </Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/calendario">
+                        Calendario
+                      </Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/registrar_evaluacionclinica">
+                        Evaluacion clinica
+                      </Link>
+                    </li>
+
+                  
                       </>
                     ) : user.idRol_id === 3 ? (
                       <>

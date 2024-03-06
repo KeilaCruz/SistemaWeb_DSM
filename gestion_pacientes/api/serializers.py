@@ -7,6 +7,8 @@ from gestion_pacientes.models import (
     FichaPsicologicaNiño,
     FichaPsicologicaAdulto,
     Evento,
+    HojaEvaluacionClinica,
+    ExamenMedico,
 )
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -50,6 +52,18 @@ class EventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evento
         fields = "__all__"
+        
+
+class HojaEvaluacionClinicaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HojaEvaluacionClinica
+        fields = "__all__"
+        
+
+class ExamenMedicoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExamenMedico
+        fields = "_all__"
 
 
 class LoginSessionInfoSerializer(TokenObtainPairSerializer):
