@@ -20,6 +20,7 @@ import { BuscarPacientePage } from './pages/BuscarPacientePage';
 import { ViewPaciente } from './components/Paciente/ViewPaciente';
 import { CalendarioPage } from './pages/CalendarioPage';
 import { ReHojaEvaluacion } from './pages/ReHojaEvaluacion';
+import { ReExamenMedico } from './pages/ReExamenMedico';
 function App() {
   return (
     <>
@@ -44,6 +45,8 @@ function App() {
             <Route path="/buscar_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ViewPaciente /></ProtectedRoute>} />
             <Route path="/calendario" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><CalendarioPage /></ProtectedRoute>} />
             <Route path="/registrar_evaluacionclinica" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReHojaEvaluacion/></ProtectedRoute>} />
+            <Route path="/registrar_examenmedico" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReExamenMedico/></ProtectedRoute>} />
+
           </Routes>
           <Footer />
         </BrowserRouter>

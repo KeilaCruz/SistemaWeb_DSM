@@ -63,7 +63,7 @@ class HojaEvaluacionClinicaSerializer(serializers.ModelSerializer):
 class ExamenMedicoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExamenMedico
-        fields = "_all__"
+        fields = "__all__"
 
 
 class LoginSessionInfoSerializer(TokenObtainPairSerializer):

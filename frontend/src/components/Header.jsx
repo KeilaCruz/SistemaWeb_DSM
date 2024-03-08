@@ -121,6 +121,12 @@ export function Header() {
                       </Link>
                     </li>
 
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/registrar_examenmedico">
+                        Examen Medico
+                      </Link>
+                    </li>
+
                   
                       </>
                     ) : user.idRol_id === 3 ? (

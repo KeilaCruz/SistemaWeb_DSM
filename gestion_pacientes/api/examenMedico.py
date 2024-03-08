@@ -15,7 +15,6 @@ class ExamenMedicoAPIView(APIView):
         examenMedico_serializer = ExamenMedicoSerializer(examenMedico, many=True)
         return Response(examenMedico_serializer.data)
     
-@permission_classes([IsAuthenticated])
 class RegistrarExamenMedicoAPIView(APIView):
     def post(self, request, *args, **kwargs):
         examenMedico_serializer = ExamenMedicoSerializer(data=request.data)

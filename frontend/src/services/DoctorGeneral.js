@@ -22,17 +22,19 @@ export const getAllExamenes = async () => {
 
 export const registerExamenMedico = async (examen) => {
     try {
-        const config = await getConfig()
-        const response = await axios.post(SAVE_EXAMEN_MEDICO_URL, examen, config)
+        const config = await getConfig();
+        const response = await axios.post(SAVE_EXAMEN_MEDICO_URL, examen, config);
+
         if (response.status === 201) {
-            alert("Registrado correctamente")
+            alert("Examen médico registrado correctamente");
         } else {
-            return response;
+            console.error("Error al registrar examen médico:", response);
         }
     } catch (error) {
-        console.error(error)
+        console.error("Error en la solicitud:", error);
     }
-}
+};
+
 
 export const getAllHojasEvaluacion = async () => {
     try {

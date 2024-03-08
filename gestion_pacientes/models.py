@@ -111,7 +111,7 @@ class HojaEvaluacionClinica(models.Model):
 class ExamenMedico(models.Model):
     idExamenMedico = models.BigAutoField(primary_key=True)
     idPaciente = models.ForeignKey(Paciente, on_delete=models.DO_NOTHING)
-    # idUsuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+    idUsuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
     fecha_revision = models.DateField(default=datetime.date.today)
     antecedentes_heredofamiliares = models.JSONField()
     datos_enfermedades = models.JSONField()

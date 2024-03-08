@@ -5,10 +5,11 @@ const LIST_PACIENTES_URL = "http://127.0.0.1:8000/api/paciente/"
 const SAVE_PACIENTE_URL = "http://127.0.0.1:8000/api/registrar_paciente/";
 const SEARCH_PACIENTE_URL = "http://127.0.0.1:8000/api/buscar_paciente/";
 const SAVE_CITA_URL = "http://127.0.0.1:8000/api/agendar_cita/";
-const LIST_CITAS_URL ="http://127.0.0.1:8000/api/cita/"
+const LIST_CITAS_URL ="http://127.0.0.1:8000/api/cita/";
 const SAVE_EVENTO_URL = "http://127.0.0.1:8000/api/registrar_evento/";
-const SEARCH_USUARIO_URL = "http://127.0.0.1:8000/api/buscar_usuario/"
-const EDIT_PACIENTE_URL = "http://127.0.0.1:8000/api/editar_paciente/"
+const SEARCH_USUARIO_URL = "http://127.0.0.1:8000/api/buscar_usuario/";
+const LIST_USUARIOS_URL = "http://127.0.0.1:8000/api/visualizar_usuario/";
+const EDIT_PACIENTE_URL = "http://127.0.0.1:8000/api/editar_paciente/";
 
 export const getAllPacientes = async () => {
     try {
@@ -141,6 +142,23 @@ export const searchUsuario = async (criterio) => {
         console.error(error)
     }
 }
+
+export const getAllUsuarios = async () => {
+    try {
+        const config = await getConfig();
+        const response = await axios.get(LIST_USUARIOS_URL, config);
+
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            throw new Error("Error al hacer la solicitud");
+        }
+    } catch (error) {
+        console.error("Error en getAllUsuarios:", error);
+        throw error; // Lanza la excepción para que pueda ser manejada externamente
+    }
+};
+
 
 
 
