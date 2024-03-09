@@ -38,21 +38,13 @@ export function RegisterPaciente() {
                 numero_personas_vive: data.numero_personas_vive,
             },
             "otros_datos": {
-                "programa_gobierno": {
-                    federal: {
-                        participa: parseBoolean(data.programa_gobierno_federal),
-                        nombre: data.cual_programa_federal,
-                    },
-                    estatal: {
-                        participa: parseBoolean(data.programa_gobierno_estatal),
-                        nombre: data.cual_programa_estatal,
-                    },
-                    municipal: {
-                        participa: parseBoolean(data.programa_gobierno_municipal),
-                        nombre: data.cual_programa_municipal,
-                    },
-                },
-            },
+                participa_programa_federal: parseBoolean(data.programa_gobierno_federal),
+                nombre_programa_federal: data.cual_programa_federal,
+                participa_programa_estatal: parseBoolean(data.programa_gobierno_estatal),
+                nombre_programa_estatal: data.cual_programa_estatal,
+                participa_programa_municipal: parseBoolean(data.programa_gobierno_municipal),
+                nombre_programa_municipal: data.cual_programa_municipal,
+            }
         };
 
         try {
