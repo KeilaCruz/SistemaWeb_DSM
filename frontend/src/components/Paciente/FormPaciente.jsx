@@ -4,7 +4,10 @@ export function FormPaciente({ onSubmit, register }) {
     const [showCualEstatal, setShowEstatal] = useState(false)
     const [showCualFederal, setShowFederal] = useState(false)
     const [showCualMunicipal, setShowMunicipal] = useState(false)
-    const [nombreProgramas, setNombreProgramas] = useState({})
+    const [inputValueFederal, setInputValueFederal] = useState('');
+    const [inputValueEstatal, setInputValueEstatal] = useState('');
+    const [inputValueMunicipal, setInputValueMunicipal] = useState('');
+
     //activar campo para ingresar nombre de programa en el cuál es beneficiario
     const handleRadioFederalChange = (evt) => {
         const optionSeleccionada = evt.target.value;
@@ -12,8 +15,7 @@ export function FormPaciente({ onSubmit, register }) {
             setShowFederal(true);
         } else if (optionSeleccionada === 'false') {
             setShowFederal(false);
-            // Borrar el valor del campo de texto
-            setNombreProgramas(prevState => ({ ...prevState, cual_programa_federal: '' }));
+            setInputValueFederal('')
         }
     };
 
@@ -23,8 +25,7 @@ export function FormPaciente({ onSubmit, register }) {
             setShowEstatal(true);
         } else if (optionSeleccionada === 'false') {
             setShowEstatal(false);
-            // Borrar el valor del campo de texto
-            setNombreProgramas(prevState => ({ ...prevState, cual_programa_estatal: '' }));
+            setInputValueEstatal('')
         }
     };
 
@@ -34,15 +35,10 @@ export function FormPaciente({ onSubmit, register }) {
             setShowMunicipal(true);
         } else if (optionSeleccionada === 'false') {
             setShowMunicipal(false);
-            // Borrar el valor del campo de texto
-            setNombreProgramas(prevState => ({ ...prevState, cual_programa_municipal: '' }));
+            setInputValueMunicipal('')
         }
     };
 
-    const handleChange = (evt, field) => {
-        const value = evt.target.value;
-        setNombreProgramas(prevState => ({ ...prevState, [field]: value }));
-    };
     return (
         <>
             <div className="container-fluid">
@@ -154,8 +150,7 @@ export function FormPaciente({ onSubmit, register }) {
                         {showCualFederal && (
                             <div>
                                 <label htmlFor="cual_programa_federal" className="form-label mx-2">¿Cuál</label>
-                                <input className="form-control input-form" type="text" placeholder="Nombre del programa federal" {...register("cual_programa_federal")} value={nombreProgramas.cual_programa_federal || ''}
-                                    onChange={(evt) => handleChange(evt, 'cual_programa_federal')} />
+                                <input className="form-control input-form" type="text" value={inputValueFederal} placeholder="Nombre del programa federal" {...register("cual_programa_federal")} onChange={(e) => setInputValueFederal(e.target.value)} />
                             </div>
                         )}
                     </div>
@@ -172,8 +167,7 @@ export function FormPaciente({ onSubmit, register }) {
                         {showCualEstatal && (
                             <div>
                                 <label htmlFor="cual_estatal" className="form-label label-form">¿Cuál</label>
-                                <input className="form-control input-form" type="text" placeholder="Nombre del programa estatal"  {...register("cual_programa_estatal")} value={nombreProgramas.cual_programa_estatal || ''}
-                                    onChange={(evt) => handleChange(evt, 'cual_programa_estatal')} />
+                                <input className="form-control input-form" type="text" placeholder="Nombre del programa estatal" value={inputValueEstatal} {...register("cual_programa_estatal")} onChange={(e) => setInputValueEstatal(e.target.value)} />
                             </div>
                         )}
                     </div>
@@ -190,8 +184,7 @@ export function FormPaciente({ onSubmit, register }) {
                         {showCualMunicipal && (
                             <div>
                                 <label htmlFor="cual_municipal" className="form-label label-form">¿Cuál</label>
-                                <input className="form-control input-form" type="text" placeholder="Nombre del programa municipal" {...register("cual_programa_municipal")} value={nombreProgramas.cual_programa_municipal || ''}
-                                    onChange={(evt) => handleChange(evt, 'cual_programa_municipal')} />
+                                <input className="form-control input-form" type="text" placeholder="Nombre del programa municipal" value={inputValueMunicipal} {...register("cual_programa_municipal")} onChange={(e) => setInputValueMunicipal(e.target.value)} />
                             </div>
                         )}
                     </div>

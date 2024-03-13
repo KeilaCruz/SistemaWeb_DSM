@@ -74,9 +74,16 @@ export const getPaciente = async (CURP) => {
         console.log(error)
     }
 }
-export const editarPaciente = async (paciente) => {
+export const editarPaciente = async (CURP, paciente) => {
     try {
-
+        const config = await getConfig();
+        const response = await axios.post(`${EDIT_PACIENTE_URL}${CURP}`, paciente, config)
+        if (response.status == 201) {
+            alert("Modificacion realizada")
+        } else {
+            console.log("error al modificar")
+        }
     } catch (error) {
+        console.error(error)
     }
 }
