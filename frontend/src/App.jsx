@@ -10,7 +10,7 @@ import { ProtectedRoute } from "./utils/ProtectedRoute"
 import { HomePageR } from './pages/HomePageR'
 import { RePacientePage } from './pages/RePacientePage'
 import { AgendarCitaPage } from './pages/AgendarCitaPage'
-import { Formulario } from './components/Usuario/CrearUsuario';
+import { CrearUsuario } from './pages/CrearUsuario';
 import { Footer } from './components/Footer'
 import { ReHistoriaNPage } from './pages/ReHistoriaNPage'
 import { ReFichaPsicoNiñoPage } from './pages/ReFichaPsicoNiñoPage'
@@ -36,7 +36,7 @@ function App() {
             <Route path="/homeRecepcionista" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><HomePageR /></ProtectedRoute>} />
             <Route path="/registrarpaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><RePacientePage /></ProtectedRoute>} />
             <Route path="/agendarcita" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><AgendarCitaPage /></ProtectedRoute>} />
-            <Route path="/crearUsuario" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><Formulario /></ProtectedRoute>} />
+            <Route path="/crearUsuario" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><CrearUsuario /></ProtectedRoute>} />
             <Route path="/registrar_historianutricion" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><ReHistoriaNPage /></ProtectedRoute>} />
             <Route path="/registrar_fichapsiniño" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><ReFichaPsicoNiñoPage /></ProtectedRoute>} />
             <Route path="/registrar_fichapsiadulto" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReFichaPsicoAdultoPage /></ProtectedRoute>} />

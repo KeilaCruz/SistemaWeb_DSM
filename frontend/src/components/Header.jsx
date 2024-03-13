@@ -184,7 +184,7 @@ export function Header() {
       {!user && <div className="container ">
         <div className="text-with-lines">
           <div className="line line-top"></div>
-          <p className="display-5 fw-bold">
+          <p className="display-5 fw-bold mt-3">
             DIRECCIÓN DE SALUD MUNICIPAL PÚBLICA
           </p>
           <div className="line line-bottom"></div>

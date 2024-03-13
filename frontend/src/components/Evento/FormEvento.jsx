@@ -1,31 +1,31 @@
-import { useContext, useState } from "react";
-import { searchUsuario } from "../../services/Recepcionista";
-import { UsuarioCard } from "../Usuario/UsuarioCard";
+import { useContext, useState, useEffect } from "react";
 import { setToken } from "../../services/HeaderAuthorization";
 import AuthContext from "../../context/AuthProvider";
+import { getAllUsuarios } from "../../services/Recepcionista"
+
 
 export function FormEvento({ onSubmit, register, usuarioSelect }) {
   const { authTokens } = useContext(AuthContext);
-  const [usuario, setUsuario] = useState([]);
-  const [criterio, setCriterio] = useState("");
+  const [usuarios, setUsuarios] = useState([]);
 
-  const handleBarraBusqueda = (evt) => {
-    setCriterio(evt.target.value);
-  };
+  
+  useEffect(() => {
+    const fetchUsuarios = async () => {
+      try {
+        await setToken(authTokens.access);
+        const usuariosData = await getAllUsuarios();
+        setUsuarios(usuariosData);
+      } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+      }
+    };
 
-  const handleBuscarUsuario = async () => {
-    try {
-      await setToken(authTokens.access);
-      const data = await searchUsuario(criterio);
-      setUsuario(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    fetchUsuarios();
+  }, []);
 
-  const selectUsuario = (id) => {
-    usuarioSelect(id);
-  };
+ 
+
+  
 
   return (
     <>
@@ -36,41 +36,30 @@ export function FormEvento({ onSubmit, register, usuarioSelect }) {
             <h3 className="title">CREAR EVENTO</h3>
             <hr />
           </div>
-          <div>
-            <div className="row">
-              <div className="col-md-6 offset-1">
-                <input
-                  className="form-control input-form"
-                  type="text"
-                  id="busqueda_usuario"
-                  placeholder="Nombre del creador del evento"
-                  onChange={handleBarraBusqueda}
-                />
-              </div>
-              <div className="col-md-3 mt-1">
-                <button onClick={handleBuscarUsuario} className="button-buscar">
-                  Buscar
-                </button>
-              </div>
-            </div>
-          </div>
+          
 
-          <div className="col-md-9 offset-1">
-    {Array.isArray(usuario) && usuario.length > 0 ? (
-        usuario.map((user) => (
-            <UsuarioCard
-                usuario={user}
-                key={user.id}
-                handleSelect={selectUsuario}
-            />
-        ))
-    ) : (
-        <p>No hay usuarios para mostrar.</p>
-    )}
-</div>
+          
 
           <form className="row g-3" onSubmit={onSubmit}>
-            {/* Todo el cuerpo del formulario */}
+
+          <div className="col-md-3 offset-md-1">
+            <label htmlFor="usuariosSelect" className="form-label">
+              ¿Quién creará el evento?
+            </label>
+            <select
+              id="usuariosSelect"
+              {...register("idUsuario", { required: true })}
+              className="form-select"
+            >
+              <option value="">Selecciona un usuario</option>
+              {usuarios.map((usuario) => (
+                <option key={usuario.id} value={usuario.id}>
+                  {`${usuario.first_name} ${usuario.last_name}`}
+                </option>
+              ))}
+            </select>
+          </div>
+
             <div className="col-md-9 offset-md-1">
               <label htmlFor="evento" className="form-label">
                 Nombre del evento:

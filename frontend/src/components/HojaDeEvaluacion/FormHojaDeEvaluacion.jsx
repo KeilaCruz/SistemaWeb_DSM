@@ -31,7 +31,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
     <div>
       <div className="container-fluid">
         {/* Titulo */}
-        <div className="container">
+        <div className="container mt-3 mb-4">
           <div className="text-with-lines">
             <div className="line line-top"></div>
             <p className="display-5 fw-bold">
@@ -53,7 +53,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               />
             </div>
             <div className="col-md-3 mt-1">
-              <button onClick={handleBuscarPaciente} className="button-buscar">
+              <button onClick={handleBuscarPaciente} className="button-buscar btn btn-primary">
                 Buscar
               </button>
             </div>
@@ -74,7 +74,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
 
         <form onSubmit={onSubmit} className="row g-3 mt-5">
           <div className="col-md-11 offset-md-1">
-            <h3>Información general</h3>
+            <h3>INFORMACIÓN GENERAL</h3>
           </div>
 
           
@@ -93,7 +93,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
           </div>
 
           <div className="col-md-11 offset-md-1">
-            <h3 className="mt-5">Información médica</h3>
+            <h3 className="mt-5">INFORMACIÓN MÉDICA</h3>
           </div>
 
           <div className="col-md-3 offset-md-1">
@@ -237,7 +237,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
             ></textarea>
           </div>
           <div className="col-md-5 offset-1 mt-4 mb-4">
-            <button className="button-guardar">Guardar</button>
+            <button className="button-guardar btn btn-success">Guardar</button>
           </div>
         </form>
       </div>

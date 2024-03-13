@@ -1,16 +1,16 @@
-import { getAllUsuarios } from "../../services/Recepcionista"
+import { getAllUsuarios } from "../../services/Recepcionista";
 import { useContext, useState, useEffect } from "react";
 import { searchPaciente } from "../../services/Recepcionista";
 import { setToken } from "../../services/HeaderAuthorization";
 import { PacienteCard } from "../Paciente/PacienteCard";
 import AuthContext from "../../context/AuthProvider";
 
-export function FormExamenMedico({onSubmit, register, pacienteSelect}) {
-    const { authTokens } = useContext(AuthContext);
+export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
+  const { authTokens } = useContext(AuthContext);
   const [criterio, setCriterio] = useState("");
   const [paciente, setPaciente] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
-  const [selectedUsuario, setSelectedUsuario] = useState('');
+  /* const [selectedUsuario, setSelectedUsuario] = useState(''); */
 
   useEffect(() => {
     const fetchUsuarios = async () => {
@@ -19,17 +19,16 @@ export function FormExamenMedico({onSubmit, register, pacienteSelect}) {
         const usuariosData = await getAllUsuarios();
         setUsuarios(usuariosData);
       } catch (error) {
-        console.error('Error al obtener usuarios:', error);
+        console.error("Error al obtener usuarios:", error);
       }
     };
 
     fetchUsuarios();
   }, []);
 
-  const handleUsuarioChange = (event) => {
+  /*  const handleUsuarioChange = (event) => {
     setSelectedUsuario(event.target.value);
-  };
-
+  }; */
 
   const handleBarraBusqueda = (evt) => {
     setCriterio(evt.target.value);
@@ -48,8 +47,6 @@ export function FormExamenMedico({onSubmit, register, pacienteSelect}) {
   const selectPaciente = (CURP) => {
     pacienteSelect(CURP);
   };
-
- 
 
   const [showmadreViva, setShowMadreViva] = useState(false);
   const [showpadreVivo, setShowPadreVivo] = useState(false);
@@ -133,65 +130,89 @@ export function FormExamenMedico({onSubmit, register, pacienteSelect}) {
     }
   };
 
-
   return (
     <>
-
-<div>
-          <div className="row">
-            <div className="col-md-6 offset-1">
-              <input
-                className="form-control input-form"
-                type="text"
-                id="busqueda_paciente"
-                placeholder="Buscar por CURP o nombre"
-                onChange={handleBarraBusqueda}
-              />
-            </div>
-            <div className="col-md-3 mt-1">
-              <button onClick={handleBuscarPaciente} className="button-buscar">
-                Buscar
-              </button>
-            </div>
+      <div>
+        {/* Titulo */}
+        <div className="container mt-3 mb-4">
+          <div className="text-with-lines">
+            <div className="line line-top"></div>
+            <p className="display-5 fw-bold">REGISTRO DE EXAMEN MÉDICO</p>
+            <div className="line line-bottom"></div>
           </div>
         </div>
-        <div className="col-md-9 offset-1">
-          <label className="form-label label-section">DATOS PERSONALES</label>
-        </div>
-        <div className="col-md-9 offset-1">
-          {paciente.map((paciente) => (
-            <PacienteCard
-              paciente={paciente}
-              key={paciente.CURP}
-              handleSelect={selectPaciente}
-            />
-          ))}
-        </div>
 
-<div className="container-fluid">
-        <form className="row g-3" onSubmit={onSubmit}>
+        <div className="row">
+          <div className="col-md-6 offset-1">
+            <input
+              className="form-control input-form"
+              type="text"
+              id="busqueda_paciente"
+              placeholder="Buscar por CURP o nombre"
+              onChange={handleBarraBusqueda}
+            />
+          </div>
+          <div className="col-md-3 mt-1">
+            <button
+              onClick={handleBuscarPaciente}
+              className="button-buscar btn btn-primary"
+            >
+              Buscar
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="col-md-9 offset-1">
+        <label className="form-label label-section">DATOS PERSONALES</label>
+      </div>
+      <div className="col-md-9 offset-1">
+        {paciente.map((paciente) => (
+          <PacienteCard
+            paciente={paciente}
+            key={paciente.CURP}
+            handleSelect={selectPaciente}
+          />
+        ))}
+      </div>
+
+      <div className="container-fluid">
+        <form className="row g-3 mt-5" onSubmit={onSubmit}>
           <h3 className=" offset-md-1 col-md-11">DATOS GENERALES</h3>
 
-          
-        <div className="col-md-3 offset-md-1">
-      <label htmlFor="usuariosSelect" className="form-label">Selecciona un usuario:</label>
-      <select
-        id="usuariosSelect"
-        {...register("idUsuario", { required: true })}
-        className="form-select"
-      >
-        <option value="">Selecciona un usuario</option>
-        {usuarios.map((usuario) => (
-          <option key={usuario.id} value={usuario.id}>
-            {`${usuario.first_name} ${usuario.last_name}`}
-          </option>
-        ))}
-      </select>
-    </div>
+          <div className="col-md-3 offset-md-1">
+            <label htmlFor="fecha-revision" className="form-label">
+              Fecha de revisión:
+            </label>
+            <input
+              type="date"
+              placeholder="Fecha de revision"
+              id="fecha-revision"
+              {...register("fecha_revision", { required: true })}
+              className="form-control"
+            />
+          </div>
 
-          
+          <div className="col-md-3 offset-md-1">
+            <label htmlFor="usuariosSelect" className="form-label">
+              Selecciona un especialista:
+            </label>
+            <select
+              id="usuariosSelect"
+              {...register("idUsuario", { required: true })}
+              className="form-select"
+            >
+              <option value="">Selecciona un usuario</option>
+              {usuarios.map((usuario) => (
+                <option key={usuario.id} value={usuario.id}>
+                  {`${usuario.first_name} ${usuario.last_name}`}
+                </option>
+              ))}
+            </select>
+          </div>
 
-          <h3 className="offset-md-1 col-md-11">1. ANTECEDENTES HEREDOFAMILIARES</h3>
+          <h3 className="offset-md-1 col-md-11">
+            1. ANTECEDENTES HEREDOFAMILIARES
+          </h3>
 
           <div class="col-md-1 offset-md-1 fw-bold">
             <label class="form-label">¿Madre viva?</label>
@@ -484,140 +505,137 @@ export function FormExamenMedico({onSubmit, register, pacienteSelect}) {
           </div>
 
           <div className="col-md-2 offset-md-1">
-<label htmlFor="epilepsia" className="form-label">
-            Epilépsia:
-          </label>
-          <input
-            type="text"
-            placeholder="Epilépsia"
-            id="epilepsia"
-            {...register("epilepsia", { required: true })}
-            className="form-control"
-          />
+            <label htmlFor="epilepsia" className="form-label">
+              Epilépsia:
+            </label>
+            <input
+              type="text"
+              placeholder="Epilépsia"
+              id="epilepsia"
+              {...register("epilepsia", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
-<label htmlFor="lupus" className="form-label">
-            Lupus:
-          </label>
-          <input
-            type="text"
-            placeholder="Lupus"
-            id="lupus"
-            {...register("lupus", { required: true })}
-            className="form-control"
-          />
+            <label htmlFor="lupus" className="form-label">
+              Lupus:
+            </label>
+            <input
+              type="text"
+              placeholder="Lupus"
+              id="lupus"
+              {...register("lupus", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
-<label htmlFor="nefropatias" className="form-label">
-            Nefropatias:
-          </label>
-          <input
-            type="text"
-            placeholder="Nefropatias"
-            id="nefropatias"
-            {...register("nefropatias", { required: true })}
-            className="form-control"
-          />
+            <label htmlFor="nefropatias" className="form-label">
+              Nefropatias:
+            </label>
+            <input
+              type="text"
+              placeholder="Nefropatias"
+              id="nefropatias"
+              {...register("nefropatias", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
-<label htmlFor="artropatias" className="form-label">
-            Artropatias:
-          </label>
-          <input
-            type="text"
-            placeholder="Artropatias"
-            id="artropatias"
-            {...register("artropatias", { required: true })}
-            className="form-control"
-          />
+            <label htmlFor="artropatias" className="form-label">
+              Artropatias:
+            </label>
+            <input
+              type="text"
+              placeholder="Artropatias"
+              id="artropatias"
+              {...register("artropatias", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
-<label htmlFor="otras-enfermedades" className="form-label">
-            Otras enfermedades:
-          </label>
-          <input
-            type="text"
-            placeholder="Otras enfermedades"
-            id="otras-enfermedades"
-            {...register("otras_enfermedades", { required: true })}
-            className="form-control"
-          />
+            <label htmlFor="otras-enfermedades" className="form-label">
+              Otras enfermedades:
+            </label>
+            <input
+              type="text"
+              placeholder="Otras enfermedades"
+              id="otras-enfermedades"
+              {...register("otras_enfermedades", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2 offset-md-1">
-<label htmlFor="observaciones" className="form-label">
-            Observaciones:
-          </label>
-          <textarea
-            placeholder="Observaciones"
-            id="observaciones"
-            {...register("observaciones_enfermedades", { required: true })}
-            className="form-control"
-          ></textarea>
-          
+            <label htmlFor="observaciones" className="form-label">
+              Observaciones:
+            </label>
+            <textarea
+              placeholder="Observaciones"
+              id="observaciones"
+              {...register("observaciones_enfermedades", { required: true })}
+              className="form-control"
+            ></textarea>
           </div>
 
-          
-
-          <h3 className=" offset-md-1 col-md-11">2. ANTECEDENTES PERSONALES NO PATOLÓGICOS</h3>
+          <h3 className=" offset-md-1 col-md-11">
+            2. ANTECEDENTES PERSONALES NO PATOLÓGICOS
+          </h3>
 
           <div className="col-md-2 offset-md-1">
-<label htmlFor="nacimiento" className="form-label">
-            Lugar de nacimiento:
-          </label>
-          <input
-            type="text"
-            id="nacimiento"
-            placeholder="Lugar de nacimiento"
-            {...register("lugar_nacimiento", { required: true })}
-            className="form-control"
-          />
+            <label htmlFor="nacimiento" className="form-label">
+              Lugar de nacimiento:
+            </label>
+            <input
+              type="text"
+              id="nacimiento"
+              placeholder="Lugar de nacimiento"
+              {...register("lugar_nacimiento", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
-<label htmlFor="fecha-nacimiento" className="form-label">
-            Fecha de nacimiento:
-          </label>
-          <input
-            type="date"
-            placeholder="Fecha de nacimiento"
-            id="fecha-nacimiento"
-            {...register("fecha_nacimiento", { required: true })}
-            className="form-control"
-          />
+            <label htmlFor="fecha-nacimiento" className="form-label">
+              Fecha de nacimiento:
+            </label>
+            <input
+              type="date"
+              placeholder="Fecha de nacimiento"
+              id="fecha-nacimiento"
+              {...register("fecha_nacimiento", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-3">
-<label htmlFor="escolaridad" className="form-label">
-            Escolaridad:
-          </label>
-          <input
-            type="text"
-            placeholder="Escolaridad"
-            id="escolaridad"
-            {...register("escolaridad", { required: true })}
-            className="form-control"
-          />
+            <label htmlFor="escolaridad" className="form-label">
+              Escolaridad:
+            </label>
+            <input
+              type="text"
+              placeholder="Escolaridad"
+              id="escolaridad"
+              {...register("escolaridad", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-3">
-<label htmlFor="trabajo-actual" className="form-label">
-            Trabajo actual:
-          </label>
-          <input
-            type="text"
-            placeholder="Trabajo actual"
-            id="trabajo-actual"
-            {...register("trabajo_actual", { required: true })}
-            className="form-control"
-          />
+            <label htmlFor="trabajo-actual" className="form-label">
+              Trabajo actual:
+            </label>
+            <input
+              type="text"
+              placeholder="Trabajo actual"
+              id="trabajo-actual"
+              {...register("trabajo_actual", { required: true })}
+              className="form-control"
+            />
           </div>
-
-          
 
           <div class="col-md-1 offset-md-1 fw-bold">
             <label class="form-label">¿Practicas ejercicio?</label>
@@ -638,7 +656,6 @@ export function FormExamenMedico({onSubmit, register, pacienteSelect}) {
                 {" "}
                 Si{" "}
               </label>
-              
             </div>
           </div>
           <div class="col-md-1">
@@ -656,7 +673,6 @@ export function FormExamenMedico({onSubmit, register, pacienteSelect}) {
                 {" "}
                 No{" "}
               </label>
-              
             </div>
           </div>
 
@@ -674,10 +690,8 @@ export function FormExamenMedico({onSubmit, register, pacienteSelect}) {
               />
             </div>
           )}
-          
-              <div className="col-md-11">
 
-          </div>
+          <div className="col-md-11"></div>
 
           <div class="col-md-1 offset-md-1 fw-bold">
             <label class="form-label">¿Practica tabaquismo?</label>
@@ -746,9 +760,7 @@ export function FormExamenMedico({onSubmit, register, pacienteSelect}) {
             </div>
           )}
 
-<div className="col-md-11">
-
-</div>
+          <div className="col-md-11"></div>
 
           <div class="col-md-1 offset-md-1 fw-bold">
             <label class="form-label">¿Es alcohólico?</label>
@@ -805,187 +817,181 @@ export function FormExamenMedico({onSubmit, register, pacienteSelect}) {
             </div>
           )}
 
-<div className="col-md-11">
+          <div className="col-md-11"></div>
 
-</div>
-
-<div className="col-md-3 offset-md-1">
-<label class="form-label" htmlFor="inmunizaciones">
-            {" "}
-            Inmunizaciones:{" "}
-          </label>
-          <input
-            type="text"
-            placeholder="Inmunizaciones"
-            id="inmunizaciones"
-            {...register("inmunizaciones", { required: false })}
-            className="form-control"
-          />
+          <div className="col-md-3 offset-md-1">
+            <label class="form-label" htmlFor="inmunizaciones">
+              {" "}
+              Inmunizaciones:{" "}
+            </label>
+            <input
+              type="text"
+              placeholder="Inmunizaciones"
+              id="inmunizaciones"
+              {...register("inmunizaciones", { required: false })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-4">
-<label class="form-label" htmlFor="habitos-higienicos">
-            Hábitos higiénicos:
-          </label>
-          <input
-            type="text"
-            placeholder="Habitos higienicos"
-            id="habitos-higienicos"
-            {...register("habitos_higienicos", { required: false })}
-            className="form-control"
-          />
+            <label class="form-label" htmlFor="habitos-higienicos">
+              Hábitos higiénicos:
+            </label>
+            <input
+              type="text"
+              placeholder="Habitos higienicos"
+              id="habitos-higienicos"
+              {...register("habitos_higienicos", { required: false })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-4">
-<label class="form-label" htmlFor="alimenticios">
-            Hábitos alimenticios:
-          </label>
-          <input
-            type="text"
-            placeholder="Habitos alimenticios"
-            id="alimenticios"
-            {...register("habitos_alimenticios", { required: false })}
-            className="form-control"
-          />
+            <label class="form-label" htmlFor="alimenticios">
+              Hábitos alimenticios:
+            </label>
+            <input
+              type="text"
+              placeholder="Habitos alimenticios"
+              id="alimenticios"
+              {...register("habitos_alimenticios", { required: false })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-4 offset-md-1">
-<label class="form-label" htmlFor="habitos">
-            Especifique hábitos:
-          </label>
-          <input
-            type="text"
-            placeholder="Especifique habitos"
-            id="habitos"
-            {...register("especifique_habitos", { required: false })}
-            className="form-control"
-          />
+            <label class="form-label" htmlFor="habitos">
+              Especifique hábitos:
+            </label>
+            <input
+              type="text"
+              placeholder="Especifique habitos"
+              id="habitos"
+              {...register("especifique_habitos", { required: false })}
+              className="form-control"
+            />
           </div>
 
-          
-          <h3 className="offset-md-1 col-md-11">3. ANTECEDENTES GINECO OBSTÉTRICOS</h3>
+          <h3 className="offset-md-1 col-md-11">
+            3. ANTECEDENTES GINECO OBSTÉTRICOS
+          </h3>
 
           <div className="col-md-2 offset-md-1">
-<label class="form-label" htmlFor="edad-menarca">
-            Edad de la menarca:
-          </label>
-          <input
-            type="number"
-            id="edad-menarca"
-            placeholder="Edad menarca"
-            {...register("edad_menarca", { required: false })}
-            className="form-control"
-          />
+            <label class="form-label" htmlFor="edad-menarca">
+              Edad de la menarca:
+            </label>
+            <input
+              type="number"
+              id="edad-menarca"
+              placeholder="Edad menarca"
+              {...register("edad_menarca", { required: false })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
-<label class="form-label" htmlFor="duracion">
-            Frecuencia y duración:
-          </label>
-          <input
-            type="number"
-            id="duración"
-            placeholder="Frecuencia y duracion"
-            {...register("frecuencia_duracion", { required: false })}
-            className="form-control"
-          />
+            <label class="form-label" htmlFor="duracion">
+              Frecuencia y duración:
+            </label>
+            <input
+              type="number"
+              id="duración"
+              placeholder="Frecuencia y duracion"
+              {...register("frecuencia_duracion", { required: false })}
+              className="form-control"
+            />
           </div>
 
-          
           <div className="col-md-2">
-<label class="form-label" htmlFor="ultima-menstruacion">
-            Última menstruación:
-          </label>
-          <input
-            type="text"
-            id="ultima-menstruacion"
-            placeholder="Ultima menstruacion"
-            {...register("ultima_menstruacion", { required: false })}
-            className="form-control"
-          />
-</div>
-          
-<div className="col-md-2">
-<label class="form-label" htmlFor="num-embarazos">
-            Número de embarazos:
-          </label>
-          <input
-            type="number"
-            id="num-embarazos"
-            placeholder="Numero de embarazos"
-            {...register("num_embarazos", { required: false })}
-            className="form-control"
-          />
+            <label class="form-label" htmlFor="ultima-menstruacion">
+              Última menstruación:
+            </label>
+            <input
+              type="text"
+              id="ultima-menstruacion"
+              placeholder="Ultima menstruacion"
+              {...register("ultima_menstruacion", { required: false })}
+              className="form-control"
+            />
           </div>
-          
+
           <div className="col-md-2">
-<label class="form-label" htmlFor="num-partos">
-            Número de partos:
-          </label>
-          <input
-            type="number"
-            id="num-partos"
-            placeholder="Numero de partos"
-            {...register("num_partos", { required: false })}
-            className="form-control"
-          />
-</div>
-          
-
-<div className="col-md-2 offset-md-1">
-<label class="form-label" htmlFor="num-cesareas">
-            Número de cesareas:
-          </label>
-          <input
-            type="number"
-            id="num-cesareas"
-            placeholder="Numero de cesareas"
-            {...register("num_cesareas", { required: false })}
-            className="form-control"
-          />
-</div>
-
-<div className="col-md-2">
-<label class="form-label" htmlFor="num-abortos">
-            Número de abortos:
-          </label>
-          <input
-            type="number"
-            id="num-abortos"
-            placeholder="Numero de abortos"
-            {...register("num_abortos", { required: false })}
-            className="form-control"
-          />
+            <label class="form-label" htmlFor="num-embarazos">
+              Número de embarazos:
+            </label>
+            <input
+              type="number"
+              id="num-embarazos"
+              placeholder="Numero de embarazos"
+              {...register("num_embarazos", { required: false })}
+              className="form-control"
+            />
           </div>
-          
-          <div className="col-md-3">
-<label class="form-label" htmlFor="ultimo-parto">
-            Último parto:
-          </label>
-          <input
-            type="text"
-            id="ultimo-parto"
-            placeholder="Ultimo parto"
-            {...register("ultimo_parto", { required: false })}
-            className="form-control"
-          />
+
+          <div className="col-md-2">
+            <label class="form-label" htmlFor="num-partos">
+              Número de partos:
+            </label>
+            <input
+              type="number"
+              id="num-partos"
+              placeholder="Numero de partos"
+              {...register("num_partos", { required: false })}
+              className="form-control"
+            />
+          </div>
+
+          <div className="col-md-2 offset-md-1">
+            <label class="form-label" htmlFor="num-cesareas">
+              Número de cesareas:
+            </label>
+            <input
+              type="number"
+              id="num-cesareas"
+              placeholder="Numero de cesareas"
+              {...register("num_cesareas", { required: false })}
+              className="form-control"
+            />
+          </div>
+
+          <div className="col-md-2">
+            <label class="form-label" htmlFor="num-abortos">
+              Número de abortos:
+            </label>
+            <input
+              type="number"
+              id="num-abortos"
+              placeholder="Numero de abortos"
+              {...register("num_abortos", { required: false })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-3">
-<label class="form-label" htmlFor="ultimo-aborto">
-            Último aborto:
-          </label>
-          <input
-            type="text"
-            id="ultimo-aborto"
-            placeholder="Ultimo aborto"
-            {...register("ultimo_aborto", { required: false })}
-            className="form-control"
-          />
+            <label class="form-label" htmlFor="ultimo-parto">
+              Último parto:
+            </label>
+            <input
+              type="text"
+              id="ultimo-parto"
+              placeholder="Ultimo parto"
+              {...register("ultimo_parto", { required: false })}
+              className="form-control"
+            />
           </div>
 
-
-          
+          <div className="col-md-3">
+            <label class="form-label" htmlFor="ultimo-aborto">
+              Último aborto:
+            </label>
+            <input
+              type="text"
+              id="ultimo-aborto"
+              placeholder="Ultimo aborto"
+              {...register("ultimo_aborto", { required: false })}
+              className="form-control"
+            />
+          </div>
 
           <div class="col-md-1 offset-md-1 fw-bold">
             <label class="form-label">¿Planificación familiar?</label>
@@ -1006,7 +1012,6 @@ export function FormExamenMedico({onSubmit, register, pacienteSelect}) {
                 {" "}
                 Si{" "}
               </label>
-              
             </div>
           </div>
           <div class="col-md-1">
@@ -1024,7 +1029,6 @@ export function FormExamenMedico({onSubmit, register, pacienteSelect}) {
                 {" "}
                 No{" "}
               </label>
-              
             </div>
           </div>
 
@@ -1045,434 +1049,415 @@ export function FormExamenMedico({onSubmit, register, pacienteSelect}) {
 
           <div className="col-md-11"></div>
 
-          <h3 className="offset-md-1  col-md-11">3.1 ANTECEDENTES PERSONALES PATOLÓGICOS</h3>
+          <h3 className="offset-md-1  col-md-11">
+            3.1 ANTECEDENTES PERSONALES PATOLÓGICOS
+          </h3>
 
-            <div className="col-md-2 offset-md-1">
-<label class="form-label" htmlFor="traumaticos">
-            Traumáticos:
-          </label>
-          <input
-            type="text"
-            placeholder="Luxación y Fracturas"
-            id="traumaticos"
-            {...register("traumatismos", { required: true })}
-            className="form-control"
-          />
+          <div className="col-md-2 offset-md-1">
+            <label class="form-label" htmlFor="traumaticos">
+              Traumáticos:
+            </label>
+            <input
+              type="text"
+              placeholder="Luxación y Fracturas"
+              id="traumaticos"
+              {...register("traumatismos", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
             <label class="form-label" htmlFor="quirurgicos">
-            Quirúrgicos:
-          </label>
-          <input
-            type="text"
-            placeholder="Quirurgicos"
-            id="quirurgicos"
-            {...register("quirurgicos", { required: true })}
-            className="form-control"
-          />
+              Quirúrgicos:
+            </label>
+            <input
+              type="text"
+              placeholder="Quirurgicos"
+              id="quirurgicos"
+              {...register("quirurgicos", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
             <label htmlFor="" className="form-label">
-            Transfusiones:
-          </label>
-          <input
-            type="text"
-            placeholder="Transfusiones"
-            {...register("transfusiones", { required: true })}
-            className="form-control"
-          />
+              Transfusiones:
+            </label>
+            <input
+              type="text"
+              placeholder="Transfusiones"
+              {...register("transfusiones", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
             <label className="form-label">Grupo sanguíneo:</label>
-          <input
-            type="text"
-            placeholder="Grupo sanguineo"
-            {...register("grupo_sanguineo", { required: true })}
-            className="form-control"
-          />
+            <input
+              type="text"
+              placeholder="Grupo sanguineo"
+              {...register("grupo_sanguineo", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
             <label htmlFor="" className="form-label">
-            Factor RH:
-          </label>
-          <input
-            type="text"
-            placeholder="Factor RH"
-            {...register("factor_rh", { required: true })}
-            className="form-control"
-          />
+              Factor RH:
+            </label>
+            <input
+              type="text"
+              placeholder="Factor RH"
+              {...register("factor_rh", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2 offset-md-1">
             <label htmlFor="" className="form-label">
-            Alergias:
-          </label>
-          <input
-            type="text"
-            placeholder="Alergias"
-            {...register("alergias", { required: true })}
-            className="form-control"
-          />
+              Alergias:
+            </label>
+            <input
+              type="text"
+              placeholder="Alergias"
+              {...register("alergias", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
             <label htmlFor="" className="form-label">
-            Infecciones:
-          </label>
-          <input
-            type="text"
-            placeholder="Infecciones"
-            {...register("infecciones", { required: true })}
-            className="form-control"
-          />
+              Infecciones:
+            </label>
+            <input
+              type="text"
+              placeholder="Infecciones"
+              {...register("infecciones", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
             <label htmlFor="" className="form-label">
-            Dengue paludismo:
-          </label>
-          <input
-            type="text"
-            placeholder="Dengue Paludismo"
-            {...register("dengue_paludismo", { required: true })}
-            className="form-control"
-          />
-
+              Dengue paludismo:
+            </label>
+            <input
+              type="text"
+              placeholder="Dengue Paludismo"
+              {...register("dengue_paludismo", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
             <label htmlFor="" className="form-label">
-            Tatuajes:
-          </label>
-          <input
-            type="text"
-            placeholder="Tatuajes"
-            {...register("tatuajes", { required: true })}
-            className="form-control"
-          />
+              Tatuajes:
+            </label>
+            <input
+              type="text"
+              placeholder="Tatuajes"
+              {...register("tatuajes", { required: true })}
+              className="form-control"
+            />
           </div>
-
-          
 
           <h3 className="offset-md-1 col-md-11">4. EXPLORACIÓN FÍSICA</h3>
 
           <div className="col-md-2 offset-md-1">
             <label htmlFor="" className="form-label">
-            Tensión arterial (mmHg):
-          </label>
-          <input
-            type="number"
-            placeholder="Tension arterial mmHg"
-            {...register("tension_arterial", { required: true })}
-            className="form-control"
-          />
-            </div>
+              Tensión arterial (mmHg):
+            </label>
+            <input
+              type="number"
+              placeholder="Tension arterial mmHg"
+              {...register("tension_arterial", { required: true })}
+              className="form-control"
+            />
+          </div>
 
-            <div className="col-md-2">
+          <div className="col-md-2">
             <label htmlFor="" className="form-label">
-            Frecuencia cardiaca:
-          </label>
-          <input
-            type="number"
-            placeholder="FC"
-            {...register("frecuencia_cardiaca", { required: true })}
-            className="form-control"
-          />
-            </div>
+              Frecuencia cardiaca:
+            </label>
+            <input
+              type="number"
+              placeholder="FC"
+              {...register("frecuencia_cardiaca", { required: true })}
+              className="form-control"
+            />
+          </div>
 
-            <div className="col-md-2">
+          <div className="col-md-2">
             <label htmlFor="" className="form-label">
-            Frecuencia respiratoria:
-          </label>
-          <input
-            type="number"
-            placeholder="FR"
-            {...register("frecuencia_respiratoria", { required: true })}
-            className="form-control"
-          />
-          
-            </div>
+              Frecuencia respiratoria:
+            </label>
+            <input
+              type="number"
+              placeholder="FR"
+              {...register("frecuencia_respiratoria", { required: true })}
+              className="form-control"
+            />
+          </div>
 
-            <div className="col-md-2">
+          <div className="col-md-2">
             <label htmlFor="" className="form-label">
-            Oxigenación (%):
-          </label>
-          <input
-            type="number"
-            placeholder="Oxigenación %"
-            {...register("oxigenacion", { required: true })}
-            className="form-control"
-          />
-            </div>
+              Oxigenación (%):
+            </label>
+            <input
+              type="number"
+              placeholder="Oxigenación %"
+              {...register("oxigenacion", { required: true })}
+              className="form-control"
+            />
+          </div>
 
-            <div className="col-md-2">
+          <div className="col-md-2">
             <label htmlFor="" className="form-label">
-            Temperatura (°C):
-          </label>
-          <input
-            type="number"
-            placeholder="Temperatura °C"
-            {...register("temperatura", { required: true })}
-            className="form-control"
-          />
-            </div>
-
-          
+              Temperatura (°C):
+            </label>
+            <input
+              type="number"
+              placeholder="Temperatura °C"
+              {...register("temperatura", { required: true })}
+              className="form-control"
+            />
+          </div>
 
           <h3 className="offset-md-1 col-md-11">5. ANTROPOMETRÍA</h3>
 
           <div className="col-md-2 offset-md-1">
             <label htmlFor="" className="form-label">
-            Peso actual (Kg):
-          </label>
-          <input
-            type="number"
-            placeholder="peso actual en Kg"
-            {...register("peso_actual", { required: true })}
-            className="form-control"
-          />
+              Peso actual (Kg):
+            </label>
+            <input
+              type="number"
+              placeholder="peso actual en Kg"
+              {...register("peso_actual", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
             <label className="form-label">Talla (cm):</label>
-          <input
-            type="text"
-            placeholder="Talla"
-            {...register("talla", { required: true })}
-            className="form-control"
-          />
-
+            <input
+              type="text"
+              placeholder="Talla"
+              {...register("talla", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-2">
             <label className="form-label">IMC (Kg/m^2):</label>
-          <input
-            type="number"
-            placeholder="IMC"
-            {...register("imc", { required: true })}
-            className="form-control"
-          />
-            </div>
-          
-            <div className="col-md-2">
+            <input
+              type="number"
+              placeholder="IMC"
+              {...register("imc", { required: true })}
+              className="form-control"
+            />
+          </div>
+
+          <div className="col-md-2">
             <label className="form-label">Circunferencia abdominal (cm):</label>
-          <input
-            type="number"
-            placeholder="Circunferencia del abdomen"
-            {...register("circunferencia_abd", { required: true })}
-            className="form-control"
-          />
-            </div>
+            <input
+              type="number"
+              placeholder="Circunferencia del abdomen"
+              {...register("circunferencia_abd", { required: true })}
+              className="form-control"
+            />
+          </div>
 
-            <div className="col-md-2">
-            <label className="form-label">Circunferencia de caderas (cm):</label>
-          <input
-            type="number"
-            placeholder="Circunferencia cadera"
-            {...register("circunferencia_cadera", { required: true })}
-            className="form-control"
-          />
-            </div>
+          <div className="col-md-2">
+            <label className="form-label">
+              Circunferencia de caderas (cm):
+            </label>
+            <input
+              type="number"
+              placeholder="Circunferencia cadera"
+              {...register("circunferencia_cadera", { required: true })}
+              className="form-control"
+            />
+          </div>
 
-            <div className="col-md-2 offset-md-1">
+          <div className="col-md-2 offset-md-1">
             <label className="form-label">Observaciones:</label>
-          <textarea
-            placeholder="Observaciones"
-            {...register("observaciones_antropometria", { required: true })}
-            className="form-control"
-          ></textarea>
-          
-            </div>
-
-          
+            <textarea
+              placeholder="Observaciones"
+              {...register("observaciones_antropometria", { required: true })}
+              className="form-control"
+            ></textarea>
+          </div>
 
           <h3 className="offset-md-1 col-md-11">6. EXÁMEN FÍSICO</h3>
 
-
           <div className="col-md-3 offset-md-1">
             <label className="form-label">Cabeza:</label>
-          <input
-            type="text"
-            placeholder="Cabeza"
-            {...register("EF_cabeza", { required: true })}
-            className="form-control"
-          />
-            </div>
+            <input
+              type="text"
+              placeholder="Cabeza"
+              {...register("EF_cabeza", { required: true })}
+              className="form-control"
+            />
+          </div>
 
-            <div className="col-md-3">
+          <div className="col-md-3">
             <label className="form-label">Cuello:</label>
-          <input
-            type="text"
-            placeholder="Cuello"
-            {...register("EF_cuello", { required: true })}
-            className="form-control"
-          />
-            </div>
+            <input
+              type="text"
+              placeholder="Cuello"
+              {...register("EF_cuello", { required: true })}
+              className="form-control"
+            />
+          </div>
 
-            <div className="col-md-3">
+          <div className="col-md-3">
             <label className="form-label">Tórax:</label>
-          <input
-            type="text"
-            placeholder="Torax"
-            {...register("EF_torax", { required: true })}
-            class
-            className="form-control"
-          />
-            </div>
+            <input
+              type="text"
+              placeholder="Torax"
+              {...register("EF_torax", { required: true })}
+              class
+              className="form-control"
+            />
+          </div>
 
-            <div className="col-md-3 offset-md-1">
+          <div className="col-md-3 offset-md-1">
             <label className="form-label">Abdomen:</label>
-          <input
-            type="text"
-            placeholder="Abdomen"
-            {...register("EF_abdomen", { required: true })}
-            className="form-control"
-          />
-            </div>
+            <input
+              type="text"
+              placeholder="Abdomen"
+              {...register("EF_abdomen", { required: true })}
+              className="form-control"
+            />
+          </div>
 
-          
           <h4 className="offset-md-1 col-md-11">Extremidades</h4>
 
           <div className="col-md-3 offset-md-1">
             <label className="form-label">Superior:</label>
-          <input
-            type="text"
-            placeholder="Superiores"
-            {...register("EF_EXT_sup", { required: true })}
-            className="form-control"
-          />
+            <input
+              type="text"
+              placeholder="Superiores"
+              {...register("EF_EXT_sup", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-3">
-             <label className="form-label">Inferior:</label>
-          <input
-            type="text"
-            placeholder="Inferiores"
-            {...register("EF_EXT_inf", { required: true })}
-            className="form-control"
-          />
+            <label className="form-label">Inferior:</label>
+            <input
+              type="text"
+              placeholder="Inferiores"
+              {...register("EF_EXT_inf", { required: true })}
+              className="form-control"
+            />
           </div>
 
           <div className="col-md-3">
             <label className="form-label">Rodillas:</label>
-          <input
-            type="text"
-            placeholder="Rodillas"
-            {...register("EF_EXT_rodillas", { required: true })}
-            className="form-control"
-          />
-            </div>
+            <input
+              type="text"
+              placeholder="Rodillas"
+              {...register("EF_EXT_rodillas", { required: true })}
+              className="form-control"
+            />
+          </div>
 
-            <div className="col-md-3 offset-md-1">
-           <label className="form-label">Pelvis:</label>
-          <input
-            type="text"
-            placeholder="Pelvis"
-            {...register("EF_EXT_pelvis", { required: true })}
-            className="form-control"
-          />
- 
-            </div>
+          <div className="col-md-3 offset-md-1">
+            <label className="form-label">Pelvis:</label>
+            <input
+              type="text"
+              placeholder="Pelvis"
+              {...register("EF_EXT_pelvis", { required: true })}
+              className="form-control"
+            />
+          </div>
 
-            <div className="col-md-3">
-           <label className="form-label">Pies:</label>
-          <input
-            type="text"
-            placeholder="Pies"
-            {...register("EF_EXT_pies", { required: true })}
-            className="form-control"
-          />
-            </div>
-
-          
-          
+          <div className="col-md-3">
+            <label className="form-label">Pies:</label>
+            <input
+              type="text"
+              placeholder="Pies"
+              {...register("EF_EXT_pies", { required: true })}
+              className="form-control"
+            />
+          </div>
 
           <h3 className="offset-md-1 col-md-11">7. EXÁMENES DE LABORATORIO</h3>
 
-
-
           <div className="col-md-3 offset-md-1">
             <label className="form-label">Biometría hemática:</label>
-          <input
-            type="text"
-            placeholder="Biometria hematica"
-            {...register("biometria_hematica", { required: true })}
-            className="form-control"
-          />
-            </div>
-
-            <div className="col-md-3">
-            <label className="form-label">Química sanguínea:</label>
-          <input
-            type="text"
-            placeholder="Quimica sanguinea"
-            {...register("quimica_sanguinea", { required: true })}
-            className="form-control"
-          />
-            </div>
-
-            <div className="col-md-3">
-            <label className="form-label">VDRL:</label>
-          <input
-            type="text"
-            placeholder="VDRL"
-            {...register("vdrl", { required: true })}
-            className="form-control"
-          />
-            </div>
-
-            <div className="col-md-3 offset-md-1">
-            <label className="form-label">Prueba rápida de VIH:</label>
-          <input
-            type="text"
-            placeholder="Prueba VIH"
-            {...register("prueba_vih", { required: true })}
-            className="form-control"
-          />
-
-            </div>
-
-          
-            <div className="col-md-3">
-            <label className="form-label">Antidoping:</label>
-          <input
-            type="text"
-            placeholder="Antidoping"
-            {...register("antidoping", { required: true })}
-            className="form-control"
-          />
-            </div>
-
-
-            <div className="col-md-3">
-            <label className="form-label">Exámen general de orina:</label>
-          <input
-            type="text"
-            placeholder="Examen de orina"
-            {...register("examen_orina", { required: true })}
-            className="form-control"
-          />
-            </div>
-          
-            <div className="col-md-10 offset-md-1">
-            <label className="form-label">Diagnostico:</label>
-          <textarea
-            placeholder="Diagnostico"
-            {...register("diagnostico", { required: true })}
-            className="form-control"
-          ></textarea>
-            </div>
-            <div className="col-md-5 offset-1 mt-4 mb-4">
-            <button className="button-guardar">Guardar</button>
+            <input
+              type="text"
+              placeholder="Biometria hematica"
+              {...register("biometria_hematica", { required: true })}
+              className="form-control"
+            />
           </div>
-            </form>
-            </div>
 
+          <div className="col-md-3">
+            <label className="form-label">Química sanguínea:</label>
+            <input
+              type="text"
+              placeholder="Quimica sanguinea"
+              {...register("quimica_sanguinea", { required: true })}
+              className="form-control"
+            />
+          </div>
+
+          <div className="col-md-3">
+            <label className="form-label">VDRL:</label>
+            <input
+              type="text"
+              placeholder="VDRL"
+              {...register("vdrl", { required: true })}
+              className="form-control"
+            />
+          </div>
+
+          <div className="col-md-3 offset-md-1">
+            <label className="form-label">Prueba rápida de VIH:</label>
+            <input
+              type="text"
+              placeholder="Prueba VIH"
+              {...register("prueba_vih", { required: true })}
+              className="form-control"
+            />
+          </div>
+
+          <div className="col-md-3">
+            <label className="form-label">Antidoping:</label>
+            <input
+              type="text"
+              placeholder="Antidoping"
+              {...register("antidoping", { required: true })}
+              className="form-control"
+            />
+          </div>
+
+          <div className="col-md-3">
+            <label className="form-label">Exámen general de orina:</label>
+            <input
+              type="text"
+              placeholder="Examen de orina"
+              {...register("examen_orina", { required: true })}
+              className="form-control"
+            />
+          </div>
+
+          <div className="col-md-10 offset-md-1">
+            <label className="form-label">Diagnostico:</label>
+            <textarea
+              placeholder="Diagnostico"
+              {...register("diagnostico", { required: true })}
+              className="form-control"
+            ></textarea>
+          </div>
+          <div className="col-md-5 offset-1 mt-4 mb-4">
+            <button className="button-guardar btn btn-success">Guardar</button>
+          </div>
+        </form>
+      </div>
     </>
-  )
+  );
 }
-

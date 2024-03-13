@@ -14,6 +14,7 @@ export function AddExamenMedico() {
     const examenMedico = {
       idUsuario: data.idUsuario,
       idPaciente: pacienteSelect,
+      fecha_revision: data.fecha_revision,
       "antecedentes_heredofamiliares": {
         madre_viva: data.madre_viva,
         madre_finada: data.madre_finada,

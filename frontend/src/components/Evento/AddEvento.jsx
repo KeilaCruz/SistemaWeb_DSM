@@ -8,7 +8,6 @@ import { setToken } from "../../services/HeaderAuthorization"
 export function AddEvento () {
     const { authTokens } = useContext(AuthContext)
     const { register, handleSubmit } = useForm()
-    const [usuarioSelect, setUsuarioSelect] = useState("")
 
     const onSubmit = handleSubmit(async (data) => {
 
@@ -21,7 +20,7 @@ export function AddEvento () {
                 nom_evento : data.nom_evento
 
             },
-            idUsuario : usuarioSelect
+            idUsuario : data.idUsuario,
         }
 
         try {
@@ -34,6 +33,6 @@ export function AddEvento () {
     })
 
     return (
-        <FormEvento register={register} onSubmit={onSubmit} usuarioSelect={setUsuarioSelect} />
+        <FormEvento register={register} onSubmit={onSubmit}  />
     )
 }
