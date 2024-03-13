@@ -17,11 +17,15 @@ export function BuscarPacientes() {
     }, [])
     return (
         <>
-            {pacientes.map(paciente => (
-                <div div key={paciente.CURP}>
-                    <PacienteCardResumen paciente={paciente} />
+            <div className="container-fluid">
+                <div className="row g-3 mt-4">
+                    {pacientes.map(paciente => (
+                        <div key={paciente.CURP} className="col-md-3 offset-md-1">
+                            <PacienteCardResumen paciente={paciente} />
+                        </div>
+                    ))}
                 </div>
-            ))}
+            </div>
         </>
     )
 }

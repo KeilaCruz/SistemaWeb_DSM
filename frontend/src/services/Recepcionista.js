@@ -39,12 +39,7 @@ export const getPaciente = async (CURP) => {
     }
 }
 
-export const editarPaciente = async (paciente) => {
-    try {
 
-    } catch (error) {
-    }
-}
 export const registerPaciente = async (paciente) => {
     try {
         const config = await getConfig()
@@ -100,20 +95,19 @@ export const getAllCitas = async () => {
         console.log(error)
     }
 }
-
-/* export const getCita =async (idCita) => {
+export const editarPaciente = async (CURP, paciente) => {
     try {
-        const config = await getConfig()
-        const response = await axios.get(`${LIST_CITAS_URL}${idCita}/`, config)
-        if (response.status === 200) {
-            return response.data
+        const config = await getConfig();
+        const response = await axios.post(`${EDIT_PACIENTE_URL}${CURP}`, paciente, config)
+        if (response.status == 201) {
+            alert("Modificacion realizada")
         } else {
-            console.error("error al hacer solicitud")
+            console.log("error al modificar")
         }
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
-} */
+} 
 
 export const registerEvento = async (evento) => {
     try {
