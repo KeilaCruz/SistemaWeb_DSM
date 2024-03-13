@@ -10,6 +10,7 @@ export function RegisterPaciente() {
     const { register, handleSubmit } = useForm()
 
     const onSubmit = handleSubmit(async (data) => {
+        //Para convertir de cadena true or false a boleano
         const parseBoolean = (value) => {
             return value === "true"
         }
@@ -54,7 +55,6 @@ export function RegisterPaciente() {
         } catch (error) {
             console.error(error)
         }
-
     })
 
     return (

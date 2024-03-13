@@ -49,6 +49,7 @@ export function EditPacienteForm({ onSubmit, registro }) {
                 setProgramaFederal(response.otros_datos?.participa_programa_federal || false);
                 setProgramaEstatal(response.otros_datos?.participa_programa_estatal || false);
                 setProgramaMunicipal(response.otros_datos?.participa_programa_municipal || false);
+                setValue("numero_personas_vive", response.datos_contacto.numero_personas_vive)
             } catch (error) {
                 console.error("error al cargar input", error)
             }
