@@ -28,7 +28,6 @@ from gestion_pacientes.api.psicologia import (
 from gestion_pacientes.api.evento import (
     EventoAPIView,
     RegistrarEventoAPIView,
-
 )
 
 from gestion_pacientes.api.examenMedico import (
@@ -57,16 +56,9 @@ urlpatterns = [
     path("registrar_historia_nutricion", RegistrarHistoriaNutricionAPIView.as_view()),
     path("registrar_fichapsi_nino", RegistrarFichaPsiNiñoAPIView.as_view()),
     path("registrar_fichapsi_adulto", RegistrarFichaPsiAdultoAPIView.as_view()),
-<<<<<<< HEAD
     path("registrar_evento/", RegistrarEventoAPIView.as_view()),
     path("registrar_examen_medico/", RegistrarExamenMedicoAPIView.as_view()),
     path("examen_medico/", ExamenMedicoAPIView.as_view()),
     path("registrar_hoja_evaluacion/", RegistrarHojaEvaluacionAPIView.as_view()),
     path("hoja_evaluacion/", HojaEvaluacionClinicaAPIView.as_view()),
-
-    
-    
-=======
-    path("citas_paciente/<str:CURP>/", VisualizarCitasPaciente.as_view(), name='citas_paciente'),
->>>>>>> keila
 ]
