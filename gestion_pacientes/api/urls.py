@@ -5,7 +5,11 @@ from gestion_pacientes.api.logueo import (
     VisualizarUsuarioView,
     RefreshTokenAPIView,
 )
-from gestion_pacientes.api.cita import CitaAPIView, AgendarCitaAPIView
+from gestion_pacientes.api.cita import (
+    CitaAPIView,
+    AgendarCitaAPIView,
+    VisualizarCitasPaciente,
+)
 from gestion_pacientes.api.paciente import (
     PacienteAPIView,
     RegistrarPacienteAPIView,
@@ -34,4 +38,5 @@ urlpatterns = [
     path("registrar_historia_nutricion", RegistrarHistoriaNutricionAPIView.as_view()),
     path("registrar_fichapsi_nino", RegistrarFichaPsiNiñoAPIView.as_view()),
     path("registrar_fichapsi_adulto", RegistrarFichaPsiAdultoAPIView.as_view()),
+    path("citas_paciente/<str:CURP>/", VisualizarCitasPaciente.as_view(), name='citas_paciente'),
 ]

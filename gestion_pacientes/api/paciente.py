@@ -48,7 +48,7 @@ class BuscarPacienteAPIView(APIView):
 
 @permission_classes([IsAuthenticated])
 class EditarPacienteAPIView(APIView):
-    def get(self, request, CURP, format=None):
+    def get(self, CURP):
         paciente = get_object_or_404(Paciente, CURP=CURP)
         paciente_serializer = PacienteSerializer(paciente)
         return Response(paciente_serializer.data)
