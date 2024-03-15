@@ -1,62 +1,101 @@
 
-import { useParams } from "react-router-dom"
 import { useForm } from "react-hook-form"
-import { getPaciente } from "../../services/Recepcionista"
 import { useState, useEffect, useContext } from "react"
-import { setToken } from "../../services/HeaderAuthorization"
 import AuthContext from "../../context/AuthProvider"
+import { editarPaciente } from "../../services/Recepcionista"
+import { setToken } from "../../services/HeaderAuthorization"
 
-export function EditPacienteForm({ onSubmit, registro }) {
-    const { register, setValue } = useForm()
-    const { idPaciente } = useParams()
-    const [paciente, setPaciente] = useState({})
+export function EditPacienteForm({ paciente }) {
+    const { register, setValue, handleSubmit } = useForm()
+    const { authTokens } = useContext(AuthContext)
     const [activateEdit, setActiEdit] = useState(false)
     const [programaFederal, setProgramaFederal] = useState(false);
     const [programaEstatal, setProgramaEstatal] = useState(false);
     const [programaMunicipal, setProgramaMunicipal] = useState(false);
-    const { authTokens } = useContext(AuthContext)
+
     const handleActivateEditar = () => {
         setActiEdit(!activateEdit)
     }
+    /**Cargar los datos del paciente en las input */
     useEffect(() => {
         async function loadInput() {
             try {
-                await setToken(authTokens.access)
-                const response = await getPaciente(idPaciente);
-                setPaciente(response)
-                setValue("nombre", response.datos_personales.nombre)
-                setValue("apePaterno", response.datos_personales.apePaterno)
-                setValue("apeMaterno", response.datos_personales.apeMaterno)
-                setValue("edad", response.datos_personales.edad)
-                setValue("estado_civil", response.datos_personales.estado_civil)
-                setValue("CURP", response.CURP)
-                setValue("escolaridad", response.datos_personales.escolaridad)
-                setValue("colonia", response.datos_direccion.colonia)
-                setValue("calle", response.datos_direccion.calle)
-                setValue("numero_exterior", response.datos_direccion.numero_exterior)
-                setValue("referencia", response.datos_direccion.referencia)
-                setValue("CP", response.datos_direccion.CP)
-                setValue("telefono", response.datos_contacto.telefono)
-                setValue("derecho_habiencia", response.datos_contacto.derecho_habiencia)
-                setValue("unidad_salud", response.datos_contacto.unidad_salud)
-                setValue("ultima_visita_medico", response.datos_contacto.ultima_visita_medico)
-                setValue("programa_gobierno_federal", response.otros_datos?.participa_programa_federal || false);
-                setValue("cual_programa_federal", response.otros_datos?.nombre_programa_federal || '');
-                setValue("programa_gobierno_estatal", response.otros_datos?.participa_programa_estatal || false);
-                setValue("cual_programa_estatal", response.otros_datos?.nombre_programa_estatal || '');
-                setValue("programa_gobierno_municipal", response.otros_datos?.participa_programa_municipal || false);
-                setValue("cual_programa_municipal", response.otros_datos?.nombre_programa_municipal || '');
-                setProgramaFederal(response.otros_datos?.participa_programa_federal || false);
-                setProgramaEstatal(response.otros_datos?.participa_programa_estatal || false);
-                setProgramaMunicipal(response.otros_datos?.participa_programa_municipal || false);
-                setValue("numero_personas_vive", response.datos_contacto.numero_personas_vive)
+                setValue("nombre", paciente.datos_personales?.nombre || '')
+                setValue("apePaterno", paciente.datos_personales?.apePaterno || '')
+                setValue("apeMaterno", paciente.datos_personales?.apeMaterno || '')
+                setValue("edad", paciente.datos_personales?.edad || '')
+                setValue("estado_civil", paciente.datos_personales?.estado_civil || '')
+                setValue("CURP", paciente.CURP)
+                setValue("escolaridad", paciente.datos_personales?.escolaridad || '')
+                setValue("colonia", paciente.datos_direccion?.colonia || '')
+                setValue("calle", paciente.datos_direccion?.calle || '')
+                setValue("numero_exterior", paciente.datos_direccion?.numero_exterior || '')
+                setValue("referencia", paciente.datos_direccion?.referencia || '')
+                setValue("CP", paciente.datos_direccion?.CP || '')
+                setValue("telefono", paciente.datos_contacto?.telefono || '')
+                setValue("derecho_habiencia", paciente.datos_contacto?.derecho_habiencia || '')
+                setValue("unidad_salud", paciente.datos_contacto?.unidad_salud || '')
+                setValue("ultima_visita_medico", paciente.datos_contacto?.ultima_visita_medico || '')
+                setValue("cual_programa_federal", paciente.otros_datos?.nombre_programa_federal || '');
+                setValue("cual_programa_estatal", paciente.otros_datos?.nombre_programa_estatal || '');
+                setValue("cual_programa_municipal", paciente.otros_datos?.nombre_programa_municipal || '');
+                setProgramaFederal(paciente.otros_datos?.participa_programa_federal || false);
+                setProgramaEstatal(paciente.otros_datos?.participa_programa_estatal || false);
+                setProgramaMunicipal(paciente.otros_datos?.participa_programa_municipal || false);
+                setValue("numero_personas_vive", paciente.datos_contacto?.numero_personas_vive || '')
             } catch (error) {
                 console.error("error al cargar input", error)
             }
         }
         loadInput();
-    }, [])
-
+    }, [paciente])
+    /**Funcion para enviar los datos actualizados (editar) */
+    const onSubmit = handleSubmit(async (data) => {
+        //Para convertir de cadena true or false a boleano
+        const parseBoolean = (value) => {
+            return value === "true"
+        }
+        const pacienteData = {
+            CURP: data.CURP,
+            "datos_personales": {
+                nombre: data.nombre,
+                apePaterno: data.apePaterno,
+                apeMaterno: data.apeMaterno,
+                edad: data.edad,
+                estado_civil: data.estado_civil,
+                escolaridad: data.escolaridad,
+            },
+            "datos_direccion": {
+                colonia: data.colonia,
+                calle: data.calle,
+                numero_exterior: data.numero_exterior,
+                CP: data.CP,
+                referencia: data.referencia,
+            },
+            "datos_contacto": {
+                telefono: data.telefono,
+                derecho_habiencia: data.derecho_habiencia,
+                unidad_salud: data.unidad_salud,
+                ultima_visita_medico: data.ultima_visita_medico,
+                numero_personas_vive: data.numero_personas_vive,
+            },
+            "otros_datos": {
+                participa_programa_federal: parseBoolean(data.programa_gobierno_federal),
+                nombre_programa_federal: data.cual_programa_federal,
+                participa_programa_estatal: parseBoolean(data.programa_gobierno_estatal),
+                nombre_programa_estatal: data.cual_programa_estatal,
+                participa_programa_municipal: parseBoolean(data.programa_gobierno_municipal),
+                nombre_programa_municipal: data.cual_programa_municipal,
+            }
+        };
+        try {
+            await setToken(authTokens.access);
+            const response = await editarPaciente(data.CURP, pacienteData);
+            console.log(response);
+        } catch (error) {
+            console.log(error)
+        }
+    })
     return (
         <>
             <div className="container-fluid">
@@ -74,11 +113,11 @@ export function EditPacienteForm({ onSubmit, registro }) {
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="nombre" className="form-label label-form">Nombre(s)</label>
-                        <input type="text" id="nombre" className="form-control input-form" {...register("nombre")} disabled={true} />
+                        <input type="text" id="nombre" name="nombre" className="form-control input-form" {...register("nombre")} disabled={true} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="apePaterno" className="form-label label-form">Apellido paterno</label>
-                        <input type="text" id="apePaterno" className="form-control input-form" {...register("apePaterno")} disabled={true} />
+                        <input type="text" id="apePaterno" name="apePaterno" className="form-control input-form" {...register("apePaterno")} disabled={true} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="apeMaterno" className="form-label label-form">Apellido materno</label>

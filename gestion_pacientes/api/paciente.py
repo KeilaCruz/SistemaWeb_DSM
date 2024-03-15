@@ -48,12 +48,12 @@ class BuscarPacienteAPIView(APIView):
 
 @permission_classes([IsAuthenticated])
 class EditarPacienteAPIView(APIView):
-    def get(self, CURP):
+    def get(self, request, CURP):
         paciente = get_object_or_404(Paciente, CURP=CURP)
         paciente_serializer = PacienteSerializer(paciente)
         return Response(paciente_serializer.data)
 
-    def patch(self, request, CURP, format=None):
+    def put(self, request, CURP, format=None):
         paciente = get_object_or_404(Paciente, CURP=CURP)
         paciente_serializer = PacienteSerializer(paciente, data=request.data)
         if paciente_serializer.is_valid():
