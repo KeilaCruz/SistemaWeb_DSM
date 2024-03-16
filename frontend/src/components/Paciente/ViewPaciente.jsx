@@ -1,27 +1,33 @@
 
-import { useContext } from "react"
+import { useParams } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
 import { EditPacienteForm } from "./EditPacienteForm"
-import { useForm } from "react-hook-form"
 import AuthContext from "../../context/AuthProvider"
+import { setToken } from "../../services/HeaderAuthorization"
+import { getPaciente } from "../../services/Recepcionista"
 
 export function ViewPaciente() {
-  const { register, handleSubmit } = useForm()
   const { authTokens } = useContext(AuthContext)
+  const [paciente, setPaciente] = useState({})
+  const { idPaciente } = useParams()
 
-  //Actualizar la información del paciente
-  const onSubmit = handleSubmit(async (data) => {
-    const pacienteData = {
-      
+  //Cargar el objeto paciente que se manda al componente del form para cargar input
+  useEffect(() => {
+    async function loadPacienteData() {
+      try {
+        await setToken(authTokens.access);
+        const paciente = await getPaciente(idPaciente)
+        setPaciente(paciente)
+      } catch (error) {
+        console.error(error)
+      }
     }
-    try {
+    loadPacienteData()
+  }, [])
 
-    } catch (error) {
-      console.log(error)
-    }
-  })
   return (
     <>
-      <EditPacienteForm onSubmit={onSubmit} registro={register} />
+      <EditPacienteForm paciente={paciente} />
     </>
   )
 }

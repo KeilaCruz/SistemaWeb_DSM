@@ -6,7 +6,11 @@ from gestion_pacientes.api.logueo import (
     RefreshTokenAPIView,
     BuscarUsuarioAPIView,
 )
-from gestion_pacientes.api.cita import CitaAPIView, AgendarCitaAPIView
+from gestion_pacientes.api.cita import (
+    CitaAPIView,
+    AgendarCitaAPIView,
+    VisualizarCitasPaciente,
+)
 from gestion_pacientes.api.paciente import (
     PacienteAPIView,
     RegistrarPacienteAPIView,
@@ -61,4 +65,5 @@ urlpatterns = [
 
     
     
+    path("citas_paciente/<str:CURP>/", VisualizarCitasPaciente.as_view(), name='citas_paciente'),
 ]

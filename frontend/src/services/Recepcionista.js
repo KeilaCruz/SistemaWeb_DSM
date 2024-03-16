@@ -98,8 +98,8 @@ export const getAllCitas = async () => {
 export const editarPaciente = async (CURP, paciente) => {
     try {
         const config = await getConfig();
-        const response = await axios.post(`${EDIT_PACIENTE_URL}${CURP}`, paciente, config)
-        if (response.status == 201) {
+        const response = await axios.put(`${EDIT_PACIENTE_URL}${CURP}/`, paciente, config)
+        if (response.status == 200) {
             alert("Modificacion realizada")
         } else {
             console.log("error al modificar")

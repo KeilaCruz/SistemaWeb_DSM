@@ -6,6 +6,7 @@ from rest_framework.decorators import permission_classes
 from gestion_pacientes.models import Cita
 from .serializers import CitaSerializer
 from datetime import datetime, timedelta
+from django.shortcuts import get_object_or_404
 
 
 class CitaAPIView(APIView):
@@ -13,7 +14,6 @@ class CitaAPIView(APIView):
         citas = Cita.objects.all()
         cita_serializer = CitaSerializer(citas, many=True)
         return Response(cita_serializer.data)
-
 
 
 class AgendarCitaAPIView(APIView):
@@ -55,3 +55,16 @@ class AgendarCitaAPIView(APIView):
             cita_serializer.save()
             return Response(cita_serializer.data, status=status.HTTP_201_CREATED)
         return Response(cita_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class VisualizarCitasPaciente(APIView):
+    def get(self, request, CURP):
+        citas = self.get_citas(CURP)
+        cita_serializer = CitaSerializer(citas, many=True)
+        return Response(cita_serializer.data)
+
+    def get_citas(self, CURP):
+        try:
+            return Cita.objects.filter(idPaciente=CURP)
+        except Cita.DoesNotExist:
+            raise "No existe"
