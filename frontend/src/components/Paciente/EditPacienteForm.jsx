@@ -16,6 +16,25 @@ export function EditPacienteForm({ paciente }) {
     const handleActivateEditar = () => {
         setActiEdit(!activateEdit)
     }
+
+    const handleFederalChange = (evt) => {
+        const valor = evt.target.value === "true";
+        setProgramaFederal(valor);
+        setValue("programa_gobierno_federal", valor);
+    }
+
+    const handleEstatalChange = (evt) => {
+        const valor = evt.target.value === "true";
+        setProgramaEstatal(valor);
+        setValue("programa_gobierno_estatal", valor);
+    }
+
+    const handleMunicipalChange = (evt) => {
+        const valor = evt.target.value === "true";
+        setProgramaMunicipal(valor);
+        setValue("programa_gobierno_municipal", valor);
+    }
+
     /**Cargar los datos del paciente en las input */
     useEffect(() => {
         async function loadInput() {
@@ -96,6 +115,7 @@ export function EditPacienteForm({ paciente }) {
             console.log(error)
         }
     })
+
     return (
         <>
             <div className="container-fluid">
@@ -177,29 +197,24 @@ export function EditPacienteForm({ paciente }) {
                     <div className="col-md-10 offset-md-1">
                         <label className="form-label label-form">Es beneficiario de algún programa de gobierno</label>
                     </div>
+
                     <div className="col-md-4 offset-md-1">
                         <label className="form-label label-form">Federal</label>
                         <label htmlFor="federal_si" className="form-label mx-2">Si
                             <input
-                                type="radio" id="federal_si" name="programa_gobierno_federal" checked={programaFederal} onChange={() => {
-                                    setProgramaFederal(true);
-                                    setValue("programa_gobierno_federal", true);
-                                }}
+                                type="radio" id="federal_si" name="programa_gobierno_federal" value={true} checked={programaFederal} onChange={handleFederalChange}
                                 disabled={!activateEdit}
                             />
                         </label>
                         <label htmlFor="federal_no" className="form-label mx-2">No
                             <input
-                                type="radio" id="federal_no" name="programa_gobierno_federal" checked={!programaFederal} onChange={() => {
-                                    setProgramaFederal(false);
-                                    setValue("programa_gobierno_federal", false);
-                                }}
+                                type="radio" id="federal_no" name="programa_gobierno_federal" value={false} checked={!programaFederal} onChange={handleFederalChange}
                                 disabled={!activateEdit}
                             />
                         </label>
                     </div>
 
-                    {paciente && paciente.otros_datos && paciente.otros_datos.participa_programa_federal && (
+                    {programaFederal && (
                         <div>
                             <input type="text" id="programa_federal" {...register("cual_programa_federal")} disabled={!activateEdit} />
                         </div>
@@ -209,25 +224,19 @@ export function EditPacienteForm({ paciente }) {
                         <label className="form-label label-form">Estatal</label>
                         <label htmlFor="estatal_si" className="form-label mx-2">Si
                             <input
-                                type="radio" id="estatal_si" name="programa_gobierno_estatal" checked={programaEstatal} onChange={() => {
-                                    setProgramaEstatal(true);
-                                    setValue("programa_gobierno_estatal", true);
-                                }}
+                                type="radio" id="estatal_si" name="programa_gobierno_estatal" value={true} checked={programaEstatal} onChange={handleEstatalChange}
                                 disabled={!activateEdit}
                             />
                         </label>
                         <label htmlFor="estatal_no" className="form-label mx-2">No
                             <input
-                                type="radio" id="estatal_no" name="programa_gobierno_estatal" checked={!programaEstatal} onChange={() => {
-                                    setProgramaEstatal(false);
-                                    setValue("programa_gobierno_estatal", false);
-                                }}
+                                type="radio" id="estatal_no" name="programa_gobierno_estatal" value={false} checked={!programaEstatal} onChange={handleEstatalChange}
                                 disabled={!activateEdit}
                             />
                         </label>
                     </div>
 
-                    {paciente && paciente.otros_datos && paciente.otros_datos.participa_programa_estatal && (
+                    {programaEstatal && (
                         <div className="col-md-4 offset-md-1">
                             <input type="text" id="programa_estatal" {...register("cual_programa_estatal")} disabled={!activateEdit} />
                         </div>
@@ -237,25 +246,19 @@ export function EditPacienteForm({ paciente }) {
                         <label className="form-label label-form">Municipal</label>
                         <label htmlFor="municipal_si" className="form-label mx-2">Si
                             <input
-                                type="radio" id="municipal_si" name="programa_gobierno_municipal" checked={programaMunicipal} onChange={() => {
-                                    setProgramaMunicipal(true);
-                                    setValue("programa_gobierno_municipal", true);
-                                }}
+                                type="radio" id="municipal_si" name="programa_gobierno_municipal" value={true} checked={programaMunicipal} onChange={handleMunicipalChange}
                                 disabled={!activateEdit}
                             />
                         </label>
                         <label htmlFor="municipal_no" className="form-label mx-2">No
                             <input
-                                type="radio" id="municipal_no" name="programa_gobierno_municipal" checked={!programaMunicipal} onChange={() => {
-                                    setProgramaMunicipal(false);
-                                    setValue("programa_gobierno_municipal", false);
-                                }}
+                                type="radio" id="municipal_no" name="programa_gobierno_municipal" value={false} checked={!programaMunicipal} onChange={handleMunicipalChange}
                                 disabled={!activateEdit}
                             />
                         </label>
                     </div>
 
-                    {paciente && paciente.otros_datos && paciente.otros_datos.participa_programa_municipal && (
+                    {programaMunicipal && (
                         <div className="col-md-4 offset-md-1">
                             <input type="text" id="programa_municipal" {...register("cual_programa_municipal")} disabled={!activateEdit} />
                         </div>

@@ -10,7 +10,7 @@ export function PacienteCardResumen({ paciente }) {
     }
     return (
         <>
-            <div className="col-sm-10">
+            <div className="col-sm-11">
                 <div className="card cards-buscar">
                     <div className="card-body">
                         <p className="cards-buscar-text text-center">{paciente.CURP}</p>
