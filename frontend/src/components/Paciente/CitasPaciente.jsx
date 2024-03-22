@@ -1,15 +1,17 @@
+
+import esLocale from "@fullcalendar/core/locales/es"; // Importa el idioma español
+import { useState, useContext, useEffect } from "react";
+import { Button, Modal } from "react-bootstrap";
+import { getPaciente } from "../../services/Recepcionista";
+import { setToken } from "../../services/HeaderAuthorization";
+import { getCitasPaciente } from "../../services/Recepcionista";
+import { useParams } from "react-router-dom"
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import esLocale from "@fullcalendar/core/locales/es"; // Importa el idioma español
-import { useState, useContext, useEffect } from "react";
 import bootstrap5Plugin from "@fullcalendar/bootstrap5";
-import { Button, Modal } from "react-bootstrap";
-import { getPaciente } from "../../services/Recepcionista";
-import { setToken } from "../../services/HeaderAuthorization";
 import AuthContext from "../../context/AuthProvider";
-import { getCitasPaciente } from "../../services/Recepcionista";
 
 export function CitasPaciente() {
     const { idPaciente } = useParams()
@@ -29,7 +31,8 @@ export function CitasPaciente() {
         setEventDetails({});
         setShowModal(false);
     }
-
+    {/**
+ */}
     useEffect(() => {
         const loadCitasPaciente = async () => {
             try {
@@ -37,7 +40,7 @@ export function CitasPaciente() {
                 const citasData = await getCitasPaciente(idPaciente)
                 const eventsData = await Promise.all(citasData.map(async (cita) => {
                     const pacienteData = await getPaciente(cita.idPaciente);
-                    
+
                     return {
                         title: `${pacienteData.datos_personales.nombre} ${pacienteData.datos_personales.apePaterno} ${pacienteData.datos_personales.apeMaterno}`,
                         start: new Date(`${cita.datos_cita.fecha_cita}T${cita.datos_cita.horario_cita}`),

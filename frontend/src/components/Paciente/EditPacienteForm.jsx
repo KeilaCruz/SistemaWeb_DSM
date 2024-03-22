@@ -80,11 +80,11 @@ export function EditPacienteForm({ paciente }) {
                 numero_personas_vive: data.numero_personas_vive,
             },
             "otros_datos": {
-                participa_programa_federal: parseBoolean(data.programa_gobierno_federal),
+                participa_programa_federal: programaFederal,
                 nombre_programa_federal: data.cual_programa_federal,
-                participa_programa_estatal: parseBoolean(data.programa_gobierno_estatal),
+                participa_programa_estatal: programaEstatal,
                 nombre_programa_estatal: data.cual_programa_estatal,
-                participa_programa_municipal: parseBoolean(data.programa_gobierno_municipal),
+                participa_programa_municipal: programaMunicipal,
                 nombre_programa_municipal: data.cual_programa_municipal,
             }
         };

@@ -82,6 +82,7 @@ export const editarPaciente = async (CURP, paciente) => {
             alert("Modificacion realizada")
         } else {
             console.log("error al modificar")
+            return response;
         }
     } catch (error) {
         console.error(error)
