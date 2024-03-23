@@ -31,3 +31,17 @@ class EditarExamenMedicoAPIView(APIView):
         examenMedico = get_object_or_404(ExamenMedico, idExamenMedico=idExamenMedico)
         examenMedico_serializer = ExamenMedicoSerializer(examenMedico)
         return Response(examenMedico_serializer.data)
+    
+    def put(self, request, idExamenMedico, format=None):
+        examenMedico = get_object_or_404(ExamenMedico, idExamenMedico=idExamenMedico)
+        examenMedico_serializer = ExamenMedicoSerializer(examenMedico, data=request.data)
+        if examenMedico_serializer.is_valid():
+            examenMedico_serializer.save()
+            return Response(examenMedico_serializer.data)
+        return Response(examenMedico_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get_examenMedico(self, idExamenMedico):
+        try:
+            return ExamenMedico.objects.get(idExamenMedico=idExamenMedico)
+        except ExamenMedico.DoesNotExist:
+            raise "No existe"

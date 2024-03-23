@@ -7,6 +7,7 @@ import { PacienteCardResumen } from "./PacienteCardResumen"
 export function BuscarPacientes() {
     const [pacientes, setPacientes] = useState([])
     const { authTokens } = useContext(AuthContext)
+
     useEffect(() => {
         async function loadPacientes() {
             await setToken(authTokens.access)
@@ -15,6 +16,7 @@ export function BuscarPacientes() {
         }
         loadPacientes()
     }, [])
+    
     return (
         <>
             <div className="container-fluid">

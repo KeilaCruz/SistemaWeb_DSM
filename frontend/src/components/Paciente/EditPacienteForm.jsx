@@ -49,6 +49,7 @@ export function EditPacienteForm({ paciente }) {
         }
         loadInput();
     }, [paciente])
+    
     /**Funcion para enviar los datos actualizados (editar) */
     const onSubmit = handleSubmit(async (data) => {
         //Para convertir de cadena true or false a boleano

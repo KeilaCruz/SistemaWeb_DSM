@@ -11,18 +11,22 @@ export function AddExamenMedico() {
     const [pacienteSelect, setPacienteSelect] = useState("")
 
   const onSubmit = handleSubmit(async (data) => {
+    const parseBoolean = (value) => {
+      return value === "true"
+  }
     const examenMedico = {
       idUsuario: data.idUsuario,
       idPaciente: pacienteSelect,
       fecha_revision: data.fecha_revision,
       "antecedentes_heredofamiliares": {
-        madre_viva: data.madre_viva,
+
+        madre_viva: parseBoolean(data.madre_viva),
         madre_finada: data.madre_finada,
-        padre_vivo: data.padre_vivo,
+        padre_vivo: parseBoolean(data.padre_vivo),
         padre_finado: data.padre_finado,
-        hermano_vivo: data.hermano_vivo,
+        hermano_vivo: parseBoolean(data.hermano_vivo),
         hermano_finado: data.hermano_finado,
-        hijos_vivos: data.hijos_vivos,
+        hijos_vivos: parseBoolean(data.hijos_vivos),
         hijos_finados: data.hijos_finados,
       },
       "datos_enfermedades": {
@@ -43,12 +47,12 @@ export function AddExamenMedico() {
         fecha_nacimiento: data.fecha_nacimiento,
         escolaridad: data.escolaridad,
         trabajo_actual: data.trabajo_actual,
-        practica_ejercicio: data.practica_ejercicio,
+        practica_ejercicio: parseBoolean(data.practica_ejercicio),
         ejercicio_cual: data.ejercicio_cual,
-        tabaquismo: data.tabaquismo,
+        tabaquismo: parseBoolean(data.tabaquismo),
         tabaquismo_edad: data.tabaquismo_edad,
         tabaquismo_cantidad: data.tabaquismo_cantidad,
-        alcoholismo: data.alcoholismo,
+        alcoholismo: parseBoolean(data.alcoholismo),
         alcoholismo_edad: data.alcoholismo_edad,
         inmunizaciones: data.inmunizaciones,
         habitos_higienicos: data.habitos_higienicos,
@@ -65,7 +69,7 @@ export function AddExamenMedico() {
         num_abortos: data.num_abortos,
         ultimo_parto: data.ultimo_parto,
         ultimo_aborto: data.ultimo_aborto,
-        planificacion_familiar: data.planificacion_familiar,
+        planificacion_familiar: parseBoolean(data.planificacion_familiar),
         metodo_planificacion: data.metodo_planificacion,
       },
       "antecedentes_personales_patologicos": {

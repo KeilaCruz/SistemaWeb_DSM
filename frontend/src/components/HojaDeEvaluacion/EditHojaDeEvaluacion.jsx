@@ -1,34 +1,75 @@
-import { useContext, useState } from "react";
-import { searchPaciente } from "../../services/Recepcionista";
-import { setToken } from "../../services/HeaderAuthorization";
-import { PacienteCard } from "../Paciente/PacienteCard";
-import AuthContext from "../../context/AuthProvider";
 
-export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
-  const { authTokens } = useContext(AuthContext);
-  const [criterio, setCriterio] = useState("");
-  const [paciente, setPaciente] = useState([]);
+import { useForm } from "react-hook-form"
+import { useState, useEffect, useContext } from "react"
+import AuthContext from "../../context/AuthProvider"
+import { editarHojaEvaluacion } from "../../services/DoctorGeneral"
+import { setToken } from "../../services/HeaderAuthorization"
 
-  const handleBarraBusqueda = (evt) => {
-    setCriterio(evt.target.value);
-  };
+export function EditHojaDeEvaluacion({hojaClinica}) {
+  const { register, setValue, handleSubmit } = useForm()
+    const { authTokens } = useContext(AuthContext)
+    const [activateEdit, setActiEdit] = useState(false)
 
-  const handleBuscarPaciente = async () => {
-    try {
-      await setToken(authTokens.access);
-      const data = await searchPaciente(criterio);
-      setPaciente(data);
-    } catch (error) {
-      console.error(error);
+
+    const handleActivateEditar = () => {
+      setActiEdit(!activateEdit)
+      
+  }
+
+  useEffect(() => {
+    async function loadInput (){
+      try {
+            setValue("fecha_revision", hojaClinica?.fecha_revision || '');
+            setValue("tension_arterial", hojaClinica.datos_nota_enfermeria?.tension_arterial || '');
+            setValue("frecuencia_cardiaca", hojaClinica.datos_nota_enfermeria?.frecuencia_cardiaca || '');
+            setValue("frecuencia_respiratoria", hojaClinica.datos_nota_enfermeria?.frecuencia_respiratoria || '');
+            setValue("temperatura", hojaClinica.datos_nota_enfermeria?.temperatura || '');
+            setValue("imc", hojaClinica.datos_nota_enfermeria?.imc || '');
+            setValue("saturacion_oxigeno", hojaClinica.datos_nota_enfermeria?.saturacion_oxigeno || '');
+            setValue("glucosa", hojaClinica.datos_nota_enfermeria?.glucosa || '');
+            setValue("peso", hojaClinica.datos_nota_enfermeria?.peso || '');
+            setValue("talla", hojaClinica.datos_nota_enfermeria?.talla || '');
+            setValue("cintura", hojaClinica.datos_nota_enfermeria?.cintura || '');
+            setValue("nota_medica", hojaClinica?.nota_medica || '');
+      } catch (error) {
+          console.error("error al cargar input", error)
+      }
     }
-  };
+    loadInput();
 
-  const selectPaciente = (CURP) => {
-    pacienteSelect(CURP);
-  };
+  }, [hojaClinica])
+
+  const onSubmit = handleSubmit(async (data) => {
+    const hojaEvaluacion = {
+        fecha_revision: data.fecha_revision,
+        nota_medica: data.nota_medica,
+        "datos_nota_enfermeria": {
+            tension_arterial: data.tension_arterial,
+            frecuencia_cardiaca: data.frecuencia_cardiaca,
+            frecuencia_respiratoria: data. frecuencia_respiratoria,
+            temperatura: data.temperatura,
+            imc: data.imc,
+            saturacion_oxigeno: data.saturacion_oxigeno,
+            glucosa: data.glucosa,
+            peso: data.peso,
+            talla: data.talla,
+            cintura: data.cintura,
+        },
+        idPaciente: hojaClinica.idPaciente,
+        
+    }
+    try {
+        await setToken(authTokens.access);
+        const response = await editarHojaEvaluacion(hojaClinica.idHojaClinica, hojaEvaluacion);
+        console.log(response)
+    } catch (error) {
+        console.error(error)
+    }
+
+})
 
   return (
-    <div>
+    <>
       <div className="container-fluid">
         {/* Titulo */}
         <div className="container mt-3 mb-4">
@@ -41,36 +82,9 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
           </div>
         </div>
 
-        <div>
-          <div className="row">
-            <div className="col-md-6 offset-1">
-              <input
-                className="form-control input-form"
-                type="text"
-                id="busqueda_paciente"
-                placeholder="Buscar por CURP o nombre"
-                onChange={handleBarraBusqueda}
-              />
-            </div>
-            <div className="col-md-3 mt-1">
-              <button onClick={handleBuscarPaciente} className="button-buscar btn btn-primary">
-                Buscar
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-9 offset-1">
-          <label className="form-label label-section">DATOS PERSONALES</label>
-        </div>
-        <div className="col-md-9 offset-1">
-          {paciente.map((paciente) => (
-            <PacienteCard
-              paciente={paciente}
-              key={paciente.CURP}
-              handleSelect={selectPaciente}
-            />
-          ))}
-        </div>
+       
+
+        
 
         <form onSubmit={onSubmit} className="row g-3 mt-5">
           <div className="col-md-11 offset-md-1">
@@ -88,6 +102,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               placeholder="Fecha de revision"
               id="fecha-revision"
               {...register("fecha_revision", { required: true })}
+              disabled ={true}
               className="form-control"
             />
           </div>
@@ -105,6 +120,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               placeholder="T/A"
               id="tension-arterial"
               {...register("tension_arterial", { required: true })}
+              disabled={!activateEdit}
               className="form-control"
             />
           </div>
@@ -117,6 +133,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               type="number"
               placeholder="FC"
               {...register("frecuencia_cardiaca", { required: true })}
+              disabled={!activateEdit}
               className="form-control"
             />
           </div>
@@ -130,6 +147,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               placeholder="FR"
               id="frecuencia-respiratoria"
               {...register("frecuencia_respiratoria", { required: true })}
+              disabled={!activateEdit}
               className="form-control"
             />
             
@@ -144,6 +162,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               placeholder="°C"
               id="temperatura"
               {...register("temperatura", { required: true })}
+              disabled={!activateEdit}
               className="form-control"
             />
           </div>
@@ -157,6 +176,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               placeholder="Indice de masa corporal"
               id="imc"
               {...register("imc", { required: true })}
+              disabled={!activateEdit}
               className="form-control"
             />
           </div>
@@ -170,10 +190,11 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               placeholder="SpO2"
               id="spo2"
               {...register("saturacion_oxigeno", { required: true })}
+              disabled={!activateEdit}
               className="form-control"
             />
           </div>
-          
+
           <div className="col-md-3 offset-md-1">
             <label htmlFor="glucosa" className="form-label">
               Glucosa (mg/dL):
@@ -183,6 +204,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               placeholder="mg/dL"
               id="glucosa"
               {...register("glucosa", { required: true })}
+              disabled={!activateEdit}
               className="form-control"
             />
           </div>
@@ -196,6 +218,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               placeholder="Peso"
               id="peso"
               {...register("peso", { required: true })}
+              disabled={!activateEdit}
               className="form-control"
             />
           </div>
@@ -209,6 +232,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               placeholder="Talla"
               id="talla"
               {...register("talla", { required: true })}
+              disabled={!activateEdit}
               className="form-control"
             />
           </div>
@@ -222,6 +246,7 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               placeholder="Cintura"
               id="cintura"
               {...register("cintura", { required: true })}
+              disabled={!activateEdit}
               className="form-control"
             />
           </div>
@@ -236,14 +261,25 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               placeholder="Nota medica"
               id="nota-medica"
               {...register("nota_medica", { required: true })}
+              disabled={!activateEdit}
               className="form-control"
             ></textarea>
           </div>
-          <div className="col-md-5 offset-1 mt-4 mb-4">
-            <button className="button-guardar btn btn-success">Guardar</button>
-          </div>
+          
+          {activateEdit && (
+                        <div className="col-md-5 offset-1 mt-4 mb-4">
+                            <button className="btn btn-success">Guardar</button>
+                        </div>
+                    )}
         </form>
+
+        {!activateEdit && (
+                        <div className="col-md-5 offset-1 mt-4 mb-4">
+                            <button className="btn btn-primary"  onClick={handleActivateEditar}>Editar</button>
+                        </div>
+                    )}
       </div>
-    </div>
-  );
+    </>
+  )
 }
+

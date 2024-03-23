@@ -34,11 +34,13 @@ from gestion_pacientes.api.evento import (
 from gestion_pacientes.api.examenMedico import (
     ExamenMedicoAPIView,
     RegistrarExamenMedicoAPIView,
+    EditarExamenMedicoAPIView,
 )
 
 from gestion_pacientes.api.hojaEvaluacion import (
     HojaEvaluacionClinicaAPIView,
     RegistrarHojaEvaluacionAPIView,
+    EditarHojaEvaluacionAPIView,
 )
 
 
@@ -60,8 +62,11 @@ urlpatterns = [
     path("registrar_evento/", RegistrarEventoAPIView.as_view()),
     path("registrar_examen_medico/", RegistrarExamenMedicoAPIView.as_view()),
     path("examen_medico/", ExamenMedicoAPIView.as_view()),
+    path("editar_examen_medico/<str:idExamenMedico>/", EditarExamenMedicoAPIView.as_view()),
     path("registrar_hoja_evaluacion/", RegistrarHojaEvaluacionAPIView.as_view()),
     path("hoja_evaluacion/", HojaEvaluacionClinicaAPIView.as_view()),
+    path("editar_hoja_evaluacion/<str:idHojaClinica>", EditarHojaEvaluacionAPIView.as_view()),
+
 
     
     

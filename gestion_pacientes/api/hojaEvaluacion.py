@@ -27,9 +27,23 @@ class RegistrarHojaEvaluacionAPIView(APIView):
     
     
 @permission_classes([IsAuthenticated])
-class EditarExamenMedicoAPIView(APIView):
+class EditarHojaEvaluacionAPIView(APIView):
     def get(self, request, idHojaClinica, format=None):
         hojaEvaluacion = get_object_or_404(HojaEvaluacionClinica, idHojaClinica=idHojaClinica)
         hojaEvaluacion_serializer = HojaEvaluacionClinicaSerializer(hojaEvaluacion)
         return Response(hojaEvaluacion_serializer.data)
+    
+    def put(self, request, idHojaClinica, format=None):
+        hojaEvaluacion = get_object_or_404(HojaEvaluacionClinica, idHojaClinica=idHojaClinica)
+        hojaEvaluacion_serializer = HojaEvaluacionClinicaSerializer(hojaEvaluacion, data=request.data)
+        if hojaEvaluacion_serializer.is_valid():
+            hojaEvaluacion_serializer.save()
+            return Response(hojaEvaluacion_serializer.data)
+        return Response(hojaEvaluacion_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get_evaluacionClinica(self, idHojaClinica):
+        try:
+            return HojaEvaluacionClinica.objects.get(idHojaClinica=idHojaClinica)
+        except HojaEvaluacionClinica.DoesNotExist:
+            raise "No existe"
     
