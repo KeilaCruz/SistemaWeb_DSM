@@ -6,7 +6,7 @@ const SAVE_PACIENTE_URL = "http://127.0.0.1:8000/api/registrar_paciente/";
 const SEARCH_PACIENTE_URL = "http://127.0.0.1:8000/api/buscar_paciente/";
 const SAVE_CITA_URL = "http://127.0.0.1:8000/api/agendar_cita/";
 const EDIT_PACIENTE_URL = "http://127.0.0.1:8000/api/editar_paciente/"
-
+const LIST_CITA_PACIENTE_URL = "http://127.0.0.1:8000/api/citas_paciente/";
 export const getAllPacientes = async () => {
     try {
         const config = await getConfig()
@@ -82,6 +82,21 @@ export const editarPaciente = async (CURP, paciente) => {
             alert("Modificacion realizada")
         } else {
             console.log("error al modificar")
+            return response;
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const getCitasPaciente = async (CURP) => {
+    try {
+        const config = await getConfig();
+        const response = await axios.get(`${LIST_CITA_PACIENTE_URL}${CURP}/`, config)
+        if (response.status == 200) {
+            return response.data
+        } else {
+            console.log("Error al retornar las citas del paciente")
         }
     } catch (error) {
         console.error(error)
