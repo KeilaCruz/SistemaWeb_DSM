@@ -74,3 +74,28 @@ body {
   height: 100%;
 }
 
+
+/* Barra de busqueda */
+.lista-resultados{
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 8px #ddd;
+  border-radius: 10px;
+  margin-top: 1rem;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.resultado-busqueda{
+  padding: 10px 20px;
+
+}
+
+.resultado-busqueda:hover{
+  background-color: #efefef;
+  cursor: pointer;
+}
+
+

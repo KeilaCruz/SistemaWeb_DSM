@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import AuthContext from "../context/AuthProvider";
+import { BarraDeBusqueda } from "./Buscar-Paciente/BarraDeBusqueda";
+import { ListaDeResultados } from "./Buscar-Paciente/ListaDeResultados";
 
 export function Header() {
   const { user, logout } = useContext(AuthContext);
+  const [resultados, setResultados] = useState([]);
+
 
   return (
     <>
@@ -11,7 +15,7 @@ export function Header() {
         <nav className="navbar navbar-expand-lg navbar-dark navbar-custom">
           <div className="container-fluid">
             <button
-              class="navbar-toggler"
+              className="navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarNav"
@@ -19,7 +23,7 @@ export function Header() {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span class="navbar-toggler-icon"></span>
+              <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav">
@@ -103,29 +107,19 @@ export function Header() {
                       </Link>
                     </li>
 
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/buscar_paciente">
-                        Buscar paciente
-                      </Link>
-                    </li>
+                    
 
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/calendario">
-                        Calendario
-                      </Link>
-                    </li>
-
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/registrar_evaluacionclinica">
-                        Evaluacion clinica
-                      </Link>
-                    </li>
-
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/registrar_examenmedico">
-                        Examen Medico
-                      </Link>
-                    </li>
+                        <div className="dropdown">
+                          <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Más opciones
+                          </button>
+                          <ul className="dropdown-menu dropdown-menu-dark">
+                          <li><Link className="dropdown-item" to="/buscar_paciente">Buscar paciente</Link></li>
+                            <li><Link className="dropdown-item" to="/registrar_examenmedico">Examen medico</Link></li>
+                            <li><Link className="dropdown-item" to="/registrar_evaluacionclinica">Evaluacion clinica</Link></li>
+                            <li><Link className="dropdown-item" to="/calendario">Calendario</Link></li>
+                          </ul>
+                      </div>
 
                   
                       </>
@@ -170,6 +164,14 @@ export function Header() {
                 )}
               </ul>
             </div>
+
+            
+            {user && (
+  /* Barra de búsqueda */
+  <form className="d-flex ms-auto">
+    <BarraDeBusqueda setResultados={setResultados} />
+  </form>
+)}
           </div>
         </nav>
         <div
@@ -178,6 +180,7 @@ export function Header() {
         >
           {user && <p className="fw-bold ml-3">Bienvenido {user.username}</p>}
         </div>
+        <ListaDeResultados resultados={resultados} />
       </div>
 
       

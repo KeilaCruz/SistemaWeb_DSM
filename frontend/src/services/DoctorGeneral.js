@@ -87,7 +87,18 @@ export const registerHojaEvaluacion = async (evaluacion) => {
         const config = await getConfig()
         const response = await axios.post(SAVE_HOJA_DE_EVALUACION_URL, evaluacion, config)
         if (response.status === 201) {
-            alert("Registrado correctamente")
+           Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Los cambios se guardaron correctamente.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  console.log('Se hizo clic en Aceptar');
+                  location.href ='/ver_evaluacionClinica';
+                }
+              });
         } else {
             return response;
         }
@@ -130,6 +141,12 @@ export const editarHojaEvaluacion = async (idHojaClinica, evaluacion) => {
               });
         } else {
             console.log("error al modificar")
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡Algo salio mal!",
+                footer: '<a href="#">Intente de nuevo</a>'
+              });
         }
     } catch (error) {
         console.error(error)
