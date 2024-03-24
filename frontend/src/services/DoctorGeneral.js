@@ -111,7 +111,7 @@ export const registerHojaEvaluacion = async (evaluacion) => {
 export const getHojaEvaluacion = async (idHojaClinica) => {
     try {
         const config = await getConfig();
-        const response = await axios.get(`${EDIT_HOJA_DE_EVALUACION_URL}${idHojaClinica}`, config)
+        const response = await axios.get(`${EDIT_HOJA_DE_EVALUACION_URL}${idHojaClinica}/`, config)
         if (response.status == 200) {
             return response.data;
         } else {
@@ -125,7 +125,7 @@ export const getHojaEvaluacion = async (idHojaClinica) => {
 export const editarHojaEvaluacion = async (idHojaClinica, evaluacion) => {
     try {
         const config = await getConfig();
-        const response = await axios.put(`${EDIT_HOJA_DE_EVALUACION_URL}${idHojaClinica}`, evaluacion, config)
+        const response = await axios.put(`${EDIT_HOJA_DE_EVALUACION_URL}${idHojaClinica}/`, evaluacion, config)
         if (response.status == 200) {
             Swal.fire({
                 icon: 'success',

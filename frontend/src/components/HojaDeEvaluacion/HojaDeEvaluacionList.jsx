@@ -6,7 +6,9 @@ import { HojaDeEvaluacionCard } from "./HojaDeEvaluacionCard";
 import {  getPaciente } from "../../services/Recepcionista";
 
 export function HojaDeEvaluacionList() {
-  const [evaluaciones, setEvaluaciones] = useState([]);
+  const [evaluacionesOriginales, setEvaluacionesOriginales] = useState([]);
+  const [evaluacionesFiltradas, setEvaluacionesFiltradas] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const { authTokens } = useContext(AuthContext);
 
   useEffect(() => {
@@ -14,19 +16,14 @@ export function HojaDeEvaluacionList() {
       try {
         await setToken(authTokens.access);
         const evaluacionesData = await getAllHojasEvaluacion();
-
-        // Obtener datos de pacientes relacionados con cada hoja de evaluación
         const evaluacionesConPacientes = await Promise.all(
           evaluacionesData.map(async (evaluacion) => {
-            // Obtener datos del paciente usando la llave foránea idPaciente
             const pacienteData = await getPaciente(evaluacion.idPaciente);
-            // Agregar datos del paciente a la evaluación
             return { ...evaluacion, paciente: pacienteData };
           })
         );
-
-        // Establecer las evaluaciones en el estado, incluyendo los datos del paciente
-        setEvaluaciones(evaluacionesConPacientes);
+        setEvaluacionesOriginales(evaluacionesConPacientes);
+        setEvaluacionesFiltradas(evaluacionesConPacientes);
       } catch (error) {
         console.error("Error al cargar las evaluaciones:", error);
       }
@@ -34,27 +31,46 @@ export function HojaDeEvaluacionList() {
     loadEvaluaciones();
   }, []);
 
+  const searchEvaluaciones = () => {
+    const filteredEvaluaciones = evaluacionesOriginales.filter(evaluacion => {
+      const nombreCompleto = `${evaluacion.paciente.datos_personales.nombre} ${evaluacion.paciente.datos_personales.apePaterno} ${evaluacion.paciente.datos_personales.apeMaterno}`;
+      return nombreCompleto.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    setEvaluacionesFiltradas(filteredEvaluaciones);
+  };
+
+  useEffect(() => {
+    if (searchTerm === '') {
+      setEvaluacionesFiltradas(evaluacionesOriginales);
+    } else {
+      searchEvaluaciones();
+    }
+  }, [searchTerm]);
+
   return (
-    
-      <div className="container-fluid">
-
-        
-
-        <div className="py-3">
+    <div className="container-fluid">
+      <div className=" col-md-3 offset-md-1">
+        <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" value={searchTerm} 
+        onChange={(e) => setSearchTerm(e.target.value)} 
+        placeholder="Buscar por nombre de paciente" aria-label="Search"/>
+      </form>
+      </div>
+      
+      <div className="py-3">
         <div className="container">
+        {evaluacionesFiltradas.length === 0 && <p>No se encontraron resultados.</p>}
           <div className="row hidden-md-up">
-          {evaluaciones.map((evaluacion) => (
+            {evaluacionesFiltradas.map((evaluacion) => (
               <HojaDeEvaluacionCard
-              key={evaluacion.idHojaClinica}
+                key={evaluacion.idHojaClinica}
                 evaluacion={evaluacion}
                 paciente={evaluacion.paciente}
               />
-          ))}
+            ))}
           </div>
         </div>
       </div>
-
-      </div>
-    
+    </div>
   );
 }

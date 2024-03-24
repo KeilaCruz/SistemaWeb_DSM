@@ -65,7 +65,7 @@ urlpatterns = [
     path("editar_examen_medico/<str:idExamenMedico>/", EditarExamenMedicoAPIView.as_view()),
     path("registrar_hoja_evaluacion/", RegistrarHojaEvaluacionAPIView.as_view()),
     path("hoja_evaluacion/", HojaEvaluacionClinicaAPIView.as_view()),
-    path("editar_hoja_evaluacion/<str:idHojaClinica>", EditarHojaEvaluacionAPIView.as_view()),
+    path("editar_hoja_evaluacion/<str:idHojaClinica>/", EditarHojaEvaluacionAPIView.as_view()),
 
 
     

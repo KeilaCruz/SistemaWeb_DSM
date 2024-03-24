@@ -193,11 +193,11 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
           </div>
 
           <div className="col-md-3 offset-md-1">
-            <label htmlFor="usuariosSelect" className="form-label">
+            <label htmlFor="idUsuario" className="form-label">
               Selecciona un especialista:
             </label>
             <select
-              id="usuariosSelect"
+              id="idUsuario"
               {...register("idUsuario", { required: true })}
               className="form-select"
             >
