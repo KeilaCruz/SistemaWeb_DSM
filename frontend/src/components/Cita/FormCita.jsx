@@ -21,7 +21,6 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
             }
         }
         loadPaciente()
-
     }, [criterio])
 
     const selectPaciente = (CURP) => {

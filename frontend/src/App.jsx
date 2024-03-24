@@ -18,6 +18,7 @@ import { ReFichaPsicoAdultoPage } from './pages/ReFichaPsicoAdultoPage'
 import { ReEvento } from './pages/ReEvento';
 import { BuscarPacientePage } from './pages/BuscarPacientePage';
 import { ViewPaciente } from './components/Paciente/ViewPaciente';
+import { CitasPacientePage } from './pages/CitasPacientePage';
 import { CalendarioPage } from './pages/CalendarioPage';
 import { ReHojaEvaluacion } from './pages/ReHojaEvaluacion';
 import { ReExamenMedico } from './pages/ReExamenMedico';
@@ -46,6 +47,8 @@ function App() {
             <Route path="/registrar_evento" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReEvento /></ProtectedRoute>} />
             <Route path="/buscar_paciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><BuscarPacientePage /></ProtectedRoute>} />
             <Route path="/buscar_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ViewPaciente /></ProtectedRoute>} />
+            <Route path="/citas_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><CitasPacientePage /></ProtectedRoute>} />
+
             <Route path="/calendario" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><CalendarioPage /></ProtectedRoute>} />
             <Route path="/registrar_evaluacionclinica" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReHojaEvaluacion/></ProtectedRoute>} />
             <Route path="/registrar_examenmedico" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReExamenMedico/></ProtectedRoute>} />

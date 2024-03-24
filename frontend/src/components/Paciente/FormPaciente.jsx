@@ -4,41 +4,37 @@ export function FormPaciente({ onSubmit, register }) {
     const [showCualEstatal, setShowEstatal] = useState(false)
     const [showCualFederal, setShowFederal] = useState(false)
     const [showCualMunicipal, setShowMunicipal] = useState(false)
-    const [inputValueFederal, setInputValueFederal] = useState('');
-    const [inputValueEstatal, setInputValueEstatal] = useState('');
-    const [inputValueMunicipal, setInputValueMunicipal] = useState('');
-
+    const [cualFederalValue, setCualFederalValue] = useState('');
+    const [cualEstatalValue, setCualEstatalValue] = useState('');
+    const [cualMunicipalValue, setCualMunicipalValue] = useState('');
     //activar campo para ingresar nombre de programa en el cuál es beneficiario
-    const handleRadioFederalChange = (evt) => {
-        const optionSeleccionada = evt.target.value;
-        if (optionSeleccionada === 'true') {
-            setShowFederal(true);
-        } else if (optionSeleccionada === 'false') {
-            setShowFederal(false);
-            setInputValueFederal('')
+    const handleFederal = (evt) => {
+        let valor = evt.target.value === 'true';
+        if (valor) {
+            setShowFederal(true)
+        } else {
+            setShowFederal(false)
+            setCualFederalValue('')
         }
-    };
-
-    const handleRadioEstatalChange = (evt) => {
-        const optionSeleccionada = evt.target.value;
-        if (optionSeleccionada === 'true') {
-            setShowEstatal(true);
-        } else if (optionSeleccionada === 'false') {
-            setShowEstatal(false);
-            setInputValueEstatal('')
+    }
+    const handleEstatal = (evt) => {
+        let valor = evt.target.value === 'true'
+        if (valor) {
+            setShowEstatal(true)
+        } else {
+            setShowEstatal(false)
+            setCualEstatalValue('')
         }
-    };
-
-    const handleRadioMunicipalChange = (evt) => {
-        const optionSeleccionada = evt.target.value;
-        if (optionSeleccionada === 'true') {
-            setShowMunicipal(true);
-        } else if (optionSeleccionada === 'false') {
-            setShowMunicipal(false);
-            setInputValueMunicipal('')
+    }
+    const handleMunicipal = (evt) => {
+        let valor = evt.target.value === 'true'
+        if (valor) {
+            setShowMunicipal(true)
+        } else {
+            setShowMunicipal(false)
+            setCualMunicipalValue('')
         }
-    };
-
+    }
     return (
         <>
             <div className="container-fluid">
@@ -140,52 +136,51 @@ export function FormPaciente({ onSubmit, register }) {
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="federal" className="form-label label-form">Federal</label>
                         <label htmlFor="federal_si" className="form-label mx-2">Si
-                            <input className="form-check-input" type="radio" id="federal_si" name="federal_option" value={true} {...register("programa_gobierno_federal", { required: true })} onChange={handleRadioFederalChange} />
+                            <input className="form-check-input" type="radio" id="federal_si" name="federal_option" value={true} {...register("programa_gobierno_federal", { required: true })} onChange={handleFederal} />
                         </label>
                         <label className="form-label mx-2">No
-                            <input className="form-check-input" type="radio" id="federal_no" name="federal_option" value={false} {...register("programa_gobierno_federal", { required: true })} onChange={handleRadioFederalChange} />
+                            <input className="form-check-input" type="radio" id="federal_no" name="federal_option" value={false} {...register("programa_gobierno_federal", { required: true })} onChange={handleFederal} />
                         </label>
                     </div>
                     <div className="col-md-4 offset-md-1">
                         {showCualFederal && (
                             <div>
                                 <label htmlFor="cual_programa_federal" className="form-label mx-2">¿Cuál</label>
-                                <input className="form-control input-form" type="text" value={inputValueFederal} placeholder="Nombre del programa federal" {...register("cual_programa_federal")} onChange={(e) => setInputValueFederal(e.target.value)} />
+                                <input className="form-control input-form" type="text" placeholder="Nombre del programa federal" value={cualFederalValue} onChange={(e) => setCualFederalValue(e.target.value)} {...register("cual_programa_federal")} />
                             </div>
                         )}
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="estatal" className="form-label label-form">Estatal</label>
                         <label className="form-label mx-2" for="estatal_si">Si
-                            <input className="form-check-input" type="radio" id="estatal_si" name="estatal_option" value={true} {...register("programa_gobierno_estatal", { required: true })} onChange={handleRadioEstatalChange} />
+                            <input className="form-check-input" type="radio" id="estatal_si" name="estatal_option" value={true} {...register("programa_gobierno_estatal", { required: true })} onChange={handleEstatal} />
                         </label>
                         <label className="form-label mx-2" for="estatal_no">No
-                            <input className="form-check-input" type="radio" id="estatal_no" name="estatal_option" value={false} {...register("programa_gobierno_estatal", { required: true })} onChange={handleRadioEstatalChange} />
+                            <input className="form-check-input" type="radio" id="estatal_no" name="estatal_option" value={false} {...register("programa_gobierno_estatal", { required: true })} onChange={handleEstatal} />
                         </label>
                     </div>
                     <div className="col-md-4 offset-md-1">
                         {showCualEstatal && (
                             <div>
                                 <label htmlFor="cual_estatal" className="form-label label-form">¿Cuál</label>
-                                <input className="form-control input-form" type="text" placeholder="Nombre del programa estatal" value={inputValueEstatal} {...register("cual_programa_estatal")} onChange={(e) => setInputValueEstatal(e.target.value)} />
+                                <input className="form-control input-form" type="text" placeholder="Nombre del programa estatal" value={cualEstatalValue} onChange={(e) => setCualEstatalValue(e.target.value)} {...register("cual_programa_estatal")} />
                             </div>
                         )}
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="municipal" className="form-label label-form">Municipal</label>
                         <label htmlFor="municipal_si" className="form-label mx-2" for="municipal_si">Si
-                            <input className="form-check-input" type="radio" id="municipal_si" name="municipal_option" value={true} {...register("programa_gobierno_municipal", { required: true })} onChange={handleRadioMunicipalChange} />
+                            <input className="form-check-input" type="radio" id="municipal_si" name="municipal_option" value={true} {...register("programa_gobierno_municipal", { required: true })} onChange={handleMunicipal} />
                         </label>
                         <label htmlFor="municipal_no" className="form-label mx-2" for="municipal_no">No
-                            <input className="form-check-input" type="radio" id="municipal_no" name="municipal_option" value={false} {...register("programa_gobierno_municipal", { required: true })} onChange={handleRadioMunicipalChange} />
+                            <input className="form-check-input" type="radio" id="municipal_no" name="municipal_option" value={false} {...register("programa_gobierno_municipal", { required: true })} onChange={handleMunicipal} />
                         </label>
                     </div>
                     <div className="col-md-4 offset-md-1">
                         {showCualMunicipal && (
                             <div>
                                 <label htmlFor="cual_municipal" className="form-label label-form">¿Cuál</label>
-                                <input className="form-control input-form" type="text" placeholder="Nombre del programa municipal" value={inputValueMunicipal} {...register("cual_programa_municipal")} onChange={(e) => setInputValueMunicipal(e.target.value)} />
-                            </div>
+                                <input className="form-control input-form" type="text" placeholder="Nombre del programa municipal" value={cualMunicipalValue} onChange={(e) => setCualMunicipalValue(e.target.value)} {...register("cual_programa_municipal")} />                            </div>
                         )}
                     </div>
                     <div className="col-md-4 offset-md-1">
