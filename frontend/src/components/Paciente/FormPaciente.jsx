@@ -1,29 +1,23 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 
 export function FormPaciente({ onSubmit, register }) {
     const [showCualEstatal, setShowEstatal] = useState(false)
     const [showCualFederal, setShowFederal] = useState(false)
     const [showCualMunicipal, setShowMunicipal] = useState(false)
-    const [cualFederalValue, setCualFederalValue] = useState('');
-    const [cualEstatalValue, setCualEstatalValue] = useState('');
-    const [cualMunicipalValue, setCualMunicipalValue] = useState('');
+
     //activar campo para ingresar nombre de programa en el cuál es beneficiario
     const handleFederal = (evt) => {
-        let valor = evt.target.value === 'true';
-        if (valor) {
-            setShowFederal(true)
-        } else {
-            setShowFederal(false)
-            setCualFederalValue('')
+        const valor = evt.target.value === "true";
+        setShowFederal(valor);
+        if (!valor) {
+            register("cual_programa_federal").value = ""; // Limpiar valor registrado en React Hook Form
         }
     }
     const handleEstatal = (evt) => {
-        let valor = evt.target.value === 'true'
-        if (valor) {
-            setShowEstatal(true)
-        } else {
-            setShowEstatal(false)
-            setCualEstatalValue('')
+        const valor = evt.target.value === "true";
+        setShowEstatal(valor);
+        if (!valor) {
+            setEstatalInputValue("");
         }
     }
     const handleMunicipal = (evt) => {
@@ -32,9 +26,9 @@ export function FormPaciente({ onSubmit, register }) {
             setShowMunicipal(true)
         } else {
             setShowMunicipal(false)
-            setCualMunicipalValue('')
         }
     }
+
     return (
         <>
             <div className="container-fluid">
@@ -145,8 +139,9 @@ export function FormPaciente({ onSubmit, register }) {
                     <div className="col-md-4 offset-md-1">
                         {showCualFederal && (
                             <div>
-                                <label htmlFor="cual_programa_federal" className="form-label mx-2">¿Cuál</label>
-                                <input className="form-control input-form" type="text" placeholder="Nombre del programa federal" value={cualFederalValue} onChange={(e) => setCualFederalValue(e.target.value)} {...register("cual_programa_federal")} />
+                                <label htmlFor="cual_federal" className="form-label label-form">¿Cuál</label>
+                                <input className="form-control input-form" type="text" placeholder="Nombre del programa federal" {...register("cual_programa_federal")}
+                                />
                             </div>
                         )}
                     </div>
@@ -163,7 +158,8 @@ export function FormPaciente({ onSubmit, register }) {
                         {showCualEstatal && (
                             <div>
                                 <label htmlFor="cual_estatal" className="form-label label-form">¿Cuál</label>
-                                <input className="form-control input-form" type="text" placeholder="Nombre del programa estatal" value={cualEstatalValue} onChange={(e) => setCualEstatalValue(e.target.value)} {...register("cual_programa_estatal")} />
+                                <input className="form-control input-form" type="text" placeholder="Nombre del programa estatal" {...register("cual_programa_estatal")}
+                                />
                             </div>
                         )}
                     </div>
@@ -180,7 +176,7 @@ export function FormPaciente({ onSubmit, register }) {
                         {showCualMunicipal && (
                             <div>
                                 <label htmlFor="cual_municipal" className="form-label label-form">¿Cuál</label>
-                                <input className="form-control input-form" type="text" placeholder="Nombre del programa municipal" value={cualMunicipalValue} onChange={(e) => setCualMunicipalValue(e.target.value)} {...register("cual_programa_municipal")} />                            </div>
+                                <input className="form-control input-form" type="text" placeholder="Nombre del programa municipal" {...register("cual_programa_municipal")} />                            </div>
                         )}
                     </div>
                     <div className="col-md-4 offset-md-1">
