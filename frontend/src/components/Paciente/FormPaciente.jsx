@@ -7,17 +7,19 @@ export function FormPaciente({ onSubmit, register }) {
 
     //activar campo para ingresar nombre de programa en el cuál es beneficiario
     const handleFederal = (evt) => {
-        const valor = evt.target.value === "true";
-        setShowFederal(valor);
-        if (!valor) {
-            register("cual_programa_federal").value = ""; // Limpiar valor registrado en React Hook Form
+        let valor = evt.target.value === 'true'
+        if (valor) {
+            setShowFederal(true)
+        } else {
+            setShowFederal(false)
         }
     }
     const handleEstatal = (evt) => {
-        const valor = evt.target.value === "true";
-        setShowEstatal(valor);
-        if (!valor) {
-            setEstatalInputValue("");
+        let valor = evt.target.value === 'true'
+        if (valor) {
+            setShowEstatal(true)
+        } else {
+            setShowEstatal(false)
         }
     }
     const handleMunicipal = (evt) => {
