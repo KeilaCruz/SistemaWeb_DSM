@@ -25,6 +25,7 @@ import { ReExamenMedico } from './pages/ReExamenMedico';
 import { VerHojasDeEvaluacionPage } from './pages/VerHojasDeEvaluacionPage';
 import { ViewHojaDeEvaluacion } from './components/HojaDeEvaluacion/ViewHojaDeEvaluacion';
 import { VerExamenMedico } from './pages/VerExamenMedico';
+import { ViewExamenMedico } from './components/ExamenMedico/ViewExamenMedico';
 function App() {
   return (
     <>
@@ -54,9 +55,8 @@ function App() {
             <Route path="/registrar_examenmedico" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReExamenMedico/></ProtectedRoute>} />
             <Route path="/ver_evaluacionClinica" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><VerHojasDeEvaluacionPage/></ProtectedRoute>} />
             <Route path="/ver_evaluacionClinica/:idHojaClinica" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ViewHojaDeEvaluacion/></ProtectedRoute>} />
-
-            
             <Route path="/ver_examenMedico" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><VerExamenMedico/></ProtectedRoute>} />
+            <Route path="/ver_examenMedico/:idExamenMedico" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ViewExamenMedico/></ProtectedRoute>} />
 
 
 

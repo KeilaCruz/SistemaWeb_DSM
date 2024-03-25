@@ -9,6 +9,7 @@ export function EditPacienteForm({ paciente }) {
     const { register, setValue, handleSubmit } = useForm()
     const { authTokens } = useContext(AuthContext)
     const [activateEdit, setActiEdit] = useState(false)
+    
     const [programaFederal, setProgramaFederal] = useState(false);
     const [programaEstatal, setProgramaEstatal] = useState(false);
     const [programaMunicipal, setProgramaMunicipal] = useState(false);

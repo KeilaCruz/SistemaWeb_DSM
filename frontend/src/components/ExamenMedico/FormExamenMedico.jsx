@@ -10,7 +10,6 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
   const [criterio, setCriterio] = useState("");
   const [paciente, setPaciente] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
-  /* const [selectedUsuario, setSelectedUsuario] = useState(''); */
 
   useEffect(() => {
     const fetchUsuarios = async () => {
@@ -26,9 +25,7 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
     fetchUsuarios();
   }, []);
 
-  /*  const handleUsuarioChange = (event) => {
-    setSelectedUsuario(event.target.value);
-  }; */
+  
 
   const handleBarraBusqueda = (evt) => {
     setCriterio(evt.target.value);
@@ -55,80 +52,99 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
   const [showPracticaEjercicio, setShowPracticaEjercicio] = useState(false);
   const [showTabaquismo, setShowTabaquismo] = useState(false);
   const [showAlcoholismo, setShowAlcoholismo] = useState(false);
-  const [showPlanificacionFamiliar, setShowPlanificacionFamiliar] =
-    useState(false);
+  const [showPlanificacionFamiliar, setShowPlanificacionFamiliar] =useState(false);
+  const [cualMadreValue, setCualMadreValue] = useState('');
+  const [cualPadreValue, setCualPadreValue] = useState('');
+  const [cualHermanoValue, setCualHermanoValue] = useState('');
+  const [cualHijoValue, setCualHijoValue] = useState('');
+  const [cualEjercicioValue, setCualEjercicioValue] = useState('');
+  const [cualTabaquismoValue, setCualTabaquismoValue] = useState('');
+  const [cualTabaquismoValue2, setCualTabaquismoValue2] = useState('');
+  const [cualAlcoholismoValue, setCualAlcoholismoValue] = useState('');
+  const [cualPlanificacionValue, setCualPlanificacionValue] = useState('');
 
-  const handleRadioMadreChange = (evt) => {
-    const optionSeleccionada = evt.target.value;
-    if (optionSeleccionada == "true") {
-      setShowMadreViva(false);
-    } else if (optionSeleccionada == "false") {
-      setShowMadreViva(true);
+  
+  const handleMadreViva = (evt) => {
+    let valor = evt.target.value === 'true';
+    if (valor) {
+        setShowMadreViva(false)
+    } else {
+        setShowMadreViva(true)
+        setCualMadreValue('')
     }
-  };
+}
 
-  const handleRadioPadreChange = (evt) => {
-    const optionSeleccionada = evt.target.value;
-    if (optionSeleccionada == "true") {
+const handlePadreVivo = (evt) => {
+  let valor = evt.target.value === 'true';
+  if (valor) {
       setShowPadreVivo(false);
-    } else if (optionSeleccionada == "false") {
+  } else {
       setShowPadreVivo(true);
-    }
-  };
+      setCualPadreValue('');
+  }
+};
 
-  const handleRadioHermanoChange = (evt) => {
-    const optionSeleccionada = evt.target.value;
-    if (optionSeleccionada == "true") {
+const handleHermanoVivo = (evt) => {
+  let valor = evt.target.value === 'true';
+  if (valor) {
       setShowHermanoVivo(false);
-    } else if (optionSeleccionada == "false") {
+  } else {
       setShowHermanoVivo(true);
-    }
-  };
+      setCualHermanoValue('');
+  }
+};
 
-  const handleRadioHijosChange = (evt) => {
-    const optionSeleccionada = evt.target.value;
-    if (optionSeleccionada == "true") {
+const handleHijosVivos = (evt) => {
+  let valor = evt.target.value === 'true';
+  if (valor) {
       setShowHijosVivos(false);
-    } else if (optionSeleccionada == "false") {
+  } else {
       setShowHijosVivos(true);
-    }
-  };
+      setCualHijoValue('');
+  }
+};
 
-  const handleRadioEjercicioChange = (evt) => {
-    const optionSeleccionada = evt.target.value;
-    if (optionSeleccionada == "true") {
+const handlePracticaEjercicio = (evt) => {
+  let valor = evt.target.value === 'true';
+  if (valor) {
       setShowPracticaEjercicio(true);
-    } else if (optionSeleccionada == "false") {
+  } else {
       setShowPracticaEjercicio(false);
-    }
-  };
+      setCualEjercicioValue('');
+  }
+};
 
-  const handleRadioTabaquismoChange = (evt) => {
-    const optionSeleccionada = evt.target.value;
-    if (optionSeleccionada == "true") {
+const handleTabaquismo = (evt) => {
+  let valor = evt.target.value === 'true';
+  if (valor) {
       setShowTabaquismo(true);
-    } else if (optionSeleccionada == "false") {
+  } else {
       setShowTabaquismo(false);
-    }
-  };
+      setCualTabaquismoValue('');
+      setCualTabaquismoValue2('');
+  }
+};
 
-  const handleRadioAlcoholismoChange = (evt) => {
-    const optionSeleccionada = evt.target.value;
-    if (optionSeleccionada == "true") {
+const handleAlcoholismo = (evt) => {
+  let valor = evt.target.value === 'true';
+  if (valor) {
       setShowAlcoholismo(true);
-    } else if (optionSeleccionada == "false") {
+  } else {
       setShowAlcoholismo(false);
-    }
-  };
+      setCualAlcoholismoValue('');
+  }
+};
 
-  const handleRadioPlanFamiliarChange = (evt) => {
-    const optionSeleccionada = evt.target.value;
-    if (optionSeleccionada == "true") {
+const handlePlanificacionFamiliar = (evt) => {
+  let valor = evt.target.value === 'true';
+  if (valor) {
       setShowPlanificacionFamiliar(true);
-    } else if (optionSeleccionada == "false") {
+  } else {
       setShowPlanificacionFamiliar(false);
-    }
-  };
+      setCualPlanificacionValue('');
+  }
+};
+
 
   return (
     <>
@@ -224,10 +240,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="madre-viva"
-                name="opcion-madre"
+                name="opcion_madre"
                 value={true}
                 {...register("madre_viva", { required: true })}
-                onChange={handleRadioMadreChange}
+                onChange={handleMadreViva}
               />
               <label class="form-check-label" htmlFor="madre-viva">
                 {" "}
@@ -241,10 +257,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="madre-muerta"
-                name="opcion-madre"
+                name="opcion_madre"
                 value={false}
                 {...register("madre_viva", { required: true })}
-                onChange={handleRadioMadreChange}
+                onChange={handleMadreViva}
               />
               <label class="form-check-label" htmlFor="madre-muerta">
                 {" "}
@@ -263,6 +279,7 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 placeholder="Causas de muerte"
                 className="form-control"
                 id="madre-causa"
+                value={cualMadreValue} onChange={(e) => setCualMadreValue(e.target.value)}
                 {...register("madre_finada", { required: false })}
               />
             </div>
@@ -279,10 +296,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="padre-vivo"
-                name="opcion-padre"
+                name="opcion_padre"
                 value={true}
                 {...register("padre_vivo", { required: true })}
-                onChange={handleRadioPadreChange}
+                onChange={handlePadreVivo}
               />
               <label class="form-check-label" htmlFor="padre-vivo">
                 {" "}
@@ -296,10 +313,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="padre-muerto"
-                name="opcion-padre"
+                name="opcion_padre"
                 value={false}
                 {...register("padre_vivo", { required: true })}
-                onChange={handleRadioPadreChange}
+                onChange={handlePadreVivo}
               />
               <label class="form-check-label" htmlFor="padre-muerto">
                 {" "}
@@ -317,6 +334,7 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 type="text"
                 placeholder="Causas de muerte"
                 id="padre-causa"
+                value={cualPadreValue} onChange={(e) => setCualPadreValue(e.target.value)}
                 {...register("padre_finado", { required: false })}
                 className="form-control"
               />
@@ -335,10 +353,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="hermano-vivo"
-                name="opcion-hermano"
+                name="opcion_hermano"
                 value={true}
                 {...register("hermano_vivo", { required: true })}
-                onChange={handleRadioHermanoChange}
+                onChange={handleHermanoVivo}
               />
               <label class="form-check-label" htmlFor="hermano-vivo">
                 {" "}
@@ -352,10 +370,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="hermano-muerto"
-                name="opcion-hermano"
+                name="opcion_hermano"
                 value={false}
                 {...register("hermano_vivo", { required: true })}
-                onChange={handleRadioHermanoChange}
+                onChange={handleHermanoVivo}
               />
               <label class="form-check-label" htmlFor="hermano-muerto">
                 {" "}
@@ -373,6 +391,7 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 type="text"
                 placeholder="Causas de muerte"
                 id="hermano-causa"
+                value={cualHermanoValue} onChange={(e) => setCualHermanoValue(e.target.value)}
                 {...register("hermano_finado", { required: false })}
                 className="form-control"
               />
@@ -391,10 +410,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="hijos-vivos"
-                name="opcion-hijos"
+                name="opcion_hijos"
                 value={true}
                 {...register("hijos_vivos", { required: true })}
-                onChange={handleRadioHijosChange}
+                onChange={handleHijosVivos}
               />
               <label class="form-check-label" htmlFor="hijos-vivos">
                 {" "}
@@ -408,10 +427,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="hijos-muertos"
-                name="opcion-hijos"
+                name="opcion_hijos"
                 value={false}
                 {...register("hijos_vivos", { required: true })}
-                onChange={handleRadioHijosChange}
+                onChange={handleHijosVivos}
               />
               <label class="form-check-label" htmlFor="hijos-muertos">
                 {" "}
@@ -429,6 +448,7 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 type="text"
                 placeholder="Causas de muerte"
                 id="hijo-causa"
+                value={cualHijoValue} onChange={(e) => setCualHijoValue(e.target.value)}
                 {...register("hijos_finados", { required: false })}
                 className="form-control"
               />
@@ -544,14 +564,14 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
           </div>
 
           <div className="col-md-2">
-            <label htmlFor="artropatias" className="form-label">
+            <label htmlFor="artropatia" className="form-label">
               Artropatias:
             </label>
             <input
               type="text"
               placeholder="Artropatias"
-              id="artropatias"
-              {...register("artropatias", { required: true })}
+              id="artropatia"
+              {...register("artropatia", { required: true })}
               className="form-control"
             />
           </div>
@@ -647,10 +667,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="ejercicio-si"
-                name="opcion-ejercicio"
+                name="opcion_ejercicio"
                 value={true}
                 {...register("practica_ejercicio", { required: true })}
-                onChange={handleRadioEjercicioChange}
+                onChange={handlePracticaEjercicio}
               />
               <label class="form-check-label" htmlFor="ejercicio-si">
                 {" "}
@@ -664,10 +684,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="ejercicio-no"
-                name="opcion-ejercicio"
+                name="opcion_ejercicio"
                 value={false}
                 {...register("practica_ejercicio", { required: true })}
-                onChange={handleRadioEjercicioChange}
+                onChange={handlePracticaEjercicio}
               />
               <label class="form-check-label" htmlFor="ejercicio-no">
                 {" "}
@@ -685,6 +705,7 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 type="text"
                 id="cual-ejercicio"
                 placeholder="¿Cual ejercicio?"
+                value={cualEjercicioValue} onChange={(e) => setCualEjercicioValue(e.target.value)}
                 {...register("ejercicio_cual", { required: false })}
                 className="form-control"
               />
@@ -703,10 +724,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="tabaquismo-si"
-                name="opcion-tabaco"
+                name="opcion_tabaco"
                 value={true}
                 {...register("tabaquismo", { required: true })}
-                onChange={handleRadioTabaquismoChange}
+                onChange={handleTabaquismo}
               />
               <label class="form-check-label" htmlFor="tabaquismo-si">
                 {" "}
@@ -720,10 +741,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="tabaquismo-no"
-                name="opcion-tabaco"
+                name="opcion_tabaco"
                 value={false}
                 {...register("tabaquismo", { required: true })}
-                onChange={handleRadioTabaquismoChange}
+                onChange={handleTabaquismo}
               />
               <label class="form-check-label" htmlFor="tabaquismo-no">
                 {" "}
@@ -742,6 +763,7 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 placeholder="¿Desde cuando? (Edad aprox)"
                 id="tabaco-edad"
                 defaultValue={0}
+                value={cualTabaquismoValue} onChange={(e) => setCualTabaquismoValue(e.target.value)}
                 {...register("tabaquismo_edad", { required: false })}
                 className="form-control"
               />
@@ -754,6 +776,7 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 id="tabaco-cantidad"
                 defaultValue={0}
                 placeholder="¿Cuantos al día u ocasional?"
+                value={cualTabaquismoValue2} onChange={(e) => setCualTabaquismoValue2(e.target.value)}
                 {...register("tabaquismo_cantidad", { required: false })}
                 className="form-control"
               />
@@ -772,10 +795,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="toma-si"
-                name="opcion-alcoholismo"
+                name="opcion_alcoholismo"
                 value={true}
                 {...register("alcoholismo", { required: true })}
-                onChange={handleRadioAlcoholismoChange}
+                onChange={handleAlcoholismo}
               />
               <label class="form-check-label" htmlFor="toma-si">
                 {" "}
@@ -789,10 +812,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="toma-no"
-                name="opcion-alcoholismo"
+                name="opcion_alcoholismo"
                 value={false}
                 {...register("alcoholismo", { required: true })}
-                onChange={handleRadioAlcoholismoChange}
+                onChange={handleAlcoholismo}
               />
               <label class="form-check-label" htmlFor="toma-no">
                 {" "}
@@ -810,6 +833,7 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 type="number"
                 id="alcoholico-edad"
                 defaultValue={0}
+                value={cualAlcoholismoValue} onChange={(e) => setCualAlcoholismoValue(e.target.value)}
                 placeholder="¿Desde cuando? (Edad aprox)"
                 {...register("alcoholismo_edad", { required: false })}
                 className="form-control"
@@ -1003,10 +1027,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="plan-si"
-                name="opcion-planificacion"
+                name="opcion_planificacion"
                 value={true}
                 {...register("planificacion_familiar", { required: true })}
-                onChange={handleRadioPlanFamiliarChange}
+                onChange={handlePlanificacionFamiliar}
               />
               <label class="form-check-label" htmlFor="plan-si">
                 {" "}
@@ -1020,10 +1044,10 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 class="form-check-input"
                 type="radio"
                 id="plan-no"
-                name="opcion-planificacion"
+                name="opcion_planificacion"
                 value={false}
                 {...register("planificacion_familiar", { required: true })}
-                onChange={handleRadioPlanFamiliarChange}
+                onChange={handlePlanificacionFamiliar}
               />
               <label class="form-check-label" htmlFor="plan-no">
                 {" "}
@@ -1041,6 +1065,7 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
                 type="text"
                 id="metodo-familiar"
                 placeholder="Método"
+                value={cualPlanificacionValue} onChange={(e) => setCualPlanificacionValue(e.target.value)}
                 {...register("metodo_planificacion", { required: false })}
                 className="form-control"
               />

@@ -128,6 +128,7 @@ export function AddExamenMedico() {
       console.error(error);
     }
   });
+  
   return (
     <>
       <FormExamenMedico
