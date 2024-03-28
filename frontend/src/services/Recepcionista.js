@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getConfig } from "./HeaderAuthorization";
+import Swal from "sweetalert2";
 
 const LIST_PACIENTES_URL = "http://127.0.0.1:8000/api/paciente/"
 const SAVE_PACIENTE_URL = "http://127.0.0.1:8000/api/registrar_paciente/";
@@ -46,8 +47,25 @@ export const registerPaciente = async (paciente) => {
         const config = await getConfig()
         const response = await axios.post(SAVE_PACIENTE_URL, paciente, config)
         if (response.status === 201) {
-            alert("Registrado correctamente")
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Paciente registrado con exito.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  console.log('Se hizo clic en Aceptar');
+                  location.href ='/buscar_paciente';
+                }
+              });
         } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡Algo salio mal!",
+                footer: '<a href="#">Intente de nuevo</a>'
+              });
             return response;
         }
     } catch (error) {
@@ -74,8 +92,26 @@ export const registerCita = async (cita) => {
         const config = await getConfig()
         const response = await axios.post(SAVE_CITA_URL, cita, config)
         if (response.status === 201) {
-            alert("Cita agendada con exito")
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Cita registrado correctamente.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  console.log('Se hizo clic en Aceptar');
+                  location.href ='/calendario';
+                }
+              });
         } else {
+            console.log("error al registrar")
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡Algo salio mal!",
+                footer: '<a href="#">Intente de nuevo</a>'
+              });
             return response
         }
     } catch (error) {
@@ -101,9 +137,26 @@ export const editarPaciente = async (CURP, paciente) => {
         const config = await getConfig();
         const response = await axios.put(`${EDIT_PACIENTE_URL}${CURP}/`, paciente, config)
         if (response.status == 200) {
-            alert("Modificacion realizada")
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Paciente modificado con exito',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  console.log('Se hizo clic en Aceptar');
+                  location.href ='/buscar_paciente';
+                }
+              });
         } else {
             console.log("error al modificar")
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡Algo salio mal!",
+                footer: '<a href="#">Intente de nuevo</a>'
+              });
             return response;
         }
     } catch (error) {
@@ -130,7 +183,18 @@ export const registerEvento = async (evento) => {
         const config = await getConfig()
         const response = await axios.post(SAVE_EVENTO_URL, evento, config)
         if (response.status === 201) {
-            alert("Evento registrado con exito")
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Evento registrado con exito',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  console.log('Se hizo clic en Aceptar');
+                  
+                }
+              });
         } else {
             return response
         }

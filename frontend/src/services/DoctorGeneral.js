@@ -30,9 +30,26 @@ export const registerExamenMedico = async (examen) => {
         const response = await axios.post(SAVE_EXAMEN_MEDICO_URL, examen, config);
 
         if (response.status === 201) {
-            alert("Examen médico registrado correctamente");
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Examen Medico registrado exitosamente.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  console.log('Se hizo clic en Aceptar');
+                  location.href ='/ver_examenMedico';
+                }
+              });
         } else {
             console.error("Error al registrar examen médico:", response);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡Algo salio mal!",
+                footer: '<a href="#">Intente de nuevo</a>'
+              });
         }
     } catch (error) {
         console.error("Error en la solicitud:", error);
@@ -58,9 +75,26 @@ export const editarExamenMedico = async (idExamenMedico, examen) => {
         const config = await getConfig();
         const response = await axios.put(`${EDIT_EXAMEN_MEDICO_URL}${idExamenMedico}/`, examen, config)
         if (response.status == 200) {
-            alert("Modificacion realizada")
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Se modifico con exito el examen.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  console.log('Se hizo clic en Aceptar');
+                  location.href ='/ver_examenMedico';
+                }
+              });
         } else {
             console.log("error al modificar")
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡Algo salio mal!",
+                footer: '<a href="#">Intente de nuevo</a>'
+              });
         }
     } catch (error) {
         console.error(error)
@@ -90,7 +124,7 @@ export const registerHojaEvaluacion = async (evaluacion) => {
            Swal.fire({
                 icon: 'success',
                 title: '¡Operación exitosa!',
-                text: 'Los cambios se guardaron correctamente.',
+                text: 'Se registro con exito.',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Aceptar'
               }).then((result) => {
@@ -100,7 +134,13 @@ export const registerHojaEvaluacion = async (evaluacion) => {
                 }
               });
         } else {
-            return response;
+            console.log("error al registrar")
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡Algo salio mal!",
+                footer: '<a href="#">Intente de nuevo</a>'
+              });
         }
     } catch (error) {
         console.error(error)

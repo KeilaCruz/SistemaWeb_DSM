@@ -41,22 +41,25 @@ export function BuscarPacientes() {
         <>
             <div className="container-fluid">
                 <div className="row g-3 mt-4">
-                    <div className="col-md-12 offset-1 row">
-                        <div className="col-md-6">
-                            <input className="form-control input-form" type="text" id="busqueda_paciente" placeholder="Buscar por CURP o nombre" onChange={handleBarraBusqueda} />
-                        </div>
-                        <div className="col-md-3">
-                            <button onClick={handleBuscarPaciente} className="button-buscar">Buscar</button>
-                        </div>
+                    <div className="col-md-4 offset-md-1 row">
+                    <div class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" id="busqueda_paciente" placeholder="Buscar por CURP o nombre" onChange={handleBarraBusqueda} aria-label="Search"/>
+                        <button class="btn btn-outline-success" type="submit" onClick={handleBuscarPaciente}>Search</button>
                     </div>
+                    </div>
+                    {pacienteResult.length >=1 && (
+                        <hr3 className="sub-title offset-md-1">RESULTADO DE BÚSQUEDA</hr3>
+                    )}
+                    
                     {pacienteResult.map(resultado => (
-                        <div key={resultado.CURP} className="col-md-12 offset-md-1 ">
-                            <hr3 className="sub-title">RESULTADO DE BÚSQUEDA</hr3>
-                            <div className="col-md-3">
+                        <div key={resultado.CURP} className="col-md-3 offset-md-1 ">
                                 <PacienteCardResumen paciente={resultado} />
-                            </div>
+                            
                         </div>
                     ))}
+
+                    
+
                     <div className="col-md-12 offset-md-1">
                         <hr3 className="sub-title">PACIENTES REGISTRADOS</hr3>
                     </div>

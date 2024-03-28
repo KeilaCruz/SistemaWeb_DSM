@@ -16,8 +16,11 @@ export function PacienteCardResumen({ paciente }) {
                         <p className="cards-buscar-text text-center">{paciente.CURP}</p>
                         <p className="cards-buscar-text text-center">{paciente.datos_personales.nombre} {paciente.datos_personales.apePaterno} {paciente.datos_personales.apeMaterno}</p>
                         <p className="cards-buscar-text text-center">{paciente.datos_contacto.telefono}</p>
-                        <button onClick={handleNavigateFicha}>Ver</button>
-                        <button onClick={handleNavigateCitas}>Citas</button>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                            <button className="btn btn-primary" onClick={handleNavigateFicha}>Ver</button>
+                            <button className="btn btn-secondary" onClick={handleNavigateCitas}>Citas</button>
+                        </div>
+
                     </div>
 
                 </div>

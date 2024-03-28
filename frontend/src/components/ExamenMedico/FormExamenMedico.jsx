@@ -53,7 +53,8 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
   const [showTabaquismo, setShowTabaquismo] = useState(false);
   const [showAlcoholismo, setShowAlcoholismo] = useState(false);
   const [showPlanificacionFamiliar, setShowPlanificacionFamiliar] =useState(false);
-  const [cualMadreValue, setCualMadreValue] = useState('');
+  
+  /* const [cualMadreValue, setCualMadreValue] = useState('');
   const [cualPadreValue, setCualPadreValue] = useState('');
   const [cualHermanoValue, setCualHermanoValue] = useState('');
   const [cualHijoValue, setCualHijoValue] = useState('');
@@ -61,7 +62,7 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
   const [cualTabaquismoValue, setCualTabaquismoValue] = useState('');
   const [cualTabaquismoValue2, setCualTabaquismoValue2] = useState('');
   const [cualAlcoholismoValue, setCualAlcoholismoValue] = useState('');
-  const [cualPlanificacionValue, setCualPlanificacionValue] = useState('');
+  const [cualPlanificacionValue, setCualPlanificacionValue] = useState(''); */
 
   
   const handleMadreViva = (evt) => {
@@ -70,7 +71,6 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
         setShowMadreViva(false)
     } else {
         setShowMadreViva(true)
-        setCualMadreValue('')
     }
 }
 
@@ -80,7 +80,6 @@ const handlePadreVivo = (evt) => {
       setShowPadreVivo(false);
   } else {
       setShowPadreVivo(true);
-      setCualPadreValue('');
   }
 };
 
@@ -90,7 +89,6 @@ const handleHermanoVivo = (evt) => {
       setShowHermanoVivo(false);
   } else {
       setShowHermanoVivo(true);
-      setCualHermanoValue('');
   }
 };
 
@@ -100,7 +98,6 @@ const handleHijosVivos = (evt) => {
       setShowHijosVivos(false);
   } else {
       setShowHijosVivos(true);
-      setCualHijoValue('');
   }
 };
 
@@ -110,7 +107,6 @@ const handlePracticaEjercicio = (evt) => {
       setShowPracticaEjercicio(true);
   } else {
       setShowPracticaEjercicio(false);
-      setCualEjercicioValue('');
   }
 };
 
@@ -120,8 +116,6 @@ const handleTabaquismo = (evt) => {
       setShowTabaquismo(true);
   } else {
       setShowTabaquismo(false);
-      setCualTabaquismoValue('');
-      setCualTabaquismoValue2('');
   }
 };
 
@@ -131,7 +125,6 @@ const handleAlcoholismo = (evt) => {
       setShowAlcoholismo(true);
   } else {
       setShowAlcoholismo(false);
-      setCualAlcoholismoValue('');
   }
 };
 
@@ -141,7 +134,6 @@ const handlePlanificacionFamiliar = (evt) => {
       setShowPlanificacionFamiliar(true);
   } else {
       setShowPlanificacionFamiliar(false);
-      setCualPlanificacionValue('');
   }
 };
 
@@ -279,7 +271,6 @@ const handlePlanificacionFamiliar = (evt) => {
                 placeholder="Causas de muerte"
                 className="form-control"
                 id="madre-causa"
-                value={cualMadreValue} onChange={(e) => setCualMadreValue(e.target.value)}
                 {...register("madre_finada", { required: false })}
               />
             </div>
@@ -334,7 +325,6 @@ const handlePlanificacionFamiliar = (evt) => {
                 type="text"
                 placeholder="Causas de muerte"
                 id="padre-causa"
-                value={cualPadreValue} onChange={(e) => setCualPadreValue(e.target.value)}
                 {...register("padre_finado", { required: false })}
                 className="form-control"
               />
@@ -391,7 +381,6 @@ const handlePlanificacionFamiliar = (evt) => {
                 type="text"
                 placeholder="Causas de muerte"
                 id="hermano-causa"
-                value={cualHermanoValue} onChange={(e) => setCualHermanoValue(e.target.value)}
                 {...register("hermano_finado", { required: false })}
                 className="form-control"
               />
@@ -448,7 +437,6 @@ const handlePlanificacionFamiliar = (evt) => {
                 type="text"
                 placeholder="Causas de muerte"
                 id="hijo-causa"
-                value={cualHijoValue} onChange={(e) => setCualHijoValue(e.target.value)}
                 {...register("hijos_finados", { required: false })}
                 className="form-control"
               />
@@ -705,7 +693,6 @@ const handlePlanificacionFamiliar = (evt) => {
                 type="text"
                 id="cual-ejercicio"
                 placeholder="¿Cual ejercicio?"
-                value={cualEjercicioValue} onChange={(e) => setCualEjercicioValue(e.target.value)}
                 {...register("ejercicio_cual", { required: false })}
                 className="form-control"
               />
@@ -763,7 +750,6 @@ const handlePlanificacionFamiliar = (evt) => {
                 placeholder="¿Desde cuando? (Edad aprox)"
                 id="tabaco-edad"
                 defaultValue={0}
-                value={cualTabaquismoValue} onChange={(e) => setCualTabaquismoValue(e.target.value)}
                 {...register("tabaquismo_edad", { required: false })}
                 className="form-control"
               />
@@ -833,7 +819,6 @@ const handlePlanificacionFamiliar = (evt) => {
                 type="number"
                 id="alcoholico-edad"
                 defaultValue={0}
-                value={cualAlcoholismoValue} onChange={(e) => setCualAlcoholismoValue(e.target.value)}
                 placeholder="¿Desde cuando? (Edad aprox)"
                 {...register("alcoholismo_edad", { required: false })}
                 className="form-control"
@@ -1065,7 +1050,6 @@ const handlePlanificacionFamiliar = (evt) => {
                 type="text"
                 id="metodo-familiar"
                 placeholder="Método"
-                value={cualPlanificacionValue} onChange={(e) => setCualPlanificacionValue(e.target.value)}
                 {...register("metodo_planificacion", { required: false })}
                 className="form-control"
               />
