@@ -73,6 +73,12 @@ export function Header() {
                           </Link>
                         </li>
 
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/reportes">
+                            Reportes
+                          </Link>
+                        </li>
+
                         
                       </>
                     ) : user.idRol_id === 2 ? (

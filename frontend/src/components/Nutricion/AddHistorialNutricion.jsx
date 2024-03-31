@@ -11,6 +11,11 @@ export function AddHistorialNutricion() {
     const [pacienteSelect, setPacienteSelect] = useState("")
 
     const onSubmit = handleSubmit(async (data) => {
+
+        const parseBoolean = (value) => {
+            return value === "true"
+        }
+
         const historiaNutricion = {
             "datos_personales": {
                 num_expediente: data.num_expediente,
@@ -21,32 +26,32 @@ export function AddHistorialNutricion() {
                 motivo_consulta: data.motivo_consulta,
             },
             "indicadores_clinicos": {
-                AHF_diabetes: data.AHF_diabetes,
+                AHF_diabetes: parseBoolean(data.AHF_diabetes),
                 quien_diabetes: data.quien_diabetes,
-                AHF_hipertension: data.AHF_hipertension,
+                AHF_hipertension: parseBoolean(data.AHF_hipertension),
                 quien_hipertension: data.quien_hipertension,
-                AHF_dislipidemias: data.AHF_dislipidemias,
+                AHF_dislipidemias: parseBoolean(data.AHF_dislipidemias),
                 quien_dislipidemias: data.quien_dislipidemias,
-                AP_diabetes_mellitus: data.AP_diabetes_mellitus,
-                AP_hipertension: data.AP_hipertension,
-                AP_dislipidemias: data.AP_dislipidemias,
-                problema_gastrointestinal: data.problema_gastrointestinal,
+                AP_diabetes_mellitus: parseBoolean(data.AP_diabetes_mellitus),
+                AP_hipertension: parseBoolean(data.AP_hipertension),
+                AP_dislipidemias: parseBoolean(data.AP_dislipidemias),
+                problema_gastrointestinal: parseBoolean(data.problema_gastrointestinal),
                 cual_problema_gastrointestinal: data.cual_problema_gastrointestinal,
                 observaciones_patologicas: data.observaciones_patologicas,
-                intervencion_quirurgica: data.intervencion_quirurgica,
-                alergia_alimento: data.alergia_alimento,
+                intervencion_quirurgica: parseBoolean(data.intervencion_quirurgica),
+                alergia_alimento: parseBoolean(data.alergia_alimento),
                 cual_alergia_alimento: data.cual_alergia_alimento,
-                consume_farmaco_alergia: data.consume_farmaco_alergia,
+                consume_farmaco_alergia: parseBoolean(data.consume_farmaco_alergia),
                 cual_alergia_farmaco: data.cual_alergia_farmaco,
                 desde_cuando_farmaco: data.desde_cuando_farmaco,
             },
             "anp": {
-                realiza_actividad_fisica: data.realiza_actividad_fisica,
+                realiza_actividad_fisica: parseBoolean(data.realiza_actividad_fisica),
                 cual_actividad_fisica: data.cual_actividad_fisica,
                 duracion: data.duracion,
-                consume_alcohol: data.consume_alcohol,
-                consume_tabaco: data.consume_tabaco,
-                consume_droga: data.consume_droga,
+                consume_alcohol: parseBoolean(data.consume_alcohol),
+                consume_tabaco: parseBoolean(data.consume_tabaco),
+                consume_droga: parseBoolean(data.consume_droga),
             },
             "ago": {
                 numero_gestas: data.numero_gestas,

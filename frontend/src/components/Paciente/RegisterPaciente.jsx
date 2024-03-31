@@ -23,6 +23,7 @@ export function RegisterPaciente() {
                 edad: data.edad,
                 estado_civil: data.estado_civil,
                 escolaridad: data.escolaridad,
+                sexo: data.sexo
             },
             "datos_direccion": {
                 colonia: data.colonia,

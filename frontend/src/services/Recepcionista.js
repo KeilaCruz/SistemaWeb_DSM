@@ -13,6 +13,7 @@ const LIST_USUARIOS_URL = "http://127.0.0.1:8000/api/visualizar_usuario/";
 const EDIT_PACIENTE_URL = "http://127.0.0.1:8000/api/editar_paciente/";
 
 const LIST_CITA_PACIENTE_URL = "http://127.0.0.1:8000/api/citas_paciente/";
+
 export const getAllPacientes = async () => {
     try {
         const config = await getConfig()

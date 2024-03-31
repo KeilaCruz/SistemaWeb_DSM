@@ -71,7 +71,7 @@ export function FormPaciente({ onSubmit, register }) {
                         <label htmlFor="curp" className="form-label label-form">CURP</label>
                         <input className="form-control input-form" type="text" placeholder="CURP" {...register("CURP", { required: true })} />
                     </div>
-                    <div className="col-md-4 offset-md-1">
+                    <div className="col-md-2 offset-md-1">
                         <label htmlFor="escolaridad" className="form-label label-form">Escolaridad</label>
                         <select className="form-select input-form" name="escolaridad" {...register("escolaridad", { required: true })}>
                             <option value="" disabled selected>Elija escolaridad</option>
@@ -81,6 +81,18 @@ export function FormPaciente({ onSubmit, register }) {
                             <option value="Divorciado">Universidad</option>
                         </select>
                     </div>
+
+                    <div className="col-md-2 offset-md-0.6">
+                        <label htmlFor="escolaridad" className="form-label label-form">Sexo</label>
+                        <select className="form-select input-form" name="escolaridad" {...register("sexo", { required: true })}>
+                            <option value="" disabled selected>Elija su sexo</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                            <option value="no-binario">No Binario</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="colonia" className="form-label label-form" >Colonia</label>
                         <input className="form-control input-form" type="text" placeholder="Colonia" {...register("colonia", { required: true })} />

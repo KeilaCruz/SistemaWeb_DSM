@@ -47,6 +47,7 @@ export function EditPacienteForm({ paciente }) {
                 setValue("estado_civil", paciente.datos_personales?.estado_civil || '')
                 setValue("CURP", paciente.CURP)
                 setValue("escolaridad", paciente.datos_personales?.escolaridad || '')
+                setValue("sexo", paciente.datos_personales?.sexo || '')
                 setValue("colonia", paciente.datos_direccion?.colonia || '')
                 setValue("calle", paciente.datos_direccion?.calle || '')
                 setValue("numero_exterior", paciente.datos_direccion?.numero_exterior || '')
@@ -85,6 +86,7 @@ export function EditPacienteForm({ paciente }) {
                 edad: data.edad,
                 estado_civil: data.estado_civil,
                 escolaridad: data.escolaridad,
+                sexo: data.sexo,
             },
             "datos_direccion": {
                 colonia: data.colonia,
@@ -145,7 +147,7 @@ export function EditPacienteForm({ paciente }) {
                         <label htmlFor="apeMaterno" className="form-label label-form">Apellido materno</label>
                         <input type="text" id="apeMaterno" className="form-control input-form" {...register("apeMaterno")} disabled={true} />
                     </div>
-                    <div className="col-md-4 offset-md-1">
+                    <div className="col-md-2 offset-md-1">
                         <label htmlFor="estado_civil" className="form-label label-form">Estado civil</label>
                         <select id="estado_civil" className="form-select input-form" {...register("estado_civil")} disabled={!activateEdit}>
                             <option value="" disabled selected>Elija estado civil</option>
@@ -154,6 +156,18 @@ export function EditPacienteForm({ paciente }) {
                             <option value="Divorciado">Divorciado</option>
                         </select>
                     </div>
+
+                    <div className="col-md-2 offset-md-0.6">
+                        <label htmlFor="estado_civil" className="form-label label-form">Sexo</label>
+                        <select id="estado_civil" className="form-select input-form" {...register("sexo")} disabled={!activateEdit}>
+                        <option value="" disabled selected>Elija su sexo</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                            <option value="no-binario">No Binario</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="escolaridad" className="form-label label-form" >Escolaridad</label>
                         <select name="escolaridad" className="form-select input-form" {...register("escolaridad")} disabled={!activateEdit}>

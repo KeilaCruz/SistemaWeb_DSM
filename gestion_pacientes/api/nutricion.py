@@ -7,14 +7,13 @@ from gestion_pacientes.models import HistoriaNutricion
 from .serializers import HistoriaNutricionSerializer
 
 
+
 @permission_classes([IsAuthenticated])
 class HistoriaNutricionAPIView(APIView):
     def get(self, request):
         historias_nutricion = HistoriaNutricion.objects.all()
-        historia_nutricion_serializer = HistoriaNutricionSerializer(
-            historias_nutricion, many=True
-        )
-        return Response(historia_nutricion_serializer)
+        historia_nutricion_serializer = HistoriaNutricionSerializer(historias_nutricion, many=True)
+        return Response(historia_nutricion_serializer.data)
 
 
 @permission_classes([IsAuthenticated])
