@@ -4,7 +4,7 @@ import { setToken } from '../../services/HeaderAuthorization';
 import AuthContext from '../../context/AuthProvider';
 import { getAllHistoriaNutricion } from '../../services/Nutriologo';
 
-export function LineChart() {
+export const LineChart = () => {
   const { authTokens } = useContext(AuthContext);
 
   const [patientsByMonth, setPatientsByMonth] = useState([]);
@@ -86,75 +86,12 @@ export function LineChart() {
   }, [patientsByMonth]);
 
   return(
-    <div lassName='col-md-5 col-sm-4'>
+    <div className='col-md-7 col-sm-4'>
         <div id="line-chart" style={{ height: '400px' }}></div>
     </div>
   ) 
 };
 
-/* title: {
-    text: 'Stacked Line'
-  },
-  tooltip: {
-    trigger: 'axis'
-  },
-  dataZoom: {
-    show: true,
-    start: 0
-},
-  legend: {
-    data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  toolbox: {
-    feature: {
-      saveAsImage: {}
-    }
-  },
-  xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      name: 'Email',
-      type: 'line',
-      stack: 'Total',
-      data: [120, 132, 101, 134, 90, 230, 210]
-    },
-    {
-      name: 'Union Ads',
-      type: 'line',
-      stack: 'Total',
-      data: [220, 182, 191, 234, 290, 330, 310]
-    },
-    {
-      name: 'Video Ads',
-      type: 'line',
-      stack: 'Total',
-      data: [150, 232, 201, 154, 190, 330, 410]
-    },
-    {
-      name: 'Direct',
-      type: 'line',
-      stack: 'Total',
-      data: [320, 332, 301, 334, 390, 330, 320]
-    },
-    {
-      name: 'Search Engine',
-      type: 'line',
-      stack: 'Total',
-      data: [820, 932, 901, 934, 1290, 1330, 1320]
-    }
-  ] */
+
   
 

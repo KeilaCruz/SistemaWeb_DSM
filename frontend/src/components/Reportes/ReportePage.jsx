@@ -6,6 +6,9 @@ import { useState, useEffect, useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
 import { setToken } from "../../services/HeaderAuthorization";
 import { LineChart } from "./LineChart";
+import { PDF } from "../PDF/PDF";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+
 
 export function ReportePage() {
   const [totalPacientes, setTotalPacientes] = useState("");
@@ -51,7 +54,7 @@ export function ReportePage() {
 
             <hr />
 
-          <div className="offset-md-1 col-md-4 mt-2">
+          <div className="offset-md-1 col-md-3 mt-2">
             <p className="h1">Enfermedades cronicas</p>
           </div>
           <LineChart/>
@@ -64,6 +67,17 @@ export function ReportePage() {
           </div>
           <PieChart2 />
         </div>
+
+        <PDFDownloadLink document={<PDF/>} fileName='myfirstPDF.pdf'>
+                {({loading, url, error,blob}) =>
+                  loading ? (
+                    <button>Loading document..</button>
+                  ) : (
+                    <button className="offset-md-6 btn btn-secondary ">Descargar PDF <i className="fa fa-file-pdf-o" style={{fontSize:"30px",color:"red"}}></i> </button>
+                  )
+                }
+              </PDFDownloadLink>
+
       </div>
     </div>
   );
