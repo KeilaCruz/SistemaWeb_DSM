@@ -68,3 +68,35 @@ class VisualizarCitasPaciente(APIView):
             return Cita.objects.filter(idPaciente=CURP)
         except Cita.DoesNotExist:
             raise "No existe"
+
+
+class ReagendarCitasPaciente(APIView):
+    def get(self, request, idCita):
+        cita = get_object_or_404(Cita, idCita=idCita)
+        cita_serializer = CitaSerializer(cita)
+        return Response(cita_serializer.data)
+
+    def put(self, request, idCita, format=None):
+        cita = get_object_or_404(Cita, idCita=idCita)
+        cita_data = request.data.get("datos_cita", {})
+        fecha_cita = cita_data.get("fecha_cita")
+        hora_cita = cita_data.get("horario_cita")
+        especialidad = cita_data.get("especialidad")
+
+        citas_programadas = Cita.objects.filter(
+            datos_cita__especialidad=especialidad,
+            datos_cita__fecha_cita=fecha_cita,
+            datos_cita__horario_cita=hora_cita,
+        ).exclude(idCita=idCita)
+
+        if citas_programadas.exists():
+            return Response(
+                {"error": "Ya hay otra cita programa para esa fecha"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        cita_serializer = CitaSerializer(cita, data=request.data)
+        if cita_serializer.is_valid():
+            cita_serializer.save()
+            return Response(cita_serializer.data)
+        return Response(cita_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

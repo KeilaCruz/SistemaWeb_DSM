@@ -26,9 +26,9 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
     const selectPaciente = (CURP) => {
         pacienteSelect(CURP)
     }
+
     return (
         <>
-
             <div className="container-fluid">
                 <div className="row g-3 mt-5">
                     <div className="col-md-10 offset-md-1 text-center mt-5">

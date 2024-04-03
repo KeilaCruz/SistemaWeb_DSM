@@ -5,8 +5,11 @@ const LIST_PACIENTES_URL = "http://127.0.0.1:8000/api/paciente/"
 const SAVE_PACIENTE_URL = "http://127.0.0.1:8000/api/registrar_paciente/";
 const SEARCH_PACIENTE_URL = "http://127.0.0.1:8000/api/buscar_paciente/";
 const SAVE_CITA_URL = "http://127.0.0.1:8000/api/agendar_cita/";
+const LIST_CITAS_URL = "http://127.0.0.1:8000/api/cita/";
 const EDIT_PACIENTE_URL = "http://127.0.0.1:8000/api/editar_paciente/"
 const LIST_CITA_PACIENTE_URL = "http://127.0.0.1:8000/api/citas_paciente/";
+const LIST_REAGENDARCITA_URL = "http://127.0.0.1:8000/api/reagendar_cita/";
+
 export const getAllPacientes = async () => {
     try {
         const config = await getConfig()
@@ -74,6 +77,19 @@ export const getPaciente = async (CURP) => {
         console.log(error)
     }
 }
+export const getAllCitas = async () => {
+    try {
+        const config = await getConfig()
+        const response = await axios.get(LIST_CITAS_URL, config)
+        if (response.status === 200) {
+            return response.data
+        } else {
+            console.error("error al hacer solicitud")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const editarPaciente = async (CURP, paciente) => {
     try {
         const config = await getConfig();
@@ -100,5 +116,33 @@ export const getCitasPaciente = async (CURP) => {
         }
     } catch (error) {
         console.error(error)
+    }
+}
+export const getCita = async (idCita) => {
+    try {
+        const config = await getConfig();
+        const response = await axios.get(`${LIST_REAGENDARCITA_URL}${idCita}/`, config)
+        if (response.status == 200) {
+            return response.data;
+        } else {
+            console.log("Error al hacer la llamada")
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const reagendarCita = async (idCita, cita) => {
+    try {
+        const config = await getConfig();
+        const response = await axios.put(`${LIST_REAGENDARCITA_URL}${idCita}/`, cita, config)
+        if (response.status == 200) {
+            alert("Modificacion realizada")
+        } else {
+            console.log("error al modificar")
+            return response;
+        }
+    } catch (error) {
+        console.log(error)
     }
 }

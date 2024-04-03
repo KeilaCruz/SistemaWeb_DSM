@@ -71,9 +71,7 @@ export function EditPacienteForm({ paciente }) {
     /**Funcion para enviar los datos actualizados (editar) */
     const onSubmit = handleSubmit(async (data) => {
         //Para convertir de cadena true or false a boleano
-        const parseBoolean = (value) => {
-            return value === "true"
-        }
+    
         const pacienteData = {
             CURP: data.CURP,
             "datos_personales": {
