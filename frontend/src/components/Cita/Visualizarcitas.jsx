@@ -29,6 +29,7 @@ export function VisualizarCitas() {
       setValue("idPaciente", cita.idPaciente || '')
       setValue("fecha_cita", cita.datos_cita.fecha_cita || '')
       setValue("horario_cita", cita.datos_cita.horario_cita || '')
+      setValue("especialidad", cita.datos_cita.especialidad || '')
     }
     loadInput()
   }, [cita, setValue])
@@ -115,21 +116,26 @@ export function VisualizarCitas() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={onSubmit} className="row g-3 mt-2">
-            <div className="col-md-2 offset-md-2">
+          <form onSubmit={onSubmit} className="row g-3">
+            <div className="col-md-4 offset-md-2">
+              <label htmlFor="id_cita" className="form-label label-form">Número de cita</label>
               <input type="number" id="id_cita" className="form-control input-form" {...register("idCita", { required: true })} />
             </div>
-            <div className="col-md-6">
+            <div className="col-md-8 offset-md-2">
+              <label htmlFor="curp_paciente" className="form-label label-form">Curp paciente</label>
               <input type="text" id="curp_paciente" className="form-control input-form" {...register("idPaciente", { required: true })} />
             </div>
-            <div className="col-md-4 offset-md-2">
+            <div className="col-md-8 offset-md-2">
+              <label htmlFor="fecha_cita" className="form-label label-form">Fecha de cita</label>
               <input type="date" id="fecha_cita" className="form-control input-form" {...register("fecha_cita", { required: true })} />
             </div>
-            <div className="col-md-4">
+            <div className="col-md-8 offset-md-2">
+              <label htmlFor="horario_cita" className="form-label label-form">Hora de cita</label>
               <input type="time" id="horario_cita" className="form-control input-form" {...register("horario_cita", { required: true })} />
             </div>
-            <div className="col-md-6 offset-md-2">
-              <select className="form-control input-form" id="especialidad" {...register("especialidad", { required: true })}>
+            <div className="col-md-8 offset-md-2">
+              <label htmlFor="especialidad" className="form-label label-form">Especialidad</label>
+              <select className="form-select input-form" id="especialidad" {...register("especialidad", { required: true })}>
                 <option value="" disabled>Elija especialidad</option>
                 <option value="Nutricion">Nutrición</option>
                 <option value="Medico-general">Medico general</option>
@@ -137,7 +143,9 @@ export function VisualizarCitas() {
                 <option value="Psicologia">Psicologia</option>
               </select>
             </div>
-            <button>Guardar</button>
+            <div className="col-md-6 offset-md-2">
+              <button className="button-guardar btn bt mx-auto">Guardar cambios</button>
+            </div>
           </form>
         </Modal.Body>
         <Modal.Footer>
