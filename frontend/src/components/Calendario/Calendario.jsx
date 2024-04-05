@@ -57,7 +57,7 @@ export function Calendario() {
 
   return (
     <div>
-      <div className="container-fluid">
+      <div className="container-fluid pb-4">
         <h1>Calendario de citas</h1>
         <FullCalendar
           events={events}

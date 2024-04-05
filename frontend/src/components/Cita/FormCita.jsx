@@ -29,9 +29,9 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
     return (
         <>
 
-            <div className="container-fluid">
-                <div className="row g-3 mt-5">
-                    <div className="col-md-10 offset-md-1 text-center mt-5">
+            <div className="container-fluid pb-5">
+                <div className="row g-3 ">
+                    <div className="col-md-10 offset-md-1 text-center mt-2">
                         <hr />
                         <h3 className="title">AGENDAR CITA</h3>
                         <hr />

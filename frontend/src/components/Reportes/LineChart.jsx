@@ -6,7 +6,6 @@ import { getAllHistoriaNutricion } from '../../services/Nutriologo';
 
 export const LineChart = () => {
   const { authTokens } = useContext(AuthContext);
-
   const [patientsByMonth, setPatientsByMonth] = useState([]);
 
   useEffect(() => {
@@ -48,11 +47,9 @@ export const LineChart = () => {
     }));
 
     const data = {
+      
         legend: {
             data: Object.keys(patientsByMonth)
-          },
-        title: {
-            text: ''
           },
           tooltip: {
             trigger: 'axis'

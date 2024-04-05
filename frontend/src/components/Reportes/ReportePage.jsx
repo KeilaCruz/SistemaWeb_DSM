@@ -1,21 +1,290 @@
-import { PieChart } from "./PieChart";
-import { BarChart } from "./BarChart";
-import { PieChart2 } from "./PieChart2";
 import { getAllPacientes } from "../../services/Recepcionista";
-import { useState, useEffect, useContext } from "react";
+import { getAllHistoriaNutricion } from '../../services/Nutriologo';
+import { useState, useEffect, useContext, useRef} from "react";
 import AuthContext from "../../context/AuthProvider";
 import { setToken } from "../../services/HeaderAuthorization";
-import { LineChart } from "./LineChart";
-import { PDF } from "../PDF/PDF";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-
+import * as echarts from 'echarts';
+import { PDFDownloadLink, Document, Page, Image, StyleSheet,View, Text } from '@react-pdf/renderer';
 
 export function ReportePage() {
+  const chartRefs = useRef([null, null, null]); // Refs para las dos gráficas
+  const [pdfDataURL, setPdfDataURL] = useState(null);
+  const { authTokens } = useContext(AuthContext);
+
+
+
+
+
+  const generatePDF = () => {
+    // Generar el PDF con react-pdf-render
+    const MyDocument = () => (
+      <Document>
+        <Page size="A4" >
+          <Text>Total de pacientes: {totalPacientes}</Text>
+          <Text>Femeninos: {cantidadFemenino}</Text>
+          <Text>Masculinos {cantidadMasculinos}</Text>
+          {/* Renderizar las dos imágenes en el PDF */}
+          {chartRefs.current.map((chartRef, index) => (
+            <Image
+              key={index}
+              src={getImageBase64(chartRef)}
+              style={{ width: '100%', height: 'auto', marginBottom: '20px' }}
+            />
+          ))}
+        </Page>
+      </Document>
+    );
+
+    // Convertir el documento PDF en un enlace de descarga
+    const pdfURL = (
+      <PDFDownloadLink document={<MyDocument />} fileName="Reporte.pdf">
+        {({ blob, url, loading, error }) => (loading ? 'Generando PDF...' : 'Descargar PDF')}
+      </PDFDownloadLink>
+    );
+
+    // Actualizar el estado con el enlace de descarga del PDF
+    setPdfDataURL(pdfURL);
+  };
+
+  const getImageBase64 = (chartRef) => {
+    if (!chartRef) return null;
+    const canvas = chartRef.getElementsByTagName('canvas')[0];
+    return canvas.toDataURL();
+  };
+
+
+/* Primera grafica ----------------------------------------------------------------------------------------------------------- */
+  useEffect(() => {
+    const data1 = {
+      title: {
+        text: 'Referer of a Website',
+        subtext: 'Fake Data',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left'
+      },
+      series: [
+        {
+          name: 'Access From',
+          type: 'pie',
+          radius: '50%',
+          data: [
+            { value: 1048, name: 'Search Engine' },
+            { value: 735, name: 'Direct' },
+            { value: 580, name: 'Email' },
+            { value: 484, name: 'Union Ads' },
+            { value: 300, name: 'Video Ads' }
+          ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+        };
+
+    // Inicializar el primer gráfico
+    const chart1 = echarts.init(chartRefs.current[0]);
+    chart1.setOption(data1);
+
+    // Limpia el primer gráfico al desmontar el componente
+    return () => {
+      chart1.dispose();
+    };
+  }, []);
+
+  /* Segunda grafica --------------------------------------------------------------------------------------------------- */
+
+  const [patientsByMonth, setPatientsByMonth] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await setToken(authTokens.access);
+        const historialesNutricion = await getAllHistoriaNutricion();
+  
+        // Contar el número de pacientes por enfermedad y por mes
+        const patientsByMonthAndDisease = historialesNutricion.reduce((acc, historia) => {
+          const fechaRegistro = new Date(historia.fecha_registro);
+          const month = fechaRegistro.getMonth();
+          const diseases = ['AP_diabetes_mellitus', 'AP_hipertension', 'AP_dislipidemias', 'problema_gastrointestinal'];
+          diseases.forEach(enfermedad => {
+            // Solo contar si la enfermedad es verdadera
+            if (historia.indicadores_clinicos[enfermedad] === true) {
+              acc[enfermedad] = acc[enfermedad] || Array.from({ length: 12 }, () => 0);
+              acc[enfermedad][month] += 1;
+            }
+          });
+          return acc;
+        }, {});
+  
+        setPatientsByMonth(patientsByMonthAndDisease);
+      } catch (error) {
+        console.error('Error al obtener los historiales de nutrición:', error);
+      }
+    };
+  
+    fetchData();
+  }, [authTokens.access]);
+
+  useEffect(() => {
+    // Datos para el segundo gráfico
+    const seriesData = Object.entries(patientsByMonth).map(([enfermedad, pacientes]) => ({
+      name: enfermedad,
+      type: 'line',
+      data: pacientes
+    }));
+
+    const data2 = {
+      title: {
+        text: 'Enfermedades cronicas',
+        subtext: '2024',
+        left: 'center'
+      },
+      legend: {
+        data: Object.keys(patientsByMonth),
+        top: 50 // Ajustar la posición vertical de la leyenda
+      },
+      grid: {
+        top: 100 // Ajustar el margen superior del grid para dar espacio al título
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      dataZoom: {
+        show: true,
+        start: 0
+      },
+      xAxis: {
+        type: 'category',
+        data: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      series: seriesData
+    };
+    
+
+    // Inicializar el segundo gráfico
+    const chart2 = echarts.init(chartRefs.current[1]);
+    chart2.setOption(data2);
+
+    // Limpia el segundo gráfico al desmontar el componente
+    return () => {
+      chart2.dispose();
+    };
+  }, [patientsByMonth]);
+
+  /* Tercera grafica --------------------------------------------------------------------------------------------------- */
+  const [cantidadIMSS, setCantidadIMSS] = useState("");
+  const [cantidadISSSTE, setCantidadISSSTE] = useState("");
+  const [cantidadPEMEX, setCantidadPEMEX] = useState("");
+  const [cantidadSEDENA, setCantidadSEDENA] = useState("");
+  const [cantidadSEDMAR, setCantidadSEDMAR] = useState("");
+  const [cantidadSSA_SESVER, setCantidadSSA_SESVER] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await setToken(authTokens.access);
+        const pacientes = await getAllPacientes();
+
+        const IMSS = pacientes.filter((paciente) => paciente.datos_contacto.derecho_habiencia === "IMSS").length;
+        const ISSSTE = pacientes.filter((paciente) => paciente.datos_contacto.derecho_habiencia === "ISSSTE").length;
+        const PEMEX = pacientes.filter((paciente) => paciente.datos_contacto.derecho_habiencia === "PEMEX").length;
+        const SEDENA = pacientes.filter((paciente) => paciente.datos_contacto.derecho_habiencia === "SEDENA").length;
+        const SEDMAR = pacientes.filter((paciente) => paciente.datos_contacto.derecho_habiencia === "SEDMAR").length;
+        const SSA_SESVER = pacientes.filter((paciente) => paciente.datos_contacto.derecho_habiencia === "SSA/SESVER").length;
+
+
+        setCantidadIMSS(IMSS);
+        setCantidadISSSTE(ISSSTE);
+        setCantidadPEMEX(PEMEX);
+        setCantidadSEDENA(SEDENA);
+        setCantidadSEDMAR(SEDMAR);
+        setCantidadSSA_SESVER(SSA_SESVER);
+
+      } catch (error) {
+        console.error("Error al obtener la cantidad de pacientes:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const data3 = {
+      title: {
+        text: 'Derechohabiencia',
+        subtext: '2024',
+        left: 'center'
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left'
+      },
+      series: [
+        {
+          name: 'Access From',
+          type: 'pie',
+          radius: '50%',
+          data: [
+            { value: cantidadIMSS, name: 'IMSS' },
+            { value: cantidadISSSTE, name: 'ISSSTE' },
+            { value: cantidadPEMEX, name: 'PEMEX' },
+            { value: cantidadSEDENA, name: 'SEDENA' },
+            { value: cantidadSEDMAR, name: 'SEDMAR' },
+            { value: cantidadSSA_SESVER, name: 'SSA/SESVER' }
+
+          ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+        };
+
+    // Inicializar el tercer gráfico
+    const chart3 = echarts.init(chartRefs.current[2]);
+    chart3.setOption(data3);
+
+    // Limpia el tercer gráfico al desmontar el componente
+    return () => {
+      chart3.dispose();
+    };
+  }, [cantidadIMSS,cantidadISSSTE,cantidadPEMEX,cantidadSEDENA,cantidadSEDMAR,cantidadSSA_SESVER]);
+
+  /* Mostrar cantidades de pacientes */ /* ------------------------------------------------------------------------------------- */
   const [totalPacientes, setTotalPacientes] = useState("");
   const [cantidadMasculinos, setCantidadMasculino] = useState("");
   const [cantidadFemenino, setCantidadFemenino] = useState("");
-  const { authTokens } = useContext(AuthContext);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -40,43 +309,46 @@ export function ReportePage() {
     fetchData();
   }, []);
 
+
   return (
     <div>
-      <div className="container-fluid">
+      <div className="container-fluid pb-4">
         <div className="row g-3">
-          <div className="offset-md-1 col-md-4">
+          <div className="offset-md-1 col-md-10">
             <p className="h1">Total de pacientes: {totalPacientes}</p>
             <p className="h3">Femeninos: {cantidadFemenino}</p>
             <p className="h3">Masculino: {cantidadMasculinos}</p>
           </div>
-
-          <PieChart />
-
-            <hr />
+          <div className="offset-md-2 col-md-10">
+          <div style={{ height: '700px' }} ref={el => chartRefs.current[0] = el}></div>
+          </div>
+         
+          <hr />
 
           <div className="offset-md-1 col-md-3 mt-2">
             <p className="h1">Enfermedades cronicas</p>
           </div>
-          <LineChart/>
+
+          <div style={{ height: '500px' }} ref={el => chartRefs.current[1] = el}></div>
+
+          
 
           <hr />
 
           <div className="offset-md-1 col-md-4 mt-2">
-            
             <p className="h1">Derechohabiencia</p>
           </div>
-          <PieChart2 />
+          <div className="offset-md-2 col-md-10">
+          <div style={{ height: '700px' }} ref={el => chartRefs.current[2] = el}></div>
+
+          </div>
+
+         
+
         </div>
 
-        <PDFDownloadLink document={<PDF/>} fileName='myfirstPDF.pdf'>
-                {({loading, url, error,blob}) =>
-                  loading ? (
-                    <button>Loading document..</button>
-                  ) : (
-                    <button className="offset-md-6 btn btn-secondary ">Descargar PDF <i className="fa fa-file-pdf-o" style={{fontSize:"30px",color:"red"}}></i> </button>
-                  )
-                }
-              </PDFDownloadLink>
+        <button onClick={generatePDF} className="offset-md-5 btn btn-secondary">Generar PDF <i className="fa fa-file-pdf-o" style={{fontSize:"30px",color:"red"}}></i> </button>
+         {pdfDataURL}
 
       </div>
     </div>

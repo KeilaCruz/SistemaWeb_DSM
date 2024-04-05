@@ -116,9 +116,9 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
     }
     return (
         <>
-            <div className="container-fluid">
-                <div className="row g-3 mt-5">
-                    <div className="col-md-10 offset-md-1 text-center mt-5">
+            <div className="container-fluid pb-4">
+                <div className="row g-3 ">
+                    <div className="col-md-10 offset-md-1 text-center ">
                         <hr />
                         <h3 className="title">FICHA DE IDENTIFICACIÓN PARA ADULTOS</h3>
                         <hr />
@@ -554,7 +554,7 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
                         <input id="cual_relacion" className="form-control input-form" type="text" placeholder="¿Cuál relación?" {...register("tenido_relaciones_distintas_heterosexuales")} />
                     </div>
                     <div className="col-md-5 offset-1 mt-4 mb-4">
-                        <button className="button-guardar">Guardar</button>
+                        <button className="btn btn-success">Guardar</button>
                     </div>
                 </form>
             </div>

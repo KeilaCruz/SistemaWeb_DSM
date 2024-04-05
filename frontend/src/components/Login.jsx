@@ -38,8 +38,17 @@ export function Login() {
     <>
       <div>
       {/* Img grande de la página */}
-      <section className="main ">
+      <section className="main pb-5">
         <div className="container-fluid">
+          
+        <div className="text-with-lines">
+          <div className="line line-top"></div>
+          <p className="display-5 fw-bold mt-3">
+            DIRECCIÓN DE SALUD MUNICIPAL PÚBLICA
+          </p>
+          <div className="line line-bottom"></div>
+        </div>
+        
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-md-9 col-lg-6 col-xl-5">
               <img

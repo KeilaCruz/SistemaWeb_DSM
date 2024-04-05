@@ -27,13 +27,16 @@ import { ViewHojaDeEvaluacion } from './components/HojaDeEvaluacion/ViewHojaDeEv
 import { VerExamenMedico } from './pages/VerExamenMedico';
 import { ViewExamenMedico } from './components/ExamenMedico/ViewExamenMedico';
 import { ReportePage } from './components/Reportes/ReportePage';
-import { PDF } from './components/PDF/PDF';
+
+
 function App() {
+
+  
+  
   return (
     <>
-      <AuthProvider>
+    
         <BrowserRouter>
-          <Header />
           <Routes>
             <Route index element={<Login />} />
             <Route path="/login" element={<Login />} />
@@ -60,15 +63,8 @@ function App() {
             <Route path="/ver_examenMedico" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><VerExamenMedico/></ProtectedRoute>} />
             <Route path="/ver_examenMedico/:idExamenMedico" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ViewExamenMedico/></ProtectedRoute>} />
             <Route path="/reportes" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><ReportePage/></ProtectedRoute>} />
-            
-
-
-
-
           </Routes>
-          <Footer />
         </BrowserRouter>
-      </AuthProvider>
     </>
   )
 }

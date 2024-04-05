@@ -29,8 +29,10 @@ export const AuthProvider = ({ children }) => {
                 setAuthTokens(response.data)
                 setUser(jwtDecode(response.data.access))
                 localStorage.setItem('authTokens', JSON.stringify(response.data))
-                //console.log(localStorage.getItem('authTokens'))
-                //console.log("hOLA", user.username)
+                // Recargar la página 
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500); 
             } else {
                 alert("Fallo al iniciar sesión");
             }

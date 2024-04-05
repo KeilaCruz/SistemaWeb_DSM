@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+import { PieChart } from "../Reportes/PieChart"
 
 export function FormPaciente({ onSubmit, register }) {
     const [showCualEstatal, setShowEstatal] = useState(false)
@@ -33,14 +34,15 @@ export function FormPaciente({ onSubmit, register }) {
 
     return (
         <>
-            <div className="container-fluid">
-                <div className="row g-2 mt-5">
-                    <div className="col-md-10 offset-md-1 text-center mt-5">
+            <div className="container-fluid pb-5">
+                <div className="row g-2 ">
+                    <div className="col-md-10 offset-md-1 text-center ">
                         <hr />
                         <h3 className="title">FICHA DE IDENTIDAD DEL PACIENTE</h3>
                         <hr />
                     </div>
                 </div>
+                
                 <form onSubmit={onSubmit} className="row g-3">
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="Nombre" className="form-label label-form">Nombres(s)</label>

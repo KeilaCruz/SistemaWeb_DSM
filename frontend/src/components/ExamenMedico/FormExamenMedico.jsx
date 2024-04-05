@@ -170,7 +170,7 @@ const handlePlanificacionFamiliar = (evt) => {
           </div>
         </div>
       </div>
-      <div className="col-md-9 offset-1">
+      <div className="col-md-2 offset-1">
         <label className="form-label label-section">DATOS PERSONALES</label>
       </div>
       <div className="col-md-9 offset-1">
@@ -1462,7 +1462,7 @@ const handlePlanificacionFamiliar = (evt) => {
               className="form-control"
             ></textarea>
           </div>
-          <div className="col-md-5 offset-1 mt-4 mb-4">
+          <div className="col-md-3 offset-md-1 mt-4 mb-4">
             <button className="button-guardar btn btn-success">Guardar</button>
           </div>
         </form>

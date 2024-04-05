@@ -1,11 +1,11 @@
 export function Footer() {
     return (
       <div className ="mt-3">
-        <footer class="">
+        <footer className="">
         <div
-          class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-1 px-2 px-xl-2 navbar-custom footer-custom"
+          className="d-flex flex-column  text-center text-md-center justify-content-between py-1 px-2 px-xl-2 navbar-custom footer-custom "
         >
-          <div class="text-white mb-0 mb-md-0">
+          <div className="  text-white  ">
             Copyright © 2022-2025. All rights reserved.
           </div>
         </div>

@@ -29,9 +29,9 @@ export function FormEvento({ onSubmit, register, usuarioSelect }) {
 
   return (
     <>
-      <div className="container-fluid">
-        <div className="row g-3 mt-5">
-          <div className="col-md-10 offset-md-1 text-center mt-5">
+      <div className="container-fluid pb-4">
+        <div className="row g-3 ">
+          <div className="col-md-10 offset-md-1 text-center ">
             <hr />
             <h3 className="title">CREAR EVENTO</h3>
             <hr />
@@ -127,8 +127,8 @@ export function FormEvento({ onSubmit, register, usuarioSelect }) {
               ></textarea>
             </div>
 
-            <div className="col-md-5 offset-1 mt-4 mb-4">
-              <button className="button-guardar">Guardar</button>
+            <div className="col-md-3 mt-4 mb-4">
+              <button className="btn btn-success">Guardar</button>
             </div>
           </form>
         </div>
