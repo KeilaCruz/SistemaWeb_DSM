@@ -1,11 +1,12 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from django.utils import timezone
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
-from gestion_pacientes.models import Paciente
+from gestion_pacientes.models import Paciente, HojaEvaluacionClinica
 from django.db.models import Q
-from .serializers import PacienteSerializer
+from .serializers import PacienteSerializer, HistorialClinicoSerializer
 from django.shortcuts import get_object_or_404
 
 
@@ -66,3 +67,14 @@ class EditarPacienteAPIView(APIView):
             return Paciente.objects.get(CURP=CURP)
         except Paciente.DoesNotExist:
             raise "No existe"
+
+
+@permission_classes([IsAuthenticated])
+class HistorialClinicoAPIView(APIView):
+    def get(self, request, idPaciente):
+        historial = HojaEvaluacionClinica.objects.filter(
+            idPaciente=idPaciente, fecha_revision__lte=timezone.now()
+        ).order_by("fecha_revision")[:10]
+
+        historial_serializer = HistorialClinicoSerializer(historial, many=True)
+        return Response(historial_serializer.data)

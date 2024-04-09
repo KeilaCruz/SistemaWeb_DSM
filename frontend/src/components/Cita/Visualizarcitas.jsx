@@ -1,48 +1,55 @@
 import { useContext, useEffect, useState } from "react"
 import AuthContext from "../../context/AuthProvider"
 import { setToken } from "../../services/HeaderAuthorization";
-import { getAllCitas, getCita, reagendarCita } from "../../services/Recepcionista";
+import { getAllCitas, getCita, getCitasInactivas, marcarAsistencia, reagendarCita } from "../../services/Recepcionista";
 import { Modal, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 export function VisualizarCitas() {
   const [citas, setCitas] = useState([])
+  const [filtro, setFiltro] = useState(true);
   const [cita, setCita] = useState({})
   const [showModal, setShowModal] = useState(false)
   const { authTokens } = useContext(AuthContext);
   const { register, setValue, handleSubmit } = useForm()
   useEffect(() => {
     async function loadCitas() {
+      let citas;
       try {
-        await setToken(authTokens.access);
-        const response = await getAllCitas()
-        setCitas(response)
+        if (filtro) {
+          await setToken(authTokens.access)
+          citas = await getAllCitas();
+        } else if (filtro = false) {
+          await setToken(authTokens.access)
+          citas = await getCitasInactivas();
+        }
+        setCitas(citas);
       } catch (error) {
         console.error(error)
       }
     }
     loadCitas()
-  }, [])
+  }, [filtro])
 
   useEffect(() => {
     async function loadInput() {
       setValue("idCita", cita.idCita || '')
       setValue("idPaciente", cita.idPaciente || '')
-      setValue("fecha_cita", cita.datos_cita.fecha_cita || '')
-      setValue("horario_cita", cita.datos_cita.horario_cita || '')
-      setValue("especialidad", cita.datos_cita.especialidad || '')
+      setValue("fecha_cita", cita.datos_cita?.fecha_cita || '')
+      setValue("horario_cita", cita.datos_cita?.horario_cita || '')
+      setValue("especialidad", cita.datos_cita?.especialidad || '')
     }
     loadInput()
   }, [cita, setValue])
 
-  const handleOpenModal = async (id) => {
+  async function handleOpenModal(id) {
     try {
-      await setToken(authTokens.access)
-      const response = await getCita(id)
-      setCita(response)
+      await setToken(authTokens.access);
+      const response = await getCita(id);
+      setCita(response);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-    setShowModal(true)
+    setShowModal(true);
   }
   const handleCloseModal = () => {
     setShowModal(false)
@@ -65,6 +72,17 @@ export function VisualizarCitas() {
       console.log(error)
     }
   })
+  const handleMarcarAsistencia = async (id) => {
+    try {
+      await setToken(authTokens.access);
+      await marcarAsistencia(id)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const handleFiltro = (filtro) => {
+    setFiltro(filtro)
+  }
   return (
     <>
       <div className="container-fluid">
@@ -75,6 +93,16 @@ export function VisualizarCitas() {
             <hr />
           </div>
         </div>
+
+        <div>
+          <div>
+            <button onClick={() => handleFiltro(true)}>Pendientes</button>
+          </div>
+          <div>
+            <button onClick={() => handleFiltro(false)}>Asistidas</button>
+          </div>
+        </div>
+        {/**Citas activas */}
         <div className="col-md-10 offset-md-1 mt-5">
           <table>
             <thead className="cabecera">
@@ -85,6 +113,7 @@ export function VisualizarCitas() {
                 <th className="colum">Especialidad</th>
                 <th className="colum">Estado</th>
                 <th className="colum"></th>
+                <th className="colum">Marcar asistencia</th>
               </tr>
             </thead>
             <tbody>
@@ -98,8 +127,11 @@ export function VisualizarCitas() {
                     <td className="fila">Activa</td>
                   )
                   }
-                  <td td className="fila">
+                  <td className="fila">
                     <button onClick={() => handleOpenModal(cita.idCita)}>Edit</button>
+                  </td>
+                  <td className="fila">
+                    <input id="marcar_asistencia" type="checkbox" onChange={() => handleMarcarAsistencia(cita.idCita)} />
                   </td>
                 </tr>
               ))
@@ -110,20 +142,20 @@ export function VisualizarCitas() {
       </div >
 
       {/**Modal para editar datos de la cita */}
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal Modal show={showModal} onHide={handleCloseModal} >
         <Modal.Header closeButton>
           <Modal.Title>Reagendar cita
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={onSubmit} className="row g-3">
-            <div className="col-md-4 offset-md-2">
-              <label htmlFor="id_cita" className="form-label label-form">Número de cita</label>
-              <input type="number" id="id_cita" className="form-control input-form" {...register("idCita", { required: true })} />
+            <div className="col-md-2 offset-md-2">
+              <label htmlFor="id_cita" className="form-label label-form">Número</label>
+              <input type="number" id="id_cita" className="form-control input-form" {...register("idCita", { required: true })} disabled={true} />
             </div>
-            <div className="col-md-8 offset-md-2">
+            <div className="col-md-6">
               <label htmlFor="curp_paciente" className="form-label label-form">Curp paciente</label>
-              <input type="text" id="curp_paciente" className="form-control input-form" {...register("idPaciente", { required: true })} />
+              <input type="text" id="curp_paciente" className="form-control input-form" {...register("idPaciente", { required: true })} disabled={true} />
             </div>
             <div className="col-md-8 offset-md-2">
               <label htmlFor="fecha_cita" className="form-label label-form">Fecha de cita</label>
@@ -153,7 +185,8 @@ export function VisualizarCitas() {
             Cerrar
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal >
+      {/**Fin del modal */}
     </>
   )
 }

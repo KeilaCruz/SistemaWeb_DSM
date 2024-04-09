@@ -17,6 +17,7 @@ import { BuscarPacientePage } from './pages/BuscarPacientePage';
 import { ViewPaciente } from './components/Paciente/ViewPaciente';
 import { CitasPacientePage } from './pages/CitasPacientePage';
 import { CitasPage } from './pages/CitasPage';
+import { HistorialClinico } from './components/Paciente/HistorialClinico';
 function App() {
   return (
     <>
@@ -39,7 +40,7 @@ function App() {
             <Route path="/buscar_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ViewPaciente /></ProtectedRoute>} />
             <Route path="/citas_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><CitasPacientePage /></ProtectedRoute>} />
             <Route path="/citas" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><CitasPage /></ProtectedRoute>} />
-
+            <Route path="/historial-clinico/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><HistorialClinico /></ProtectedRoute>} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

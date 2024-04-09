@@ -12,6 +12,7 @@ export function PacienteCard({ paciente, handleSelect }) {
                             <div className="col-md-4">
                                 <p className="card-text">{paciente.CURP}</p>
                                 <p className="card-text">{paciente.datos_personales.nombre} {paciente.datos_personales.apePaterno} {paciente.datos_personales.apeMaterno}</p>
+                                <p className="card-text">{paciente.datos_personales.edad}</p>
                                 <p className="card-text">{paciente.datos_personales.estado_civil}</p>
                                 <p className="card-text">{paciente.datos_personales.escolaridad}</p>
                             </div>

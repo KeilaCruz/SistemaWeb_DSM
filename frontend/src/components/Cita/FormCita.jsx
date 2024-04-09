@@ -60,14 +60,15 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
                         </select>
                     </div>
                     <div className="col-md-10 offset-md-1 mt-5">
-                        <table >
+                        <table>
                             <thead className="cabecera">
                                 <tr>
                                     <th className="colum">Sl.</th>
                                     <th className="colum">CURP</th>
                                     <th className="colum">Nombre</th>
                                     <th className="colum">Edad</th>
-                                    <th className="colum">Dirección</th>
+                                    <th className="colum">Colonia</th>
+                                    <th className="colum">Calle</th>
                                     <th className="colum">Telefono</th>
                                 </tr>
                             </thead>
@@ -80,7 +81,8 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
                                         <td className="fila">{paciente.CURP}</td>
                                         <td className="fila">{`${paciente.datos_personales.nombre} ${paciente.datos_personales.apePaterno} ${paciente.datos_personales.apeMaterno}`}</td>
                                         <td className="fila">{paciente.datos_personales.edad}</td>
-                                        <td className="fila">{`${paciente.datos_direccion.colonia} ${paciente.datos_direccion.calle} #${paciente.datos_direccion.numero_exterior}`}</td>
+                                        <td className="fila">{`${paciente.datos_direccion.colonia}`}</td>
+                                        <td className="fila">{`${paciente.datos_direccion.calle} #${paciente.datos_direccion.numero_exterior}`}</td>
                                         <td className="fila">{paciente.datos_contacto.telefono}</td>
                                     </tr>
                                 ))}

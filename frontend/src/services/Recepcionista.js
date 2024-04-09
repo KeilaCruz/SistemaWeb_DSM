@@ -5,10 +5,13 @@ const LIST_PACIENTES_URL = "http://127.0.0.1:8000/api/paciente/"
 const SAVE_PACIENTE_URL = "http://127.0.0.1:8000/api/registrar_paciente/";
 const SEARCH_PACIENTE_URL = "http://127.0.0.1:8000/api/buscar_paciente/";
 const SAVE_CITA_URL = "http://127.0.0.1:8000/api/agendar_cita/";
-const LIST_CITAS_URL = "http://127.0.0.1:8000/api/cita/";
+const LIST_CITASACTIVAS_URL = "http://127.0.0.1:8000/api/cita_activas/";
+const LIST_CITASINACTIVAS_URL = "http://127.0.0.1:8000/api/cita_inactivas/";
 const EDIT_PACIENTE_URL = "http://127.0.0.1:8000/api/editar_paciente/"
 const LIST_CITA_PACIENTE_URL = "http://127.0.0.1:8000/api/citas_paciente/";
 const LIST_REAGENDARCITA_URL = "http://127.0.0.1:8000/api/reagendar_cita/";
+const LIST_HISTORIALCLINICO_URL = "http://127.0.0.1:8000/api/historial_clinico/"
+const MARCAR_ASISTENCIA_URL = "http://127.0.0.1:8000/api/marcar_asistencia/"
 
 export const getAllPacientes = async () => {
     try {
@@ -80,7 +83,20 @@ export const getPaciente = async (CURP) => {
 export const getAllCitas = async () => {
     try {
         const config = await getConfig()
-        const response = await axios.get(LIST_CITAS_URL, config)
+        const response = await axios.get(LIST_CITASACTIVAS_URL, config)
+        if (response.status === 200) {
+            return response.data
+        } else {
+            console.error("error al hacer solicitud")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const getCitasInactivas = async () => {
+    try {
+        const config = await getConfig()
+        const response = await axios.get(LIST_CITASINACTIVAS_URL, config)
         if (response.status === 200) {
             return response.data
         } else {
@@ -144,5 +160,33 @@ export const reagendarCita = async (idCita, cita) => {
         }
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const historialClinicoPaciente = async (idPaciente) => {
+    try {
+        const config = await getConfig();
+        const response = await axios.get(`${LIST_HISTORIALCLINICO_URL}${idPaciente}/`, config)
+        if (response.status == 200) {
+            return response.data
+        } else {
+            console.log("Error al retornar el historial")
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const marcarAsistencia = async (idCita) => {
+    try {
+        const config = await getConfig();
+        const response = await axios.put(`${MARCAR_ASISTENCIA_URL}${idCita}/`, {}, config)
+        if (response.status == 200) {
+            console.log("Marcar asistencia listo")
+        } else {
+            console.log("Error al marcar asistencia")
+        }
+    } catch (error) {
+        console.error(error)
     }
 }

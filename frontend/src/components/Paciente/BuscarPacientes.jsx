@@ -39,7 +39,7 @@ export function BuscarPacientes() {
         <>
             <div className="container-fluid">
                 <div className="row g-3 mt-4">
-                    <div className="col-md-12 offset-1 row">
+                    <div className="col-md-10 offset-1 row">
                         <div className="col-md-6">
                             <input className="form-control input-form" type="text" id="busqueda_paciente" placeholder="Buscar por CURP o nombre" onChange={handleBarraBusqueda} />
                         </div>
@@ -48,15 +48,15 @@ export function BuscarPacientes() {
                         </div>
                     </div>
                     {pacienteResult.map(resultado => (
-                        <div key={resultado.CURP} className="col-md-12 offset-md-1 ">
+                        <div key={resultado.CURP} className="col-md-10 offset-md-1 ">
                             <hr3 className="sub-title">RESULTADO DE BÚSQUEDA</hr3>
                             <div className="col-md-3">
                                 <PacienteCardResumen paciente={resultado} />
                             </div>
                         </div>
                     ))}
-                    <div className="col-md-12 offset-md-1">
-                        <hr3 className="sub-title">PACIENTES REGISTRADOS</hr3>
+                    <div className="col-md-10 offset-md-1">
+                        <h3 className="sub-title">PACIENTES REGISTRADOS</h3>
                     </div>
                     {pacientes.map(paciente => (
                         <div key={paciente.CURP} className="col-md-3 offset-md-1 mt-4">
