@@ -5,7 +5,7 @@ import { getAllCitas, getCita, getCitasInactivas, marcarAsistencia, reagendarCit
 import { Modal, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 export function VisualizarCitas() {
-  const [citas, setCitas] = useState([])
+  let [citas, setCitas] = useState([])
   const [filtro, setFiltro] = useState(true);
   const [cita, setCita] = useState({})
   const [showModal, setShowModal] = useState(false)
@@ -18,7 +18,7 @@ export function VisualizarCitas() {
         if (filtro) {
           await setToken(authTokens.access)
           citas = await getAllCitas();
-        } else if (filtro = false) {
+        } else {
           await setToken(authTokens.access)
           citas = await getCitasInactivas();
         }
@@ -74,8 +74,14 @@ export function VisualizarCitas() {
   })
   const handleMarcarAsistencia = async (id) => {
     try {
-      await setToken(authTokens.access);
-      await marcarAsistencia(id)
+      if (cita.estado) {
+        await setToken(authTokens.access);
+        await marcarAsistencia(id, false)
+      } else {
+        await setToken(authTokens.access);
+        await marcarAsistencia(id, true)
+      }
+
     } catch (error) {
       console.error(error)
     }

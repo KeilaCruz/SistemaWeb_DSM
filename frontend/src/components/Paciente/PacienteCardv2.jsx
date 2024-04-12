@@ -1,3 +1,4 @@
+import { useState } from "react"
 
 export function PacienteCardv2({ paciente }) {
     return (

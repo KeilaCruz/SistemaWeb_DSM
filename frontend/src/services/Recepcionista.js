@@ -177,10 +177,10 @@ export const historialClinicoPaciente = async (idPaciente) => {
     }
 }
 
-export const marcarAsistencia = async (idCita) => {
+export const marcarAsistencia = async (idCita, estado) => {
     try {
         const config = await getConfig();
-        const response = await axios.put(`${MARCAR_ASISTENCIA_URL}${idCita}/`, {}, config)
+        const response = await axios.put(`${MARCAR_ASISTENCIA_URL}${idCita}/`, estado, config)
         if (response.status == 200) {
             console.log("Marcar asistencia listo")
         } else {

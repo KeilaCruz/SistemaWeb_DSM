@@ -16,12 +16,14 @@ class CitaActivasAPIView(APIView):
         cita_serializer = CitaSerializer(citas, many=True)
         return Response(cita_serializer.data)
 
+
 @permission_classes([IsAuthenticated])
 class CitaInactivasAPIView(APIView):
     def get(self, request):
         citas = Cita.objects.filter(estado=False)
         cita_serializer = CitaSerializer(citas, many=True)
         return Response(cita_serializer.data)
+
 
 @permission_classes([IsAuthenticated])
 class AgendarCitaAPIView(APIView):
@@ -116,8 +118,9 @@ class ReagendarCitasPaciente(APIView):
 @permission_classes([IsAuthenticated])
 class MarcarAsistenciaCita(APIView):
     def put(self, request, idCita, format=None):
-        cita = get_object_or_404(Cita, idCita=idCita, estado=True)
+        cita = get_object_or_404(Cita, idCita=idCita)
 
-        cita.estado = False
+        cita.estado = request.data
         cita.save()
         return Response({"message": "El estado de la cita ha sido actualizado"})
+

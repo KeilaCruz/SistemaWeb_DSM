@@ -72,9 +72,16 @@ class EditarPacienteAPIView(APIView):
 @permission_classes([IsAuthenticated])
 class HistorialClinicoAPIView(APIView):
     def get(self, request, idPaciente):
+        paciente = Paciente.objects.get(CURP=idPaciente)
         historial = HojaEvaluacionClinica.objects.filter(
             idPaciente=idPaciente, fecha_revision__lte=timezone.now()
         ).order_by("fecha_revision")[:10]
 
         historial_serializer = HistorialClinicoSerializer(historial, many=True)
-        return Response(historial_serializer.data)
+        paciente_serializer = PacienteSerializer(paciente)
+
+        data = {
+            "paciente": paciente_serializer.data,
+            "hoja": historial_serializer.data,
+        }
+        return Response(data)
