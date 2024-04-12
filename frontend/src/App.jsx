@@ -27,6 +27,8 @@ import { ViewHojaDeEvaluacion } from './components/HojaDeEvaluacion/ViewHojaDeEv
 import { VerExamenMedico } from './pages/VerExamenMedico';
 import { ViewExamenMedico } from './components/ExamenMedico/ViewExamenMedico';
 import { ReportePage } from './components/Reportes/ReportePage';
+import { VerEventos } from './pages/VerEventos';
+import { ViewEvento } from './components/Evento/ViewEvento';
 
 
 function App() {
@@ -51,6 +53,11 @@ function App() {
             <Route path="/registrar_fichapsiniño" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><ReFichaPsicoNiñoPage /></ProtectedRoute>} />
             <Route path="/registrar_fichapsiadulto" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReFichaPsicoAdultoPage /></ProtectedRoute>} />
             <Route path="/registrar_evento" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReEvento /></ProtectedRoute>} />
+            <Route path="/ver_evento" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><VerEventos /></ProtectedRoute>} />
+            <Route path="/ver_evento/:idEvento" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ViewEvento /></ProtectedRoute>} />
+
+
+
             <Route path="/buscar_paciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><BuscarPacientePage /></ProtectedRoute>} />
             <Route path="/buscar_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ViewPaciente /></ProtectedRoute>} />
             <Route path="/citas_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><CitasPacientePage /></ProtectedRoute>} />

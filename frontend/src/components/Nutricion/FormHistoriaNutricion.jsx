@@ -40,8 +40,8 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect }) {
     return (
         <div>
             <div className="container-fluid">
-                <div className="row g-3 mt-5">
-                    <div className="col-md-10 offset-md-1 text-center mt-5">
+                <div className="row g-3 ">
+                    <div className="col-md-10 offset-md-1 text-center ">
                         <hr />
                         <h3 className="title">HISTORIA CLÍNICA-NUTRICIÓN</h3>
                         <hr />

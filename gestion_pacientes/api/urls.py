@@ -29,6 +29,7 @@ from gestion_pacientes.api.psicologia import (
 from gestion_pacientes.api.evento import (
     EventoAPIView,
     RegistrarEventoAPIView,
+    EditarEventoAPIView
 
 )
 
@@ -62,6 +63,9 @@ urlpatterns = [
     path("registrar_fichapsi_nino", RegistrarFichaPsiNiñoAPIView.as_view()),
     path("registrar_fichapsi_adulto", RegistrarFichaPsiAdultoAPIView.as_view()),
     path("registrar_evento/", RegistrarEventoAPIView.as_view()),
+    path("evento/", EventoAPIView.as_view()),
+    path("editar_evento/<str:idEvento>/", EditarEventoAPIView.as_view()),
+
     path("registrar_examen_medico/", RegistrarExamenMedicoAPIView.as_view()),
     path("examen_medico/", ExamenMedicoAPIView.as_view()),
     path("editar_examen_medico/<str:idExamenMedico>/", EditarExamenMedicoAPIView.as_view()),

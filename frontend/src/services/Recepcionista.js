@@ -8,6 +8,8 @@ const SEARCH_PACIENTE_URL = "http://127.0.0.1:8000/api/buscar_paciente/";
 const SAVE_CITA_URL = "http://127.0.0.1:8000/api/agendar_cita/";
 const LIST_CITAS_URL ="http://127.0.0.1:8000/api/cita/";
 const SAVE_EVENTO_URL = "http://127.0.0.1:8000/api/registrar_evento/";
+const LIST_EVENTO = "http://127.0.0.1:8000/api/evento/"
+const EDIT_EVENTO = "http://127.0.0.1:8000/api/editar_evento/"
 const SEARCH_USUARIO_URL = "http://127.0.0.1:8000/api/buscar_usuario/";
 const LIST_USUARIOS_URL = "http://127.0.0.1:8000/api/visualizar_usuario/";
 const EDIT_PACIENTE_URL = "http://127.0.0.1:8000/api/editar_paciente/";
@@ -179,30 +181,7 @@ export const getCitasPaciente = async (CURP) => {
     }
 } 
 
-export const registerEvento = async (evento) => {
-    try {
-        const config = await getConfig()
-        const response = await axios.post(SAVE_EVENTO_URL, evento, config)
-        if (response.status === 201) {
-            Swal.fire({
-                icon: 'success',
-                title: '¡Operación exitosa!',
-                text: 'Evento registrado con exito',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Aceptar'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  console.log('Se hizo clic en Aceptar');
-                  
-                }
-              });
-        } else {
-            return response
-        }
-    } catch (error) {
-        console.error(error)
-    }
-}
+
 
 export const searchUsuario = async (criterio) => {
     try {
@@ -234,6 +213,90 @@ export const getAllUsuarios = async () => {
     }
 };
 
+export const registerEvento = async (evento) => {
+    try {
+        const config = await getConfig()
+        const response = await axios.post(SAVE_EVENTO_URL, evento, config)
+        if (response.status === 201) {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Evento registrado con exito',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  console.log('Se hizo clic en Aceptar');
+                  
+                }
+              });
+        } else {
+            return response
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const getAllEventos = async () => {
+    try {
+        const config = await getConfig()
+        const response = await axios.get(LIST_EVENTO, config)
+        if (response.status === 200) {
+            return response.data
+        } else {
+            console.error("error al hacer solicitud")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getEvento = async (idEvento) => {
+    try {
+        const config = await getConfig();
+        const response = await axios.get(`${EDIT_EVENTO}${idEvento}/`, config)
+        if (response.status == 200) {
+            return response.data;
+        } else {
+            console.log("Error al hacer la llamada")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const editarEvento = async (idEvento, evento) => {
+    try {
+        const config = await getConfig();
+        const response = await axios.put(`${EDIT_EVENTO}${idEvento}/`, evento, config)
+        if (response.status == 200) {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Evento modificado con exito',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  console.log('Se hizo clic en Aceptar');
+                  location.href ='/ver_evento';
+                }
+              });
+        } else {
+            console.log("error al modificar")
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡Algo salio mal!",
+                footer: '<a href="#">Intente de nuevo</a>'
+              });
+            return response;
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 
 
