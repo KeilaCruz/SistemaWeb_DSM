@@ -347,7 +347,7 @@ export function ReportePage() {
 
         </div>
 
-        <button onClick={generatePDF} className="offset-md-5 btn btn-secondary">Generar PDF <i className="fa fa-file-pdf-o" style={{fontSize:"30px",color:"red"}}></i> </button>
+        <button onClick={generatePDF} className="offset-md-5 btn btn-secondary">Generar <i className="fa-solid fa-file-pdf" style={{fontSize:"30px",color:"red"}}></i> </button>
          {pdfDataURL}
 
       </div>

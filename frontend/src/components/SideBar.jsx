@@ -144,7 +144,7 @@ export function SideBar() {
                       <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                               data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                              <i className="lni lni-heart"></i>
+                                <i class="fa-solid fa-hospital-user"></i>
                               <span>Paciente</span>
                           </a>
                           <ul id="auth" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -161,7 +161,7 @@ export function SideBar() {
                       <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                               data-bs-target="#auth1" aria-expanded="false" aria-controls="auth1">
-                              <i className="lni lni-agenda"></i>
+                                <i class="fa-regular fa-calendar-check"></i>
                               <span>Citas</span>
                           </a>
                           <ul id="auth1" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -178,7 +178,7 @@ export function SideBar() {
                       <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                               data-bs-target="#auth2" aria-expanded="false" aria-controls="auth2">
-                              <i className="lni lni-graph"></i>
+                                <i class="fa-solid fa-brain"></i>
                               <span>Psicología</span>
                           </a>
                           <ul id="auth2" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -192,12 +192,15 @@ export function SideBar() {
                       <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                               data-bs-target="#auth3" aria-expanded="false" aria-controls="auth3">
-                              <i className="lni lni-graph"></i>
+                                <i class="fa-solid fa-bullhorn"></i>
                               <span>Eventos</span>
                           </a>
                           <ul id="auth3" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                               <li className="sidebar-item">
                                   <a href="/registrar_evento" className="sidebar-link">Crear evento</a>
+                              </li>
+                              <li className="sidebar-item">
+                                  <a href="/ver_evento" className="sidebar-link">Ver eventos</a>
                               </li>
                               
                           </ul>
@@ -206,7 +209,7 @@ export function SideBar() {
                       <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                               data-bs-target="#auth4" aria-expanded="false" aria-controls="auth4">
-                              <i className="lni lni-graph"></i>
+                                <i class="fa-solid fa-file-waveform"></i>
                               <span>Examen médico</span>
                           </a>
                           <ul id="auth4" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -223,7 +226,7 @@ export function SideBar() {
                       <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                               data-bs-target="#auth5" aria-expanded="false" aria-controls="auth5">
-                              <i className="lni lni-graph"></i>
+                                <i class="fa-solid fa-file-medical"></i>
                               <span>Evaluación clínica</span>
                           </a>
                           <ul id="auth5" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
