@@ -51,8 +51,8 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
                     </div>
                     <div className="col-md-3 offset-1">
                         <label htmlFor="especialidad_cita" className="form-label label-form">Especialidad de cita</label>
-                        <select className="form-control input-form" id="especialidad" {...register("especialidad", { required: true })}>
-                            <option value="" disabled>Elija especialidad</option>
+                        <select className="form-select input-form" id="especialidad" {...register("especialidad", { required: true })}>
+                            <option value="" disabled selected>Elija especialidad</option>
                             <option value="Nutricion">Nutrición</option>
                             <option value="Medico-general">Medico general</option>
                             <option value="Odontologia">Odontología</option>

@@ -74,16 +74,22 @@ export function VisualizarCitas() {
   })
   const handleMarcarAsistencia = async (id) => {
     try {
-      if (cita.estado) {
-        await setToken(authTokens.access);
+      //validar estado de la cita
+      await setToken(authTokens.access)
+      let cita_response = await getCita(id);
+      if (cita_response) {
+        console.log(id)
         await marcarAsistencia(id, false)
       } else {
-        await setToken(authTokens.access);
+        console.log(id)
         await marcarAsistencia(id, true)
       }
-
+      //marcar y desmarcar visualmente el checkbox de asistencia
+      setCitas(prevCitas => (
+        prevCitas.map(cita => cita.idCita === id ? { ...cita, estado: !cita.estado } : cita)
+      ))
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
   const handleFiltro = (filtro) => {
@@ -93,21 +99,21 @@ export function VisualizarCitas() {
     <>
       <div className="container-fluid">
         <div className="row g-3 mt-5">
-          <div className="col-md-10 offset-md-1 text-center mt-5">
+          <div className="col-md-10 offset-md-  AQQ1 text-center mt-5">
             <hr />
             <h3 className="title">CITAS AGENDADAS</h3>
             <hr />
           </div>
         </div>
-
-        <div>
-          <div>
+        <div className="row ">
+          <div className="col-md-1 offset-md-1">
             <button onClick={() => handleFiltro(true)}>Pendientes</button>
           </div>
-          <div>
+          <div className="col-md-1">
             <button onClick={() => handleFiltro(false)}>Asistidas</button>
           </div>
         </div>
+
         {/**Citas activas */}
         <div className="col-md-10 offset-md-1 mt-5">
           <table>
@@ -129,15 +135,16 @@ export function VisualizarCitas() {
                   <td className="fila">{cita.idPaciente}</td>
                   <td className="fila">{cita.datos_cita.fecha_cita} {cita.datos_cita.horario_cita}</td>
                   <td className="fila">{cita.datos_cita.especialidad}</td>
-                  {cita.estado && (
+                  {cita.estado ? (
                     <td className="fila">Activa</td>
-                  )
-                  }
+                  ) : (
+                    <td className="fila">Asistida</td>
+                  )}
                   <td className="fila">
                     <button onClick={() => handleOpenModal(cita.idCita)}>Edit</button>
                   </td>
                   <td className="fila">
-                    <input id="marcar_asistencia" type="checkbox" onChange={() => handleMarcarAsistencia(cita.idCita)} />
+                    <input id="marcar_asistencia" checked={!cita.estado} type="checkbox" onChange={() => handleMarcarAsistencia(cita.idCita)} />
                   </td>
                 </tr>
               ))
