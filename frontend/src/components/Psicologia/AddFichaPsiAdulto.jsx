@@ -12,6 +12,9 @@ export function AddFichaPsiAdulto() {
     const [pacienteSelect, setPacienteSelect] = useState("")
 
     const onSubmit = handleSubmit(async (data) => {
+        const parseBoolean = (value) => {
+            return value === "true"
+        }
         const fichaPsicoAdulto = {
             expedienteFicha: data.expedienteFicha,
             idPaciente: pacienteSelect,
@@ -27,7 +30,7 @@ export function AddFichaPsiAdulto() {
                 nivel_socioeconomico: data.nivel_socioeconomico,
                 motivo_consulta: data.motivo_consulta,
                 referido: data.referido,
-                recibido_orientacion_psico: data.recibido_orientacion_psicologica,
+                recibido_orientacion_psico: parseBoolean(data.recibido_orientacion_psicologica),
                 motivos_orientacion: data.motivos_orientacion,
                 tiempo_orientacion: data.tiempo_orientacion
             },
@@ -54,30 +57,30 @@ export function AddFichaPsiAdulto() {
                 percibe_vive_casa: data.percibe_vive_casa,
                 percibe_hijos: data.percibe_hijos,
                 otros_familiares_significativos: data.otros_familiares_significativos,
-                tiene_mascotas: data.tiene_mascotas,
+                tiene_mascotas: parseBoolean(data.tiene_mascotas),
             },
             "datos_medico_quirurgica": {
                 padecimientos_heredofamiliares: data.padecimientos_heredofamiliares,
                 enfermedades_padecido: data.enfermedades_padecido,
-                padece_sintomas_transtornos_psicomaticos: data.padece_sintomas_transtornos_psicomaticos,
+                padece_sintomas_transtornos_psicomaticos: parseBoolean(data.padece_sintomas_transtornos_psicomaticos),
                 cuales_psicomaticos: data.cuales_psicomaticos,
                 padece_enfermedades_cronica: data.padece_enfermedades_cronica,
                 cual_cronica: data.cual_cronica,
-                bajo_tratamiento: data.bajo_tratamiento,
+                bajo_tratamiento: parseBoolean(data.bajo_tratamiento),
                 cual_tratamiento: data.cual_tratamiento,
-                intervenido_quirurgicamente: data.intervenido_quirurgicamente,
+                intervenido_quirurgicamente: parseBoolean(data.intervenido_quirurgicamente),
                 causa_intervencion: data.causa_intervencion,
-                tiene_adicciones: data.tiene_adicciones,
+                tiene_adicciones: parseBoolean(data.tiene_adicciones),
                 cual_adiccion: data.cual_adiccion,
                 otro_datos: data.otro_datos,
-                recibido_atencion_medica_adecuada: data.recibido_atencion_medica_adecuada,
+                recibido_atencion_medica_adecuada: parseBoolean(data.recibido_atencion_medica_adecuada),
                 especificar: data.especificar,
             },
             "datos_sexual": {
                 cuando_diferencia_genero: data.cuando_diferencia_genero,
                 como_diferencia_genero: data.como_diferencia_genero,
                 genero_asignaron_niño: data.genero_asignaron_niño,
-                experiencia_abuso_sexual: data.experiencia_abuso_sexual,
+                experiencia_abuso_sexual: parseBoolean(data.experiencia_abuso_sexual),
                 edad_abuso_sexual: data.edad_abuso_sexual,
                 por_quien_abuso_sexual: data.por_quien_abuso_sexual,
                 sexual_activo: data.sexual_activo,
