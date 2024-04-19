@@ -15,7 +15,6 @@ from django.db.models import Q
 class LoginAPIView(TokenObtainPairView):
     serializer_class = LoginSessionInfoSerializer
 
-
 class RefreshTokenAPIView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)

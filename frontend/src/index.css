@@ -52,10 +52,57 @@ body, #root {
   background-color: #F3EDED; 
 }
 
+<<<<<<< HEAD
 /* estilos para el login */
 .text-with-lines {
   position: relative;
+=======
+.label-section {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 700;
+  color: #902829;
+  font-size: 20px;
+}
+
+.cabecera {
+  background: #902829;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  color: #FFF;
+}
+
+.colum {
+  padding-left: 57px;
+  padding-right: 57px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.fila {
+  background: #F3EDED;
+>>>>>>> keilafusion
   text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.columv2 {
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.filav2 {
+  background: #F3EDED;
+  text-align: center;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .line {
@@ -97,12 +144,77 @@ body, #root {
 
 
 
+<<<<<<< HEAD
 
 .card-body {
+=======
+.button-card {
+  background: #F3EDED;
+  border-radius: 3px;
+  color: #000000;
+  border: 1px solid #FFF;
+  height: 40px;
+  width: 40px;
+}
+
+.button-card:hover {
+  background: #cfcece;
+  color: #F3EDED;
+}
+
+.button-card {
+  background: #F3EDED;
+  border-radius: 3px;
+  color: #000000;
+  border: 1px solid #FFF;
+  height: 40px;
+  width: 40px;
+}
+
+.button-card:hover {
+  background: #cfcece;
+  color: #F3EDED;
+}
+
+.cards {
+  background: #902829;
+}
+
+.card-text {
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.cardv2-label {
+  color: #FEB528;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.cards-buscar {
+  background: #F3EDED;
+.footer-custom {
+  background-color: #301b46;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+}
+
+
+
+
+.cards-buscar-text {
+>>>>>>> keilafusion
   color: #000000;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 18px;
   font-weight: 500;
+<<<<<<< HEAD
   background: #F3EDED;
   height: 100%;
 }
@@ -291,3 +403,10 @@ a.sidebar-link:hover {
 
 /* Aqui terminan estilos de sideBar */
 
+=======
+}
+
+.slider-container {
+  background: #F3EDED;
+}
+>>>>>>> keilafusion

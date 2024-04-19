@@ -1,5 +1,4 @@
 import { useState, useRef } from "react"
-import { PieChart } from "../Reportes/PieChart"
 
 export function FormPaciente({ onSubmit, register }) {
     const [showCualEstatal, setShowEstatal] = useState(false)

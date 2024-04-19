@@ -7,15 +7,19 @@ from gestion_pacientes.api.logueo import (
     BuscarUsuarioAPIView,
 )
 from gestion_pacientes.api.cita import (
-    CitaAPIView,
+    CitaActivasAPIView,
+    CitaInactivasAPIView,
     AgendarCitaAPIView,
     VisualizarCitasPaciente,
+    ReagendarCitasPaciente,
+    MarcarAsistenciaCita,
 )
 from gestion_pacientes.api.paciente import (
     PacienteAPIView,
     RegistrarPacienteAPIView,
     BuscarPacienteAPIView,
     EditarPacienteAPIView,
+    HistorialClinicoAPIView,
 )
 from gestion_pacientes.api.nutricion import (
     RegistrarHistoriaNutricionAPIView,
@@ -47,21 +51,22 @@ from gestion_pacientes.api.hojaEvaluacion import (
 
 
 urlpatterns = [
-    path("paciente/", PacienteAPIView.as_view()),
-    path("registrar_paciente/", RegistrarPacienteAPIView.as_view()),
-    path("buscar_paciente/", BuscarPacienteAPIView.as_view()),
-    path("cita/", CitaAPIView.as_view()),
-    path("agendar_cita/", AgendarCitaAPIView.as_view()),
-    path("crear_usuario/", CrearUsuarioView.as_view()),
+    path("paciente/", PacienteAPIView.as_view(), name="visualizar_pacientes"),
+    path("registrar_paciente/", RegistrarPacienteAPIView.as_view(), name="registrar_paciente"),
+    path("buscar_paciente/", BuscarPacienteAPIView.as_view(), name="buscar_paciente"),
+    path("cita_activas/", CitaActivasAPIView.as_view(), name="citas_activas"),
+    path("cita_inactivas/", CitaInactivasAPIView.as_view(), name="citas_inactivas"),
+    path("agendar_cita/", AgendarCitaAPIView.as_view(), name="agendar_citas"),
+    path("crear_usuario/", CrearUsuarioView.as_view(), name="crear_usuarios"),
     path("buscar_usuario/", BuscarUsuarioAPIView.as_view()),
-    path("visualizar_usuario/", VisualizarUsuarioView.as_view()),
-    path("iniciosesion", LoginAPIView.as_view()),
-    path("actualizartoken", RefreshTokenAPIView.as_view()),
-    path("editar_paciente/<str:CURP>/", EditarPacienteAPIView.as_view()),
-    path("registrar_historia_nutricion", RegistrarHistoriaNutricionAPIView.as_view()),
+    path("visualizar_usuario/", VisualizarUsuarioView.as_view(), name="visualizar_usuarios"),
+    path("iniciosesion", LoginAPIView.as_view(), name="incio_sesion"),
+    path("actualizartoken", RefreshTokenAPIView.as_view(), name="refrescar_token"),
+    path("editar_paciente/<str:CURP>/", EditarPacienteAPIView.as_view(), name="editar_paciente"),
+    path("registrar_historia_nutricion", RegistrarHistoriaNutricionAPIView.as_view(), name="registrar_historia_nutricion"),
     path("historia_nutricion/", HistoriaNutricionAPIView.as_view()),
-    path("registrar_fichapsi_nino", RegistrarFichaPsiNiñoAPIView.as_view()),
-    path("registrar_fichapsi_adulto", RegistrarFichaPsiAdultoAPIView.as_view()),
+    path("registrar_fichapsi_nino", RegistrarFichaPsiNiñoAPIView.as_view(), name="registrar_ficha_psico_niño"),
+    path("registrar_fichapsi_adulto", RegistrarFichaPsiAdultoAPIView.as_view(), name="registrar_ficha_psico_adulto"),
     path("registrar_evento/", RegistrarEventoAPIView.as_view()),
     path("evento/", EventoAPIView.as_view()),
     path("editar_evento/<str:idEvento>/", EditarEventoAPIView.as_view()),
@@ -77,4 +82,7 @@ urlpatterns = [
     
     
     path("citas_paciente/<str:CURP>/", VisualizarCitasPaciente.as_view(), name='citas_paciente'),
+    path("reagendar_cita/<int:idCita>/", ReagendarCitasPaciente.as_view(), name='reagendar_cita'),
+    path("historial_clinico/<str:idPaciente>/", HistorialClinicoAPIView.as_view(), name='historial_clinico'),
+    path("marcar_asistencia/<int:idCita>/", MarcarAsistenciaCita.as_view(), name='marcar_asistencia_cita'),
 ]
