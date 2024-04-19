@@ -43,8 +43,8 @@
 }
 
 .colum {
-  padding-left: 73px;
-  padding-right: 73px;
+  padding-left: 57px;
+  padding-right: 57px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -52,6 +52,27 @@
 .fila {
   background: #F3EDED;
   text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.columv2 {
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.filav2 {
+  background: #F3EDED;
+  text-align: center;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .button-buscar {
@@ -93,6 +114,20 @@
   color: #F3EDED;
 }
 
+.button-card {
+  background: #F3EDED;
+  border-radius: 3px;
+  color: #000000;
+  border: 1px solid #FFF;
+  height: 40px;
+  width: 40px;
+}
+
+.button-card:hover {
+  background: #cfcece;
+  color: #F3EDED;
+}
+
 .cards {
   background: #902829;
 }
@@ -104,6 +139,13 @@
   font-weight: 400;
 }
 
+.cardv2-label {
+  color: #FEB528;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
 .cards-buscar {
   background: #F3EDED;
 }
@@ -113,4 +155,8 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 18px;
   font-weight: 500;
+}
+
+.slider-container {
+  background: #F3EDED;
 }
