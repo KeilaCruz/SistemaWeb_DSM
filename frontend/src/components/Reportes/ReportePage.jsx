@@ -16,23 +16,45 @@ export function ReportePage() {
 
 
   const generatePDF = () => {
+    
     // Generar el PDF con react-pdf-render
     const MyDocument = () => (
       <Document>
-        <Page size="A4" >
-          <Text>Total de pacientes: {totalPacientes}</Text>
-          <Text>Femeninos: {cantidadFemenino}</Text>
-          <Text>Masculinos {cantidadMasculinos}</Text>
-          {/* Renderizar las dos imágenes en el PDF */}
-          {chartRefs.current.map((chartRef, index) => (
-            <Image
-              key={index}
-              src={getImageBase64(chartRef)}
-              style={{ width: '100%', height: 'auto', marginBottom: '20px' }}
-            />
+      <Page size="A4" style={{ paddingLeft: 40, paddingRight: 40, color: '#902829' }}>
+        
+        {/* Renderizar las dos imágenes en el PDF */}
+        {chartRefs.current.map((chartRef, index) => (
+          <Image
+            key={index}
+            src={getImageBase64(chartRef)}
+            style={{ width: '100%', height: 'auto', marginBottom: '20px' }}
+          />
+        ))}
+        <Text  style={{ color: '#5570c7', fontSize: 30 }}>Datos de la primera grafica</Text>
+        <Text>Total de pacientes: {totalPacientes}</Text>
+        <Text>Mujeres: {cantidadFemenino}</Text>
+        <Text>Hombres: {cantidadMasculinos}</Text>
+
+        <Text style={{ color: '#5570c7', fontSize: 30 }}>Datos de la segunda grafica grafica</Text>
+      {Object.entries(patientsByMonth).map(([enfermedad, pacientesPorMes], index) => (
+        <View key={index}>
+          <Text style={{paddingBottom:30}}></Text>
+          <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>{enfermedad}:</Text>
+          {pacientesPorMes.map((cantidad, mes) => (
+            <Text key={mes}>Mes {mes + 1}: {cantidad}</Text>
           ))}
-        </Page>
-      </Document>
+        </View>
+      ))}
+        <Text style={{ color: '#5570c7', fontSize: 30 }}>Datos de la tercera grafica</Text>
+        <Text>IMSS: {cantidadIMSS}</Text>
+        <Text>ISSSTE: {cantidadISSSTE}</Text>
+        <Text>PEMEX: {cantidadPEMEX}</Text>
+        <Text>SEDENA: {cantidadSEDENA}</Text>
+        <Text>SEDMAR: {cantidadSEDMAR}</Text>
+        <Text>SSA/SESVER: {cantidadSSA_SESVER}</Text>
+      </Page>
+    </Document>
+    
     );
 
     // Convertir el documento PDF en un enlace de descarga
@@ -314,11 +336,16 @@ export function ReportePage() {
     <div>
       <div className="container-fluid pb-4">
         <div className="row g-3">
-          <div className="offset-md-1 col-md-10">
+          <div className="offset-md-1 col-md-6">
             <p className="h1">Total de pacientes: {totalPacientes}</p>
             <p className="h3">Femeninos: {cantidadFemenino}</p>
             <p className="h3">Masculino: {cantidadMasculinos}</p>
           </div>
+          <div className="offset-md-1 col-md-3">
+            <button onClick={generatePDF} className=" btn btn-secondary">Generar <i className="fa-solid fa-file-pdf" style={{fontSize:"30px",color:"red"}}></i> </button>
+         {pdfDataURL}
+          </div>
+          
           <div className="offset-md-2 col-md-10">
           <div style={{ height: '700px' }} ref={el => chartRefs.current[0] = el}></div>
           </div>
@@ -347,8 +374,7 @@ export function ReportePage() {
 
         </div>
 
-        <button onClick={generatePDF} className="offset-md-5 btn btn-secondary">Generar <i className="fa-solid fa-file-pdf" style={{fontSize:"30px",color:"red"}}></i> </button>
-         {pdfDataURL}
+        
 
       </div>
     </div>
