@@ -83,7 +83,7 @@ export function AddFichaPsiAdulto() {
                 experiencia_abuso_sexual: parseBoolean(data.experiencia_abuso_sexual),
                 edad_abuso_sexual: data.edad_abuso_sexual,
                 por_quien_abuso_sexual: data.por_quien_abuso_sexual,
-                sexual_activo: data.sexual_activo,
+                sexual_activo: parseBoolean(data.sexual_activo),
                 edad_primera_relacion_sexual: data.edad_primera_relacion_sexual,
                 con_quien_primera: data.con_quien_primera,
                 como_hansido_experiencia_sexual: data.como_hansido_experiencia_sexual,
