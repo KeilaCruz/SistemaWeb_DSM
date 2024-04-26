@@ -411,10 +411,11 @@ a.sidebar-link:hover {
   background: #F3EDED;
   border-radius: 3px;
   color: #000000;
-  border: 1px solid #FFF;
+  border: 1px solid rgba(0, 0, 0, 0.3); /* Color de borde negro suave */
   height: 40px;
   width: 40px;
 }
+
 
 .button-card:hover {
   background: #cfcece;
@@ -426,7 +427,7 @@ a.sidebar-link:hover {
 }
 
 .card-text {
-  color: #ffffff;
+  /* color: #ffffff; */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 20px;
   font-weight: 400;

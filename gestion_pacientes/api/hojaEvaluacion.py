@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 from gestion_pacientes.models import HojaEvaluacionClinica
-from .serializers import HojaEvaluacionClinicaSerializer
+from .serializers import HistorialClinicoSerializer
 from django.shortcuts import get_object_or_404
 
 
@@ -13,13 +13,13 @@ from django.shortcuts import get_object_or_404
 class HojaEvaluacionClinicaAPIView(APIView):
     def get(self, request):
         hojaEvaluacion = HojaEvaluacionClinica.objects.all()
-        hojaEvaluacion_serializer = HojaEvaluacionClinicaSerializer(hojaEvaluacion, many=True)
+        hojaEvaluacion_serializer = HistorialClinicoSerializer(hojaEvaluacion, many=True)
         return Response(hojaEvaluacion_serializer.data)
     
 @permission_classes([IsAuthenticated])
 class RegistrarHojaEvaluacionAPIView(APIView):
     def post(self, request, *args, **kwargs):
-        hojaEvaluacion_serializer = HojaEvaluacionClinicaSerializer(data=request.data)
+        hojaEvaluacion_serializer = HistorialClinicoSerializer(data=request.data)
         if hojaEvaluacion_serializer.is_valid():
             hojaEvaluacion_serializer.save()
             return Response(hojaEvaluacion_serializer.data, status=status.HTTP_201_CREATED)
@@ -30,12 +30,12 @@ class RegistrarHojaEvaluacionAPIView(APIView):
 class EditarHojaEvaluacionAPIView(APIView):
     def get(self, request, idHojaClinica, format=None):
         hojaEvaluacion = get_object_or_404(HojaEvaluacionClinica, idHojaClinica=idHojaClinica)
-        hojaEvaluacion_serializer = HojaEvaluacionClinicaSerializer(hojaEvaluacion)
+        hojaEvaluacion_serializer = HistorialClinicoSerializer(hojaEvaluacion)
         return Response(hojaEvaluacion_serializer.data)
     
     def put(self, request, idHojaClinica, format=None):
         hojaEvaluacion = get_object_or_404(HojaEvaluacionClinica, idHojaClinica=idHojaClinica)
-        hojaEvaluacion_serializer = HojaEvaluacionClinicaSerializer(hojaEvaluacion, data=request.data)
+        hojaEvaluacion_serializer = HistorialClinicoSerializer(hojaEvaluacion, data=request.data)
         if hojaEvaluacion_serializer.is_valid():
             hojaEvaluacion_serializer.save()
             return Response(hojaEvaluacion_serializer.data)

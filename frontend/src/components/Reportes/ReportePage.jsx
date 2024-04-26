@@ -27,13 +27,18 @@ export function ReportePage() {
           <Image
             key={index}
             src={getImageBase64(chartRef)}
-            style={{ width: '100%', height: 'auto', marginBottom: '20px' }}
+            style={{ width: '600px', height: 'auto', marginBottom: '30px', marginTop:"20px" }}
           />
         ))}
         <Text  style={{ color: '#5570c7', fontSize: 30 }}>Datos de la primera grafica</Text>
         <Text>Total de pacientes: {totalPacientes}</Text>
         <Text>Mujeres: {cantidadFemenino}</Text>
         <Text>Hombres: {cantidadMasculinos}</Text>
+        <Text>No binarios: {cantidadNoBinarios}</Text>
+        <Text>Otros: {cantidadOtros}</Text>
+
+
+
 
         <Text style={{ color: '#5570c7', fontSize: 30 }}>Datos de la segunda grafica grafica</Text>
       {Object.entries(patientsByMonth).map(([enfermedad, pacientesPorMes], index) => (
@@ -76,11 +81,44 @@ export function ReportePage() {
 
 
 /* Primera grafica ----------------------------------------------------------------------------------------------------------- */
+
+const [totalPacientes, setTotalPacientes] = useState("");
+const [cantidadMasculinos, setCantidadMasculino] = useState("");
+const [cantidadFemenino, setCantidadFemenino] = useState("");
+const [cantidadNoBinarios, setCantidadNoBinarios] = useState("");
+const [cantidadOtros, setCantidadOtros] = useState("");
+
+useEffect(() => {
+  const fetchData1 = async () => {
+    try {
+      await setToken(authTokens.access);
+      const pacientes = await getAllPacientes();
+
+      const femenino = pacientes.filter((paciente) => paciente.datos_personales.sexo === "femenino").length;
+      const masculino = pacientes.filter((paciente) => paciente.datos_personales.sexo === "masculino").length;
+      const noBinarios = pacientes.filter((paciente) => paciente.datos_personales.sexo === "no-binario").length;
+      const otro = pacientes.filter((paciente) => paciente.datos_personales.sexo === "otro").length;
+
+      setCantidadFemenino(femenino)
+      setCantidadMasculino(masculino)
+      setCantidadNoBinarios(noBinarios)
+      setCantidadOtros(otro)
+      
+      setTotalPacientes(pacientes.length); // "length" es una propiedad, no una función
+    } catch (error) {
+      console.error("Error al obtener la cantidad de pacientes:", error);
+    }
+  };
+
+  fetchData1();
+}, []);
+
+
   useEffect(() => {
     const data1 = {
       title: {
-        text: 'Referer of a Website',
-        subtext: 'Fake Data',
+        text: 'Cantidad de pacientes por genero',
+        subtext: 'Datos 2024',
         left: 'center'
       },
       tooltip: {
@@ -92,15 +130,16 @@ export function ReportePage() {
       },
       series: [
         {
-          name: 'Access From',
+          name: 'Pacientes',
           type: 'pie',
           radius: '50%',
           data: [
-            { value: 1048, name: 'Search Engine' },
-            { value: 735, name: 'Direct' },
-            { value: 580, name: 'Email' },
-            { value: 484, name: 'Union Ads' },
-            { value: 300, name: 'Video Ads' }
+            { value: cantidadFemenino, name: 'Mujeres' },
+            { value: cantidadMasculinos, name: 'Hombres' },
+            { value: cantidadNoBinarios, name: 'No Binario' },
+            { value: cantidadOtros, name: 'Otro' },
+            
+
           ],
           emphasis: {
             itemStyle: {
@@ -121,7 +160,7 @@ export function ReportePage() {
     return () => {
       chart1.dispose();
     };
-  }, []);
+  }, [cantidadFemenino, cantidadMasculinos, cantidadNoBinarios, cantidadOtros]);
 
   /* Segunda grafica --------------------------------------------------------------------------------------------------- */
 
@@ -302,34 +341,7 @@ export function ReportePage() {
     };
   }, [cantidadIMSS,cantidadISSSTE,cantidadPEMEX,cantidadSEDENA,cantidadSEDMAR,cantidadSSA_SESVER]);
 
-  /* Mostrar cantidades de pacientes */ /* ------------------------------------------------------------------------------------- */
-  const [totalPacientes, setTotalPacientes] = useState("");
-  const [cantidadMasculinos, setCantidadMasculino] = useState("");
-  const [cantidadFemenino, setCantidadFemenino] = useState("");
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await setToken(authTokens.access);
-        const pacientes = await getAllPacientes();
-        const masculino = pacientes.filter(
-          (paciente) => paciente.datos_personales.sexo === "masculino"
-        ).length;
-        const femenino = pacientes.filter(
-          (paciente) => paciente.datos_personales.sexo === "femenino"
-        ).length;
-
-        setCantidadFemenino(femenino);
-        setCantidadMasculino(masculino);
-
-        setTotalPacientes(pacientes.length); // "length" es una propiedad, no una función
-      } catch (error) {
-        console.error("Error al obtener la cantidad de pacientes:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+ 
 
 
   return (
@@ -338,8 +350,11 @@ export function ReportePage() {
         <div className="row g-3">
           <div className="offset-md-1 col-md-6">
             <p className="h1">Total de pacientes: {totalPacientes}</p>
-            <p className="h3">Femeninos: {cantidadFemenino}</p>
-            <p className="h3">Masculino: {cantidadMasculinos}</p>
+            <p className="h3">Mujeres: {cantidadFemenino}</p>
+            <p className="h3">Hombres: {cantidadMasculinos}</p>
+            <p className="h3">No binarios: {cantidadNoBinarios}</p>
+            <p className="h3">Otro: {cantidadOtros}</p>
+
           </div>
           <div className="offset-md-1 col-md-3">
             <button onClick={generatePDF} className=" btn btn-secondary">Generar <i className="fa-solid fa-file-pdf" style={{fontSize:"30px",color:"red"}}></i> </button>

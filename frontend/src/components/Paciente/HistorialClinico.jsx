@@ -13,6 +13,7 @@ export function HistorialClinico() {
     const [historialPaciente, setHistorialPaciente] = useState([])
     const { idPaciente } = useParams()
     const { authTokens } = useContext(AuthContext)
+    
     useEffect(() => {
         async function loadHistorial() {
             await setToken(authTokens.access)
@@ -37,9 +38,9 @@ export function HistorialClinico() {
     }, [])
   
     return (
-        <div className="container-fluid">
-            <div className="row g-2 mt-5">
-                <div className="col-md-10 offset-md-1 text-center mt-5">
+        <div className="container-fluid pb-4">
+            <div className="row g-2">
+                <div className="col-md-10 offset-md-1 text-center mt-1">
                     <hr />
                     <h3 className="title">HISTORIAL CLÍNICO DEL PACIENTE</h3>
                     <hr />

@@ -65,3 +65,12 @@ class LoginSessionInfoSerializer(TokenObtainPairSerializer):
         return token
     
 
+class EventoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Evento
+        fields = "__all__"
+        
+class ExamenMedicoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExamenMedico
+        fields = "__all__"

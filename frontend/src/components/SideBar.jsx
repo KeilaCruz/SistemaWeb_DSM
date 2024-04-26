@@ -169,6 +169,9 @@ export function SideBar() {
                                   <a href="/agendarcita" className="sidebar-link">Agendar cita</a>
                               </li>
                               <li className="sidebar-item">
+                                  <a href="/citas" className="sidebar-link">Editar citas</a>
+                              </li>
+                              <li className="sidebar-item">
                                   <a href="/calendario" className="sidebar-link">Calendario</a>
                               </li>
                              
@@ -227,14 +230,14 @@ export function SideBar() {
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                               data-bs-target="#auth5" aria-expanded="false" aria-controls="auth5">
                                 <i class="fa-solid fa-file-medical"></i>
-                              <span>Evaluación clínica</span>
+                              <span>Historial clínico</span>
                           </a>
                           <ul id="auth5" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                               <li className="sidebar-item">
-                                  <a href="/registrar_evaluacionclinica" className="sidebar-link">Crear evaluación</a>
+                                  <a href="/registrar_evaluacionclinica" className="sidebar-link">Crear historial</a>
                               </li>
                               <li className="sidebar-item">
-                                  <a href="/ver_evaluacionClinica" className="sidebar-link">Buscar evaluación</a>
+                                  <a href="/ver_evaluacionClinica" className="sidebar-link">Buscar historial</a>
                               </li>
                               
                           </ul>

@@ -49,13 +49,16 @@ export function HojaDeEvaluacionList() {
 
   return (
     <div className="container-fluid">
-      <div className=" col-md-3 offset-md-1">
+      <div className="row g-3">
+      <div className=" col-md-5 offset-md-3">
         <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" value={searchTerm} 
         onChange={(e) => setSearchTerm(e.target.value)} 
         placeholder="Buscar por nombre de paciente" aria-label="Search"/>
       </form>
       </div>
+
+      
       
       <div className="py-3">
         <div className="container">
@@ -71,6 +74,8 @@ export function HojaDeEvaluacionList() {
           </div>
         </div>
       </div>
+      </div>
+      
     </div>
   );
 }

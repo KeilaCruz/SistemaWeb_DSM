@@ -45,3 +45,6 @@ class EditarExamenMedicoAPIView(APIView):
             return ExamenMedico.objects.get(idExamenMedico=idExamenMedico)
         except ExamenMedico.DoesNotExist:
             raise "No existe"
+        
+
+

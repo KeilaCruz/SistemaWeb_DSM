@@ -8,7 +8,6 @@ const SEARCH_PACIENTE_URL = "http://127.0.0.1:8000/api/buscar_paciente/";
 const SAVE_CITA_URL = "http://127.0.0.1:8000/api/agendar_cita/";
 const LIST_CITASACTIVAS_URL = "http://127.0.0.1:8000/api/cita_activas/";
 const LIST_CITASINACTIVAS_URL = "http://127.0.0.1:8000/api/cita_inactivas/";
-const LIST_CITAS_URL ="http://127.0.0.1:8000/api/cita/";
 const SAVE_EVENTO_URL = "http://127.0.0.1:8000/api/registrar_evento/";
 const LIST_EVENTO = "http://127.0.0.1:8000/api/evento/"
 const EDIT_EVENTO = "http://127.0.0.1:8000/api/editar_evento/"
@@ -19,6 +18,7 @@ const EDIT_PACIENTE_URL = "http://127.0.0.1:8000/api/editar_paciente/";
 const LIST_CITA_PACIENTE_URL = "http://127.0.0.1:8000/api/citas_paciente/";
 const LIST_REAGENDARCITA_URL = "http://127.0.0.1:8000/api/reagendar_cita/";
 const LIST_HISTORIALCLINICO_URL = "http://127.0.0.1:8000/api/historial_clinico/"
+const LIST_EXAMEN_MEDICO_URL = "http://127.0.0.1:8000/api/examen_medico_new/"
 const MARCAR_ASISTENCIA_URL = "http://127.0.0.1:8000/api/marcar_asistencia/"
 
 export const getAllPacientes = async () => {
@@ -154,19 +154,7 @@ export const getCitasInactivas = async () => {
         console.log(error)
     }
 }
-export const getAllCitas = async () => {
-    try {
-        const config = await getConfig();
-        const response = await axios.get(`${EDIT_PACIENTE_URL}${CURP}/`, config)
-        if (response.status == 200) {
-            return response.data;
-        } else {
-            console.error("error al hacer solicitud")
-        }
-    } catch (error) {
-        console.log(error)
-    }
-}
+
 export const editarPaciente = async (CURP, paciente) => {
     try {
         const config = await getConfig();
@@ -249,6 +237,20 @@ export const historialClinicoPaciente = async (idPaciente) => {
             return response.data
         } else {
             console.log("Error al retornar el historial")
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const examenMedicoPaciente = async (idPaciente) => {
+    try {
+        const config = await getConfig();
+        const response = await axios.get(`${LIST_EXAMEN_MEDICO_URL}${idPaciente}/`, config)
+        if (response.status == 200) {
+            return response.data
+        } else {
+            console.log("Error al retornar el examen medico")
         }
     } catch (error) {
         console.error(error)

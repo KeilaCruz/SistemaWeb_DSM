@@ -4,9 +4,9 @@ from rest_framework import status
 from django.utils import timezone
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
-from gestion_pacientes.models import Paciente, HojaEvaluacionClinica
+from gestion_pacientes.models import Paciente, HojaEvaluacionClinica, ExamenMedico
 from django.db.models import Q
-from .serializers import PacienteSerializer, HistorialClinicoSerializer
+from .serializers import PacienteSerializer, HistorialClinicoSerializer, ExamenMedicoSerializer
 from django.shortcuts import get_object_or_404
 
 
@@ -83,5 +83,23 @@ class HistorialClinicoAPIView(APIView):
         data = {
             "paciente": paciente_serializer.data,
             "hoja": historial_serializer.data,
+        }
+        return Response(data)
+    
+
+@permission_classes([IsAuthenticated])
+class NewExamenMedicoAPIView(APIView):
+    def get(self, request, idPaciente):
+        paciente = Paciente.objects.get(CURP=idPaciente)
+        examen = ExamenMedico.objects.filter(
+            idPaciente=idPaciente, fecha_revision__lte=timezone.now()
+        ).order_by("fecha_revision")[:10]
+
+        examen_serializer = ExamenMedicoSerializer(examen, many=True)
+        paciente_serializer = PacienteSerializer(paciente)
+
+        data = {
+            "paciente": paciente_serializer.data,
+            "hoja": examen_serializer.data,
         }
         return Response(data)

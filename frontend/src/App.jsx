@@ -31,6 +31,7 @@ import { ViewExamenMedico } from './components/ExamenMedico/ViewExamenMedico';
 import { ReportePage } from './components/Reportes/ReportePage';
 import { VerEventos } from './pages/VerEventos';
 import { ViewEvento } from './components/Evento/ViewEvento';
+import { ExamenMedico } from './components/Paciente/ExamenMedico';
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
             <Route path="/citas_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><CitasPacientePage /></ProtectedRoute>} />
             <Route path="/citas" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><CitasPage /></ProtectedRoute>} />
             <Route path="/historial-clinico/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><HistorialClinico /></ProtectedRoute>} />
+            <Route path="/examen-medico/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ExamenMedico /></ProtectedRoute>} />
             <Route path="/calendario" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><CalendarioPage /></ProtectedRoute>} />
             <Route path="/registrar_evaluacionclinica" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReHojaEvaluacion/></ProtectedRoute>} />
             <Route path="/registrar_examenmedico" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ReExamenMedico/></ProtectedRoute>} />
