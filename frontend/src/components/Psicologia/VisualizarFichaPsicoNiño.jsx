@@ -1,33 +1,32 @@
-import React, { useContext, useEffect, useState } from 'react'
-import AuthContext from '../../context/AuthProvider'
-import { setToken } from '../../services/HeaderAuthorization'
-import { getAllFichasPsiAdultos } from '../../services/Psicologia'
-import { useNavigate } from 'react-router-dom'
+import { useContext, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import AuthContext from "../../context/AuthProvider"
+import { setToken } from "../../services/HeaderAuthorization"
+import { getAllFichasPsiNiños } from "../../services/Psicologia"
 
-export function VisualizarFichaPsicoAdulto() {
+
+export function VisualizarFichaPsicoNiño() {
     const [fichas, setFichas] = useState([])
     const navigate = useNavigate()
     const { authTokens } = useContext(AuthContext)
     useEffect(() => {
         async function loadFichas() {
             await setToken(authTokens.access)
-            const response = await getAllFichasPsiAdultos();
+            const response = await getAllFichasPsiNiños()
             setFichas(response)
         }
         loadFichas()
     }, [])
-
     const handleFichas = (idPaciente) => {
-        navigate(`/fichapsico_adulto/${idPaciente}`)
+        navigate(`/fichapsico_niño/${idPaciente}`)
     }
-
     return (
         <>
             <div className='container-fluid'>
                 <div className='row'>
                     <div className="col-md-10 offset-md-1 text-center mt-5">
                         <hr />
-                        <h3 className="title">FICHAS DE IDENTIFICACIÓN ADULTOS</h3>
+                        <h3 className="title">FICHAS DE IDENTIFICACIÓN NIÑOS</h3>
                         <hr />
                     </div>
                 </div>

@@ -1,23 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import AuthContext from '../../context/AuthProvider'
 import { setToken } from '../../services/HeaderAuthorization'
+import { useParams } from 'react-router-dom'
+import { getFichaPsicoPacienteNiño } from '../../services/Psicologia'
 import { getPaciente } from '../../services/Recepcionista'
-import { getFichaPsicoPacienteAdulto } from '../../services/Psicologia'
-import { SliderFichaPsiAdulto } from './SliderFichaPsiAdulto'
-import { FormAdultoVisualizar } from './FormAdultoVisualizar'
+import { FormVisualizarNiño } from './FormVisualizarNiño'
+import { SliderFichaPsicoNiño } from './SliderFichaPsicoNiño'
 
-
-export function FichaPsicoAdulto() {
+export function FichaPsicoNiño() {
     const [fichas, setFichas] = useState([])
-    const { idPaciente } = useParams()
     const { authTokens } = useContext(AuthContext)
-    const componentRender = fichas.length === 1 ? <FormAdultoVisualizar ficha={fichas} /> : <SliderFichaPsiAdulto ficha={fichas} />
+    const { idPaciente } = useParams()
+    const componentRender = fichas.length > 1 ? <SliderFichaPsicoNiño ficha={fichas} /> : <FormVisualizarNiño ficha={fichas} />
+
+
     useEffect(() => {
         async function loadFichas() {
-            await setToken(authTokens.access);
-            const paciente = await getPaciente(idPaciente);
-            const ficha = await getFichaPsicoPacienteAdulto(idPaciente)
+            await setToken(authTokens.access)
+            const paciente = await getPaciente(idPaciente)
+            const ficha = await getFichaPsicoPacienteNiño(idPaciente)
             const fichaInfoPaciente = ficha.map(item => ({
                 ...item,
                 paciente: {
@@ -29,10 +30,10 @@ export function FichaPsicoAdulto() {
                 }
             }))
             setFichas(fichaInfoPaciente)
+            console.log(fichaInfoPaciente)
         }
         loadFichas()
     }, [])
-
     return (
         <>
             {componentRender}

@@ -27,7 +27,9 @@ from gestion_pacientes.api.psicologia import (
     RegistrarFichaPsiNiñoAPIView,
     RegistrarFichaPsiAdultoAPIView,
     FichaPsicoAdultoAPIView,
+    FichaPsicoNiñoAPIView,
     VisualizarFichaPsicoAdultoPaciente,
+    VisualizarFichaPsicoNiñoPaciente,
 )
 
 urlpatterns = [
@@ -44,7 +46,9 @@ urlpatterns = [
     path("editar_paciente/<str:CURP>/", EditarPacienteAPIView.as_view(), name="editar_paciente"),
     path("registrar_historia_nutricion", RegistrarHistoriaNutricionAPIView.as_view(), name="registrar_historia_nutricion"),
     path("visualizar_fichapsi_adulto", FichaPsicoAdultoAPIView.as_view(), name="visualizar_fichapsico_adulto"),
-    path("fichapsico_paciente_adulto/<str:idPaciente>/", VisualizarFichaPsicoAdultoPaciente.as_view(), name="fichapscio_paciente_adulto"),
+    path("visualizar_fichapsi_nino", FichaPsicoNiñoAPIView.as_view(), name="visualizar_fichapsico_niño"),
+    path("fichapsico_paciente_adulto/<str:idPaciente>/", VisualizarFichaPsicoAdultoPaciente.as_view(), name="fichapsico_paciente_adulto"),
+    path("fichapsico_paciente_nino/<str:idPaciente>/", VisualizarFichaPsicoNiñoPaciente.as_view(), name="fichapsico_paciente_niño"),
     path("registrar_fichapsi_nino", RegistrarFichaPsiNiñoAPIView.as_view(), name="registrar_ficha_psico_niño"),
     path("registrar_fichapsi_adulto", RegistrarFichaPsiAdultoAPIView.as_view(), name="registrar_ficha_psico_adulto"),
     path("citas_paciente/<str:CURP>/", VisualizarCitasPaciente.as_view(), name='citas_paciente'),

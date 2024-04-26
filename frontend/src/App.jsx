@@ -19,7 +19,9 @@ import { CitasPacientePage } from './pages/CitasPacientePage';
 import { CitasPage } from './pages/CitasPage';
 import { HistorialClinico } from './components/Paciente/HistorialClinico';
 import { VFichaPsicoAdultoPage } from './pages/VFichaPsicoAdultoPage';
+import { VFichaPsicoNiñoPage } from './pages/VFichaPsicoNiñoPage';
 import { FichaPsicoAdulto } from './components/Psicologia/FichaPsicoAdulto';
+import { FichaPsicoNiño } from './components/Psicologia/FichaPsicoNiño';
 function App() {
   return (
     <>
@@ -39,7 +41,9 @@ function App() {
             <Route path="/registrar_fichapsiniño" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><ReFichaPsicoNiñoPage /></ProtectedRoute>} />
             <Route path="/registrar_fichapsiadulto" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><ReFichaPsicoAdultoPage /></ProtectedRoute>} />
             <Route path="/visualizar_fichapsiadulto" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><VFichaPsicoAdultoPage /></ProtectedRoute>} />
+            <Route path="/visualizar_fichapsiniño" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><VFichaPsicoNiñoPage /></ProtectedRoute>} />
             <Route path="/fichapsico_adulto/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><FichaPsicoAdulto /></ProtectedRoute>} />
+            <Route path="/fichapsico_niño/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><FichaPsicoNiño /></ProtectedRoute>} />
             <Route path="/buscar_paciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><BuscarPacientePage /></ProtectedRoute>} />
             <Route path="/buscar_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><ViewPaciente /></ProtectedRoute>} />
             <Route path="/citas_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><CitasPacientePage /></ProtectedRoute>} />
