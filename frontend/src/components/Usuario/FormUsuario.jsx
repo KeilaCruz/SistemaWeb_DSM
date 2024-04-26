@@ -12,7 +12,7 @@ export function FormUsuario({ onSubmit, register }) {
          
         <div className="text-with-lines">
             <div className="line line-top"></div>
-            <p className="display-5 fw-bold">REGISTRO USUARIOS</p>
+            <p className="display-5 fw-bold">REGISTRO DE USUARIO</p>
             <div className="line line-bottom"></div>
           </div>
           
@@ -103,6 +103,11 @@ export function FormUsuario({ onSubmit, register }) {
             >
               <option value={1}>Psicologo</option>
               <option value={2}>Recepcionista</option>
+              <option value={3}>Medico General</option>
+              <option value={4}>Odontologo</option>
+              <option value={5}>Nutriologo</option>
+
+
             </select>
                 </div>
            

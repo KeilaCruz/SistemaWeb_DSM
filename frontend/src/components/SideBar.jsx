@@ -59,6 +59,20 @@ export function SideBar() {
                               <span>Home</span>
                           </a>
                       </li>
+
+                      <li className="sidebar-item">
+                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                              data-bs-target="#auth" aria-expanded="false" aria-controls="auth0">
+                              <i className="lni lni-users"></i>
+                              <span>Usuarios</span>
+                          </a>
+                          <ul id="auth0" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                              <li className="sidebar-item">
+                                  <a href="/crear_usuario" className="sidebar-link">Crear Usuario</a>
+                              </li>
+                              
+                          </ul>
+                      </li>
                      
                       <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
@@ -172,7 +186,7 @@ export function SideBar() {
                                   <a href="/citas" className="sidebar-link">Editar citas</a>
                               </li>
                               <li className="sidebar-item">
-                                  <a href="/calendario" className="sidebar-link">Calendario</a>
+                                  <a href="/calendario" className="sidebar-link">Calendario general</a>
                               </li>
                              
                           </ul>

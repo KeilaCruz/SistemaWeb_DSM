@@ -1,9 +1,18 @@
+import { CalendarioHome } from "./Calendario/CalendarioHome"
+import { useContext } from "react"
+import AuthContext from "../context/AuthProvider"
 
 export function Home() {
-    console.log("Home psicologia")
+    const { user } = useContext(AuthContext);
+
     return (
         <>
-            <h1>Home de la Psicologa</h1>
+    <div className="d-flex justify-content-center">
+     {user && <h1 className="fw-bold ml-3">Bienvenido {user.username}</h1>}
+     </div>
+     
+    
+    <CalendarioHome especialidad={'Psicologia'}/>
         </>
     )
 }

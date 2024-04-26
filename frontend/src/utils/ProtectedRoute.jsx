@@ -1,15 +1,19 @@
-import { useContext } from "react"
-import { Outlet, Navigate } from "react-router-dom"
-import AuthContext from "../context/AuthProvider"
+import { useContext } from "react";
+import { Outlet, Navigate } from "react-router-dom";
+import AuthContext from "../context/AuthProvider";
 
-export const ProtectedRoute = ({ redirectTo = "/login", rolPermitido, children }) => {
-    const { user } = useContext(AuthContext)
-    //console.log(user)
-    if (!user) return <Navigate to="/login" />
+export const ProtectedRoute = ({ redirectTo = "/login", rolesPermitidos, children }) => {
+    const { user } = useContext(AuthContext);
+    
+    if (!user) return <Navigate to="/login" />;
 
-    if (user.idRol_id === rolPermitido) {
-        return children ? children : <Outlet />
+    // Verificar si el usuario tiene alguno de los roles permitidos
+    const tieneRolPermitido = rolesPermitidos.includes(user.idRol_id);
+    
+    if (tieneRolPermitido) {
+        return children ? children : <Outlet />;
     } else {
         return <Navigate to={redirectTo} replace />;
     }
 };
+
