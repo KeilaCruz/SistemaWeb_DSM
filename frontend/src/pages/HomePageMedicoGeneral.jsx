@@ -3,11 +3,10 @@ import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
 import { EventoHome } from "../components/Evento/EventoHome";
 
-export function HomePage() {
+export function HomePageMedicoGeneral() {
     const { user } = useContext(AuthContext);
-
-    return (
-        <>
+  return (
+    <>
     <div className="d-flex justify-content-center">
      {user && <h1 className="fw-bold ml-3">Bienvenido {user.username}</h1>}
      </div>
@@ -16,7 +15,7 @@ export function HomePage() {
         <div className="row g-3">
 
           <div className="col-md-9">
-            <CalendarioHome especialidad={'Psicologia'}/>
+            <CalendarioHome especialidad={'Medico-general'}/>
           </div>
 
           <div className="col-md-3">
@@ -29,6 +28,6 @@ export function HomePage() {
     
     
         </>
-    )
+  )
 }
 

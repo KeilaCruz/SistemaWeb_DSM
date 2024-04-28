@@ -62,7 +62,8 @@ export function CalendarioHome({especialidad}) {
     <div>
       <div className="container-fluid pb-4">
         <h1>Calendario de citas</h1>
-        <FullCalendar
+        
+        <FullCalendar 
           events={events}
           eventContent={(info) => (
             <div
@@ -94,6 +95,8 @@ export function CalendarioHome({especialidad}) {
           locales={[esLocale]} // Configura los idiomas disponibles
           locale="es" // Establece el idioma a español
         />
+        
+        
       </div>
 
       {/* Modal */}

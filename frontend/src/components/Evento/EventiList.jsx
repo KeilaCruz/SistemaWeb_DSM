@@ -27,7 +27,7 @@ export function EventoList() {
 
     // Función para filtrar eventos según el filtro seleccionado
     const filtrarEventos = () => {
-      const hoy = new Date();
+        const hoy = startOfDay(new Date()); // Obtener la fecha de hoy
       switch (filtro) {
         case 'hoy':
               const ayer = subDays(hoy, 1); // Obtener la fecha de ayer
@@ -36,10 +36,13 @@ export function EventoList() {
                 return fechaEvento >= ayer && fechaEvento <= hoy;
               });
               case 'semana':
+                
+                const fechaAyer = subDays(hoy, 1); // Obtener la fecha de ayer
                 const finSemana = addDays(hoy, 7); // Obtener la fecha de 7 días en adelante
+
                 return eventos.filter(evento => {
                     const fechaEvento = startOfDay(new Date(evento.datos_evento.fecha));
-                    return fechaEvento >= hoy && fechaEvento <= finSemana;
+                    return (fechaEvento >= fechaAyer && fechaEvento <= finSemana);
                 });
 
           case 'mes':
@@ -49,11 +52,11 @@ export function EventoList() {
                   return fechaEvento >= hoy && fechaEvento <= unMesDespues;
               });
             case 'hacia_atras':
-            const haceTreintaDias = subDays(hoy, 30); // Obtener la fecha hace 30 días
-            return eventos.filter(evento => {
-                const fechaEvento = new Date(evento.datos_evento.fecha);
-                return fechaEvento >= haceTreintaDias && fechaEvento <= hoy;
-            });
+                const haceTreintaDias = subDays(hoy, 30); // Obtener la fecha hace 30 días
+                return eventos.filter(evento => {
+                    const fechaEvento = new Date(evento.datos_evento.fecha);
+                    return fechaEvento >= haceTreintaDias && fechaEvento <= hoy;
+                });
           
           default:
               return eventos;
