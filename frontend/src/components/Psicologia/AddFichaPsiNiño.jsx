@@ -10,10 +10,13 @@ export function AddFichaPsiNiño() {
     const { authTokens } = useContext(AuthContext)
     const [pacienteSelect, setPacienteSelect] = useState("")
     const onSubmit = handleSubmit(async (data) => {
+        const parseBoolean = (value) => {
+            return value === "true"
+        }
         const fichaPsicoNiño = {
             expedienteFicha: data.expedienteFicha,
             "datos_generales": {
-                años: data.años,
+                anios: data.años,
                 meses: data.meses,
                 fecha_nacimiento: data.fecha_nacimiento,
                 lugar_nacimiento: data.lugar_nacimiento,
@@ -31,12 +34,13 @@ export function AddFichaPsiNiño() {
                 escolaridad_madre: data.escolaridad_madre,
                 ocupacion_madre: data.ocupacion_madre,
                 estado_civil_padres: data.estado_civil_padres,
-                años_estado_civil: data.años_estado_civil,
+                anios_estado_civil: data.años_estado_civil,
+                nombre_tutor: data.nombre_tutor,
                 edad_tutor: data.edad_tutor,
                 ocupacion_tutor: data.ocupacion_tutor,
-                motivos_niño_cargo_tutor: data.motivos_niño_cargo_tutor,
+                motivos_nino_cargo_tutor: data.motivos_niño_cargo_tutor,
                 desde_cuando_tutor: data.desde_cuando_tutor,
-                descripcion_viven_con_niño: data.descripcion_viven_con_niño,
+                descripcion_viven_con_nino: data.descripcion_viven_con_niño,
                 motivo: data.motivo,
                 canalizado_por: data.canalizado_por,
 
@@ -44,7 +48,7 @@ export function AddFichaPsiNiño() {
             "antecedentes_padecimiento": {
                 consulta_otro_profesional: data.consulta_otro_profesional,
                 diagnostico_otorgado: data.diagnostico_otorgado,
-                toma_medicamento: data.toma_medicamento,
+                toma_medicamento: parseBoolean(data.toma_medicamento),
                 motivo_medicamento: data.motivo_medicamento,
                 nombre_medicamento: data.nombre_medicamento,
                 dosis_medicamento: data.dosis_medicamento,
@@ -54,7 +58,7 @@ export function AddFichaPsiNiño() {
                 numero_embarazos_madre: data.numero_embarazos_madre,
                 tiempo_gestacion: data.tiempo_gestacion,
                 problemas_durante_embarazo: data.problemas_durante_embarazo,
-                medicamentos_embarazo: data.medicamentos_embarazo,
+                medicamentos_embarazo: parseBoolean(data.medicamentos_embarazo),
                 motivo_medicamento_embarazo: data.motivo_medicamento_embarazo,
                 nombre_medicamento_embarazo: data.nombre_medicamento_embarazo,
                 dosis_medicamento_embarazo: data.dosis_medicamento_embarazo,
@@ -63,14 +67,14 @@ export function AddFichaPsiNiño() {
                 complicaciones_parto: data.complicaciones_parto,
                 peso_nacer: data.peso_nacer,
                 talla_nacer: data.talla_nacer,
-                alimentacion_seno_materno: data.alimentacion_seno_materno,
+                alimentacion_seno_materno: parseBoolean(data.alimentacion_seno_materno),
                 tiempo_alimentacion_seno: data.tiempo_alimentacion_seno,
                 edad_sosten_cefalico: data.edad_sosten_cefalico,
                 edad_balbuceo: data.edad_balbuceo,
                 edad_sentarse: data.edad_sentarse,
                 edad_ponerse_pie: data.edad_ponerse_pie,
                 edad_camino: data.edad_camino,
-                controla_esfinter: data.controla_esfinter,
+                controla_esfinter: parseBoolean(data.controla_esfinter),
                 edad_control_esfinter: data.edad_control_esfinter,
                 enfermedades_primer_año_vidad: data.enfermedades_primer_año_vidad,
                 enfermedades_posteriores: data.enfermedades_posteriores,
