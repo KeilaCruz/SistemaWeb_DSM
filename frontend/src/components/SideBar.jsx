@@ -63,11 +63,11 @@ export function SideBar() {
 
                       <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth1" aria-expanded="false" aria-controls="auth1">
+                              data-bs-target="#auth0" aria-expanded="false" aria-controls="auth0">
                               <i className="lni lni-agenda"></i>
                               <span>Psicología</span>
                           </a>
-                          <ul id="auth1" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                          <ul id="auth0" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                               <li className="sidebar-item">
                                   <a href="/registrar_fichapsiniño" className="sidebar-link">Niño</a>
                               </li>
@@ -160,7 +160,7 @@ export function SideBar() {
 
                       <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth2" aria-expanded="false" aria-controls="auth6">
+                              data-bs-target="#auth6" aria-expanded="false" aria-controls="auth6">
                               <i className="lni lni-graph"></i>
                               <span>Reportes</span>
                           </a>
