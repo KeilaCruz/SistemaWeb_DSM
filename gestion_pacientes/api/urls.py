@@ -22,6 +22,8 @@ from gestion_pacientes.api.paciente import (
 )
 from gestion_pacientes.api.nutricion import (
     RegistrarHistoriaNutricionAPIView,
+    CalculadoraIMCAPIVIEW,
+    CalculadoraCircuferenciaCintura,
 )
 from gestion_pacientes.api.psicologia import (
     RegistrarFichaPsiNiñoAPIView,
@@ -45,6 +47,8 @@ urlpatterns = [
     path("actualizartoken", RefreshTokenAPIView.as_view(), name="refrescar_token"),
     path("editar_paciente/<str:CURP>/", EditarPacienteAPIView.as_view(), name="editar_paciente"),
     path("registrar_historia_nutricion", RegistrarHistoriaNutricionAPIView.as_view(), name="registrar_historia_nutricion"),
+    path("calcular_imc/<altura>/<int:peso>/", CalculadoraIMCAPIVIEW.as_view(), name="calculadora_imc"),
+    path("calculadora_circuferencia/<str:genero>/<int:circuferencia>/", CalculadoraCircuferenciaCintura.as_view(), name="calculadora_circuferencia"),
     path("visualizar_fichapsi_adulto", FichaPsicoAdultoAPIView.as_view(), name="visualizar_fichapsico_adulto"),
     path("visualizar_fichapsi_nino", FichaPsicoNiñoAPIView.as_view(), name="visualizar_fichapsico_niño"),
     path("fichapsico_paciente_adulto/<str:idPaciente>/", VisualizarFichaPsicoAdultoPaciente.as_view(), name="fichapsico_paciente_adulto"),
