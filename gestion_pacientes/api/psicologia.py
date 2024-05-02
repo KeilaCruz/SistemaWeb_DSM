@@ -5,13 +5,24 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 from gestion_pacientes.models import FichaPsicologicaNiño, FichaPsicologicaAdulto
 from .serializers import FichaPsicoNiñoSerializer, FichaPsicoAdultoSerializer
+from django.db.models import Max
 
 
 @permission_classes([IsAuthenticated])
 class FichaPsicoNiñoAPIView(APIView):
     def get(self, request):
-        fichas_psico_niño = FichaPsicologicaNiño.objects.all()
-        ficha_psico_serializer = FichaPsicoNiñoSerializer(fichas_psico_niño, many=True)
+
+        fichas_psico_niño = FichaPsicologicaNiño.objects.values("idPaciente").annotate(
+            max_fecha=Max("fecha_registro")
+        )
+
+        ficha_psico_sin_duplicados = FichaPsicologicaNiño.objects.filter(
+            fecha_registro__in=[ficha["max_fecha"] for ficha in fichas_psico_niño]
+        )
+        ficha_psico_serializer = FichaPsicoNiñoSerializer(
+            ficha_psico_sin_duplicados, many=True
+        )
+
         return Response(ficha_psico_serializer.data)
 
 
@@ -30,10 +41,18 @@ class RegistrarFichaPsiNiñoAPIView(APIView):
 @permission_classes([IsAuthenticated])
 class FichaPsicoAdultoAPIView(APIView):
     def get(self, request):
-        fichas_psico_adulto = FichaPsicologicaAdulto.objects.all()
-        ficha_psico_serializer = FichaPsicoAdultoSerializer(
-            fichas_psico_adulto, many=True
+
+        fichas_psico_adulto = FichaPsicologicaAdulto.objects.values(
+            "idPaciente"
+        ).annotate(max_fecha=Max("fecha_registro"))
+
+        ficha_psico_sin_duplicados = FichaPsicologicaAdulto.objects.filter(
+            fecha_registro__in=[ficha["max_fecha"] for ficha in fichas_psico_adulto]
         )
+        ficha_psico_serializer = FichaPsicoAdultoSerializer(
+            ficha_psico_sin_duplicados, many=True
+        )
+
         return Response(ficha_psico_serializer.data)
 
 
@@ -47,3 +66,31 @@ class RegistrarFichaPsiAdultoAPIView(APIView):
         return Response(
             ficha_psico_serializer.errors, status=status.HTTP_400_BAD_REQUEST
         )
+
+
+@permission_classes([IsAuthenticated])
+class VisualizarFichaPsicoAdultoPaciente(APIView):
+    def get(self, request, idPaciente):
+        fichas = self.get_fichas(idPaciente)
+        fichas_serializer = FichaPsicoAdultoSerializer(fichas, many=True)
+        return Response(fichas_serializer.data)
+
+    def get_fichas(self, idPaciente):
+        try:
+            return FichaPsicologicaAdulto.objects.filter(idPaciente=idPaciente)
+        except FichaPsicologicaAdulto.DoesNotExist:
+            raise "No existe"
+
+
+@permission_classes([IsAuthenticated])
+class VisualizarFichaPsicoNiñoPaciente(APIView):
+    def get(self, request, idPaciente):
+        fichas = self.get_fichas(idPaciente)
+        fichas_serializer = FichaPsicoNiñoSerializer(fichas, many=True)
+        return Response(fichas_serializer.data)
+
+    def get_fichas(self, idPaciente):
+        try:
+            return FichaPsicologicaNiño.objects.filter(idPaciente=idPaciente)
+        except FichaPsicologicaNiño.DoesNotExist:
+            raise "No existe"

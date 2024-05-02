@@ -13,6 +13,9 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
     const [showAdiccion, setAdicion] = useState(false)
     const [showAbusoSexual, setAbusoSexual] = useState(false)
     const [showMetodoConceptivo, setMetodoConceptivo] = useState(false)
+    const [showHijos, setTieneHijos] = useState(false)
+    const [showSexualActivo, setSexualActivo] = useState(false)
+
     const [isFemenino, setFemenino] = useState(false)
     const [isMasculino, setMasculino] = useState(false)
     const { authTokens } = useContext(AuthContext);
@@ -20,66 +23,66 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
     const [paciente, setPaciente] = useState([])
 
     const handleAtencionPsico = (evt) => {
-        const opcion = evt.target.value;
-        if (opcion === 'true') {
+        const opcion = evt.target.value === "true";
+        if (opcion) {
             setAtencionPsico(true)
-        } else if (opcion === 'false') {
+        } else {
             setAtencionPsico(false)
         }
     }
     const handlePsicomaticos = (evt) => {
-        const opcion = evt.target.value;
-        if (opcion === 'true') {
+        const opcion = evt.target.value === "true";
+        if (opcion) {
             setPsicomaticos(true)
-        } else if (opcion === 'false') {
+        } else {
             setPsicomaticos(false)
         }
     }
     const handleCronica = (evt) => {
-        const opcion = evt.target.value;
-        if (opcion === 'true') {
+        const opcion = evt.target.value === "true";
+        if (opcion) {
             setCronica(true)
-        } else if (opcion === 'false') {
+        } else {
             setCronica(false)
         }
     }
     const handleTratamientoMedico = (evt) => {
-        const opcion = evt.target.value;
-        if (opcion === 'true') {
+        const opcion = evt.target.value === "true";
+        if (opcion) {
             setTratamientoMedico(true)
-        } else if (opcion === 'false') {
+        } else {
             setTratamientoMedico(false)
         }
     }
     const handleIntervencionQuirur = (evt) => {
-        const opcion = evt.target.value;
-        if (opcion === 'true') {
+        const opcion = evt.target.value === "true";
+        if (opcion) {
             setIntervencionQuirur(true)
-        } else if (opcion === 'false') {
+        } else {
             setIntervencionQuirur(false)
         }
     }
     const handleAdicion = (evt) => {
-        const opcion = evt.target.value;
-        if (opcion === 'true') {
+        const opcion = evt.target.value === "true";
+        if (opcion) {
             setAdicion(true)
-        } else if (opcion === 'false') {
+        } else {
             setAdicion(false)
         }
     }
     const handleAbusoSexual = (evt) => {
-        const opcion = evt.target.value;
-        if (opcion === 'true') {
+        const opcion = evt.target.value === "true";
+        if (opcion) {
             setAbusoSexual(true)
-        } else if (opcion === 'false') {
+        } else {
             setAbusoSexual(false)
         }
     }
     const handleMetodoConceptivo = (evt) => {
-        const opcion = evt.target.value;
-        if (opcion === 'true') {
+        const opcion = evt.target.value === "true";
+        if (opcion) {
             setMetodoConceptivo(true)
-        } else if (opcion === 'false') {
+        } else {
             setMetodoConceptivo(false)
         }
     }
@@ -102,6 +105,22 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
     const handleBarraBusqueda = (evt) => {
         setCriterio(evt.target.value)
     }
+    const handleTieneHijos = (evt) => {
+        const valor = evt.target.value === "true";
+        if (valor) {
+            setTieneHijos(true)
+        } else {
+            setTieneHijos(false)
+        }
+    }
+    const handleSexualActivo = (evt) => {
+        const valor = evt.target.value === "true"
+        if (valor) {
+            setSexualActivo(true)
+        } else {
+            setSexualActivo(false)
+        }
+    }
     const handleBuscarPaciente = async () => {
         try {
             await setToken(authTokens.access);
@@ -111,6 +130,7 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
             console.error(error)
         }
     }
+
     const selectPaciente = (CURP) => {
         pacienteSelect(CURP)
     }
@@ -145,7 +165,7 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
                 <form onSubmit={onSubmit} className="row g-3">
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="code_expediente" className="form-label label-form">Número de expediente</label>
-                        <input id="code_expediente " type="text" placeholder="Número de expediente" className="form-control input-form" {...register("expedienteFicha", { required: true })} />
+                        <input id="code_expediente " type="text" placeholder="Número de expediente" className="form-control input-form" {...register("expedienteFicha", { required: true } )} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label className="form-check-label mx-2">Femenino
@@ -163,18 +183,32 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
                         <label htmlFor="lugar_nacimiento" className="form-label label-form">Lugar de nacimiento</label>
                         <input id="lugar_nacimiento" className="form-control input-form" type="text" placeholder="Lugar de nacimiento" {...register("lugar_nacimiento", { required: true })} />
                     </div>
-                    <div className="col-md-4 offset-md-1">
-                        <label htmlFor="num_hijos" className="form-label label-form">Número de hijos</label>
-                        <input id="num_hijos" className="form-control input-form" type="number" placeholder="Número" {...register("numero_hijos", { required: true })} />
+                    <div className="col-md-5 offset-md-1">
+                        <label htmlFor="atencion_psicologica" className="form-label label-form">¿Tiene hijos?</label>
+                        <label className="form-check-label mx-2">Si
+                            <input className="form-check-input" type="radio" id="hijos_si" name="option_hijos" value={true} {...register("tiene_hijos", { required: true })} onChange={handleTieneHijos} />
+                        </label>
+                        <label className="form-check-label mx-2">No
+                            <input className="form-check-input" type="radio" id="hijos_no" name="option_hijos" value={false} {...register("tiene_hijos", { required: true })} onChange={handleTieneHijos} />
+                        </label>
                     </div>
-                    <div className="col-md-4 offset-md-1">
-                        <label htmlFor="edad_hijos" className="form-label label-form">Edad de los hijos</label>
-                        <input id="edad_hijos" className="form-control input-form" type="text" placeholder="Edad" {...register("edad_hijos")} />
-                    </div>
-                    <div className="col-md-4 offset-md-1">
-                        <label htmlFor="ocupacion_hijos" className="form-label label-form">Ocupación de los hijos</label>
-                        <input id="ocupacion" type="text" placeholder="Ocupación" className="form-control input-form" {...register("ocupacion_hijos")} />
-                    </div>
+                    {showHijos && (
+                        <div className="row">
+                            <div className="col-md-4 offset-md-1">
+                                <label htmlFor="num_hijos" className="form-label label-form">Número de hijos</label>
+                                <input id="num_hijos" className="form-control input-form" type="number" placeholder="Número" {...register("numero_hijos")} />
+                            </div>
+                            <div className="col-md-4 offset-md-1">
+                                <label htmlFor="edad_hijos" className="form-label label-form">Edad de los hijos</label>
+                                <input id="edad_hijos" className="form-control input-form" type="text" placeholder="Edad" {...register("edad_hijos")} />
+                            </div>
+                            <div className="col-md-4 offset-md-1">
+                                <label htmlFor="ocupacion_hijos" className="form-label label-form">Ocupación de los hijos</label>
+                                <input id="ocupacion" type="text" placeholder="Ocupación" className="form-control input-form" {...register("ocupacion_hijos")} />
+                            </div>
+                        </div>
+                    )}
+
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="religion" className="form-label label-form">Religión</label>
                         <input id="religion" type="text" placeholder="Religión" className="form-control input-form" {...register("religion", { required: true })} />
@@ -474,33 +508,37 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="sexualmente_activo" className="form-label label-form">Sexualmente activo</label>
                         <label className="form-check-label mx-2">Si
-                            <input className="form-check-input" type="radio" id="activo_si" name="option_sexualactivo" value={true} {...register("sexualmente_activo", { required: true })} />
+                            <input className="form-check-input" type="radio" id="activo_si" name="option_sexualactivo" value={true} {...register("sexualmente_activo", { required: true })} onChange={handleSexualActivo} />
                         </label>
                         <label className="form-check-label mx-2">No
-                            <input className="form-check-input" type="radio" id="activo_no" name="option_sexualactivo" value={false} {...register("sexualmente_activo", { required: true })} />
+                            <input className="form-check-input" type="radio" id="activo_no" name="option_sexualactivo" value={false} {...register("sexualmente_activo", { required: true })} onChange={handleSexualActivo} />
                         </label>
                     </div>
-                    <div className="col-md-4 offset-md-1">
-                        <label htmlFor="edad_primera_relacion" className="form-label label-form">¿A qué edad tuvo la primera relación sexual?</label>
-                        <input id="edad_primera_relacion_sexual" className="form-control input-form" type="number" placeholder="Edad" {...register("edad_primera_relacion_sexual", { required: true })} />
-                    </div>
-                    <div className="col-md-4 offset-md-1">
-                        <label htmlFor="con_quien" className="form-label label-form">¿Con quién?</label>
-                        <input className="form-control input-form" id="quien_primera_relacion_sexual" type="text" placeholder="¿Con quién?" {...register("con_quien_primera", { required: true })} />
-                    </div>
-                    <div className="col-md-4 offset-md-1">
-                        <label htmlFor="como_han_sido" className="form-label label-form">De manera general, ¿Cómo han sido sus experiencias sexuales?</label>
-                        <input id="experiencia_sexual" className="form-control input-form" type="text" placeholder="¿Cómo han sido?" {...register("como_hansido_experiencia_sexual", { required: true })} />
-                    </div>
-                    <div className="col-md-4 offset-md-1">
-                        <label htmlFor="metodo_conceptivo" className="form-label label-form" >¿Utiliza algún método conceptivo?</label>
-                        <label className="form-check-label mx-2">Si
-                            <input className="form-check-input" type="radio" id="conceptivo_si" name="option_conceptivo" value={true} {...register("utiliza_metodo_conceptivo", { required: true })} onChange={handleMetodoConceptivo} />
-                        </label>
-                        <label className="form-check-label mx-2">No
-                            <input className="form-check-input" type="radio" id="conceptivo_no" name="option_conceptivo" value={false} {...register("utiliza_metodo_conceptivo", { required: true })} onChange={handleMetodoConceptivo} />
-                        </label>
-                    </div>
+                    {showSexualActivo && (
+                        <div className="row">
+                            <div className="col-md-4 offset-md-1">
+                                <label htmlFor="edad_primera_relacion" className="form-label label-form">¿A qué edad tuvo la primera relación sexual?</label>
+                                <input id="edad_primera_relacion_sexual" className="form-control input-form" type="number" placeholder="Edad" {...register("edad_primera_relacion_sexual")} />
+                            </div>
+                            <div className="col-md-4 offset-md-1">
+                                <label htmlFor="con_quien" className="form-label label-form">¿Con quién?</label>
+                                <input className="form-control input-form" id="quien_primera_relacion_sexual" type="text" placeholder="¿Con quién?" {...register("con_quien_primera")} />
+                            </div>
+                            <div className="col-md-4 offset-md-1">
+                                <label htmlFor="como_han_sido" className="form-label label-form">De manera general, ¿Cómo han sido sus experiencias sexuales?</label>
+                                <input id="experiencia_sexual" className="form-control input-form" type="text" placeholder="¿Cómo han sido?" {...register("como_hansido_experiencia_sexual")} />
+                            </div>
+                            <div className="col-md-4 offset-md-1">
+                                <label htmlFor="metodo_conceptivo" className="form-label label-form" >¿Utiliza algún método conceptivo?</label>
+                                <label className="form-check-label mx-2">Si
+                                    <input className="form-check-input" type="radio" id="conceptivo_si" name="option_conceptivo" value={true} {...register("utiliza_metodo_conceptivo")} onChange={handleMetodoConceptivo} />
+                                </label>
+                                <label className="form-check-label mx-2">No
+                                    <input className="form-check-input" type="radio" id="conceptivo_no" name="option_conceptivo" value={false} {...register("utiliza_metodo_conceptivo")} onChange={handleMetodoConceptivo} />
+                                </label>
+                            </div>
+                        </div>
+                    )}
                     {showMetodoConceptivo && (
                         <div className="col-md-4 offset-md-1">
                             <label htmlFor="cual_conceptivo" className="form-label label-form">¿Cuál?</label>

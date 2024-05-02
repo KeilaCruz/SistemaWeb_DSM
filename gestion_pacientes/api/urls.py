@@ -29,6 +29,10 @@ from gestion_pacientes.api.nutricion import (
 from gestion_pacientes.api.psicologia import (
     RegistrarFichaPsiNiñoAPIView,
     RegistrarFichaPsiAdultoAPIView,
+    FichaPsicoAdultoAPIView,
+    FichaPsicoNiñoAPIView,
+    VisualizarFichaPsicoAdultoPaciente,
+    VisualizarFichaPsicoNiñoPaciente,
 )
 
 from gestion_pacientes.api.evento import (
@@ -65,6 +69,10 @@ urlpatterns = [
     path("actualizartoken", RefreshTokenAPIView.as_view(), name="refrescar_token"),
     path("editar_paciente/<str:CURP>/", EditarPacienteAPIView.as_view(), name="editar_paciente"),
     path("registrar_historia_nutricion", RegistrarHistoriaNutricionAPIView.as_view(), name="registrar_historia_nutricion"),
+    path("visualizar_fichapsi_adulto", FichaPsicoAdultoAPIView.as_view(), name="visualizar_fichapsico_adulto"),
+    path("visualizar_fichapsi_nino", FichaPsicoNiñoAPIView.as_view(), name="visualizar_fichapsico_niño"),
+    path("fichapsico_paciente_adulto/<str:idPaciente>/", VisualizarFichaPsicoAdultoPaciente.as_view(), name="fichapsico_paciente_adulto"),
+    path("fichapsico_paciente_nino/<str:idPaciente>/", VisualizarFichaPsicoNiñoPaciente.as_view(), name="fichapsico_paciente_niño"),
     path("historia_nutricion/", HistoriaNutricionAPIView.as_view()),
     path("registrar_fichapsi_nino", RegistrarFichaPsiNiñoAPIView.as_view(), name="registrar_ficha_psico_niño"),
     path("registrar_fichapsi_adulto", RegistrarFichaPsiAdultoAPIView.as_view(), name="registrar_ficha_psico_adulto"),
