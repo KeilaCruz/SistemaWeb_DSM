@@ -31,6 +31,7 @@ class RegistrarHistoriaNutricionAPIView(APIView):
         )
 
 
+@permission_classes([IsAuthenticated])
 class CalculadoraIMCAPIVIEW(APIView):
     def get(self, request, altura, peso):
         altura = float(altura)
@@ -65,14 +66,22 @@ class CalculadoraIMCAPIVIEW(APIView):
             "No se cumple evaluación"
 
         return Response(
-            {"categoria": categoria, "imc": imc_float, "peso": peso, "altura": altura}
+            {
+                "categoria": categoria,
+                "imc": imc_float,
+                "peso": peso,
+                "altura": altura,
+                "status": status.HTTP_200_OK,
+            }
         )
 
 
+@permission_classes([IsAuthenticated])
 class CalculadoraCircuferenciaCintura(APIView):
-    """ Nivel riesgo
-        Bajo: 1  Alto 2
+    """Nivel riesgo
+    Bajo: 1  Alto 2
     """
+
     def get(self, request, genero, circuferencia):
         if genero == "F" and circuferencia <= 80:
             riesgo = 1

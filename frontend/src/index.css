@@ -160,3 +160,25 @@
 .slider-container {
   background: #F3EDED;
 }
+
+.range-imc {
+  width: 900px;
+}
+.label-imc-uno {
+  margin-left: 210px;
+}
+.label-imc-dos {
+  margin-left: 45px;
+}
+.label-imc-tres {
+  margin-left: 60px;
+}
+.label-imc-cuatro {
+  margin-left: 60px;
+}
+.label-imc-cinco {
+  margin-left: 60px;
+}
+.label-imc-seis {
+  margin-left: 60px;
+}
