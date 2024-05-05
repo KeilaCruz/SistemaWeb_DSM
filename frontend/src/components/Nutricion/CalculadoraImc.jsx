@@ -7,10 +7,11 @@ import { Modal, Button } from "react-bootstrap"
 export function CalculadoraImc() {
     const { authTokens } = useContext(AuthContext)
     const [categoria, setCategoria] = useState(1)
-    const [showModal, setShowModal] = useState(false)
     const [peso, setPeso] = useState('')
     const [altura, setAltura] = useState('')
     const [imc, setIMC] = useState('')
+    const [showModal, setShowModal] = useState(false)
+
     const handleCalcularImc = async () => {
         await setToken(authTokens.access)
         const response = await calcularIMC(peso, altura);

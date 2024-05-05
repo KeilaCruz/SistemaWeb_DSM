@@ -95,5 +95,5 @@ class CalculadoraCircuferenciaCintura(APIView):
             "No se cumple evaluación"
 
         return Response(
-            {"riesgo": riesgo, "genero": genero, "circuferencia": circuferencia}
+            {"riesgo": riesgo, "genero": genero, "circuferencia": circuferencia, "status": status.HTTP_200_OK}
         )
