@@ -61,20 +61,46 @@ export function SideBar() {
                       </li>
                      
 
+                     
+
                       <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth0" aria-expanded="false" aria-controls="auth0">
-                              <i className="lni lni-agenda"></i>
+                              data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
+                              <i className="fa-solid fa-brain" ></i>
                               <span>Psicología</span>
                           </a>
-                          <ul id="auth0" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                          <ul id="multi" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                               <li className="sidebar-item">
-                                  <a href="/registrar_fichapsiniño" className="sidebar-link">Niño</a>
+                                  <a href="#" className="sidebar-link collapsed" data-bs-toggle="collapse"
+                                      data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
+                                      Niño
+                                  </a>
+                                  <ul id="multi-two" className="sidebar-dropdown list-unstyled collapse">
+                                      <li className="sidebar-item">
+                                          <a href="/registrar_fichapsiniño" className="sidebar-link">Crear Ficha</a>
+                                      </li>
+                                      <li className="sidebar-item">
+                                          <a href="/visualizar_fichapsiniño" className="sidebar-link">Ver Ficha</a>
+                                      </li>
+                                  </ul>
                               </li>
+                          </ul>
+
+                          <ul id="multi" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                               <li className="sidebar-item">
-                                  <a href="/registrar_fichapsiadulto" className="sidebar-link">Ficha adulto</a>
+                                  <a href="#" className="sidebar-link collapsed" data-bs-toggle="collapse"
+                                      data-bs-target="#multi-three" aria-expanded="false" aria-controls="multi-three">
+                                      Adulto
+                                  </a>
+                                  <ul id="multi-three" className="sidebar-dropdown list-unstyled collapse">
+                                      <li className="sidebar-item">
+                                          <a href="/registrar_fichapsiadulto" className="sidebar-link">Crear Ficha</a>
+                                      </li>
+                                      <li className="sidebar-item">
+                                          <a href="/visualizar_fichapsiadulto" className="sidebar-link">Ver Ficha</a>
+                                      </li>
+                                  </ul>
                               </li>
-                             
                           </ul>
                       </li>
 
@@ -174,29 +200,7 @@ export function SideBar() {
 
                       
 
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                              <i className="lni lni-layout"></i>
-                              <span>Pendiente</span>
-                          </a>
-                          <ul id="multi" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="#" className="sidebar-link collapsed" data-bs-toggle="collapse"
-                                      data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
-                                      Two Links
-                                  </a>
-                                  <ul id="multi-two" className="sidebar-dropdown list-unstyled collapse">
-                                      <li className="sidebar-item">
-                                          <a href="#" className="sidebar-link">Link 1</a>
-                                      </li>
-                                      <li className="sidebar-item">
-                                          <a href="#" className="sidebar-link">Link 2</a>
-                                      </li>
-                                  </ul>
-                              </li>
-                          </ul>
-                      </li>
+                      
 
                       <a  className="sidebar-link" onClick={logout} href='/login' >
                           <i className="lni lni-exit"></i>
@@ -222,6 +226,9 @@ export function SideBar() {
                           <ul id="auth0" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                               <li className="sidebar-item">
                                   <a href="/crear_usuario" className="sidebar-link">Crear Usuario</a>
+                              </li>
+                              <li className="sidebar-item">
+                                  <a href="/ver_usuario" className="sidebar-link">Editar usuarios</a>
                               </li>
                               
                           </ul>

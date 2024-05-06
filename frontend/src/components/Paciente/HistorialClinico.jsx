@@ -68,11 +68,11 @@ export function HistorialClinico() {
                                 <td className="filav2">{historial.datos_nota_enfermeria.frecuencia_cardiaca}</td>
                                 <td className="filav2">{historial.datos_nota_enfermeria.frecuencia_respiratoria}</td>
                                 <td className="filav2">{historial.datos_nota_enfermeria.temperatura}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.imc}</td>
                                 <td className="filav2">{historial.datos_nota_enfermeria.saturacion_oxigeno}</td>
                                 <td className="filav2">{historial.datos_nota_enfermeria.glucosa}</td>
                                 <td className="filav2">{historial.datos_nota_enfermeria.peso}</td>
                                 <td className="filav2">{historial.datos_nota_enfermeria.talla}</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.imc}</td>
                                 <td className="filav2">{historial.datos_nota_enfermeria.cintura}</td>
                             </tr>
                         ))}

@@ -350,10 +350,10 @@ useEffect(() => {
         <div className="row g-3">
           <div className="offset-md-1 col-md-6">
             <p className="h1">Total de pacientes: {totalPacientes}</p>
-            <p className="h3">Mujeres: {cantidadFemenino}</p>
+            {/* <p className="h3">Mujeres: {cantidadFemenino}</p>
             <p className="h3">Hombres: {cantidadMasculinos}</p>
             <p className="h3">No binarios: {cantidadNoBinarios}</p>
-            <p className="h3">Otro: {cantidadOtros}</p>
+            <p className="h3">Otro: {cantidadOtros}</p> */}
 
           </div>
           <div className="offset-md-1 col-md-3">

@@ -10,6 +10,8 @@ from rest_framework.decorators import permission_classes
 from gestion_pacientes.models import Usuario
 from .serializers import UsuarioSerializer, LoginSessionInfoSerializer
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
+
 
 
 class LoginAPIView(TokenObtainPairView):
@@ -70,3 +72,24 @@ class BuscarUsuarioAPIView(APIView):
         
         usuario_serializer = UsuarioSerializer(usuarios, many=True)  # Ajusta el nombre del serializador según el que estés utilizando
         return Response(usuario_serializer.data, status=status.HTTP_200_OK)
+    
+@permission_classes([IsAuthenticated])
+class EditarUsuario(APIView):
+    def get(self, request, id, format=None):
+        usuario = get_object_or_404(Usuario, id=id)
+        usuario_serializer = UsuarioSerializer(usuario)
+        return Response(usuario_serializer.data)
+    
+    def put(self, request, id, format=None):
+        usuario = get_object_or_404(Usuario, id=id)
+        usuario_serializer = UsuarioSerializer(usuario, data=request.data)
+        if usuario_serializer.is_valid():
+            usuario_serializer.save()
+            return Response(usuario_serializer.data)
+        return Response(usuario_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get_usuario(self, idUsuario):
+        try:
+            return Usuario.objects.get(idUsuario=idUsuario)
+        except Usuario.DoesNotExist:
+            raise "No existe"

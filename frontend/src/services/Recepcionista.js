@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 const LIST_PACIENTES_URL = "http://127.0.0.1:8000/api/paciente/"
 const SAVE_PACIENTE_URL = "http://127.0.0.1:8000/api/registrar_paciente/";
 const SEARCH_PACIENTE_URL = "http://127.0.0.1:8000/api/buscar_paciente/";
+const EDIT_PACIENTE_URL = "http://127.0.0.1:8000/api/editar_paciente/";
 const SAVE_CITA_URL = "http://127.0.0.1:8000/api/agendar_cita/";
 const LIST_CITASACTIVAS_URL = "http://127.0.0.1:8000/api/cita_activas/";
 const LIST_CITASINACTIVAS_URL = "http://127.0.0.1:8000/api/cita_inactivas/";
@@ -13,7 +14,7 @@ const LIST_EVENTO = "http://127.0.0.1:8000/api/evento/"
 const EDIT_EVENTO = "http://127.0.0.1:8000/api/editar_evento/"
 const SEARCH_USUARIO_URL = "http://127.0.0.1:8000/api/buscar_usuario/";
 const LIST_USUARIOS_URL = "http://127.0.0.1:8000/api/visualizar_usuario/";
-const EDIT_PACIENTE_URL = "http://127.0.0.1:8000/api/editar_paciente/";
+const EDIT_USUARIO_URL = "http://127.0.0.1:8000/api/editar_usuario/"
 
 const LIST_CITA_PACIENTE_URL = "http://127.0.0.1:8000/api/citas_paciente/";
 const LIST_REAGENDARCITA_URL = "http://127.0.0.1:8000/api/reagendar_cita/";
@@ -302,6 +303,53 @@ export const getAllUsuarios = async () => {
         throw error; // Lanza la excepción para que pueda ser manejada externamente
     }
 };
+
+
+export const getUsuario = async (id) => {
+    try {
+        const config = await getConfig();
+        const response = await axios.get(`${EDIT_USUARIO_URL}${id}/`, config)
+        if (response.status == 200) {
+            return response.data;
+        } else {
+            console.log("Error al hacer la llamada")
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const editarUsuario = async (id, user) => {
+    try {
+        const config = await getConfig();
+        const response = await axios.put(`${EDIT_USUARIO_URL}${id}/`, user, config)
+        if (response.status == 200) {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Usuario modificado con exito',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  console.log('Se hizo clic en Aceptar');
+                  location.href ='/ver_usuario';
+                }
+              });
+        } else {
+            console.log("error al modificar")
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡Algo salio mal!",
+                footer: '<a href="#">Intente de nuevo</a>'
+              });
+            return response;
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 export const registerEvento = async (evento) => {
     try {

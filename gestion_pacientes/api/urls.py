@@ -5,6 +5,7 @@ from gestion_pacientes.api.logueo import (
     VisualizarUsuarioView,
     RefreshTokenAPIView,
     BuscarUsuarioAPIView,
+    EditarUsuario,
 )
 from gestion_pacientes.api.cita import (
     CitaActivasAPIView,
@@ -65,6 +66,7 @@ urlpatterns = [
     path("crear_usuario/", CrearUsuarioView.as_view(), name="crear_usuarios"),
     path("buscar_usuario/", BuscarUsuarioAPIView.as_view()),
     path("visualizar_usuario/", VisualizarUsuarioView.as_view(), name="visualizar_usuarios"),
+    path("editar_usuario/<str:id>/", EditarUsuario.as_view()),
     path("iniciosesion", LoginAPIView.as_view(), name="incio_sesion"),
     path("actualizartoken", RefreshTokenAPIView.as_view(), name="refrescar_token"),
     path("editar_paciente/<str:CURP>/", EditarPacienteAPIView.as_view(), name="editar_paciente"),
