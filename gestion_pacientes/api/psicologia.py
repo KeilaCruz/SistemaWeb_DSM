@@ -3,8 +3,18 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
-from gestion_pacientes.models import FichaPsicologicaNiño, FichaPsicologicaAdulto
-from .serializers import FichaPsicoNiñoSerializer, FichaPsicoAdultoSerializer
+from gestion_pacientes.models import (
+    FichaPsicologicaNiño,
+    FichaPsicologicaAdulto,
+    EvaluaciónPsicologicaAdultos,
+    EvaluaciónPsicologicaNiños,
+)
+from .serializers import (
+    FichaPsicoNiñoSerializer,
+    FichaPsicoAdultoSerializer,
+    EvaluacionPsicoAdultoSerializer,
+    EvaluacionPsicoNiñoSerializer,
+)
 from django.db.models import Max
 
 
@@ -93,4 +103,60 @@ class VisualizarFichaPsicoNiñoPaciente(APIView):
         try:
             return FichaPsicologicaNiño.objects.filter(idPaciente=idPaciente)
         except FichaPsicologicaNiño.DoesNotExist:
+            raise "No existe"
+
+
+@permission_classes([IsAuthenticated])
+class RegistrarEvaluacionAdulto(APIView):
+    def post(self, request, *args, **kwargs):
+        evaluacion_serializer = EvaluacionPsicoAdultoSerializer(data=request.data)
+        if evaluacion_serializer.is_valid():
+            evaluacion_serializer.save()
+            return Response(evaluacion_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(
+            evaluacion_serializer.errors, status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+@permission_classes([IsAuthenticated])
+class VisualizarEvaluacionAdulto(APIView):
+    def get(self, request, CURP):
+        evaluaciones = self.get_evaluaciones(CURP)
+        evaluacion_serializer = EvaluacionPsicoAdultoSerializer(evaluaciones, many=True)
+        return Response(evaluacion_serializer.data)
+
+    def get_evaluaciones(self, CURP):
+        try:
+            return EvaluaciónPsicologicaAdultos.objects.filter(CURP=CURP).order_by(
+                "-fecha"
+            )
+        except EvaluaciónPsicologicaAdultos.DoesNotExist:
+            raise "No existe"
+
+
+@permission_classes([IsAuthenticated])
+class RegistrarEvaluacionNiño(APIView):
+    def post(self, request, *args, **kwargs):
+        evaluacion_serializer = EvaluacionPsicoNiñoSerializer(data=request.data)
+        if evaluacion_serializer.is_valid():
+            evaluacion_serializer.save()
+            return Response(evaluacion_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(
+            evaluacion_serializer.errors, status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+@permission_classes([IsAuthenticated])
+class VisualizarEvaluacionNiño(APIView):
+    def get(self, request, CURP):
+        evaluaciones = self.get_evaluaciones(CURP)
+        evaluacion_serializer = EvaluacionPsicoNiñoSerializer(evaluaciones, many=True)
+        return Response(evaluacion_serializer.data)
+
+    def get_evaluaciones(self, CURP):
+        try:
+            return EvaluaciónPsicologicaNiños.objects.filter(CURP=CURP).order_by(
+                "-fecha"
+            )
+        except EvaluaciónPsicologicaNiños.DoesNotExist:
             raise "No existe"

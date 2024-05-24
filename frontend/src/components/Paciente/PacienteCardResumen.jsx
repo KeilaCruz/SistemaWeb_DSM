@@ -26,7 +26,7 @@ export function PacienteCardResumen({ paciente }) {
                             <div className="col-md-3">
                                 <button onClick={handleNavigateCitas} class="lni lni-calendar button-card"></button>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-md-3 offset-md-1">
                                 <button onClick={handleNavigateHistorial} className="lni lni-notepad button-card"></button>
                             </div>
                         </div>

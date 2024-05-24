@@ -22,6 +22,10 @@ import { VFichaPsicoAdultoPage } from './pages/VFichaPsicoAdultoPage';
 import { VFichaPsicoNiñoPage } from './pages/VFichaPsicoNiñoPage';
 import { FichaPsicoAdulto } from './components/Psicologia/FichaPsicoAdulto';
 import { FichaPsicoNiño } from './components/Psicologia/FichaPsicoNiño';
+import { VHistoriasNutricionPage } from './pages/VHistoriasNutricionPage';
+import { HistoriaNutricion } from './components/Nutricion/HistoriaNutricion';
+import { EvoluciónPsicologicaAdulto } from './components/Psicologia/EvoluciónPsicologicaAdulto';
+import { EvolucionPsicologiaNiño } from './components/Psicologia/EvolucionPsicologiaNiño';
 function App() {
   return (
     <>
@@ -38,10 +42,14 @@ function App() {
             <Route path="/registrarpaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><RePacientePage /></ProtectedRoute>} />
             <Route path="/agendarcita" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><AgendarCitaPage /></ProtectedRoute>} />
             <Route path="/registrar_historianutricion" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><ReHistoriaNPage /></ProtectedRoute>} />
+            <Route path="/visualizar_historianutricion" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><VHistoriasNutricionPage /></ProtectedRoute>} />
+            <Route path="/historia_nutricion/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><HistoriaNutricion /></ProtectedRoute>} />
             <Route path="/registrar_fichapsiniño" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><ReFichaPsicoNiñoPage /></ProtectedRoute>} />
             <Route path="/registrar_fichapsiadulto" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><ReFichaPsicoAdultoPage /></ProtectedRoute>} />
             <Route path="/visualizar_fichapsiadulto" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><VFichaPsicoAdultoPage /></ProtectedRoute>} />
             <Route path="/visualizar_fichapsiniño" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><VFichaPsicoNiñoPage /></ProtectedRoute>} />
+            <Route path="/visualizar_evolucionadulto/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}> <EvoluciónPsicologicaAdulto /></ProtectedRoute>} />
+            <Route path="/visualizar_evolucionnino/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}> <EvolucionPsicologiaNiño /></ProtectedRoute>} />
             <Route path="/fichapsico_adulto/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><FichaPsicoAdulto /></ProtectedRoute>} />
             <Route path="/fichapsico_niño/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={1}><FichaPsicoNiño /></ProtectedRoute>} />
             <Route path="/buscar_paciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={2}><BuscarPacientePage /></ProtectedRoute>} />

@@ -5,16 +5,24 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 from gestion_pacientes.models import HistoriaNutricion
 from .serializers import HistoriaNutricionSerializer
+from django.db.models import Max
 
 
 @permission_classes([IsAuthenticated])
 class HistoriaNutricionAPIView(APIView):
-    def get(self, request):
-        historias_nutricion = HistoriaNutricion.objects.all()
-        historia_nutricion_serializer = HistoriaNutricionSerializer(
-            historias_nutricion, many=True
+    def get(self, resquest):
+        historias_nutricion = HistoriaNutricion.objects.values("idPaciente").annotate(
+            max_fecha=Max("fecha_registro")
         )
-        return Response(historia_nutricion_serializer)
+        historia_nutricion_sin_duplicados = HistoriaNutricion.objects.filter(
+            fecha_registro__in=[
+                historia["max_fecha"] for historia in historias_nutricion
+            ]
+        )
+        historia_nutricion_serializer = HistoriaNutricionSerializer(
+            historia_nutricion_sin_duplicados, many=True
+        )
+        return Response(historia_nutricion_serializer.data)
 
 
 @permission_classes([IsAuthenticated])
@@ -95,5 +103,26 @@ class CalculadoraCircuferenciaCintura(APIView):
             "No se cumple evaluación"
 
         return Response(
-            {"riesgo": riesgo, "genero": genero, "circuferencia": circuferencia, "status": status.HTTP_200_OK}
+            {
+                "riesgo": riesgo,
+                "genero": genero,
+                "circuferencia": circuferencia,
+                "status": status.HTTP_200_OK,
+            }
         )
+
+
+@permission_classes([IsAuthenticated])
+class VisualizarFichaNutricionPaciente(APIView):
+    def get(self, request, idPaciente):
+        historias_nutricion = self.get_fichas(idPaciente)
+        historias_nutricion_serializer = HistoriaNutricionSerializer(
+            historias_nutricion, many=True
+        )
+        return Response(historias_nutricion_serializer.data)
+
+    def get_fichas(self, idPaciente):
+        try:
+            return HistoriaNutricion.objects.filter(idPaciente=idPaciente)
+        except HistoriaNutricion.DoesNotExist:
+            raise "No existe"

@@ -16,14 +16,14 @@ class Rol(models.Model):
 class Usuario(AbstractUser):
     idRol = models.ForeignKey(Rol, on_delete=models.DO_NOTHING)
     second_last_name = models.CharField(max_length=50, default="")
-    
+
     last_login = None
     is_superuser = None
     is_staff = None
     date_joined = None
     groups = None
     user_permissions = None
-    
+
     def __str__(self):
         return self.id
 
@@ -134,3 +134,33 @@ class Evento(models.Model):
 
     def __str__(self):
         return self.idEvento
+
+
+class EvaluaciónPsicologicaAdultos(models.Model):
+    idEvaluacionPsicologica = models.BigAutoField(primary_key=True)
+    numero_expediente = models.ForeignKey(
+        FichaPsicologicaAdulto, on_delete=models.DO_NOTHING
+    )
+    CURP = models.ForeignKey(Paciente, on_delete=models.DO_NOTHING)
+    nombre_paciente = models.CharField(max_length=100)
+    fecha = models.DateField(default=datetime.date.today)
+    nota_evolucion = models.TextField()
+    proxima_cita = models.DateField()
+
+    def __str__(self):
+        return self.idEvaluacionPsicologica
+
+
+class EvaluaciónPsicologicaNiños(models.Model):
+    idEvaluacionPsicologica = models.BigAutoField(primary_key=True)
+    fecha = models.DateField(default=datetime.date.today)
+    numero_expediente = models.ForeignKey(
+        FichaPsicologicaNiño, on_delete=models.DO_NOTHING
+    )
+    CURP = models.ForeignKey(Paciente, on_delete=models.DO_NOTHING)
+    nombre_paciente = models.CharField(max_length=100)
+    nota_evolucion = models.TextField()
+    proxima_cita = models.DateField()
+
+    def __str__(self):
+        return self.idEvaluacionPsicologica

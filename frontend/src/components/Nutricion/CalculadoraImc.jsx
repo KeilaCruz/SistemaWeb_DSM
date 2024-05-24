@@ -70,12 +70,12 @@ export function CalculadoraImc() {
                             <input className="range-imc" type="range" min={1} max={6} value={categoria} />
                         </div>
                         <div className="row">
-                            <div className="col-md-2"><label>Bajo peso</label></div>
-                            <div className="col-md-2"><label>Normopeso</label></div>
-                            <div className="col-md-2"><label>Sobrepeso</label></div>
-                            <div className="col-md-2 "><label>Obesidad I</label></div>
-                            <div className="col-md-2 "><label>Obesidad II</label></div>
-                            <div className="col-md-2"><label>Obesidad III</label></div>
+                            <div className="col-md-2 label-range"><label>Bajo peso</label></div>
+                            <div className="col-md-2 label-range"><label>Normopeso</label></div>
+                            <div className="col-md-2 label-range"><label>Sobrepeso</label></div>
+                            <div className="col-md-2 label-range"><label>Obesidad I</label></div>
+                            <div className="col-md-2 label-range"><label>Obesidad II</label></div>
+                            <div className="col-md-2 label-range"><label>Obesidad III</label></div>
                         </div>
                     </div>
                 </Modal.Body>

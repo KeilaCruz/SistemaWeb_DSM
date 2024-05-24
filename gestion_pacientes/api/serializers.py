@@ -7,6 +7,8 @@ from gestion_pacientes.models import (
     FichaPsicologicaNiño,
     FichaPsicologicaAdulto,
     HojaEvaluacionClinica,
+    EvaluaciónPsicologicaNiños,
+    EvaluaciónPsicologicaAdultos,
 )
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -61,3 +63,15 @@ class LoginSessionInfoSerializer(TokenObtainPairSerializer):
         token["username"] = user.username
         token["idRol_id"] = user.idRol_id
         return token
+
+
+class EvaluacionPsicoAdultoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EvaluaciónPsicologicaAdultos
+        fields = "__all__"
+
+
+class EvaluacionPsicoNiñoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EvaluaciónPsicologicaNiños
+        fields = "__all__"

@@ -47,34 +47,35 @@ export function CalculadoraCircuferencia() {
                 <Modal.Body>
                     <div className="container-fluid">
                         <div className="row">
-                            <div>
+
+                            <div className="col-md-4">
+                                <label htmlFor="circuferencia" className="form-label label-form">Circuferencia</label>
+                                <input className="form-control input-form" type="number" id="circuferencia" placeholder="cm" step="any" name="circuferencia" value={circuferencia} onChange={handleChangeCircuferencia} />
+                            </div>
+                            <div className="col-md-8 mt-4">
                                 <label className="form-label label-form">Género:</label>
-                                <label className="form-check-label mx-4">Femenino
+                                <label className="form-check-label mx-2 ">Femenino
                                     <input className="form-check-input" type="radio" id="femenino" name="option_genero" value={"F"} onChange={handleChangeInput} />
                                 </label>
-                                <label className="form-check-label">Masculino
+                                <label className="form-check-label mx-2">Masculino
                                     <input className="form-check-input" type="radio" id="masculino" name="option_genero" value={"M"} onChange={handleChangeInput} />
                                 </label>
                             </div>
-                            <div>
-                                <label htmlFor="circuferencia form-label">Tamaño de circuferencia</label>
-                                <input className="form-control input-form"type="number" id="circuferencia" placeholder="cm" step="any" name="circuferencia" value={circuferencia} onChange={handleChangeCircuferencia} />
+                            <div className="col-md-3 mt-2">
+                                <button className="button-guardar" onClick={handleCalcularCircuferencia}>Calcular</button>
                             </div>
-                            <div>
-                                <button onClick={handleCalcularCircuferencia}>Calcular</button>
-                            </div>
-                            <div>
-                                <button onClick={handleClearInputs}>Limpiar</button>
+                            <div className="col-md-3 mt-2">
+                                <button className="button-limpiar" onClick={handleClearInputs}>Limpiar</button>
                             </div>
                         </div>
 
                         {/**Estructura de range*/}
-                        <div>
-                            <input id="range_circuferencia" type="range" min={0} max={2} value={riesgo} />
+                        <div className="col-md-8 mt-4">
+                            <input className="range-circuferencia" id="range_circuferencia" type="range" min={0} max={2} value={riesgo} />
                         </div>
                         <div className="row">
-                            <div className="col-md-2"><label>Bajo riesgo</label></div>
-                            <div className="col-md-2"><label>Alto riesgo</label></div>
+                            <div className="col-md-6"><label>Bajo riesgo</label></div>
+                            <div className="col-md-6"><label>Alto riesgo</label></div>
                         </div>
                     </div>
                 </Modal.Body>

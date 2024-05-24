@@ -99,24 +99,24 @@ export function VisualizarCitas() {
     <>
       <div className="container-fluid">
         <div className="row g-3 mt-5">
-          <div className="col-md-10 offset-md-  AQQ1 text-center mt-5">
+          <div className="col-md-10 offset-md-1 text-center mt-5">
             <hr />
             <h3 className="title">CITAS AGENDADAS</h3>
             <hr />
           </div>
         </div>
-        <div className="row ">
+        <div className="row">
           <div className="col-md-1 offset-md-1">
-            <button onClick={() => handleFiltro(true)}>Pendientes</button>
+            <button type="button" className="button-filter rounded" onClick={() => handleFiltro(true)}>Pendientes</button>
           </div>
           <div className="col-md-1">
-            <button onClick={() => handleFiltro(false)}>Asistidas</button>
+            <button type="button" className="button-filter rounded" onClick={() => handleFiltro(false)}>Asistidas</button>
           </div>
         </div>
 
         {/**Citas activas */}
-        <div className="col-md-10 offset-md-1 mt-5">
-          <table>
+        <div className="col-md-10 offset-md-1 mt-4">
+          <table className="table-bordered">
             <thead className="cabecera">
               <tr>
                 <th className="colum">Numero</th>
@@ -124,8 +124,8 @@ export function VisualizarCitas() {
                 <th className="colum">Fecha horario</th>
                 <th className="colum">Especialidad</th>
                 <th className="colum">Estado</th>
-                <th className="colum"></th>
                 <th className="colum">Marcar asistencia</th>
+                <th className="colum"></th>
               </tr>
             </thead>
             <tbody>
@@ -141,10 +141,10 @@ export function VisualizarCitas() {
                     <td className="fila">Asistida</td>
                   )}
                   <td className="fila">
-                    <button onClick={() => handleOpenModal(cita.idCita)}>Edit</button>
+                    <input id="marcar_asistencia" checked={!cita.estado} type="checkbox" onChange={() => handleMarcarAsistencia(cita.idCita)} />
                   </td>
                   <td className="fila">
-                    <input id="marcar_asistencia" checked={!cita.estado} type="checkbox" onChange={() => handleMarcarAsistencia(cita.idCita)} />
+                    <button className="lni lni-slice" onClick={() => handleOpenModal(cita.idCita)}></button>
                   </td>
                 </tr>
               ))

@@ -7,7 +7,10 @@ const URL_GET_FICHAPSICO_ADULTO = "http://127.0.0.1:8000/api/visualizar_fichapsi
 const URL_GET_FICHAPSICO_NIÑO = "http://127.0.0.1:8000/api/visualizar_fichapsi_nino";
 const URL_GET_FICHAADULTO_PACIENTE = "http://127.0.0.1:8000/api/fichapsico_paciente_adulto/";
 const URL_GETFICHANIÑO_PACIENTE = "http://127.0.0.1:8000/api/fichapsico_paciente_nino/";
-
+const URL_EVOLUCION_ADULTO = "http://127.0.0.1:8000/api/registrar_evolucion_adulto";
+const URL_EVOLUCION_NIÑO = "http://127.0.0.1:8000/api/registrar_evolucion_nino";
+const URL_GETEVOLUCION_ADULTO = "http://127.0.0.1:8000/api/visualizar_evolucion_adulto/"
+const URL_GETEVOLUCION_NINO = "http://127.0.0.1:8000/api/visualizar_evolucion_ninio/"
 export const registerFichaPsiNiño = async (fichaPsicoNiño) => {
     try {
         const config = await getConfig()
@@ -85,6 +88,62 @@ export const getFichaPsicoPacienteNiño = async (idPaciente) => {
             return response.data
         } else {
             console.log("Error al retornar las fichas del paciente")
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const registerEvolucionAdulto = async (nota) => {
+    try {
+        const config = await getConfig()
+        const response = await axios.post(URL_EVOLUCION_ADULTO, nota, config);
+        if (response.status == 201) {
+            alert("Registrado")
+        } else {
+            return response
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const getNotasAdulto = async (idPaciente) => {
+    try {
+        const config = await getConfig()
+        const response = await axios.get(`${URL_GETEVOLUCION_ADULTO}${idPaciente}/`, config);
+        if (response.status === 200) {
+            return response.data
+        } else {
+            console.log("Error al retornar las notas")
+        }
+    } catch (error) {
+        console.error
+    }
+}
+
+export const registerEvolucionNiño = async (nota) => {
+    try {
+        const config = await getConfig()
+        const response = await axios.post(URL_EVOLUCION_NIÑO, nota, config);
+        if (response.status === 201) {
+            alert("Registrado")
+        } else {
+            return response
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const getNotasNiño = async (idPaciente) => {
+    try {
+        const config = await getConfig()
+        const response = await axios.get(`${URL_GETEVOLUCION_NINO}${idPaciente}/`, config)
+        if (response.status === 200) {
+            return response.data
+        } else {
+            console.log("Error al retornar los datos")
         }
     } catch (error) {
         console.error(error)

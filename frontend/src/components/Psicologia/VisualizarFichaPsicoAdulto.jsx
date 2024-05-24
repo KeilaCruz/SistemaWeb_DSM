@@ -3,9 +3,13 @@ import AuthContext from '../../context/AuthProvider'
 import { setToken } from '../../services/HeaderAuthorization'
 import { getAllFichasPsiAdultos } from '../../services/Psicologia'
 import { useNavigate } from 'react-router-dom'
+import { FormEvoluciónPsicoAdulto } from './FormEvolucionPsicoAdulto.jxs'
+
 
 export function VisualizarFichaPsicoAdulto() {
     const [fichas, setFichas] = useState([])
+    const [showModal, setShowModal] = useState(false)
+    const [selectedData, setSelectedData] = useState(null)
     const navigate = useNavigate()
     const { authTokens } = useContext(AuthContext)
     useEffect(() => {
@@ -20,7 +24,16 @@ export function VisualizarFichaPsicoAdulto() {
     const handleFichas = (idPaciente) => {
         navigate(`/fichapsico_adulto/${idPaciente}`)
     }
-
+    const handleNotas = (idPaciente) => {
+        navigate(`/visualizar_evolucionadulto/${idPaciente}`)
+    }
+    const handleModal = (datos) => {
+        setSelectedData(datos)
+        setShowModal(true)
+    }
+    const handleCloseModal = () => {
+        setShowModal(false)
+    }
     return (
         <>
             <div className='container-fluid'>
@@ -52,12 +65,19 @@ export function VisualizarFichaPsicoAdulto() {
                                     <td>
                                         <button onClick={() => handleFichas(ficha.idPaciente)}>Fichas</button>
                                     </td>
+                                    <td>
+                                        <button onClick={() => handleModal(ficha)}>Registrar evolución</button>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => handleNotas(ficha.idPaciente)}>v</button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
             </div>
+            {showModal && <FormEvoluciónPsicoAdulto estado={true} datos={selectedData} handleCloseModal={handleCloseModal}/>}
         </>
     )
 }
