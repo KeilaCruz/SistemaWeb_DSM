@@ -25,7 +25,11 @@ from gestion_pacientes.api.paciente import (
 )
 from gestion_pacientes.api.nutricion import (
     RegistrarHistoriaNutricionAPIView,
+    CalculadoraIMCAPIVIEW,
+    CalculadoraCircuferenciaCintura,
     HistoriaNutricionAPIView,
+    VisualizarFichaNutricionPaciente,
+    
 )
 from gestion_pacientes.api.psicologia import (
     RegistrarFichaPsiNiñoAPIView,
@@ -34,6 +38,10 @@ from gestion_pacientes.api.psicologia import (
     FichaPsicoNiñoAPIView,
     VisualizarFichaPsicoAdultoPaciente,
     VisualizarFichaPsicoNiñoPaciente,
+    RegistrarEvaluacionAdulto,
+    RegistrarEvaluacionNiño,
+    VisualizarEvaluacionAdulto,
+    VisualizarEvaluacionNiño
 )
 
 from gestion_pacientes.api.evento import (
@@ -71,11 +79,19 @@ urlpatterns = [
     path("actualizartoken", RefreshTokenAPIView.as_view(), name="refrescar_token"),
     path("editar_paciente/<str:CURP>/", EditarPacienteAPIView.as_view(), name="editar_paciente"),
     path("registrar_historia_nutricion", RegistrarHistoriaNutricionAPIView.as_view(), name="registrar_historia_nutricion"),
+    path("visualizar_historia_nutricion", HistoriaNutricionAPIView.as_view(), name="visualizar_historia_nutricion"),
+    path("visualizar_historia_nutricion/<str:idPaciente>/", VisualizarFichaNutricionPaciente.as_view(), name="visualizar_historia_nutricion_paciente"),
+    path("calcular_imc/<altura>/<int:peso>/", CalculadoraIMCAPIVIEW.as_view(), name="calculadora_imc"),
+    path("calculadora_circuferencia/<str:genero>/<int:circuferencia>/", CalculadoraCircuferenciaCintura.as_view(), name="calculadora_circuferencia"),
     path("visualizar_fichapsi_adulto", FichaPsicoAdultoAPIView.as_view(), name="visualizar_fichapsico_adulto"),
     path("visualizar_fichapsi_nino", FichaPsicoNiñoAPIView.as_view(), name="visualizar_fichapsico_niño"),
     path("fichapsico_paciente_adulto/<str:idPaciente>/", VisualizarFichaPsicoAdultoPaciente.as_view(), name="fichapsico_paciente_adulto"),
     path("fichapsico_paciente_nino/<str:idPaciente>/", VisualizarFichaPsicoNiñoPaciente.as_view(), name="fichapsico_paciente_niño"),
     path("historia_nutricion/", HistoriaNutricionAPIView.as_view()),
+    path("registrar_evolucion_nino", RegistrarEvaluacionNiño.as_view(), name="registrar_evolucion_psico_niño"),
+    path("registrar_evolucion_adulto", RegistrarEvaluacionAdulto.as_view(), name="registrar_evolucion_psico_adulto"),
+    path("visualizar_evolucion_adulto/<str:CURP>/", VisualizarEvaluacionAdulto.as_view(), name="visualizar_evaluacion_adulto"),
+    path("visualizar_evolucion_ninio/<str:CURP>/", VisualizarEvaluacionNiño.as_view(), name="visualizar_evaluacion_niño"),
     path("registrar_fichapsi_nino", RegistrarFichaPsiNiñoAPIView.as_view(), name="registrar_ficha_psico_niño"),
     path("registrar_fichapsi_adulto", RegistrarFichaPsiAdultoAPIView.as_view(), name="registrar_ficha_psico_adulto"),
     path("registrar_evento/", RegistrarEventoAPIView.as_view()),

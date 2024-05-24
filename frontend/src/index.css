@@ -376,6 +376,8 @@ a.sidebar-link:hover {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 600;
   letter-spacing: 1px;
+  width: 50px;
+  height: 35px;
 }
 
 .button-guardar {
@@ -390,6 +392,21 @@ a.sidebar-link:hover {
 
 .button-guardar:hover {
   background: #C88A3F;
+}
+
+.button-limpiar {
+  background: #C88A3F;
+  border-radius: 2px;
+  border: 1px solid #FFF;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.button-limpiar:hover {
+  background: #cfcece;
+  color: #F3EDED;
 }
 
 .button-cancelar {
@@ -453,4 +470,39 @@ a.sidebar-link:hover {
 
 .slider-container {
   background: #F3EDED;
+}
+
+.range-imc {
+  width: 730px;
+  margin-left: 20px;
+}
+
+.range-circuferencia {
+  width: 400px;
+  margin-left: 20px;
+}
+
+.my-modal {
+  width: 60vmax;
+  max-width: 60vmax;
+}
+
+.label-range {
+  color: #000000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.button-filter {
+  background: #530c83;
+  border-radius: 2px;
+  border: 1px solid #FFF;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.button-filter:hover{
+  background: #cfcece
 }

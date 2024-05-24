@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom"
 import AuthContext from "../../context/AuthProvider"
 import { setToken } from "../../services/HeaderAuthorization"
 import { getAllFichasPsiNiños } from "../../services/Psicologia"
+import { FormEvoluciónPsicoNiño } from "./FormEvolucionPsicoNiño"
 
 
 export function VisualizarFichaPsicoNiño() {
     const [fichas, setFichas] = useState([])
+    const [showModal, setShowModal] = useState(false)
+    const [selectedData, setSelectedData] = useState(null)
     const navigate = useNavigate()
     const { authTokens } = useContext(AuthContext)
     useEffect(() => {
@@ -19,6 +22,16 @@ export function VisualizarFichaPsicoNiño() {
     }, [])
     const handleFichas = (idPaciente) => {
         navigate(`/fichapsico_niño/${idPaciente}`)
+    }
+    const handleModal = (datos) => {
+        setSelectedData(datos)
+        setShowModal(true)
+    }
+    const handleCloseModal = () => {
+        setShowModal(false)
+    }
+    const handleNotas = (idPaciente) => {
+        navigate(`/visualizar_evolucionnino/${idPaciente}`)
     }
     return (
         <>
@@ -51,11 +64,18 @@ export function VisualizarFichaPsicoNiño() {
                                     <td>
                                         <button onClick={() => handleFichas(ficha.idPaciente)}>Fichas</button>
                                     </td>
+                                    <td>
+                                        <button onClick={() => handleModal(ficha)}>Evolución</button>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => handleNotas(ficha.idPaciente)}>V</button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
+                {showModal && <FormEvoluciónPsicoNiño estado={true} datos={selectedData} handleCloseModal={handleCloseModal} />}
             </div>
         </>
     )

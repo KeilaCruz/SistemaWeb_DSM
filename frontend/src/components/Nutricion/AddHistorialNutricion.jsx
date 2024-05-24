@@ -11,11 +11,9 @@ export function AddHistorialNutricion() {
     const [pacienteSelect, setPacienteSelect] = useState("")
 
     const onSubmit = handleSubmit(async (data) => {
-
         const parseBoolean = (value) => {
             return value === "true"
         }
-
         const historiaNutricion = {
             "datos_personales": {
                 num_expediente: data.num_expediente,
@@ -39,6 +37,7 @@ export function AddHistorialNutricion() {
                 cual_problema_gastrointestinal: data.cual_problema_gastrointestinal,
                 observaciones_patologicas: data.observaciones_patologicas,
                 intervencion_quirurgica: parseBoolean(data.intervencion_quirurgica),
+                cual_intervencion_quirurgica: data.cual_intervencion_quirurgica,
                 alergia_alimento: parseBoolean(data.alergia_alimento),
                 cual_alergia_alimento: data.cual_alergia_alimento,
                 consume_farmaco_alergia: parseBoolean(data.consume_farmaco_alergia),
@@ -58,8 +57,8 @@ export function AddHistorialNutricion() {
                 numero_partos_cesarea: data.numero_partos_cesarea,
                 numero_abortos: data.numero_abortos,
                 fecha_ultima_menstruacion: data.fecha_ultima_menstruacion,
-                actualmente_lactando: data.actualmente_lactando,
-                presenta_menoupasia: data.presenta_menoupasia,
+                actualmente_lactando: parseBoolean(data.actualmente_lactando),
+                presenta_menoupasia: parseBoolean(data.presenta_menoupasia),
             },
             "indicadores_diabeticos": {
                 frecuencia_cereales: data.frecuencia_cereales,
