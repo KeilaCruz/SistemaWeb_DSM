@@ -9,7 +9,7 @@ export function EditPacienteForm({ paciente }) {
     const { register, setValue, handleSubmit } = useForm()
     const { authTokens } = useContext(AuthContext)
     const [activateEdit, setActiEdit] = useState(false)
-    
+
     const [programaFederal, setProgramaFederal] = useState(false);
     const [programaEstatal, setProgramaEstatal] = useState(false);
     const [programaMunicipal, setProgramaMunicipal] = useState(false);
@@ -70,11 +70,11 @@ export function EditPacienteForm({ paciente }) {
         }
         loadInput();
     }, [paciente])
-    
+
     /**Funcion para enviar los datos actualizados (editar) */
     const onSubmit = handleSubmit(async (data) => {
         //Para convertir de cadena true or false a boleano
-    
+
         const pacienteData = {
             CURP: data.CURP,
             "datos_personales": {
@@ -128,7 +128,7 @@ export function EditPacienteForm({ paciente }) {
                         <hr />
                     </div>
                 </div>
-                <form onSubmit={onSubmit} className="row g-3">
+                <form onSubmit={onSubmit} className="row g-3 align-items-center">
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="CURP" className="form-label label-form">CURP</label>
                         <input id="CURP" className="form-control input-form" type="text" {...register("CURP")} disabled={true} />
@@ -158,14 +158,14 @@ export function EditPacienteForm({ paciente }) {
                     <div className="col-md-2 offset-md-0.6">
                         <label htmlFor="estado_civil" className="form-label label-form">Sexo</label>
                         <select id="estado_civil" className="form-select input-form" {...register("sexo")} disabled={!activateEdit}>
-                        <option value="" disabled selected>Elija su sexo</option>
+                            <option value="" disabled selected>Elija su sexo</option>
                             <option value="masculino">Masculino</option>
                             <option value="femenino">Femenino</option>
                             <option value="no-binario">No Binario</option>
                             <option value="otro">Otro</option>
                         </select>
                     </div>
-                    
+
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="escolaridad" className="form-label label-form" >Escolaridad</label>
                         <select name="escolaridad" className="form-select input-form" {...register("escolaridad")} disabled={!activateEdit}>
@@ -229,8 +229,8 @@ export function EditPacienteForm({ paciente }) {
                     </div>
 
                     {programaFederal && (
-                        <div>
-                            <input type="text" id="programa_federal" {...register("cual_programa_federal")} disabled={!activateEdit} />
+                        <div className="col-md-4 offset-md-1">
+                            <input type="text" className="form-control input-form" id="programa_federal" {...register("cual_programa_federal")} disabled={!activateEdit} />
                         </div>
                     )}
 
@@ -252,7 +252,7 @@ export function EditPacienteForm({ paciente }) {
 
                     {programaEstatal && (
                         <div className="col-md-4 offset-md-1">
-                            <input type="text" id="programa_estatal" {...register("cual_programa_estatal")} disabled={!activateEdit} />
+                            <input className="form-control input-form" type="text" id="programa_estatal" {...register("cual_programa_estatal")} disabled={!activateEdit} />
                         </div>
                     )}
 
@@ -274,17 +274,19 @@ export function EditPacienteForm({ paciente }) {
 
                     {programaMunicipal && (
                         <div className="col-md-4 offset-md-1">
-                            <input type="text" id="programa_municipal" {...register("cual_programa_municipal")} disabled={!activateEdit} />
+                            <input className="form-control input-form" type="text" id="programa_municipal" {...register("cual_programa_municipal")} disabled={!activateEdit} />
                         </div>
                     )}
 
                     {activateEdit && (
-                        <div>
-                            <button>Guardar</button>
+                        <div className="col-md-9 offset-md-1">
+                            <button className="button-guardar rounded">Guardar</button>
                         </div>
                     )}
                 </form>
-                <button onClick={handleActivateEditar}>Editar</button>
+                <div className="col-md-4 offset-md-1 mt-2">
+                    <button type="button" className="rounded mb-2 button-editar" onClick={handleActivateEditar}>Editar</button>
+                </div>
             </div>
         </>
     )

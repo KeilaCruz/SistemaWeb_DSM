@@ -34,7 +34,7 @@ export function FormPaciente({ onSubmit, register }) {
     return (
         <>
             <div className="container-fluid pb-5">
-                <div className="row g-2 ">
+                <div className="row g-2">
                     <div className="col-md-10 offset-md-1 text-center ">
                         <hr />
                         <h3 className="title">FICHA DE IDENTIDAD DEL PACIENTE</h3>
@@ -42,7 +42,7 @@ export function FormPaciente({ onSubmit, register }) {
                     </div>
                 </div>
                 
-                <form onSubmit={onSubmit} className="row g-3">
+                <form onSubmit={onSubmit} className="row g-3 align-items-center">
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="Nombre" className="form-label label-form">Nombres(s)</label>
                         <input id="Nombre" className="form-control input-form" type="text" placeholder="Nombre" {...register("nombre", { required: true })} />
@@ -154,7 +154,7 @@ export function FormPaciente({ onSubmit, register }) {
                     <div className="col-md-4 offset-md-1">
                         {showCualFederal && (
                             <div>
-                                <label htmlFor="cual_federal" className="form-label label-form">¿Cuál</label>
+                                <label htmlFor="cual_federal" className="form-label label-form">¿Cuál?</label>
                                 <input className="form-control input-form" type="text" placeholder="Nombre del programa federal" {...register("cual_programa_federal")}
                                 />
                             </div>
@@ -172,7 +172,7 @@ export function FormPaciente({ onSubmit, register }) {
                     <div className="col-md-4 offset-md-1">
                         {showCualEstatal && (
                             <div>
-                                <label htmlFor="cual_estatal" className="form-label label-form">¿Cuál</label>
+                                <label htmlFor="cual_estatal" className="form-label label-form">¿Cuál??</label>
                                 <input className="form-control input-form" type="text" placeholder="Nombre del programa estatal" {...register("cual_programa_estatal")}
                                 />
                             </div>
@@ -190,12 +190,12 @@ export function FormPaciente({ onSubmit, register }) {
                     <div className="col-md-4 offset-md-1">
                         {showCualMunicipal && (
                             <div>
-                                <label htmlFor="cual_municipal" className="form-label label-form">¿Cuál</label>
+                                <label htmlFor="cual_municipal" className="form-label label-form">¿Cuál?</label>
                                 <input className="form-control input-form" type="text" placeholder="Nombre del programa municipal" {...register("cual_programa_municipal")} />                            </div>
                         )}
                     </div>
                     <div className="col-md-4 offset-md-1">
-                        <button className="button-guardar">Registrar</button>
+                        <button className="button-guardar rounded">Registrar</button>
                     </div>
                 </form>
             </div>

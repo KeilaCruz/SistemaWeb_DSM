@@ -41,7 +41,7 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
                         <hr />
                     </div>
                     <div className="col-md-5 offset-1 mt-4">
-                        <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP o nombre" onChange={handleBarraBusqueda} />
+                        <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP, primer nombre o teléfono" onChange={handleBarraBusqueda} />
                     </div>
                 </div>
                 <form onSubmit={onSubmit} className="row g-3 mt-2">
@@ -68,10 +68,10 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
                             <table className="table-bordered">
                                 <thead className="cabecera">
                                     <tr>
-                                        <th className="colum">Sl.</th>
+                                        <th className="columv2">Sl.</th>
                                         <th className="colum">CURP</th>
                                         <th className="colum">Nombre</th>
-                                        <th className="colum">Edad</th>
+                                        <th className="columv2">Edad</th>
                                         <th className="colum">Colonia</th>
                                         <th className="colum">Calle</th>
                                         <th className="colum">Telefono</th>
@@ -94,7 +94,7 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
                                 </tbody>
                             </table>
                         ) : (
-                            <p className="text-center text-danger">No se encuentra resultados</p>
+                            <p className="text-center text-danger">NO SE ENCONTRARON RESULTADOS DE BÚSQUEDA</p>
                         )}
                     </div>
                     <div className="row g-3 mt-10 mb-4">

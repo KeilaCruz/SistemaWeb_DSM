@@ -5,6 +5,7 @@ import { historialClinicoPaciente } from "../../services/Recepcionista"
 import AuthContext from "../../context/AuthProvider"
 import { PacienteCardv2 } from "./PacienteCardv2"
 import { SliderHistorial } from "./SliderHistorial"
+import { FormHistorial } from "./FormHistorial"
 
 
 export function HistorialClinico() {
@@ -13,7 +14,7 @@ export function HistorialClinico() {
     const [historialPaciente, setHistorialPaciente] = useState([])
     const { idPaciente } = useParams()
     const { authTokens } = useContext(AuthContext)
-    
+    const componentRender = historialPaciente.length > 1 ? <SliderHistorial historialPaciente={historialPaciente} /> : <FormHistorial historialPaciente={historialPaciente} />
     useEffect(() => {
         async function loadHistorial() {
             await setToken(authTokens.access)
@@ -36,7 +37,7 @@ export function HistorialClinico() {
         }
         loadHistorial()
     }, [])
-  
+
     return (
         <div className="container-fluid pb-4">
             <div className="row g-2">
@@ -45,8 +46,10 @@ export function HistorialClinico() {
                     <h3 className="title">HISTORIAL CLÍNICO DEL PACIENTE</h3>
                     <hr />
                 </div>
-                <PacienteCardv2 paciente={paciente} />
-                <table className="col-md-10 offset-md-1 mt-5">
+                <div className="col-md-12">
+                    <PacienteCardv2 paciente={paciente} />
+                </div>
+                <table className="col-md-10 offset-md-1 mt-5 table-bordered">
                     <thead className="cabecera">
                         <th className="columv2">Fecha</th>
                         <th className="columv2">T/A</th>
@@ -80,7 +83,7 @@ export function HistorialClinico() {
                 </table>
             </div>
             <div className="col-md-10 offset-md-1 slider-container mt-5 ">
-                <SliderHistorial historialPaciente={historialPaciente} />
+                {componentRender}
             </div>
         </div>
     );
