@@ -459,7 +459,7 @@ a.sidebar-link:hover {
 }
 
 .card-text {
-  /* color: #ffffff; */
+  color: #ffffff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 20px;
   font-weight: 400;
@@ -526,6 +526,7 @@ a.sidebar-link:hover {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 600;
   letter-spacing: 1px;
+  transition: all .3s;
 }
 
 .button-filter:hover {
@@ -538,3 +539,10 @@ a.sidebar-link:hover {
   font-size: 18px;
   font-weight: 400;
 }
+
+.select-card {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+

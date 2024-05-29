@@ -8,16 +8,23 @@ export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect }) {
     const { authTokens } = useContext(AuthContext);
     const [criterio, setCriterio] = useState("")
     const [paciente, setPaciente] = useState([])
+    const [isResult, setIsResult] = useState(true)
     const handleBarraBusqueda = (evt) => {
         setCriterio(evt.target.value)
     }
     const handleBuscarPaciente = async () => {
         try {
+            if (criterio.trim() === "") {
+                setIsResult(false);
+                return;
+            }
             await setToken(authTokens.access);
             const response = await searchPaciente(criterio)
             setPaciente(response)
+            setIsResult(response.length > 0)
         } catch (error) {
             console.error(error)
+            setIsResult(false)
         }
     }
     const selectPaciente = (CURP) => {
@@ -34,24 +41,32 @@ export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect }) {
                     </div>
                     <div>
                         <div className="row">
-                            <div className="col-md-6 offset-1">
-                                <input className="form-control input-form" id="barra_busqueda" type="text" placeholder="Buscar por CURP o nombre" onChange={handleBarraBusqueda} />
+                            <div className="col-md-6 offset-1 mt-1">
+                                <input className="form-control input-form" id="barra_busqueda" type="search" placeholder="Buscar por CURP o nombre" onChange={handleBarraBusqueda} />
                             </div>
-                            <div className="col-md-3 mt-1">
-                                <button onClick={handleBuscarPaciente} className="button-buscar">Buscar</button>
+                            <div className="col-md-2 mt-1">
+                                <button onClick={handleBuscarPaciente} className="button-buscar">
+                                    <i class="lni lni-search-alt"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-9 offset-md-1 mt-2">
+                <div className="col-md-9 offset-md-1 mt-3">
                     <label htmlFor="datos_generales" className="form-label label-section">DATOS GENERALES</label>
                 </div>
                 <div className="col-md-9 offset-1">
-                    {paciente.map(paciente => (
-                        <PacienteCard paciente={paciente} key={paciente.CURP} handleSelect={selectPaciente} />
-                    ))}
+                    {isResult ? (
+                        <div>
+                            {paciente.map(paciente => (
+                                <PacienteCard paciente={paciente} key={paciente.CURP} handleSelect={selectPaciente} />
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="text-center text-danger mt-4">NO SE ENCONTRARON RESULTADOS DE BÚSQUEDA</p>
+                    )}
                 </div>
-                <form onSubmit={onSubmit} className="row g-3 mt-2">
+                <form onSubmit={onSubmit} className="row g-3 mt-2 align-items-center">
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="codigo_expediente" className="form-label label-form">Expediente</label>
                         <input id="codigo_expediente" className="form-control input-form" type="text" placeholder="Número de expediente" {...register("expedienteFicha", { required: true })} />
@@ -353,7 +368,7 @@ export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect }) {
                         <input id="conducta_niño" className="form-control input-form" type="text" placeholder="Conducta" {...register("conducta_ingreso", { required: true })} />
                     </div>
                     <div className="col-md-8 offset-1 mt-4 mb-4">
-                        <button className="button-guardar">Guardar</button>
+                        <button type="submit" className="button-guardar mx-auto rounded">Guardar</button>
                     </div>
                 </form>
             </div>

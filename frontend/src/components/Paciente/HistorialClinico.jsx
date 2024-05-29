@@ -67,22 +67,25 @@ export function HistorialClinico() {
                         {historial.map(historial => (
                             <tr>
                                 <td className="filav2">{historial.fecha_revision}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.tension_arterial}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.frecuencia_cardiaca}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.frecuencia_respiratoria}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.temperatura}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.saturacion_oxigeno}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.glucosa}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.peso}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.talla}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.imc}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.cintura}</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.tension_arterial} mmHG</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.frecuencia_cardiaca} lpm</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.frecuencia_respiratoria} rpm</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.temperatura} °C</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.saturacion_oxigeno} SpO2</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.glucosa} mg/dl</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.peso} kg</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.talla} m</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.imc} kg/m2</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.cintura} cm</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-            <div className="col-md-10 offset-md-1 slider-container mt-5 ">
+            <div className="col-md-10 offset-md-1 mt-4">
+                <h2 className="sub-title">Historias clínicas del paciente</h2>
+            </div>
+            <div className="col-md-10 offset-md-1 slider-container mt-3">
                 {componentRender}
             </div>
         </div>

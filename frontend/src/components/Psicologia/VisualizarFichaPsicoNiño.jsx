@@ -43,8 +43,8 @@ export function VisualizarFichaPsicoNiño() {
                         <hr />
                     </div>
                 </div>
-                <div className='offset-md-1'>
-                    <table>
+                <div className='col-md-10 offset-md-1'>
+                    <table className="table-bordered">
                         <thead className='cabecera'>
                             <tr>
                                 <th className='colum'>Número expediente</th>
@@ -59,16 +59,26 @@ export function VisualizarFichaPsicoNiño() {
                                 <tr>
                                     <td className='fila'>{ficha.expedienteFicha}</td>
                                     <td className='fila'>{ficha.fecha_registro}</td>
-                                    <td className='fila'>{ficha.datos_generales.motivo_consulta}</td>
+                                    <td className='fila'>{ficha.datos_generales.motivo}</td>
                                     <td className='fila'>{ficha.idPaciente}</td>
-                                    <td>
-                                        <button onClick={() => handleFichas(ficha.idPaciente)}>Fichas</button>
-                                    </td>
-                                    <td>
-                                        <button onClick={() => handleModal(ficha)}>Evolución</button>
-                                    </td>
-                                    <td>
-                                        <button onClick={() => handleNotas(ficha.idPaciente)}>V</button>
+                                    <td className="fila">
+                                        <div className="row">
+                                            <div className="col-md-2 offset-md-1">
+                                                <button type="button" className="button-filter mx-auto rounded" onClick={() => handleFichas(ficha.idPaciente)}>
+                                                    <i class="lni lni-folder"></i>
+                                                </button>
+                                            </div>
+                                            <div className="col-md-2 offset-md-1">
+                                                <button type="button" className="button-filter mx-auto rounded" onClick={() => handleModal(ficha)}>
+                                                    <i class="lni lni-add-files"></i>
+                                                </button>
+                                            </div>
+                                            <div className="col-md-2 offset-md-1">
+                                                <button type="button" className="button-filter mx-auto rounded" onClick={() => handleNotas(ficha.idPaciente)}>
+                                                    <i class="lni lni-empty-file"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

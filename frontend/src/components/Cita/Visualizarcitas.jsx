@@ -119,13 +119,13 @@ export function VisualizarCitas() {
           <table className="table-bordered">
             <thead className="cabecera">
               <tr>
-                <th className="colum">Numero</th>
+                <th className="columv2">Número</th>
                 <th className="colum">Curp</th>
                 <th className="colum">Fecha horario</th>
                 <th className="colum">Especialidad</th>
                 <th className="colum">Estado</th>
                 <th className="colum">Marcar asistencia</th>
-                <th className="colum"></th>
+                <th className="columv2"></th>
               </tr>
             </thead>
             <tbody>
@@ -144,7 +144,9 @@ export function VisualizarCitas() {
                     <input id="marcar_asistencia" checked={!cita.estado} type="checkbox" onChange={() => handleMarcarAsistencia(cita.idCita)} />
                   </td>
                   <td className="fila">
-                    <button className="lni lni-slice" onClick={() => handleOpenModal(cita.idCita)}></button>
+                    <button className="button-filter mx-auto rounded" onClick={() => handleOpenModal(cita.idCita)}>
+                      <i class="lni lni-pencil"></i>
+                    </button>
                   </td>
                 </tr>
               ))
@@ -189,7 +191,7 @@ export function VisualizarCitas() {
               </select>
             </div>
             <div className="col-md-6 offset-md-2">
-              <button className="button-guardar btn bt mx-auto">Guardar cambios</button>
+              <button className="button-guardar btn bt mx-auto rounded">Guardar cambios</button>
             </div>
           </form>
         </Modal.Body>

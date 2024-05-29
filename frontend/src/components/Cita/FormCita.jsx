@@ -97,13 +97,8 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
                             <p className="text-center text-danger">NO SE ENCONTRARON RESULTADOS DE BÚSQUEDA</p>
                         )}
                     </div>
-                    <div className="row g-3 mt-10 mb-4">
-                        <div className="col-md-1 offset-md-1">
-                            <button type="button" className="button-cancelar rounded">Cancelar</button>
-                        </div>
-                        <div className="col-md-1">
-                            <button type="submit" className="button-guardar rounded">Guardar</button>
-                        </div>
+                    <div className="col-md-1 offset-md-1">
+                        <button type="submit" className="button-guardar rounded">Guardar</button>
                     </div>
                 </form>
             </div>
