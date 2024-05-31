@@ -10,7 +10,7 @@ export function EvolucionPsicologiaNiño() {
     const { idPaciente } = useParams()
     const { authTokens } = useContext(AuthContext)
     const [data, setData] = useState([])
-    const componentRender = data === 1 ? <NotaPsicologica data={data} /> : <SliderNotasEvolución data={data} />
+    const componentRender = data > 1 ? <SliderNotasEvolución data={data} /> : <NotaPsicologica data={data} />
     useEffect(() => {
         async function loadData() {
             await setToken(authTokens.access)
