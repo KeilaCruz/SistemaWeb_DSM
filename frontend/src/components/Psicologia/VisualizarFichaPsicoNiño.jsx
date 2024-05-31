@@ -31,7 +31,7 @@ export function VisualizarFichaPsicoNiño() {
         setShowModal(false)
     }
     const handleNotas = (idPaciente) => {
-        navigate(`/visualizar_evolucionnino/${idPaciente}`)
+        navigate(`/visualizar_evolucion_nino/${idPaciente}`)
     }
     return (
         <>

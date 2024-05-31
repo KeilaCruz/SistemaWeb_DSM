@@ -28,27 +28,29 @@ export function FormEvoluciónPsicoNiño({ estado, datos, handleCloseModal }) {
                 <Modal.Body>
                     <div className="container-fluid">
                         <form onSubmit={onSubmit} className="row">
-                            <div className="col-md-4 offset-md-1">
+                            <div className="col-md-4 offset-md-1 mt-1">
                                 <label className="label-form form-label" htmlFor="num_expediente">No.expediente</label>
                                 <input className="input-form form-control" id="num_expediente" placeholder="Número de expediente" type="text" value={datos.expedienteFicha} {...register("numero_expediente", { required: true })} />
                             </div>
-                            <div className="col-md-5">
+                            <div className="col-md-6 mt-1">
                                 <label className="label-form form-label" htmlFor="CURP">CURP</label>
                                 <input className="input-form form-control" id="CURP" value={datos.idPaciente} placeholder="CURP" type="text" {...register("CURP", { required: true })} />
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-10 offset-md-1 mt-2">
                                 <label className="label-form form-label" htmlFor="nombre_paciente">Nombre del paciente</label>
                                 <input className="input-form form-control" id="nombre_paciente" placeholder="nombre del paciente" type="text" {...register("nombre_paciente", { required: true })} />
                             </div>
-                            <div className="col-md-9 offset-md-1">
+                            <div className="col-md-10 offset-md-1 mt-2">
                                 <label className="label-form form-label" htmlFor="nota_evolucion">Evolución</label>
                                 <textarea className="input-form form-control" id="nota_evolucion" placeholder="Escriba sus comentarios aquí"{...register("nota_evolucion", { required: true })}></textarea>
                             </div>
-                            <div className="col-md-4 offset-md-1">
+                            <div className="col-md-5 offset-md-1 mt-2">
                                 <label className="label-form form-label" htmlFor="proxima_cita">Próxima cita</label>
                                 <input className="input-form form-control" id="proxima_cita" type="date" {...register("proxima_cita", { required: true })} />
                             </div>
-                            <button>Guardar</button>
+                            <div className="col-md-5 mt-5">
+                                <button type="submit" className="button-guardar">Guardar</button>
+                            </div>
                         </form>
                     </div>
                 </Modal.Body>

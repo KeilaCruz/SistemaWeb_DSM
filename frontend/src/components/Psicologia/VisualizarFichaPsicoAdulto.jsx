@@ -25,7 +25,7 @@ export function VisualizarFichaPsicoAdulto() {
         navigate(`/fichapsico_adulto/${idPaciente}`)
     }
     const handleNotas = (idPaciente) => {
-        navigate(`/visualizar_evolucionadulto/${idPaciente}`)
+        navigate(`/visualizar_evolucion_adulto/${idPaciente}`)
     }
     const handleModal = (datos) => {
         setSelectedData(datos)

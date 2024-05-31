@@ -3,7 +3,7 @@ export function NotaPsicologica({ data }) {
     return (
         <>
             {data.map(data => (
-                <div className="container-fluid">
+                <div className="container-fluid" key={data.idNota}>
                     <div className="row">
                         <div className="col-md-4 offset-md-1">
                             <label className="label-form form-label" htmlFor="num_expediente">No.expediente</label>

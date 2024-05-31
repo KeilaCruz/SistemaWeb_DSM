@@ -104,8 +104,8 @@ function App() {
           <Route path="/historia_nutricion/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={[1]}><HistoriaNutricion /></ProtectedRoute>} />
           <Route path="/visualizar_fichapsiadulto" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={[1]}><VFichaPsicoAdultoPage /></ProtectedRoute>} />
           <Route path="/visualizar_fichapsiniño" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={[1]}><VFichaPsicoNiñoPage /></ProtectedRoute>} />
-          <Route path="/visualizar_evolucionadulto/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={[1]}> <EvoluciónPsicologicaAdulto /></ProtectedRoute>} />
-          <Route path="/visualizar_evolucionnino/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={[1]}> <EvolucionPsicologiaNiño /></ProtectedRoute>} />
+          <Route path="/visualizar_evolucion_adulto/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={[1]}> <EvoluciónPsicologicaAdulto /></ProtectedRoute>} />
+          <Route path="/visualizar_evolucion_nino/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={[1]}> <EvolucionPsicologiaNiño /></ProtectedRoute>} />
           <Route path="/fichapsico_adulto/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={[1]}><FichaPsicoAdulto /></ProtectedRoute>} />
           <Route path="/fichapsico_niño/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolPermitido={[1]}><FichaPsicoNiño /></ProtectedRoute>} />
         </Routes>
