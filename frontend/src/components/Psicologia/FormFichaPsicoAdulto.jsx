@@ -21,6 +21,8 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
     const { authTokens } = useContext(AuthContext);
     const [criterio, setCriterio] = useState("")
     const [paciente, setPaciente] = useState([])
+    const [isResult, setIsResult] = useState(true)
+
 
     const handleAtencionPsico = (evt) => {
         const opcion = evt.target.value === "true";
@@ -123,11 +125,17 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
     }
     const handleBuscarPaciente = async () => {
         try {
+            if (criterio.trim() === "") {
+                setIsResult(false);
+                return;
+            }
             await setToken(authTokens.access);
             const response = await searchPaciente(criterio)
             setPaciente(response)
+            setIsResult(response.length > 0)
         } catch (error) {
             console.error(error)
+            setIsResult(false)
         }
     }
 
@@ -146,26 +154,34 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
                     <div>
                         <div className="row">
                             <div className="col-md-6 offset-1">
-                                <input className="form-control input-form" id="barra_busqueda" type="text" placeholder="Buscar por CURP o nombre" onChange={handleBarraBusqueda} />
+                                <input className="form-control input-form" id="barra_busqueda" type="search" placeholder="Buscar por CURP o nombre" onChange={handleBarraBusqueda} />
                             </div>
                             <div className="col-md-3 mt-1">
-                                <button onClick={handleBuscarPaciente} className="button-buscar">Buscar</button>
+                                <button onClick={handleBuscarPaciente} className="button-buscar">
+                                    <i class="lni lni-search-alt"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-9 offset-md-1">
+                <div className="col-md-9 offset-md-1 mt-1">
                     <label htmlFor="datos_generales" className="form-label label-section">DATOS GENERALES</label>
                 </div>
-                <div className="col-md-9 offset-1">
-                    {paciente.map(paciente => (
-                        <PacienteCard paciente={paciente} key={paciente.CURP} handleSelect={selectPaciente} />
-                    ))}
+                <div className="col-md-9 offset-1 mb-2">
+                    {isResult ? (
+                        <div>
+                            {paciente.map(paciente => (
+                                <PacienteCard paciente={paciente} key={paciente.CURP} handleSelect={selectPaciente} />
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="text-center text-danger mt-4">NO SE ENCONTRARON RESULTADOS DE BÚSQUEDA</p>
+                    )}
                 </div>
                 <form onSubmit={onSubmit} className="row g-3">
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="code_expediente" className="form-label label-form">Número de expediente</label>
-                        <input id="code_expediente " type="text" placeholder="Número de expediente" className="form-control input-form" {...register("expedienteFicha", { required: true } )} />
+                        <input id="code_expediente " type="text" placeholder="Número de expediente" className="form-control input-form" {...register("expedienteFicha", { required: true })} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label className="form-check-label mx-2">Femenino
@@ -182,6 +198,10 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="lugar_nacimiento" className="form-label label-form">Lugar de nacimiento</label>
                         <input id="lugar_nacimiento" className="form-control input-form" type="text" placeholder="Lugar de nacimiento" {...register("lugar_nacimiento", { required: true })} />
+                    </div>
+                    <div className="col-md-4 offset-md-1">
+                        <label htmlFor="religion" className="form-label label-form">Religión</label>
+                        <input id="religion" type="text" placeholder="Religión" className="form-control input-form" {...register("religion", { required: true })} />
                     </div>
                     <div className="col-md-5 offset-md-1">
                         <label htmlFor="atencion_psicologica" className="form-label label-form">¿Tiene hijos?</label>
@@ -209,10 +229,6 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect }) {
                         </div>
                     )}
 
-                    <div className="col-md-4 offset-md-1">
-                        <label htmlFor="religion" className="form-label label-form">Religión</label>
-                        <input id="religion" type="text" placeholder="Religión" className="form-control input-form" {...register("religion", { required: true })} />
-                    </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="ocupacion" className="form-label label-form">Ocupación</label>
                         <input id="ocupacion" type="text" placeholder="Ocupación" className="form-control input-form" {...register("ocupacion", { required: true })} />

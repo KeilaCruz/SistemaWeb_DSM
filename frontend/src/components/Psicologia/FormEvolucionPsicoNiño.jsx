@@ -49,7 +49,7 @@ export function FormEvoluciónPsicoNiño({ estado, datos, handleCloseModal }) {
                                 <input className="input-form form-control" id="proxima_cita" type="date" {...register("proxima_cita", { required: true })} />
                             </div>
                             <div className="col-md-5 mt-5">
-                                <button type="submit" className="button-guardar">Guardar</button>
+                                <button type="submit" className="button-guardar rounded">Guardar</button>
                             </div>
                         </form>
                     </div>
