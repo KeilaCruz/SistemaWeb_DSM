@@ -10,18 +10,24 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect }) {
     const [showCampusFem, setShowCampus] = useState(false)
     const [criterio, setCriterio] = useState("")
     const [paciente, setPaciente] = useState([])
-
+    const [isResult, setIsResult] = useState(true)
     const handleBarraBusqueda = (evt) => {
         setCriterio(evt.target.value)
     }
 
     const handleBuscarPaciente = async () => {
         try {
+            if (criterio.trim() === "") {
+                setIsResult(false);
+                return;
+            }
             await setToken(authTokens.access)
             const data = await searchPaciente(criterio)
             setPaciente(data)
+            setIsResult(data.length > 0)
         } catch (error) {
             console.error(error)
+            setIsResult(false)
         }
     }
 
@@ -49,10 +55,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect }) {
                     <div>
                         <div className="row">
                             <div className="col-md-6 offset-1">
-                                <input className="form-control input-form" type="text" id="busqueda_paciente" placeholder="Buscar por CURP o nombre" onChange={handleBarraBusqueda} />
+                                <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por primer nombre, telefono o CURP" onChange={handleBarraBusqueda} />
                             </div>
                             <div className="col-md-3 mt-1">
-                                <button onClick={handleBuscarPaciente} className="button-buscar">Buscar</button>
+                                <button onClick={handleBuscarPaciente} className="button-buscar">
+                                    <i class="lni lni-search-alt"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -60,9 +68,15 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect }) {
                         <label className="form-label label-section">DATOS PERSONALES</label>
                     </div>
                     <div className="col-md-9 offset-1">
-                        {paciente.map(paciente => (
-                            <PacienteCard paciente={paciente} key={paciente.CURP} handleSelect={selectPaciente} />
-                        ))}
+                        {isResult ? (
+                            <div>
+                                {paciente.map(paciente => (
+                                    <PacienteCard paciente={paciente} key={paciente.CURP} handleSelect={selectPaciente} />
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="text-center text-danger mt-4">NO SE ENCONTRARON RESULTADOS DE BÚSQUEDA</p>
+                        )}
                     </div>
                     <form onSubmit={onSubmit}>
                         <div className="row g-3">
@@ -411,7 +425,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect }) {
                             </div>
                         </div>
                         <div className="col-md-5 offset-1 mt-4 mb-4">
-                            <button className="button-guardar">Guardar</button>
+                            <button className="button-guardar rounded">Guardar</button>
                         </div>
                     </form>
                 </div>

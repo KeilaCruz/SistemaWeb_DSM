@@ -30,15 +30,15 @@ export function VisualizarHistoriasNutricion() {
                         <hr />
                     </div>
                 </div>
-                <div className='offset-md-1'>
-                    <table>
+                <div className='col-md-9 offset-md-1'>
+                    <table className="table-bordered">
                         <thead className='cabecera'>
                             <tr>
-                                <th className='colum'>Id</th>
-                                <th className='colum'>Fecha registro</th>
-                                <th className='colum'>Motivo consulta</th>
-                                <th className='colum'>Curp paciente</th>
-                                <th className='colum'>Opciones</th>
+                                <th className='columv3'>Id</th>
+                                <th className='columv3'>Fecha registro</th>
+                                <th className='columv3'>Motivo consulta</th>
+                                <th className='columv3'>Curp paciente</th>
+                                <th className='columv3'>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,8 +48,10 @@ export function VisualizarHistoriasNutricion() {
                                     <td className="fila">{historia.fecha_registro}</td>
                                     <td className="fila">{historia.datos_personales.motivo_consulta}</td>
                                     <td className="fila">{historia.idPaciente}</td>
-                                    <td>
-                                        <button onClick={() => handleHistorias(historia.idPaciente)}>Historias</button>
+                                    <td className="fila">
+                                        <button type="button" className="button-filter rounded" onClick={() => handleHistorias(historia.idPaciente)}>
+                                            <i class="lni lni-weight"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             ))}

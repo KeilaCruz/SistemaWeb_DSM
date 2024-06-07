@@ -1,6 +1,6 @@
 export function Footer() {
     return (
-      <div className ="mt-3">
+      <div className ="mt-4">
         <footer className="">
         <div
           className="d-flex flex-column  text-center text-md-center justify-content-between py-1 px-2 px-xl-2 navbar-custom footer-custom "

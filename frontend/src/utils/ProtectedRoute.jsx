@@ -6,10 +6,12 @@ export const ProtectedRoute = ({ redirectTo = "/login", rolesPermitidos = [], ch
     const { user } = useContext(AuthContext);
     
     if (!user) return <Navigate to="/login" />;
+    
 
     // Verificar si el usuario tiene alguno de los roles permitidos
     const tieneRolPermitido = Array.isArray(rolesPermitidos) && rolesPermitidos.includes(user.idRol_id);
     
+
     if (tieneRolPermitido) {
         return children ? children : <Outlet />;
     } else {
