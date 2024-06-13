@@ -7,7 +7,7 @@ import { FormCita } from "./FormCita";
 
 export function AddCita() {
     const { authTokens } = useContext(AuthContext);
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
     const [pacienteSelect, setPacienteSelect] = useState("")
 
     const onSubmit = handleSubmit(async (data) => {
@@ -23,14 +23,13 @@ export function AddCita() {
         try {
             await setToken(authTokens.access)
             const response = await registerCita(citaData)
-            console.log(response)
         } catch (error) {
             console.error(error)
         }
     })
     return (
         <>
-            <FormCita onSubmit={onSubmit} register={register} pacienteSelect={setPacienteSelect} />
+            <FormCita onSubmit={onSubmit} register={register} pacienteSelect={setPacienteSelect} errors={errors} />
         </>
     )
 }

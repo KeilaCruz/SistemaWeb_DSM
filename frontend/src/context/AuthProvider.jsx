@@ -25,7 +25,6 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await axios.post(LOGIN_URL, usuario, { headers: { 'Content-Type': 'application/json' } });
             if (response.status === 200) {
-                //console.log(response.data)
                 setAuthTokens(response.data)
                 setUser(jwtDecode(response.data.access))
                 localStorage.setItem('authTokens', JSON.stringify(response.data))
@@ -54,7 +53,6 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await axios.post(UPDATE_TOKEN_URL, { refresh: authTokens?.refresh }, { headers: { 'Content-type': 'application/json' } })
             if (response.status === 200) {
-                console.log("Actualizacion", response.data)
                 setAuthTokens(response.data)
                 setUser(jwtDecode(response.data.access))
                 localStorage.setItem('authTokens', JSON.stringify(response.data))

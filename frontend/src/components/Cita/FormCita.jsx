@@ -2,8 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { searchPaciente } from "../../services/Recepcionista"
 import { setToken } from "../../services/HeaderAuthorization";
 import AuthContext from "../../context/AuthProvider"
-
-export function FormCita({ onSubmit, register, pacienteSelect }) {
+export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
     const { authTokens } = useContext(AuthContext);
     const [criterio, setCriterio] = useState("")
     const [paciente, setPaciente] = useState([])
@@ -24,7 +23,6 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
             }
         }
         loadPaciente()
-
     }, [criterio])
 
     const selectPaciente = (CURP) => {
@@ -45,15 +43,25 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
                     </div>
                 </div>
                 <form onSubmit={onSubmit} className="row g-3 mt-2">
-                    <div className="col-md-2 offset-1">
+                    <div className="col-md-3 offset-md-1">
                         <label htmlFor="fecha_cita" className="form-label label-form">Fecha de cita</label>
                         <input className="form-control input-form" id="fecha_cita" type="date" placeholder="fecha de cita" {...register('fecha_cita', { required: true })} />
+                        {errors.fecha_cita?.type === "required" &&
+                            (
+                                <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese la fecha de la cita</p>
+                            )
+                        }
                     </div>
-                    <div className="col-md-3 offset-1">
+                    <div className="col-md-3 mx-5">
                         <label htmlFor="horario_cita" className="form-label label-form">Horario de cita</label>
                         <input className="form-control input-form" id="horario_cita" type="time" placeholder="hora_cita" {...register('hora_cita', { required: true })} />
+                        {errors.hora_cita?.type === "required" &&
+                            (
+                                <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese la hora</p>
+                            )
+                        }
                     </div>
-                    <div className="col-md-3 offset-1">
+                    <div className="col-md-3 mx-4">
                         <label htmlFor="especialidad_cita" className="form-label label-form">Especialidad de cita</label>
                         <select className="form-select input-form" id="especialidad" {...register("especialidad", { required: true })}>
                             <option value="" disabled selected>Elija especialidad</option>
@@ -62,6 +70,11 @@ export function FormCita({ onSubmit, register, pacienteSelect }) {
                             <option value="Odontologia">Odontología</option>
                             <option value="Psicologia">Psicologia</option>
                         </select>
+                        {errors.especialidad?.type === "required" &&
+                            (
+                                <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i>Seleccione la especialidad</p>
+                            )
+                        }
                     </div>
                     <div className="col-md-10 offset-md-1 mt-5">
                         {isResult ? (

@@ -552,3 +552,10 @@ a.sidebar-link:hover {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.text-informativo {
+  color: #530c83;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}

@@ -191,7 +191,7 @@ export function VisualizarCitas() {
               </select>
             </div>
             <div className="col-md-6 offset-md-2">
-              <button className="button-guardar btn bt mx-auto rounded">Guardar cambios</button>
+              <button type="submit" className="button-guardar btn bt mx-auto rounded">Guardar cambios</button>
             </div>
           </form>
         </Modal.Body>

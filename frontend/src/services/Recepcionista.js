@@ -62,19 +62,19 @@ export const registerPaciente = async (paciente) => {
                 text: 'Paciente registrado con exito.',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Aceptar'
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                  console.log('Se hizo clic en Aceptar');
-                  location.href ='/buscar_paciente';
+                    console.log('Se hizo clic en Aceptar');
+                    location.href = '/buscar_paciente';
                 }
-              });
+            });
         } else {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "¡Algo salio mal!",
                 footer: '<a href="#">Intente de nuevo</a>'
-              });
+            });
             return response;
         }
     } catch (error) {
@@ -107,12 +107,12 @@ export const registerCita = async (cita) => {
                 text: 'Cita registrado correctamente.',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Aceptar'
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                  console.log('Se hizo clic en Aceptar');
-                  location.href ='/calendario';
+                    console.log('Se hizo clic en Aceptar');
+                    location.href = '/calendario';
                 }
-              });
+            });
         } else {
             console.log("error al registrar")
             Swal.fire({
@@ -120,7 +120,7 @@ export const registerCita = async (cita) => {
                 title: "Oops...",
                 text: "¡Algo salio mal!",
                 footer: '<a href="#">Intente de nuevo</a>'
-              });
+            });
             return response
         }
     } catch (error) {
@@ -167,12 +167,12 @@ export const editarPaciente = async (CURP, paciente) => {
                 text: 'Paciente modificado con exito',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Aceptar'
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                  console.log('Se hizo clic en Aceptar');
-                  location.href ='/buscar_paciente';
+                    console.log('Se hizo clic en Aceptar');
+                    location.href = '/buscar_paciente';
                 }
-              });
+            });
         } else {
             console.log("error al modificar")
             Swal.fire({
@@ -180,7 +180,7 @@ export const editarPaciente = async (CURP, paciente) => {
                 title: "Oops...",
                 text: "¡Algo salio mal!",
                 footer: '<a href="#">Intente de nuevo</a>'
-              });
+            });
             return response;
         }
     } catch (error) {
@@ -199,7 +199,8 @@ export const getCitasPaciente = async (CURP) => {
         }
     } catch (error) {
         console.error(error)
-    }} 
+    }
+}
 
 export const getCita = async (idCita) => {
     try {
@@ -220,10 +221,27 @@ export const reagendarCita = async (idCita, cita) => {
         const config = await getConfig();
         const response = await axios.put(`${LIST_REAGENDARCITA_URL}${idCita}/`, cita, config)
         if (response.status == 200) {
-            alert("Modificacion realizada")
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Se ha reagendado correctamente.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log('Se hizo clic en Aceptar');
+                    location.href = '/calendario';
+                }
+            });
         } else {
-            console.log("error al modificar")
-            return response;
+            console.log("error al registrar")
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡Algo salio mal!",
+                footer: '<a href="#">Intente de nuevo</a>'
+            });
+            return response
         }
     } catch (error) {
         console.log(error)
@@ -330,12 +348,12 @@ export const editarUsuario = async (id, user) => {
                 text: 'Usuario modificado con exito',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Aceptar'
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                  console.log('Se hizo clic en Aceptar');
-                  location.href ='/ver_usuario';
+                    console.log('Se hizo clic en Aceptar');
+                    location.href = '/ver_usuario';
                 }
-              });
+            });
         } else {
             console.log("error al modificar")
             Swal.fire({
@@ -343,7 +361,7 @@ export const editarUsuario = async (id, user) => {
                 title: "Oops...",
                 text: "¡Algo salio mal!",
                 footer: '<a href="#">Intente de nuevo</a>'
-              });
+            });
             return response;
         }
     } catch (error) {
@@ -362,12 +380,12 @@ export const registerEvento = async (evento) => {
                 text: 'Evento registrado con exito',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Aceptar'
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                  console.log('Se hizo clic en Aceptar');
-                  
+                    console.log('Se hizo clic en Aceptar');
+
                 }
-              });
+            });
         } else {
             return response
         }
@@ -415,12 +433,12 @@ export const editarEvento = async (idEvento, evento) => {
                 text: 'Evento modificado con exito',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Aceptar'
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                  console.log('Se hizo clic en Aceptar');
-                  location.href ='/ver_evento';
+                    console.log('Se hizo clic en Aceptar');
+                    location.href = '/ver_evento';
                 }
-              });
+            });
         } else {
             console.log("error al modificar")
             Swal.fire({
@@ -428,7 +446,7 @@ export const editarEvento = async (idEvento, evento) => {
                 title: "Oops...",
                 text: "¡Algo salio mal!",
                 footer: '<a href="#">Intente de nuevo</a>'
-              });
+            });
             return response;
         }
     } catch (error) {
