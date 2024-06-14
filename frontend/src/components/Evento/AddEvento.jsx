@@ -7,7 +7,7 @@ import { setToken } from "../../services/HeaderAuthorization"
 
 export function AddEvento () {
     const { authTokens } = useContext(AuthContext)
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState:{errors} } = useForm()
 
     const onSubmit = handleSubmit(async (data) => {
 
@@ -33,6 +33,6 @@ export function AddEvento () {
     })
 
     return (
-        <FormEvento register={register} onSubmit={onSubmit}  />
+        <FormEvento register={register} onSubmit={onSubmit} errors={errors} />
     )
 }

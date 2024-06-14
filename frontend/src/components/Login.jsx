@@ -18,6 +18,15 @@ export function Login() {
         case 2:
           navigate("/homeRecepcionista");
           break;
+        case 3:
+          navigate("/homeMedico");
+          break;
+        case 4:
+          navigate("/homeOdontologo");
+          break;
+        case 5:
+          navigate("/homeNutriologo");
+          break;
         // Agrega más casos según los roles que tengas
         default:
           navigate("/homeOtroRol");

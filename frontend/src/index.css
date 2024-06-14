@@ -10,6 +10,11 @@ body {
   min-height: 100vh;
 }
 
+.errors {
+  color:crimson;
+  font-weight: bold;
+}
+
 /* index.css */
 body, #root {
   margin: 0;

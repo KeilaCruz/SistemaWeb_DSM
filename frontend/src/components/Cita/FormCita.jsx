@@ -3,7 +3,7 @@ import { searchPaciente } from "../../services/Recepcionista"
 import { setToken } from "../../services/HeaderAuthorization";
 import AuthContext from "../../context/AuthProvider"
 
-export function FormCita({ onSubmit, register, pacienteSelect }) {
+export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
     const { authTokens } = useContext(AuthContext);
     const [criterio, setCriterio] = useState("")
     const [paciente, setPaciente] = useState([])

@@ -85,7 +85,7 @@ function App() {
             <Route path="/examen-medico/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5]}><ExamenMedico /></ProtectedRoute>} />
             <Route path="/calendario" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5,]}><CalendarioPage /></ProtectedRoute>} />
             <Route path="/registrar_evaluacionclinica" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[3,4,5]}><ReHojaEvaluacion/></ProtectedRoute>} />
-            <Route path="/registrar_examenmedico" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[3,4,5]}><ReExamenMedico/></ProtectedRoute>} />
+            <Route path="/registrar_examenmedico" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5]}><ReExamenMedico/></ProtectedRoute>} />
             <Route path="/ver_evaluacionClinica" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3,4,5]}><VerHojasDeEvaluacionPage/></ProtectedRoute>} />
             <Route path="/ver_evaluacionClinica/:idHojaClinica" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3,4,5]}><ViewHojaDeEvaluacion/></ProtectedRoute>} />
             <Route path="/ver_examenMedico" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3,4,5]}><VerExamenMedico/></ProtectedRoute>} />

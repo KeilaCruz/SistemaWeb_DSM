@@ -4,7 +4,7 @@ import AuthContext from "../../context/AuthProvider";
 import { getAllUsuarios } from "../../services/Recepcionista"
 
 
-export function FormEvento({ onSubmit, register, usuarioSelect }) {
+export function FormEvento({ onSubmit, register, usuarioSelect, errors }) {
   const { authTokens } = useContext(AuthContext);
   const [usuarios, setUsuarios] = useState([]);
 
@@ -44,7 +44,7 @@ export function FormEvento({ onSubmit, register, usuarioSelect }) {
 
           <div className="col-md-3 offset-md-1">
             <label htmlFor="usuariosSelect" className="form-label">
-              ¿Quién creará el evento?
+              Selecciona tu usuario
             </label>
             <select
               id="usuariosSelect"
@@ -58,6 +58,7 @@ export function FormEvento({ onSubmit, register, usuarioSelect }) {
                 </option>
               ))}
             </select>
+           
           </div>
 
             <div className="col-md-9 offset-md-1">
@@ -70,8 +71,24 @@ export function FormEvento({ onSubmit, register, usuarioSelect }) {
                 name="nom_evento"
                 className="form-control"
                 placeholder="Nombre del Evento"
-                {...register("nom_evento", { required: true })}
+                {...register("nom_evento", { required: true,minLength:2, maxLength:100 })}
               />
+              {
+                errors.nom_evento?.type==="required" && (
+                  <p className="errors">Ingrese el nombre del evento</p>
+                )
+              }
+              {
+                errors.nom_evento?.type==="minLength" && (
+                  <p className="errors">Ingrese minimo 2 caracteres</p>
+                )
+              }
+
+              {
+                errors.nom_evento?.type==="maxLength" && (
+                  <p className="errors">Ingrese maximo 100 caracteres</p>
+                )
+              }
             </div>
 
             <div className="col-md-2 offset-md-1">
@@ -109,9 +126,25 @@ export function FormEvento({ onSubmit, register, usuarioSelect }) {
                 placeholder="Lugar"
                 id="ubicacion"
                 name="Ubicación"
-                {...register("lugar", { required: true })}
+                {...register("lugar", { required: true, minLength:2, maxLength:100 })}
                 className="form-control"
               />
+              {
+                errors.lugar?.type==="required" && (
+                  <p className="errors">Ingrese el lugar del evento</p>
+                )
+              }
+              {
+                errors.lugar?.type==="minLength" && (
+                  <p className="errors">Ingrese minimo 2 caracteres</p>
+                )
+              }
+
+              {
+                errors.lugar?.type==="maxLength" && (
+                  <p className="errors">Ingrese maximo 100 caracteres</p>
+                )
+              }
             </div>
 
             <div className="col-md-9 offset-md-1">
@@ -119,7 +152,7 @@ export function FormEvento({ onSubmit, register, usuarioSelect }) {
                 Descripcion del evento:
               </label>
               <textarea
-                placeholder="Deescipción del evento"
+                placeholder="Descipción del evento"
                 id="descripcion"
                 name="descripcion"
                 {...register("descripcion", { required: false })}
