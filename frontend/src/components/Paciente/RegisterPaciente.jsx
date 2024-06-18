@@ -7,7 +7,7 @@ import { setToken } from "../../services/HeaderAuthorization";
 
 export function RegisterPaciente() {
     const { authTokens } = useContext(AuthContext);
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
 
     const onSubmit = handleSubmit(async (data) => {
         //Para convertir de cadena true or false a boleano
@@ -60,7 +60,7 @@ export function RegisterPaciente() {
 
     return (
         <>
-            <FormPaciente onSubmit={onSubmit} register={register} />
+            <FormPaciente onSubmit={onSubmit} register={register} errors={errors}/>
         </>
     )
 }

@@ -25,7 +25,7 @@ export function EvolucionPsicologiaNiño() {
                 <div className='row'>
                     <div className="col-md-10 offset-md-1 text-center mt-5">
                         <hr />
-                        <h3 className="title">NOTAS DE EVOLUCIÓN PSICOLOGÍCA</h3>
+                        <h3 className="title">NOTAS DE EVOLUCIÓN PSICOLÓGICA</h3>
                         <hr />
                     </div>
                 </div>
