@@ -7,7 +7,7 @@ import { setToken } from "../../services/HeaderAuthorization";
 
 
 export function AddFichaPsiAdulto() {
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
     const { authTokens } = useContext(AuthContext)
     const [pacienteSelect, setPacienteSelect] = useState("")
 
@@ -116,7 +116,7 @@ export function AddFichaPsiAdulto() {
     })
     return (
         <>
-            <FormFichaPsicoAdulto register={register} onSubmit={onSubmit} pacienteSelect={setPacienteSelect} />
+            <FormFichaPsicoAdulto register={register} onSubmit={onSubmit} pacienteSelect={setPacienteSelect} errors={errors} />
         </>
     )
 }

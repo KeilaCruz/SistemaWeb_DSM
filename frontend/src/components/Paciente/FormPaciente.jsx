@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState } from "react"
 
 export function FormPaciente({ onSubmit, register, errors }) {
     const [showCualEstatal, setShowEstatal] = useState(false)
@@ -305,6 +305,11 @@ export function FormPaciente({ onSubmit, register, errors }) {
                         <label className="form-label mx-2">No
                             <input className="form-check-input" type="radio" id="federal_no" name="federal_option" value={false} {...register("programa_gobierno_federal", { required: true })} onChange={handleFederal} />
                         </label>
+                        {errors.programa_gobierno_federal?.type === "required" &&
+                            (
+                                <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                            )
+                        }
                     </div>
                     <div className="col-md-4 offset-md-1">
                         {showCualFederal && (
@@ -323,6 +328,11 @@ export function FormPaciente({ onSubmit, register, errors }) {
                         <label className="form-label mx-2" for="estatal_no">No
                             <input className="form-check-input" type="radio" id="estatal_no" name="estatal_option" value={false} {...register("programa_gobierno_estatal", { required: true })} onChange={handleEstatal} />
                         </label>
+                        {errors.programa_gobierno_estatal?.type === "required" &&
+                            (
+                                <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                            )
+                        }
                     </div>
                     <div className="col-md-4 offset-md-1">
                         {showCualEstatal && (
@@ -341,12 +351,18 @@ export function FormPaciente({ onSubmit, register, errors }) {
                         <label htmlFor="municipal_no" className="form-label mx-2" for="municipal_no">No
                             <input className="form-check-input" type="radio" id="municipal_no" name="municipal_option" value={false} {...register("programa_gobierno_municipal", { required: true })} onChange={handleMunicipal} />
                         </label>
+                        {errors.programa_gobierno_municipal?.type === "required" &&
+                            (
+                                <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                            )
+                        }
                     </div>
                     <div className="col-md-4 offset-md-1">
                         {showCualMunicipal && (
                             <div>
                                 <label htmlFor="cual_municipal" className="form-label label-form">¿Cuál?</label>
-                                <input className="form-control input-form" type="text" placeholder="Nombre del programa municipal" {...register("cual_programa_municipal")} />                            </div>
+                                <input className="form-control input-form" type="text" placeholder="Nombre del programa municipal" {...register("cual_programa_municipal")} />
+                            </div>
                         )}
                     </div>
                     <div className="col-md-4 offset-md-1">

@@ -10,7 +10,7 @@ export function VisualizarCitas() {
   const [cita, setCita] = useState({})
   const [showModal, setShowModal] = useState(false)
   const { authTokens } = useContext(AuthContext);
-  const { register, setValue, handleSubmit } = useForm()
+  const { register, setValue, handleSubmit, formState: { errors } } = useForm()
   useEffect(() => {
     async function loadCitas() {
       let citas;
@@ -175,10 +175,20 @@ export function VisualizarCitas() {
             <div className="col-md-8 offset-md-2">
               <label htmlFor="fecha_cita" className="form-label label-form">Fecha de cita</label>
               <input type="date" id="fecha_cita" className="form-control input-form" {...register("fecha_cita", { required: true })} />
+              {errors.fecha_cita?.type === "required" &&
+                (
+                  <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese la fecha de la cita</p>
+                )
+              }
             </div>
             <div className="col-md-8 offset-md-2">
               <label htmlFor="horario_cita" className="form-label label-form">Hora de cita</label>
               <input type="time" id="horario_cita" className="form-control input-form" {...register("horario_cita", { required: true })} />
+              {errors.horario_cita?.type === "required" &&
+                (
+                  <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese la hora de la cita</p>
+                )
+              }
             </div>
             <div className="col-md-8 offset-md-2">
               <label htmlFor="especialidad" className="form-label label-form">Especialidad</label>
@@ -189,6 +199,11 @@ export function VisualizarCitas() {
                 <option value="Odontologia">Odontología</option>
                 <option value="Psicologia">Psicologia</option>
               </select>
+              {errors.especialidad?.type === "required" &&
+                (
+                  <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione especialidad</p>
+                )
+              }
             </div>
             <div className="col-md-6 offset-md-2">
               <button type="submit" className="button-guardar btn bt mx-auto rounded">Guardar cambios</button>
