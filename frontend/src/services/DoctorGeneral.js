@@ -128,10 +128,10 @@ export const registerHojaEvaluacion = async (evaluacion) => {
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Aceptar'
               }).then((result) => {
-                if (result.isConfirmed) {
+                /* if (result.isConfirmed) {
                   console.log('Se hizo clic en Aceptar');
                   location.href ='/ver_evaluacionClinica';
-                }
+                } */
               });
         } else {
             console.log("error al registrar")

@@ -6,11 +6,21 @@ import { registerHojaEvaluacion } from "../../services/DoctorGeneral"
 import { setToken } from "../../services/HeaderAuthorization"
 
 export function AddHojaDeEvaluacion() {
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState:{errors} } = useForm()
     const { authTokens } = useContext(AuthContext)
     const [pacienteSelect, setPacienteSelect] = useState("")
 
     const onSubmit = handleSubmit(async (data) => {
+
+        const formData = new FormData();
+
+    // Añadir archivos a FormData si existen
+    if (data.archivo !== null && data.archivo.length > 0) {
+        for (let i = 0; i < data.archivo.length; i++) {
+            formData.append('archivo', data.archivo[i]);
+        }
+    }
+
         const hojaEvaluacion = {
             fecha_revision: data.fecha_revision,
             nota_medica: data.nota_medica,
@@ -28,7 +38,10 @@ export function AddHojaDeEvaluacion() {
             },
             idPaciente: pacienteSelect,
             
-        }
+        };
+         // Añadir el objeto hojaEvaluacion a FormData
+    formData.append('hojaEvaluacion', JSON.stringify(hojaEvaluacion));
+
         try {
             await setToken(authTokens.access);
             const response = await registerHojaEvaluacion(hojaEvaluacion);
@@ -40,7 +53,7 @@ export function AddHojaDeEvaluacion() {
     })
     return (
         <>
-            <FormHojaDeEvaluacion register={register} onSubmit={onSubmit} pacienteSelect={setPacienteSelect} />
+            <FormHojaDeEvaluacion register={register} onSubmit={onSubmit} pacienteSelect={setPacienteSelect} errors={errors} />
         </>
     )
 }

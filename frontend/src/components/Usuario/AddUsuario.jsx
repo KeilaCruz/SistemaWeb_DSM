@@ -8,7 +8,7 @@ import { setToken } from "../../services/HeaderAuthorization"
 
 export function AddUsuario () {
     const { authTokens } = useContext(AuthContext)
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState:{errors} } = useForm()
 
     const onSubmit = handleSubmit(async (data) => {
         const usuarioData = {
@@ -32,6 +32,6 @@ export function AddUsuario () {
     })
 
     return (
-        <FormUsuario register={register} onSubmit={onSubmit}  />
+        <FormUsuario register={register} onSubmit={onSubmit} errors={errors} />
     )
 }

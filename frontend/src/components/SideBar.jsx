@@ -108,9 +108,111 @@ export function SideBar() {
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                               data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
                                 <i class="fa-solid fa-hospital-user"></i>
-                              <span>Paciente</span>
+                              <span>Pacientes</span>
                           </a>
                           <ul id="auth" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                              <li className="sidebar-item">
+                                  <a href="/buscar_paciente" className="sidebar-link">Buscar Pacientes</a>
+                              </li>
+                              
+                          </ul>
+                      </li>
+
+                      
+
+                      <li className="sidebar-item">
+                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                              data-bs-target="#auth3" aria-expanded="false" aria-controls="auth3">
+                                <i class="fa-solid fa-bullhorn"></i>
+                              <span>Eventos</span>
+                          </a>
+                          <ul id="auth3" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                              <li className="sidebar-item">
+                                  <a href="/registrar_evento" className="sidebar-link">Crear evento</a>
+                              </li>
+                              <li className="sidebar-item">
+                                  <a href="/ver_evento" className="sidebar-link">Ver eventos</a>
+                              </li>
+                              
+                          </ul>
+                      </li>
+
+                      <li className="sidebar-item">
+                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                              data-bs-target="#auth4" aria-expanded="false" aria-controls="auth4">
+                                <i class="fa-solid fa-file-waveform"></i>
+                              <span>Examen médico</span>
+                          </a>
+                          <ul id="auth4" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                              <li className="sidebar-item">
+                                  <a href="/registrar_examenmedico" className="sidebar-link">Crear examen</a>
+                              </li>
+                              <li className="sidebar-item">
+                                  <a href="/ver_examenMedico" className="sidebar-link">Buscar examen</a>
+                              </li>
+                              
+                          </ul>
+                      </li>
+
+                      <li className="sidebar-item">
+                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                              data-bs-target="#auth5" aria-expanded="false" aria-controls="auth5">
+                                <i class="fa-solid fa-file-medical"></i>
+                              <span>Historial clínico</span>
+                          </a>
+                          <ul id="auth5" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                              <li className="sidebar-item">
+                                  <a href="/registrar_evaluacionclinica" className="sidebar-link">Crear historial</a>
+                              </li>
+                              <li className="sidebar-item">
+                                  <a href="/ver_evaluacionClinica" className="sidebar-link">Buscar historial</a>
+                              </li>
+                              
+                          </ul>
+                      </li>            
+                      
+                      <a  className="sidebar-link" onClick={logout} href='/login' >
+                          <i className="lni lni-exit"></i>
+                          <span>Logout</span>
+                      </a>
+                      
+                      </>
+                  ): user.idRol_id === 2 ? ( /*  Recepcionista */
+                    <>
+                        <li className="sidebar-item">
+                          <a href="/homeRecepcionista" className="sidebar-link">
+                              <i className="lni lni-home"></i>
+                              <span>Home</span>
+                          </a>
+                      </li>
+
+                      <li className="sidebar-item">
+                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                              data-bs-target="#auth0" aria-expanded="false" aria-controls="auth0">
+                              <i className="lni lni-users"></i>
+                              <span>Usuarios</span>
+                          </a>
+                          <ul id="auth0" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                              <li className="sidebar-item">
+                                  <a href="/crear_usuario" className="sidebar-link">Crear Usuario</a>
+                              </li>
+                              <li className="sidebar-item">
+                                  <a href="/ver_usuario" className="sidebar-link">Editar usuarios</a>
+                              </li>
+                              
+                          </ul>
+                      </li>
+                     
+                      <li className="sidebar-item">
+                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                              data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                                <i class="fa-solid fa-hospital-user"></i>
+                              <span>Pacientes</span>
+                          </a>
+                          <ul id="auth" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                              <li className="sidebar-item">
+                                  <a href="/registrarpaciente" className="sidebar-link">Registrar Paciente</a>
+                              </li>
                               <li className="sidebar-item">
                                   <a href="/buscar_paciente" className="sidebar-link">Buscar Pacientes</a>
                               </li>
@@ -125,6 +227,12 @@ export function SideBar() {
                               <span>Citas</span>
                           </a>
                           <ul id="auth1" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                              <li className="sidebar-item">
+                                  <a href="/agendarcita" className="sidebar-link">Agendar cita</a>
+                              </li>
+                              <li className="sidebar-item">
+                                  <a href="/citas" className="sidebar-link">Editar citas</a>
+                              </li>
                               <li className="sidebar-item">
                                   <a href="/calendario" className="sidebar-link">Calendario general</a>
                               </li>
@@ -198,167 +306,6 @@ export function SideBar() {
                           </ul>
                       </li>
 
-                      
-
-                      
-
-                      <a  className="sidebar-link" onClick={logout} href='/login' >
-                          <i className="lni lni-exit"></i>
-                          <span>Logout</span>
-                      </a>
-                      
-                      </>
-                  ): user.idRol_id === 2 ? ( /*  Recepcionista */
-                    <>
-                        <li className="sidebar-item">
-                          <a href="/homeRecepcionista" className="sidebar-link">
-                              <i className="lni lni-home"></i>
-                              <span>Home</span>
-                          </a>
-                      </li>
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth0" aria-expanded="false" aria-controls="auth0">
-                              <i className="lni lni-users"></i>
-                              <span>Usuarios</span>
-                          </a>
-                          <ul id="auth0" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/crear_usuario" className="sidebar-link">Crear Usuario</a>
-                              </li>
-                              <li className="sidebar-item">
-                                  <a href="/ver_usuario" className="sidebar-link">Editar usuarios</a>
-                              </li>
-                              
-                          </ul>
-                      </li>
-                     
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                                <i class="fa-solid fa-hospital-user"></i>
-                              <span>Paciente</span>
-                          </a>
-                          <ul id="auth" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/registrarpaciente" className="sidebar-link">Registrar Paciente</a>
-                              </li>
-                              <li className="sidebar-item">
-                                  <a href="/buscar_paciente" className="sidebar-link">Buscar Pacientes</a>
-                              </li>
-                              
-                          </ul>
-                      </li>
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth1" aria-expanded="false" aria-controls="auth1">
-                                <i class="fa-regular fa-calendar-check"></i>
-                              <span>Citas</span>
-                          </a>
-                          <ul id="auth1" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/agendarcita" className="sidebar-link">Agendar cita</a>
-                              </li>
-                              <li className="sidebar-item">
-                                  <a href="/citas" className="sidebar-link">Editar citas</a>
-                              </li>
-                              <li className="sidebar-item">
-                                  <a href="/calendario" className="sidebar-link">Calendario general</a>
-                              </li>
-                             
-                          </ul>
-                      </li>
-
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth3" aria-expanded="false" aria-controls="auth3">
-                                <i class="fa-solid fa-bullhorn"></i>
-                              <span>Eventos</span>
-                          </a>
-                          <ul id="auth3" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/registrar_evento" className="sidebar-link">Crear evento</a>
-                              </li>
-                              <li className="sidebar-item">
-                                  <a href="/ver_evento" className="sidebar-link">Ver eventos</a>
-                              </li>
-                              
-                          </ul>
-                      </li>
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth4" aria-expanded="false" aria-controls="auth4">
-                                <i class="fa-solid fa-file-waveform"></i>
-                              <span>Examen médico</span>
-                          </a>
-                          <ul id="auth4" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              
-                              <li className="sidebar-item">
-                                  <a href="/ver_examenMedico" className="sidebar-link">Buscar examen</a>
-                              </li>
-                              
-                          </ul>
-                      </li>
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth5" aria-expanded="false" aria-controls="auth5">
-                                <i class="fa-solid fa-file-medical"></i>
-                              <span>Historial clínico</span>
-                          </a>
-                          <ul id="auth5" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/registrar_evaluacionclinica" className="sidebar-link">Crear historial</a>
-                              </li>
-                              <li className="sidebar-item">
-                                  <a href="/ver_evaluacionClinica" className="sidebar-link">Buscar historial</a>
-                              </li>
-                              
-                          </ul>
-                      </li>
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth2" aria-expanded="false" aria-controls="auth6">
-                              <i className="lni lni-graph"></i>
-                              <span>Reportes</span>
-                          </a>
-                          <ul id="auth6" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/reportes" className="sidebar-link">Estadisticas</a>
-                              </li>
-                              
-                          </ul>
-                      </li>
-
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                              <i className="lni lni-layout"></i>
-                              <span>Pendiente</span>
-                          </a>
-                          <ul id="multi" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="#" className="sidebar-link collapsed" data-bs-toggle="collapse"
-                                      data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
-                                      Two Links
-                                  </a>
-                                  <ul id="multi-two" className="sidebar-dropdown list-unstyled collapse">
-                                      <li className="sidebar-item">
-                                          <a href="#" className="sidebar-link">Link 1</a>
-                                      </li>
-                                      <li className="sidebar-item">
-                                          <a href="#" className="sidebar-link">Link 2</a>
-                                      </li>
-                                  </ul>
-                              </li>
-                          </ul>
-                      </li>
 
                       <a  className="sidebar-link" onClick={logout} href='/login' >
                           <i className="lni lni-exit"></i>
@@ -387,20 +334,6 @@ export function SideBar() {
                                   <a href="/buscar_paciente" className="sidebar-link">Buscar Pacientes</a>
                               </li>
                               
-                          </ul>
-                      </li>
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth1" aria-expanded="false" aria-controls="auth1">
-                                <i class="fa-regular fa-calendar-check"></i>
-                              <span>Citas</span>
-                          </a>
-                          <ul id="auth1" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/calendario" className="sidebar-link">Calendario general</a>
-                              </li>
-                             
                           </ul>
                       </li>
 
@@ -456,44 +389,6 @@ export function SideBar() {
                           </ul>
                       </li>
 
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth2" aria-expanded="false" aria-controls="auth6">
-                              <i className="lni lni-graph"></i>
-                              <span>Reportes</span>
-                          </a>
-                          <ul id="auth6" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/reportes" className="sidebar-link">Estadisticas</a>
-                              </li>
-                              
-                          </ul>
-                      </li>
-
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                              <i className="lni lni-layout"></i>
-                              <span>Pendiente</span>
-                          </a>
-                          <ul id="multi" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="#" className="sidebar-link collapsed" data-bs-toggle="collapse"
-                                      data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
-                                      Two Links
-                                  </a>
-                                  <ul id="multi-two" className="sidebar-dropdown list-unstyled collapse">
-                                      <li className="sidebar-item">
-                                          <a href="#" className="sidebar-link">Link 1</a>
-                                      </li>
-                                      <li className="sidebar-item">
-                                          <a href="#" className="sidebar-link">Link 2</a>
-                                      </li>
-                                  </ul>
-                              </li>
-                          </ul>
-                      </li>
 
                       <a  className="sidebar-link" onClick={logout} href='/login' >
                           <i className="lni lni-exit"></i>
@@ -526,19 +421,7 @@ export function SideBar() {
                           </ul>
                       </li>
 
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth1" aria-expanded="false" aria-controls="auth1">
-                                <i class="fa-regular fa-calendar-check"></i>
-                              <span>Citas</span>
-                          </a>
-                          <ul id="auth1" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/calendario" className="sidebar-link">Calendario general</a>
-                              </li>
-                             
-                          </ul>
-                      </li>
+                
 
 
                       <li className="sidebar-item">
@@ -592,44 +475,7 @@ export function SideBar() {
                           </ul>
                       </li>
 
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth2" aria-expanded="false" aria-controls="auth6">
-                              <i className="lni lni-graph"></i>
-                              <span>Reportes</span>
-                          </a>
-                          <ul id="auth6" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/reportes" className="sidebar-link">Estadisticas</a>
-                              </li>
-                              
-                          </ul>
-                      </li>
-
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                              <i className="lni lni-layout"></i>
-                              <span>Pendiente</span>
-                          </a>
-                          <ul id="multi" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="#" className="sidebar-link collapsed" data-bs-toggle="collapse"
-                                      data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
-                                      Two Links
-                                  </a>
-                                  <ul id="multi-two" className="sidebar-dropdown list-unstyled collapse">
-                                      <li className="sidebar-item">
-                                          <a href="#" className="sidebar-link">Link 1</a>
-                                      </li>
-                                      <li className="sidebar-item">
-                                          <a href="#" className="sidebar-link">Link 2</a>
-                                      </li>
-                                  </ul>
-                              </li>
-                          </ul>
-                      </li>
+                     
 
                       <a  className="sidebar-link" onClick={logout} href='/login' >
                           <i className="lni lni-exit"></i>
@@ -676,21 +522,6 @@ export function SideBar() {
 
                       <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth1" aria-expanded="false" aria-controls="auth1">
-                                <i class="fa-regular fa-calendar-check"></i>
-                              <span>Citas</span>
-                          </a>
-                          <ul id="auth1" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/calendario" className="sidebar-link">Calendario general</a>
-                              </li>
-                             
-                          </ul>
-                      </li>
-
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                               data-bs-target="#auth3" aria-expanded="false" aria-controls="auth3">
                                 <i class="fa-solid fa-bullhorn"></i>
                               <span>Eventos</span>
@@ -737,45 +568,6 @@ export function SideBar() {
                                   <a href="/ver_evaluacionClinica" className="sidebar-link">Buscar historial</a>
                               </li>
                               
-                          </ul>
-                      </li>
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth2" aria-expanded="false" aria-controls="auth6">
-                              <i className="lni lni-graph"></i>
-                              <span>Reportes</span>
-                          </a>
-                          <ul id="auth6" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/reportes" className="sidebar-link">Estadisticas</a>
-                              </li>
-                              
-                          </ul>
-                      </li>
-
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                              <i className="lni lni-layout"></i>
-                              <span>Pendiente</span>
-                          </a>
-                          <ul id="multi" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="#" className="sidebar-link collapsed" data-bs-toggle="collapse"
-                                      data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
-                                      Two Links
-                                  </a>
-                                  <ul id="multi-two" className="sidebar-dropdown list-unstyled collapse">
-                                      <li className="sidebar-item">
-                                          <a href="#" className="sidebar-link">Link 1</a>
-                                      </li>
-                                      <li className="sidebar-item">
-                                          <a href="#" className="sidebar-link">Link 2</a>
-                                      </li>
-                                  </ul>
-                              </li>
                           </ul>
                       </li>
 
