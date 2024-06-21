@@ -45,7 +45,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                 <form onSubmit={onSubmit} className="row g-3 align-items-center">
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="Nombre" className="form-label label-form">Nombres(s)</label>
-                        <input id="Nombre" className="form-control input-form" type="text" placeholder="Nombre" {...register("nombre", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
+                        <input id="Nombre" className="form-control input-form" type="text" placeholder="Nombre" {...register("nombre", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]$/ })} />
                         {errors.nombre?.type === "required" &&
                             (
                                 <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -59,7 +59,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="apePaterno" className="form-label label-form">Apellido paterno</label>
-                        <input className="form-control input-form" type="text" placeholder="Apellido paterno" {...register("apePaterno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
+                        <input className="form-control input-form" type="text" placeholder="Apellido paterno" {...register("apePaterno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]$/ })} />
                         {errors.apePaterno?.type === "required" &&
                             (
                                 <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -73,7 +73,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="apeMaterno" className="form-label label-form" >Apellido materno</label>
-                        <input className="form-control input-form" type="text" placeholder="Apellido materno" {...register("apeMaterno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
+                        <input className="form-control input-form" type="text" placeholder="Apellido materno" {...register("apeMaterno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]$/ })} />
                         {errors.apeMaterno?.type === "required" &&
                             (
                                 <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -161,7 +161,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
 
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="colonia" className="form-label label-form" >Colonia</label>
-                        <input className="form-control input-form" type="text" placeholder="Colonia" {...register("colonia", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]+$/ })} />
+                        <input className="form-control input-form" type="text" placeholder="Colonia" {...register("colonia", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]$/ })} />
                         {errors.colonia?.type === "required" &&
                             (
                                 <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -175,7 +175,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label className="form-label label-form" >Calle</label>
-                        <input className="form-control input-form" type="text" placeholder="Calle" {...register("calle", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]+$/ })} />
+                        <input className="form-control input-form" type="text" placeholder="Calle" {...register("calle", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]$/ })} />
                         {errors.calle?.type === "required" &&
                             (
                                 <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -217,7 +217,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="referencia" className="form-label label-form" >Entre que calles o referencia</label>
-                        <textarea className="form-control input-form" placeholder="Entre calles o referencia" {...register("referencia", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]+$/ })}></textarea>
+                        <textarea className="form-control input-form" placeholder="Entre calles o referencia" {...register("referencia", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]$/ })}></textarea>
                         {errors.referencia?.type === "required" &&
                             (
                                 <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -262,7 +262,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="unidad_salud" className="form-label label-form" >Unidad de salud</label>
-                        <input className="form-control input-form" type="text" placeholder="Unidad de salud" {...register("unidad_salud", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]+$/ })} />
+                        <input className="form-control input-form" type="text" placeholder="Unidad de salud" {...register("unidad_salud", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]$/ })} />
                         {errors.unidad_salud?.type === "required" &&
                             (
                                 <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>

@@ -6,7 +6,7 @@ import { Modal, Button } from "react-bootstrap"
 import { registerEvolucionNiño } from "../../services/Psicologia";
 
 export function FormEvoluciónPsicoNiño({ estado, datos, handleCloseModal }) {
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
     const { authTokens } = useContext(AuthContext)
     const [showModal, setShowModal] = useState(estado)
 
@@ -38,15 +38,40 @@ export function FormEvoluciónPsicoNiño({ estado, datos, handleCloseModal }) {
                             </div>
                             <div className="col-md-10 offset-md-1 mt-2">
                                 <label className="label-form form-label" htmlFor="nombre_paciente">Nombre del paciente</label>
-                                <input className="input-form form-control" id="nombre_paciente" placeholder="nombre del paciente" type="text" {...register("nombre_paciente", { required: true })} />
+                                <input className="input-form form-control" id="nombre_paciente" placeholder="nombre del paciente" type="text" {...register("nombre_paciente", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]$/ })} />
+                                {errors.nombre_paciente?.type === "required" &&
+                                    (
+                                        <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                    )
+                                }
+                                {errors.nombre_paciente?.type === "pattern" &&
+                                    (
+                                        <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                    )
+                                }
                             </div>
                             <div className="col-md-10 offset-md-1 mt-2">
                                 <label className="label-form form-label" htmlFor="nota_evolucion">Evolución</label>
-                                <textarea className="input-form form-control" id="nota_evolucion" placeholder="Escriba sus comentarios aquí"{...register("nota_evolucion", { required: true })}></textarea>
+                                <textarea className="input-form form-control" id="nota_evolucion" placeholder="Escriba sus comentarios aquí"{...register("nota_evolucion", { required: true, pattern: /^[A-Za-z ,.;ÁÉÍÓÚáéíóú\d]$/ })}></textarea>
+                                {errors.nota_evolucion?.type === "required" &&
+                                    (
+                                        <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                    )
+                                }
+                                {errors.nota_evolucion?.type === "pattern" &&
+                                    (
+                                        <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                    )
+                                }
                             </div>
                             <div className="col-md-5 offset-md-1 mt-2">
                                 <label className="label-form form-label" htmlFor="proxima_cita">Próxima cita</label>
                                 <input className="input-form form-control" id="proxima_cita" type="date" {...register("proxima_cita", { required: true })} />
+                                {errors.proxima_cita?.type === "required" &&
+                                    (
+                                        <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                    )
+                                }
                             </div>
                             <div className="col-md-5 mt-5">
                                 <button type="submit" className="button-guardar rounded">Guardar</button>
