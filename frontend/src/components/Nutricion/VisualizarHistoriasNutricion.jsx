@@ -4,11 +4,18 @@ import AuthContext from "../../context/AuthProvider"
 import { setToken } from "../../services/HeaderAuthorization"
 import { visualizarHistorias } from "../../services/Nutriologo"
 
-
 export function VisualizarHistoriasNutricion() {
-    const [historias, setHistorias] = useState([])
-    const navigate = useNavigate()
-    const { authTokens } = useContext(AuthContext)
+    const [historias, setHistorias] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(10);
+    const { authTokens } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentHistorias = historias.slice(indexOfFirstItem, indexOfLastItem);
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     useEffect(() => {
         async function loadHistorias() {
             await setToken(authTokens.access)
@@ -24,7 +31,7 @@ export function VisualizarHistoriasNutricion() {
         <>
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-md-10 offset-md-1 text-center mt-5">
+                    <div className="col-md-10 offset-md-1 text-center">
                         <hr />
                         <h3 className="title">HISTORIAS DE NUTRICIÓN</h3>
                         <hr />
@@ -42,7 +49,7 @@ export function VisualizarHistoriasNutricion() {
                             </tr>
                         </thead>
                         <tbody>
-                            {historias.map(historia => (
+                            {currentHistorias.map(historia => (
                                 <tr>
                                     <td className="fila">{historia.idHistoriaNutricion}</td>
                                     <td className="fila">{historia.fecha_registro}</td>
@@ -57,6 +64,13 @@ export function VisualizarHistoriasNutricion() {
                             ))}
                         </tbody>
                     </table>
+                </div>
+                <div className="pagination mt-2 col-md-10 offset-md-1">
+                    {[...Array(Math.ceil(historias.length / itemsPerPage)).keys()].map(number => (
+                        <button key={number} onClick={() => paginate(number + 1)} className="page-link button-pagination rounded">
+                            {number + 1}
+                        </button>
+                    ))}
                 </div>
             </div>
         </>

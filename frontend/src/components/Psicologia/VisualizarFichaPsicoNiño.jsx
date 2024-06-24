@@ -10,8 +10,17 @@ export function VisualizarFichaPsicoNiño() {
     const [fichas, setFichas] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [selectedData, setSelectedData] = useState(null)
-    const navigate = useNavigate()
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(10);
     const { authTokens } = useContext(AuthContext)
+    const navigate = useNavigate()
+
+    //calculos para hacer la paginación
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentFichas = fichas.slice(indexOfFirstItem, indexOfLastItem);
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     useEffect(() => {
         async function loadFichas() {
             await setToken(authTokens.access)
@@ -55,7 +64,7 @@ export function VisualizarFichaPsicoNiño() {
                             </tr>
                         </thead>
                         <tbody>
-                            {fichas.map(ficha => (
+                            {currentFichas.map(ficha => (
                                 <tr>
                                     <td className='fila'>{ficha.expedienteFicha}</td>
                                     <td className='fila'>{ficha.fecha_registro}</td>
@@ -84,6 +93,13 @@ export function VisualizarFichaPsicoNiño() {
                             ))}
                         </tbody>
                     </table>
+                </div>
+                <div className="pagination mt-2 col-md-10 offset-md-1">
+                    {[...Array(Math.ceil(fichas.length / itemsPerPage)).keys()].map(number => (
+                        <button key={number} onClick={() => paginate(number + 1)} className="page-link button-pagination rounded">
+                            {number + 1}
+                        </button>
+                    ))}
                 </div>
                 {showModal && <FormEvoluciónPsicoNiño estado={true} datos={selectedData} handleCloseModal={handleCloseModal} />}
             </div>

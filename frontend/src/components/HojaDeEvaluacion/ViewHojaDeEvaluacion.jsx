@@ -10,7 +10,6 @@ export function ViewHojaDeEvaluacion() {
   const [hojaClinica, setHojaClinica] = useState({})
   const {idHojaClinica} = useParams()
 
-
   //Cargar el objeto hojaClinica que se manda al componente del form para cargar input
   useEffect(() => {
     async function loadHojaClinica() {

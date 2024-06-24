@@ -5,12 +5,19 @@ import { getAllCitas, getCita, getCitasInactivas, marcarAsistencia, reagendarCit
 import { Modal, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 export function VisualizarCitas() {
-  let [citas, setCitas] = useState([])
+  const [citas, setCitas] = useState([])
+  const { register, setValue, handleSubmit, formState: { errors } } = useForm()
   const [filtro, setFiltro] = useState(true);
   const [cita, setCita] = useState({})
   const [showModal, setShowModal] = useState(false)
   const { authTokens } = useContext(AuthContext);
-  const { register, setValue, handleSubmit, formState: { errors } } = useForm()
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentCitas = citas.slice(indexOfFirstItem, indexOfLastItem);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   useEffect(() => {
     async function loadCitas() {
       let citas;
@@ -98,8 +105,8 @@ export function VisualizarCitas() {
   return (
     <>
       <div className="container-fluid">
-        <div className="row g-3 mt-5">
-          <div className="col-md-10 offset-md-1 text-center mt-5">
+        <div className="row g-3">
+          <div className="col-md-10 offset-md-1 text-center">
             <hr />
             <h3 className="title">CITAS AGENDADAS</h3>
             <hr />
@@ -115,7 +122,7 @@ export function VisualizarCitas() {
         </div>
 
         {/**Citas activas */}
-        <div className="col-md-10 offset-md-1 mt-4">
+        <div className="col-md-10 offset-md-1 mt-2">
           <table className="table-bordered">
             <thead className="cabecera">
               <tr>
@@ -129,7 +136,7 @@ export function VisualizarCitas() {
               </tr>
             </thead>
             <tbody>
-              {citas.map(cita => (
+              {currentCitas.map(cita => (
                 <tr key={cita.idCita}>
                   <td className="fila">{cita.idCita}</td>
                   <td className="fila">{cita.idPaciente}</td>
@@ -153,6 +160,13 @@ export function VisualizarCitas() {
               }
             </tbody>
           </table>
+        </div>
+        <div className="pagination mt-2 col-md-10 offset-md-1">
+          {[...Array(Math.ceil(citas.length / itemsPerPage)).keys()].map(number => (
+            <button key={number} onClick={() => paginate(number + 1)} className="page-link button-pagination rounded">
+              {number + 1}
+            </button>
+          ))}
         </div>
       </div >
 
