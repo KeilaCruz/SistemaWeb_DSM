@@ -577,24 +577,3 @@ a.sidebar-link:hover {
   color: #000000;
 }
 
-.fade-enter {
-  opacity: 0;
-  transform: translateX(-20px);
-}
-
-.fade-enter-active {
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity 300ms, transform 300ms;
-}
-
-.fade-exit {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.fade-exit-active {
-  opacity: 0;
-  transform: translateX(20px);
-  transition: opacity 300ms, transform 300ms;
-}
