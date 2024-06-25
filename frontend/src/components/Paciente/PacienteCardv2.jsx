@@ -1,11 +1,10 @@
-import { useState } from "react"
 
 export function PacienteCardv2({ paciente }) {
     return (
         <>
             {/*COMIENZO DEL CARD*/}
-            <div className="card offset-md-1 cards" key={paciente.CURP} style={{ width: "70rem" }}>
-                <div className="card-body">
+            <div className="offset-md-1 card" key={paciente.CURP} style={{ width: "67rem" }}>
+                <div className="card-bodyV2">
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-md-6">
@@ -18,7 +17,7 @@ export function PacienteCardv2({ paciente }) {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col-md-3  cardv2-label">
+                                    <div className="col-md-3 cardv2-label">
                                         <p>Nombre:</p>
                                     </div>
                                     <div className="col-md-6 card-text">

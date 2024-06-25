@@ -5,12 +5,19 @@ import { getAllCitas, getCita, getCitasInactivas, marcarAsistencia, reagendarCit
 import { Modal, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 export function VisualizarCitas() {
-  let [citas, setCitas] = useState([])
+  const [citas, setCitas] = useState([])
+  const { register, setValue, handleSubmit, formState: { errors } } = useForm()
   const [filtro, setFiltro] = useState(true);
   const [cita, setCita] = useState({})
   const [showModal, setShowModal] = useState(false)
   const { authTokens } = useContext(AuthContext);
-  const { register, setValue, handleSubmit } = useForm()
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentCitas = citas.slice(indexOfFirstItem, indexOfLastItem);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   useEffect(() => {
     async function loadCitas() {
       let citas;
@@ -98,38 +105,38 @@ export function VisualizarCitas() {
   return (
     <>
       <div className="container-fluid">
-        <div className="row g-3 mt-5">
-          <div className="col-md-10 offset-md-  AQQ1 text-center mt-5">
+        <div className="row g-3">
+          <div className="col-md-10 offset-md-1 text-center">
             <hr />
             <h3 className="title">CITAS AGENDADAS</h3>
             <hr />
           </div>
         </div>
-        <div className="row ">
+        <div className="row">
           <div className="col-md-1 offset-md-1">
-            <button onClick={() => handleFiltro(true)}>Pendientes</button>
+            <button type="button" className="button-filter rounded" onClick={() => handleFiltro(true)}>Pendientes</button>
           </div>
           <div className="col-md-1">
-            <button onClick={() => handleFiltro(false)}>Asistidas</button>
+            <button type="button" className="button-filter rounded" onClick={() => handleFiltro(false)}>Asistidas</button>
           </div>
         </div>
 
         {/**Citas activas */}
-        <div className="col-md-10 offset-md-1 mt-5">
-          <table>
+        <div className="col-md-10 offset-md-1 mt-2">
+          <table className="table-bordered">
             <thead className="cabecera">
               <tr>
-                <th className="colum">Numero</th>
+                <th className="columv2">Número</th>
                 <th className="colum">Curp</th>
                 <th className="colum">Fecha horario</th>
                 <th className="colum">Especialidad</th>
                 <th className="colum">Estado</th>
-                <th className="colum"></th>
                 <th className="colum">Marcar asistencia</th>
+                <th className="columv2"></th>
               </tr>
             </thead>
             <tbody>
-              {citas.map(cita => (
+              {currentCitas.map(cita => (
                 <tr key={cita.idCita}>
                   <td className="fila">{cita.idCita}</td>
                   <td className="fila">{cita.idPaciente}</td>
@@ -141,16 +148,25 @@ export function VisualizarCitas() {
                     <td className="fila">Asistida</td>
                   )}
                   <td className="fila">
-                    <button onClick={() => handleOpenModal(cita.idCita)}>Edit</button>
+                    <input id="marcar_asistencia" checked={!cita.estado} type="checkbox" onChange={() => handleMarcarAsistencia(cita.idCita)} />
                   </td>
                   <td className="fila">
-                    <input id="marcar_asistencia" checked={!cita.estado} type="checkbox" onChange={() => handleMarcarAsistencia(cita.idCita)} />
+                    <button className="button-filter mx-auto rounded" onClick={() => handleOpenModal(cita.idCita)}>
+                      <i class="lni lni-pencil"></i>
+                    </button>
                   </td>
                 </tr>
               ))
               }
             </tbody>
           </table>
+        </div>
+        <div className="pagination mt-2 col-md-10 offset-md-1">
+          {[...Array(Math.ceil(citas.length / itemsPerPage)).keys()].map(number => (
+            <button key={number} onClick={() => paginate(number + 1)} className="page-link button-pagination rounded">
+              {number + 1}
+            </button>
+          ))}
         </div>
       </div >
 
@@ -173,10 +189,20 @@ export function VisualizarCitas() {
             <div className="col-md-8 offset-md-2">
               <label htmlFor="fecha_cita" className="form-label label-form">Fecha de cita</label>
               <input type="date" id="fecha_cita" className="form-control input-form" {...register("fecha_cita", { required: true })} />
+              {errors.fecha_cita?.type === "required" &&
+                (
+                  <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese la fecha de la cita</p>
+                )
+              }
             </div>
             <div className="col-md-8 offset-md-2">
               <label htmlFor="horario_cita" className="form-label label-form">Hora de cita</label>
               <input type="time" id="horario_cita" className="form-control input-form" {...register("horario_cita", { required: true })} />
+              {errors.horario_cita?.type === "required" &&
+                (
+                  <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese la hora de la cita</p>
+                )
+              }
             </div>
             <div className="col-md-8 offset-md-2">
               <label htmlFor="especialidad" className="form-label label-form">Especialidad</label>
@@ -187,9 +213,14 @@ export function VisualizarCitas() {
                 <option value="Odontologia">Odontología</option>
                 <option value="Psicologia">Psicologia</option>
               </select>
+              {errors.especialidad?.type === "required" &&
+                (
+                  <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione especialidad</p>
+                )
+              }
             </div>
             <div className="col-md-6 offset-md-2">
-              <button className="button-guardar btn bt mx-auto">Guardar cambios</button>
+              <button type="submit" className="button-guardar btn bt mx-auto rounded">Guardar cambios</button>
             </div>
           </form>
         </Modal.Body>

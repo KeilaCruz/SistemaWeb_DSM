@@ -5,6 +5,7 @@ import { historialClinicoPaciente } from "../../services/Recepcionista"
 import AuthContext from "../../context/AuthProvider"
 import { PacienteCardv2 } from "./PacienteCardv2"
 import { SliderHistorial } from "./SliderHistorial"
+import { FormHistorial } from "./FormHistorial"
 
 
 export function HistorialClinico() {
@@ -13,7 +14,7 @@ export function HistorialClinico() {
     const [historialPaciente, setHistorialPaciente] = useState([])
     const { idPaciente } = useParams()
     const { authTokens } = useContext(AuthContext)
-    
+    const componentRender = historialPaciente.length > 1 ? <SliderHistorial historialPaciente={historialPaciente} /> : <FormHistorial historialPaciente={historialPaciente} />
     useEffect(() => {
         async function loadHistorial() {
             await setToken(authTokens.access)
@@ -36,7 +37,7 @@ export function HistorialClinico() {
         }
         loadHistorial()
     }, [])
-  
+
     return (
         <div className="container-fluid pb-4">
             <div className="row g-2">
@@ -45,8 +46,10 @@ export function HistorialClinico() {
                     <h3 className="title">HISTORIAL CLÍNICO DEL PACIENTE</h3>
                     <hr />
                 </div>
-                <PacienteCardv2 paciente={paciente} />
-                <table className="col-md-10 offset-md-1 mt-5">
+                <div className="col-md-12">
+                    <PacienteCardv2 paciente={paciente} />
+                </div>
+                <table className="col-md-10 offset-md-1 mt-5 table-bordered">
                     <thead className="cabecera">
                         <th className="columv2">Fecha</th>
                         <th className="columv2">T/A</th>
@@ -64,23 +67,26 @@ export function HistorialClinico() {
                         {historial.map(historial => (
                             <tr>
                                 <td className="filav2">{historial.fecha_revision}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.tension_arterial}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.frecuencia_cardiaca}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.frecuencia_respiratoria}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.temperatura}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.saturacion_oxigeno}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.glucosa}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.peso}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.talla}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.imc}</td>
-                                <td className="filav2">{historial.datos_nota_enfermeria.cintura}</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.tension_arterial} mmHG</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.frecuencia_cardiaca} lpm</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.frecuencia_respiratoria} rpm</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.temperatura} °C</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.saturacion_oxigeno} SpO2</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.glucosa} mg/dl</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.peso} kg</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.talla} m</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.imc} kg/m2</td>
+                                <td className="filav2">{historial.datos_nota_enfermeria.cintura} cm</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-            <div className="col-md-10 offset-md-1 slider-container mt-5 ">
-                <SliderHistorial historialPaciente={historialPaciente} />
+            <div className="col-md-10 offset-md-1 mt-4">
+                <h2 className="sub-title">Historias clínicas del paciente</h2>
+            </div>
+            <div className="col-md-10 offset-md-1 slider-container mt-3">
+                {componentRender}
             </div>
         </div>
     );
