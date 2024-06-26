@@ -1,11 +1,11 @@
 
-export function PacienteCard({ paciente, handleSelect }) {
+export function PacienteCard({ paciente, handleSelect, register }) {
     const selectPaciente = () => {
         handleSelect(paciente.CURP);
     };
     return (
         <>
-            <div className="card" key={paciente.CURP} style={{ width: "67rem" }}>
+            <div className="card" key={paciente.CURP} style={{ width: "60rem" }}>
                 <div className="card-body cards">
                     <div className="container-fluid">
                         <div className="row">
@@ -24,7 +24,7 @@ export function PacienteCard({ paciente, handleSelect }) {
                             </div>
                             <div className="col-md-4">
                                 <p className="card-text">{paciente.datos_contacto.derecho_habiencia}</p>
-                                <input className="select-card form-check-input" type="checkbox" id="paciente_seleccionado" onChange={selectPaciente} />
+                                <input className="select-card form-check-input" type="checkbox" id="paciente_seleccionado" onChange={selectPaciente} {...register("paciente_seleccionado")}/>
                                 <label class="form-check-label card-text" for="paciente_seleccionado">
                                     Seleccionar
                                 </label>

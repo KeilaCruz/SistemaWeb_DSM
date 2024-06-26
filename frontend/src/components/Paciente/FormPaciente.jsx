@@ -31,10 +31,10 @@ export function FormPaciente({ onSubmit, register, errors }) {
             setShowMunicipal(false)
         }
     }
-    const handleNextPage = (evt) => {
+    const handleNextPage = () => {
         setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
     }
-    const handlePrevPage = (evt) => {
+    const handlePrevPage = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
     }
 
@@ -50,19 +50,18 @@ export function FormPaciente({ onSubmit, register, errors }) {
                 </div>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-4 offset-md-1">
+                        <div className="col-md-3 offset-md-1">
                             <button onClick={handlePrevPage} className="button-pagination rounded">
                                 <i class="lni lni-angle-double-left"></i> Anterior
                             </button>
                         </div>
-                        <div className="col-md-3 offset-md-1">
+                        <div className="col-md-3 offset-md-5">
                             <button onClick={handleNextPage} className="button-pagination rounded">
-                               Siguiente <i class="lni lni-angle-double-right"></i>
+                                Siguiente <i class="lni lni-angle-double-right"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-
                 <form onSubmit={onSubmit} className="mt-3">
                     {currentPage === 1 && (
                         <div className="row">
@@ -401,7 +400,6 @@ export function FormPaciente({ onSubmit, register, errors }) {
                                 <button className="button-guardar rounded">Registrar</button>
                             </div>
                         </div>
-
                     )}
                 </form>
             </div>
