@@ -4,7 +4,7 @@ import { setToken } from "../../services/HeaderAuthorization"
 import { PacienteCard } from "../Paciente/PacienteCard"
 import AuthContext from "../../context/AuthProvider"
 
-export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, errors }) {
+export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setPacienteSelect, errors }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages] = useState(5)
     const { authTokens } = useContext(AuthContext);
@@ -12,6 +12,8 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, erro
     const [criterio, setCriterio] = useState("")
     const [paciente, setPaciente] = useState([])
     const [isResult, setIsResult] = useState(true)
+    const [archivosSeleccionados, setArchivosSeleccionados] = useState([])
+
     const handleBarraBusqueda = (evt) => {
         setCriterio(evt.target.value)
     }
@@ -39,13 +41,18 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, erro
         }
     }
     const selectPaciente = (CURP) => {
-        pacienteSelect(CURP)
+        setPacienteSelect(CURP)
     }
     const handleNextPage = () => {
         setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
     }
     const handlePrevPage = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    }
+    const handleFileChange = (evt) => {
+        const archivos = evt.target.files;
+        const nombreArchivos = Array.from(archivos).map((archivo) => archivo.name)
+        setArchivosSeleccionados(nombreArchivos)
     }
     return (
         <div>
@@ -90,7 +97,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, erro
                                     {isResult ? (
                                         <div>
                                             {paciente.map(paciente => (
-                                                <PacienteCard paciente={paciente} key={paciente.CURP} handleSelect={selectPaciente} register={register} />
+                                                <PacienteCard paciente={paciente} key={paciente.CURP} handleSelect={selectPaciente} isSelected={paciente.CURP === pacienteSelect} />
                                             ))}
                                         </div>
                                     ) : (
@@ -921,6 +928,14 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, erro
                                         )
                                     }
                                 </div>
+
+                                <div>
+                                    <input type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
+                                    {archivosSeleccionados.map((nombreArchivo, index) => (
+                                        <label key={index}>{nombreArchivo}</label>
+                                    ))}
+                                </div>
+
                                 <div className="col-md-5 offset-1 mt-4 mb-4">
                                     <button className="button-guardar rounded">Guardar</button>
                                 </div>
