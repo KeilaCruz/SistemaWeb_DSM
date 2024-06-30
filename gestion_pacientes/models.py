@@ -49,8 +49,11 @@ class Cita(models.Model):
     def __str__(self):
         return self.idCita
 
+
 def ruta_documentNutricion(instance, filename):
-    return f'docsNutricion/instance.idPaciente/filename'
+    return "docsNutricion/{0}/{1}".format(instance.idPaciente, filename)
+
+
 class HistoriaNutricion(models.Model):
     idHistoriaNutricion = models.BigAutoField(primary_key=True)
     idPaciente = models.ForeignKey(Paciente, on_delete=models.DO_NOTHING)
@@ -62,7 +65,7 @@ class HistoriaNutricion(models.Model):
     indicadores_diabeticos = models.JSONField()
     diagnostico = models.JSONField()
     archivo = models.FileField(upload_to=ruta_documentNutricion, blank=True, null=True)
-    
+
     def __str__(self):
         return self.idHistoriaNutricion
 

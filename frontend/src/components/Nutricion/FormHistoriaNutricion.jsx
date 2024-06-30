@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { searchPaciente } from "../../services/Recepcionista"
 import { setToken } from "../../services/HeaderAuthorization"
 import { PacienteCard } from "../Paciente/PacienteCard"

@@ -89,11 +89,6 @@ export function AddHistorialNutricion() {
             tratamiento_nutricional: data.tratamiento_nutricional,
 
         }));
-        formData.append('idPaciente', JSON.stringify({
-            diagnostico_nutricio: data.diagnostico_nutricio,
-            tratamiento_nutricional: data.tratamiento_nutricional,
-
-        }));
         formData.append('idPaciente', pacienteSelect);
 
         if (data.archivo && data.archivo[0] instanceof File) {
@@ -105,10 +100,10 @@ export function AddHistorialNutricion() {
 
         try {
             console.log(data)
-            console.log(formData)
+            console.log(formData.get('diagnostico'))
             //await setToken(authTokens.access);
-            //const response = await registerHistoriaNutricion(historiaNutricion);
-            //console.log(response)
+            const response = await registerHistoriaNutricion(formData, authTokens.access);
+            console.log(response)
         } catch (error) {
             console.error(error)
         }
