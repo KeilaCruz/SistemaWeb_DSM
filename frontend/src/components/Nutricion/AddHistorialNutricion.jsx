@@ -99,10 +99,8 @@ export function AddHistorialNutricion() {
         }
 
         try {
-            console.log(data)
-            console.log(formData.get('diagnostico'))
-            //await setToken(authTokens.access);
-            const response = await registerHistoriaNutricion(formData, authTokens.access);
+            await setToken(authTokens.access);
+            const response = await registerHistoriaNutricion(formData);
             console.log(response)
         } catch (error) {
             console.error(error)

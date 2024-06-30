@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getConfig } from "./HeaderAuthorization";
+import { getConfig, getConfigFiles } from "./HeaderAuthorization";
 import Swal from "sweetalert2";
 
 
@@ -40,17 +40,10 @@ export const visualizarHistorias = async () => {
     }
 }
 
-export const registerHistoriaNutricion = async (historiaNutricion, token) => {
+export const registerHistoriaNutricion = async (historiaNutricion) => {
     try {
-        //const config = await getConfig()
-        const response = await axios.post(SAVE_HISTORIANUTRICION_URL, historiaNutricion,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Token ${token}`
-                }
-            }
-        )
+        const config = await getConfigFiles();
+        const response = await axios.post(SAVE_HISTORIANUTRICION_URL, historiaNutricion, config)
         if (response.status === 201) {
             Swal.fire({
                 icon: 'success',

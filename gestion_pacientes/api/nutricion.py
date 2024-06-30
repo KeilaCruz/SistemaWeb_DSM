@@ -8,7 +8,6 @@ from .serializers import HistoriaNutricionSerializer
 from django.db.models import Max
 
 
-
 @permission_classes([IsAuthenticated])
 class HistoriaNutricionAPIView(APIView):
     def get(self, resquest):
@@ -26,6 +25,7 @@ class HistoriaNutricionAPIView(APIView):
         return Response(historia_nutricion_serializer.data)
 
 
+@permission_classes([IsAuthenticated])
 class RegistrarHistoriaNutricionAPIView(APIView):
     def post(self, request, *args, **kwargs):
         historia_nutricion_serializer = HistoriaNutricionSerializer(data=request.data)
