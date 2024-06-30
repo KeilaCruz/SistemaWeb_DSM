@@ -4,7 +4,12 @@ import { setToken } from "../../services/HeaderAuthorization";
 import { PacienteCard } from "../Paciente/PacienteCard";
 import AuthContext from "../../context/AuthProvider";
 
-export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
+export function FormHojaDeEvaluacion({
+  onSubmit,
+  register,
+  pacienteSelect,
+  errors,
+}) {
   const { authTokens } = useContext(AuthContext);
   const [criterio, setCriterio] = useState("");
   const [paciente, setPaciente] = useState([]);
@@ -53,7 +58,10 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               />
             </div>
             <div className="col-md-3 mt-1">
-              <button onClick={handleBuscarPaciente} className="button-buscar btn btn-primary">
+              <button
+                onClick={handleBuscarPaciente}
+                className="button-buscar btn btn-primary"
+              >
                 Buscar
               </button>
             </div>
@@ -72,12 +80,13 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
           ))}
         </div>
 
-        <form onSubmit={onSubmit} className="row g-3 mt-5">
+        <form
+          onSubmit={onSubmit}
+          /* encType="multipart/form-data" */ className="row g-3 mt-5"
+        >
           <div className="col-md-11 offset-md-1">
             <h3>INFORMACIÓN GENERAL</h3>
           </div>
-
-          
 
           <div className="col-md-3 offset-md-1">
             <label htmlFor="fecha-revision" className="form-label">
@@ -90,6 +99,9 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               {...register("fecha_revision", { required: true })}
               className="form-control"
             />
+            {errors.fecha_revision?.type === "required" && (
+              <p className="errors"> ⚠ Selecione una fecha</p>
+            )}
           </div>
 
           <div className="col-md-11 offset-md-1">
@@ -102,23 +114,39 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="T/A"
               id="tension-arterial"
-              {...register("tension_arterial", { required: true })}
+              {...register("tension_arterial", {
+                required: true,
+                valueAsNumber: true,
+              })}
               className="form-control"
             />
+            {errors.tension_arterial?.type === "required" && (
+              <p className="errors"> ⚠ Ingresa la tension arterial</p>
+            )}
           </div>
 
           <div className="col-md-3">
-            <label htmlFor="" className="form-label">
+            <label htmlFor="frecuencia cardiaca" className="form-label">
               Frecuencia cardiaca (BPM):
             </label>
             <input
               type="number"
+              step="0.01"
+              id="frecuencia cardiaca"
               placeholder="FC"
-              {...register("frecuencia_cardiaca", { required: true })}
+              {...register("frecuencia_cardiaca", {
+                required: true,
+                valueAsNumber: true,
+              })}
               className="form-control"
             />
+
+            {errors.frecuencia_cardiaca?.type === "required" && (
+              <p className="errors"> ⚠ Ingrese la frecuencia cardiaca</p>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -127,12 +155,19 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="FR"
               id="frecuencia-respiratoria"
-              {...register("frecuencia_respiratoria", { required: true })}
+              {...register("frecuencia_respiratoria", {
+                required: true,
+                valueAsNumber: true,
+              })}
               className="form-control"
             />
-            
+
+            {errors.frecuencia_respiratoria?.type === "required" && (
+              <p className="errors"> ⚠ Ingrese la frecuencia respiratoria</p>
+            )}
           </div>
 
           <div className="col-md-3 offset-md-1">
@@ -141,11 +176,18 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="°C"
               id="temperatura"
-              {...register("temperatura", { required: true })}
+              {...register("temperatura", {
+                required: true,
+                valueAsNumber: true,
+              })}
               className="form-control"
             />
+            {errors.temperatura?.type === "required" && (
+              <p className="errors"> ⚠ Ingrese la temperatura </p>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -154,11 +196,16 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="Indice de masa corporal"
               id="imc"
-              {...register("imc", { required: true })}
+              {...register("imc", { required: true, valueAsNumber: true })}
               className="form-control"
             />
+
+            {errors.imc?.type === "required" && (
+              <p className="errors"> ⚠ Ingrese el IMC </p>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -167,24 +214,36 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="SpO2"
               id="spo2"
-              {...register("saturacion_oxigeno", { required: true })}
+              {...register("saturacion_oxigeno", {
+                required: true,
+                valueAsNumber: true,
+              })}
               className="form-control"
             />
+
+            {errors.saturacion_oxigeno?.type === "required" && (
+              <p className="errors"> ⚠ Ingrese la saturación de oxígeno </p>
+            )}
           </div>
-          
+
           <div className="col-md-3 offset-md-1">
             <label htmlFor="glucosa" className="form-label">
               Glucosa (mg/dL):
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="mg/dL"
               id="glucosa"
-              {...register("glucosa", { required: true })}
+              {...register("glucosa", { required: true, valueAsNumber: true })}
               className="form-control"
             />
+            {errors.glucosa?.type === "required" && (
+              <p className="errors"> ⚠ Ingrese el nivel de glucosa </p>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -193,11 +252,15 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="Peso"
               id="peso"
-              {...register("peso", { required: true })}
+              {...register("peso", { required: true, valueAsNumber: true })}
               className="form-control"
             />
+            {errors.peso?.type === "required" && (
+              <p className="errors"> ⚠ Ingrese el peso </p>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -206,11 +269,15 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="Talla"
               id="talla"
-              {...register("talla", { required: true })}
+              {...register("talla", { required: true, valueAsNumber: true })}
               className="form-control"
             />
+            {errors.talla?.type === "required" && (
+              <p className="errors"> ⚠ Ingrese la talla </p>
+            )}
           </div>
 
           <div className="col-md-3 offset-md-1">
@@ -219,11 +286,15 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="Cintura"
               id="cintura"
-              {...register("cintura", { required: true })}
+              {...register("cintura", { required: true, valueAsNumber: true })}
               className="form-control"
             />
+            {errors.cintura?.type === "required" && (
+              <p className="errors"> ⚠ Ingresar cintura </p>
+            )}
           </div>
 
           <div className="col-md-7"></div>
@@ -238,7 +309,24 @@ export function FormHojaDeEvaluacion({onSubmit, register, pacienteSelect}) {
               {...register("nota_medica", { required: true })}
               className="form-control"
             ></textarea>
+            {errors.nota_medica?.type === "required" && (
+              <p className="errors"> ⚠ Ingresar nota medica </p>
+            )}
           </div>
+
+          <div className="col-md-8 offset-md-1">
+            <label htmlFor="archivo" className="form-label">
+              Archivo:
+            </label>
+            <input
+              id="archivo"
+              type="file"
+              multiple
+              {...register("archivo", { required: false })}
+              className="form-control"
+            ></input>
+          </div>
+
           <div className="col-md-5 offset-1 mt-4 mb-4">
             <button className="button-guardar btn btn-success">Guardar</button>
           </div>

@@ -5,7 +5,12 @@ import { setToken } from "../../services/HeaderAuthorization";
 import { PacienteCard } from "../Paciente/PacienteCard";
 import AuthContext from "../../context/AuthProvider";
 
-export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
+export function FormExamenMedico({
+  onSubmit,
+  register,
+  pacienteSelect,
+  errors,
+}) {
   const { authTokens } = useContext(AuthContext);
   const [criterio, setCriterio] = useState("");
   const [paciente, setPaciente] = useState([]);
@@ -24,8 +29,6 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
 
     fetchUsuarios();
   }, []);
-
-  
 
   const handleBarraBusqueda = (evt) => {
     setCriterio(evt.target.value);
@@ -52,8 +55,9 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
   const [showPracticaEjercicio, setShowPracticaEjercicio] = useState(false);
   const [showTabaquismo, setShowTabaquismo] = useState(false);
   const [showAlcoholismo, setShowAlcoholismo] = useState(false);
-  const [showPlanificacionFamiliar, setShowPlanificacionFamiliar] =useState(false);
-  
+  const [showPlanificacionFamiliar, setShowPlanificacionFamiliar] =
+    useState(false);
+
   /* const [cualMadreValue, setCualMadreValue] = useState('');
   const [cualPadreValue, setCualPadreValue] = useState('');
   const [cualHermanoValue, setCualHermanoValue] = useState('');
@@ -64,79 +68,77 @@ export function FormExamenMedico({ onSubmit, register, pacienteSelect }) {
   const [cualAlcoholismoValue, setCualAlcoholismoValue] = useState('');
   const [cualPlanificacionValue, setCualPlanificacionValue] = useState(''); */
 
-  
   const handleMadreViva = (evt) => {
-    let valor = evt.target.value === 'true';
+    let valor = evt.target.value === "true";
     if (valor) {
-        setShowMadreViva(false)
+      setShowMadreViva(false);
     } else {
-        setShowMadreViva(true)
+      setShowMadreViva(true);
     }
-}
+  };
 
-const handlePadreVivo = (evt) => {
-  let valor = evt.target.value === 'true';
-  if (valor) {
+  const handlePadreVivo = (evt) => {
+    let valor = evt.target.value === "true";
+    if (valor) {
       setShowPadreVivo(false);
-  } else {
+    } else {
       setShowPadreVivo(true);
-  }
-};
+    }
+  };
 
-const handleHermanoVivo = (evt) => {
-  let valor = evt.target.value === 'true';
-  if (valor) {
+  const handleHermanoVivo = (evt) => {
+    let valor = evt.target.value === "true";
+    if (valor) {
       setShowHermanoVivo(false);
-  } else {
+    } else {
       setShowHermanoVivo(true);
-  }
-};
+    }
+  };
 
-const handleHijosVivos = (evt) => {
-  let valor = evt.target.value === 'true';
-  if (valor) {
+  const handleHijosVivos = (evt) => {
+    let valor = evt.target.value === "true";
+    if (valor) {
       setShowHijosVivos(false);
-  } else {
+    } else {
       setShowHijosVivos(true);
-  }
-};
+    }
+  };
 
-const handlePracticaEjercicio = (evt) => {
-  let valor = evt.target.value === 'true';
-  if (valor) {
+  const handlePracticaEjercicio = (evt) => {
+    let valor = evt.target.value === "true";
+    if (valor) {
       setShowPracticaEjercicio(true);
-  } else {
+    } else {
       setShowPracticaEjercicio(false);
-  }
-};
+    }
+  };
 
-const handleTabaquismo = (evt) => {
-  let valor = evt.target.value === 'true';
-  if (valor) {
+  const handleTabaquismo = (evt) => {
+    let valor = evt.target.value === "true";
+    if (valor) {
       setShowTabaquismo(true);
-  } else {
+    } else {
       setShowTabaquismo(false);
-  }
-};
+    }
+  };
 
-const handleAlcoholismo = (evt) => {
-  let valor = evt.target.value === 'true';
-  if (valor) {
+  const handleAlcoholismo = (evt) => {
+    let valor = evt.target.value === "true";
+    if (valor) {
       setShowAlcoholismo(true);
-  } else {
+    } else {
       setShowAlcoholismo(false);
-  }
-};
+    }
+  };
 
-const handlePlanificacionFamiliar = (evt) => {
-  let valor = evt.target.value === 'true';
-  if (valor) {
+  const handlePlanificacionFamiliar = (evt) => {
+    let valor = evt.target.value === "true";
+    if (valor) {
       setShowPlanificacionFamiliar(true);
-  } else {
+    } else {
       setShowPlanificacionFamiliar(false);
-  }
-};
-
+    }
+  };
 
   return (
     <>
@@ -198,6 +200,9 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("fecha_revision", { required: true })}
               className="form-control"
             />
+            {errors.fecha_revision?.type === "required" && (
+              <p className="errors">⚠ Seleccione una fecha</p>
+            )}
           </div>
 
           <div className="col-md-3 offset-md-1">
@@ -222,14 +227,14 @@ const handlePlanificacionFamiliar = (evt) => {
             1. ANTECEDENTES HEREDOFAMILIARES
           </h3>
 
-          <div class="col-md-1 offset-md-1 fw-bold">
-            <label class="form-label">¿Madre viva?</label>
+          <div className="col-md-1 offset-md-1 fw-bold">
+            <label className="form-label">¿Madre viva?</label>
           </div>
 
-          <div class="col-md-1">
-            <div class="form-check">
+          <div className="col-md-1">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 id="madre-viva"
                 name="opcion_madre"
@@ -237,16 +242,15 @@ const handlePlanificacionFamiliar = (evt) => {
                 {...register("madre_viva", { required: true })}
                 onChange={handleMadreViva}
               />
-              <label class="form-check-label" htmlFor="madre-viva">
-                {" "}
-                Si{" "}
+              <label className="form-check-label" htmlFor="madre-viva">
+                Si
               </label>
             </div>
           </div>
-          <div class="col-md-1">
-            <div class="form-check">
+          <div className="col-md-1">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 id="madre-muerta"
                 name="opcion_madre"
@@ -254,12 +258,16 @@ const handlePlanificacionFamiliar = (evt) => {
                 {...register("madre_viva", { required: true })}
                 onChange={handleMadreViva}
               />
-              <label class="form-check-label" htmlFor="madre-muerta">
-                {" "}
-                No{" "}
+              <label className="form-check-label" htmlFor="madre-muerta">
+                No
               </label>
             </div>
           </div>
+          {errors.madre_viva && (
+            <p className="errors col-md-12 offset-md-1">
+              ⚠ Ingresa si la madre está viva o no
+            </p>
+          )}
 
           {showmadreViva && (
             <div className="col-md-2">
@@ -277,14 +285,14 @@ const handlePlanificacionFamiliar = (evt) => {
           )}
           <div className="col-md-11"></div>
 
-          <div class="col-md-1 offset-md-1 fw-bold">
-            <label class="form-label">¿Padre vivo?</label>
+          <div className="col-md-1 offset-md-1 fw-bold">
+            <label className="form-label">¿Padre vivo?</label>
           </div>
 
-          <div class="col-md-1">
-            <div class="form-check">
+          <div className="col-md-1">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 id="padre-vivo"
                 name="opcion_padre"
@@ -292,16 +300,15 @@ const handlePlanificacionFamiliar = (evt) => {
                 {...register("padre_vivo", { required: true })}
                 onChange={handlePadreVivo}
               />
-              <label class="form-check-label" htmlFor="padre-vivo">
-                {" "}
-                Si{" "}
+              <label className="form-check-label" htmlFor="padre-vivo">
+                Si
               </label>
             </div>
           </div>
-          <div class="col-md-1">
-            <div class="form-check">
+          <div className="col-md-1">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 id="padre-muerto"
                 name="opcion_padre"
@@ -309,12 +316,16 @@ const handlePlanificacionFamiliar = (evt) => {
                 {...register("padre_vivo", { required: true })}
                 onChange={handlePadreVivo}
               />
-              <label class="form-check-label" htmlFor="padre-muerto">
-                {" "}
-                No{" "}
+              <label className="form-check-label" htmlFor="padre-muerto">
+                No
               </label>
             </div>
           </div>
+          {errors.padre_vivo && (
+            <p className="errors col-md-12 offset-md-1">
+              ⚠ Ingresa si el padre está vivo o no
+            </p>
+          )}
 
           {showpadreVivo && (
             <div className="col-md-2">
@@ -333,14 +344,14 @@ const handlePlanificacionFamiliar = (evt) => {
 
           <div className="col-md-11"></div>
 
-          <div class="col-md-1 offset-md-1 fw-bold">
-            <label class="form-label">¿Hermanos vivos?</label>
+          <div className="col-md-1 offset-md-1 fw-bold">
+            <label className="form-label">¿Hermanos vivos?</label>
           </div>
 
-          <div class="col-md-1">
-            <div class="form-check">
+          <div className="col-md-1">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 id="hermano-vivo"
                 name="opcion_hermano"
@@ -348,16 +359,15 @@ const handlePlanificacionFamiliar = (evt) => {
                 {...register("hermano_vivo", { required: true })}
                 onChange={handleHermanoVivo}
               />
-              <label class="form-check-label" htmlFor="hermano-vivo">
-                {" "}
-                Si{" "}
+              <label className="form-check-label" htmlFor="hermano-vivo">
+                Si
               </label>
             </div>
           </div>
-          <div class="col-md-1">
-            <div class="form-check">
+          <div className="col-md-1">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 id="hermano-muerto"
                 name="opcion_hermano"
@@ -365,12 +375,16 @@ const handlePlanificacionFamiliar = (evt) => {
                 {...register("hermano_vivo", { required: true })}
                 onChange={handleHermanoVivo}
               />
-              <label class="form-check-label" htmlFor="hermano-muerto">
-                {" "}
-                No{" "}
+              <label className="form-check-label" htmlFor="hermano-muerto">
+                No
               </label>
             </div>
           </div>
+          {errors.hermano_vivo && (
+            <p className="errors col-md-12 offset-md-1">
+              ⚠ Ingresa si los hermanos están vivos o no
+            </p>
+          )}
 
           {showhermanoVivo && (
             <div className="col-md-2">
@@ -389,14 +403,14 @@ const handlePlanificacionFamiliar = (evt) => {
 
           <div className="col-md-11"></div>
 
-          <div class="col-md-1 offset-md-1 fw-bold">
-            <label class="form-label">¿Hijos vivos?</label>
+          <div className="col-md-1 offset-md-1 fw-bold">
+            <label className="form-label">¿Hijos vivos?</label>
           </div>
 
-          <div class="col-md-1">
-            <div class="form-check">
+          <div className="col-md-1">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 id="hijos-vivos"
                 name="opcion_hijos"
@@ -404,16 +418,15 @@ const handlePlanificacionFamiliar = (evt) => {
                 {...register("hijos_vivos", { required: true })}
                 onChange={handleHijosVivos}
               />
-              <label class="form-check-label" htmlFor="hijos-vivos">
-                {" "}
-                Si{" "}
+              <label className="form-check-label" htmlFor="hijos-vivos">
+                Si
               </label>
             </div>
           </div>
-          <div class="col-md-1">
-            <div class="form-check">
+          <div className="col-md-1">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 id="hijos-muertos"
                 name="opcion_hijos"
@@ -421,12 +434,16 @@ const handlePlanificacionFamiliar = (evt) => {
                 {...register("hijos_vivos", { required: true })}
                 onChange={handleHijosVivos}
               />
-              <label class="form-check-label" htmlFor="hijos-muertos">
-                {" "}
-                No{" "}
+              <label className="form-check-label" htmlFor="hijos-muertos">
+                No
               </label>
             </div>
           </div>
+          {errors.hijos_vivos && (
+            <p className="errors col-md-12 offset-md-1">
+              ⚠ Ingresa si los hijos están vivos o no
+            </p>
+          )}
 
           {showhijosVivos && (
             <div className="col-md-2">
@@ -458,6 +475,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("agudeza_visual", { required: true })}
               className="form-control"
             />
+            {errors.agudeza_visual && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -471,6 +493,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("hiper_tension", { required: true })}
               className="form-control"
             />
+            {errors.hiper_tension && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -484,6 +511,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("diabetes_mellitus", { required: true })}
               className="form-control"
             />
+            {errors.diabetes_mellitus && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -497,6 +529,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("obesidad", { required: true })}
               className="form-control"
             />
+            {errors.obesidad && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -510,6 +547,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("asma", { required: true })}
               className="form-control"
             />
+            {errors.asma && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2 offset-md-1">
@@ -523,6 +565,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("epilepsia", { required: true })}
               className="form-control"
             />
+            {errors.epilepsia && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -536,6 +583,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("lupus", { required: true })}
               className="form-control"
             />
+            {errors.lupus && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -549,6 +601,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("nefropatias", { required: true })}
               className="form-control"
             />
+            {errors.nefropatias && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -562,6 +619,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("artropatia", { required: true })}
               className="form-control"
             />
+            {errors.artropatia && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -575,6 +637,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("otras_enfermedades", { required: true })}
               className="form-control"
             />
+            {errors.otras_enfermedades && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2 offset-md-1">
@@ -587,6 +654,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("observaciones_enfermedades", { required: true })}
               className="form-control"
             ></textarea>
+            {errors.observaciones_enfermedades && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <h3 className=" offset-md-1 col-md-11">
@@ -604,6 +676,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("lugar_nacimiento", { required: true })}
               className="form-control"
             />
+            {errors.lugar_nacimiento && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -617,6 +694,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("fecha_nacimiento", { required: true })}
               className="form-control"
             />
+            {errors.fecha_nacimiento && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -630,6 +712,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("escolaridad", { required: true })}
               className="form-control"
             />
+            {errors.escolaridad && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -643,6 +730,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("trabajo_actual", { required: true })}
               className="form-control"
             />
+            {errors.trabajo_actual && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div class="col-md-1 offset-md-1 fw-bold">
@@ -683,6 +775,9 @@ const handlePlanificacionFamiliar = (evt) => {
               </label>
             </div>
           </div>
+          {errors.practica_ejercicio && (
+            <p className="errors col-md-12 offset-md-1">⚠ Seleccionar opción</p>
+          )}
 
           {showPracticaEjercicio && (
             <div className="col-md-2">
@@ -739,6 +834,9 @@ const handlePlanificacionFamiliar = (evt) => {
               </label>
             </div>
           </div>
+          {errors.tabaquismo && (
+            <p className="errors col-md-12 offset-md-1">⚠ Seleccionar opción</p>
+          )}
 
           {showTabaquismo && (
             <div className="col-md-2">
@@ -762,7 +860,8 @@ const handlePlanificacionFamiliar = (evt) => {
                 id="tabaco-cantidad"
                 defaultValue={0}
                 placeholder="¿Cuantos al día u ocasional?"
-                value={cualTabaquismoValue2} onChange={(e) => setCualTabaquismoValue2(e.target.value)}
+                value={cualTabaquismoValue2}
+                onChange={(e) => setCualTabaquismoValue2(e.target.value)}
                 {...register("tabaquismo_cantidad", { required: false })}
                 className="form-control"
               />
@@ -809,6 +908,9 @@ const handlePlanificacionFamiliar = (evt) => {
               </label>
             </div>
           </div>
+          {errors.alcoholismo && (
+            <p className="errors col-md-12 offset-md-1">⚠ Seleccionar opción</p>
+          )}
 
           {showAlcoholismo && (
             <div className="col-md-2">
@@ -820,7 +922,7 @@ const handlePlanificacionFamiliar = (evt) => {
                 id="alcoholico-edad"
                 defaultValue={0}
                 placeholder="¿Desde cuando? (Edad aprox)"
-                {...register("alcoholismo_edad", { required: false })}
+                {...register("alcoholismo_edad", { required: true })}
                 className="form-control"
               />
             </div>
@@ -837,9 +939,14 @@ const handlePlanificacionFamiliar = (evt) => {
               type="text"
               placeholder="Inmunizaciones"
               id="inmunizaciones"
-              {...register("inmunizaciones", { required: false })}
+              {...register("inmunizaciones", { required: true })}
               className="form-control"
             />
+            {errors.inmunizaciones && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -850,9 +957,14 @@ const handlePlanificacionFamiliar = (evt) => {
               type="text"
               placeholder="Habitos higienicos"
               id="habitos-higienicos"
-              {...register("habitos_higienicos", { required: false })}
+              {...register("habitos_higienicos", { required: true })}
               className="form-control"
             />
+            {errors.habitos_higienicos && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-4">
@@ -863,9 +975,14 @@ const handlePlanificacionFamiliar = (evt) => {
               type="text"
               placeholder="Habitos alimenticios"
               id="alimenticios"
-              {...register("habitos_alimenticios", { required: false })}
+              {...register("habitos_alimenticios", { required: true })}
               className="form-control"
             />
+            {errors.habitos_alimenticios && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-4 offset-md-1">
@@ -876,9 +993,14 @@ const handlePlanificacionFamiliar = (evt) => {
               type="text"
               placeholder="Especifique habitos"
               id="habitos"
-              {...register("especifique_habitos", { required: false })}
+              {...register("especifique_habitos", { required: true })}
               className="form-control"
             />
+            {errors.especifique_habitos && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <h3 className="offset-md-1 col-md-11">
@@ -1073,6 +1195,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("traumatismos", { required: true })}
               className="form-control"
             />
+            {errors.traumatismos && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -1086,6 +1213,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("quirurgicos", { required: true })}
               className="form-control"
             />
+            {errors.quirurgicos && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -1098,6 +1230,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("transfusiones", { required: true })}
               className="form-control"
             />
+            {errors.transfusiones && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -1108,6 +1245,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("grupo_sanguineo", { required: true })}
               className="form-control"
             />
+            {errors.grupo_sanguineo && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -1120,6 +1262,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("factor_rh", { required: true })}
               className="form-control"
             />
+            {errors.factor_rh && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2 offset-md-1">
@@ -1132,6 +1279,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("alergias", { required: true })}
               className="form-control"
             />
+            {errors.alergias && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -1144,6 +1296,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("infecciones", { required: true })}
               className="form-control"
             />
+            {errors.infecciones && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -1156,6 +1313,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("dengue_paludismo", { required: true })}
               className="form-control"
             />
+            {errors.dengue_paludismo && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -1168,6 +1330,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("tatuajes", { required: true })}
               className="form-control"
             />
+            {errors.tatuajes && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <h3 className="offset-md-1 col-md-11">4. EXPLORACIÓN FÍSICA</h3>
@@ -1178,10 +1345,19 @@ const handlePlanificacionFamiliar = (evt) => {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="Tension arterial mmHg"
-              {...register("tension_arterial", { required: true })}
+              {...register("tension_arterial", {
+                required: true,
+                valueAsNumber: true,
+              })}
               className="form-control"
             />
+            {errors.tension_arterial && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -1190,10 +1366,19 @@ const handlePlanificacionFamiliar = (evt) => {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="FC"
-              {...register("frecuencia_cardiaca", { required: true })}
+              {...register("frecuencia_cardiaca", {
+                required: true,
+                valueAsNumber: true,
+              })}
               className="form-control"
             />
+            {errors.frecuencia_cardiaca && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -1202,10 +1387,19 @@ const handlePlanificacionFamiliar = (evt) => {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="FR"
-              {...register("frecuencia_respiratoria", { required: true })}
+              {...register("frecuencia_respiratoria", {
+                required: true,
+                valueAsNumber: true,
+              })}
               className="form-control"
             />
+            {errors.frecuencia_respiratoria && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -1214,10 +1408,19 @@ const handlePlanificacionFamiliar = (evt) => {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="Oxigenación %"
-              {...register("oxigenacion", { required: true })}
+              {...register("oxigenacion", {
+                required: true,
+                valueAsNumber: true,
+              })}
               className="form-control"
             />
+            {errors.oxigenacion && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -1226,10 +1429,19 @@ const handlePlanificacionFamiliar = (evt) => {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="Temperatura °C"
-              {...register("temperatura", { required: true })}
+              {...register("temperatura", {
+                required: true,
+                valueAsNumber: true,
+              })}
               className="form-control"
             />
+            {errors.temperatura && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <h3 className="offset-md-1 col-md-11">5. ANTROPOMETRÍA</h3>
@@ -1240,10 +1452,19 @@ const handlePlanificacionFamiliar = (evt) => {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="peso actual en Kg"
-              {...register("peso_actual", { required: true })}
+              {...register("peso_actual", {
+                required: true,
+                valueAsNumber: true,
+              })}
               className="form-control"
             />
+            {errors.peso_actual && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -1251,29 +1472,49 @@ const handlePlanificacionFamiliar = (evt) => {
             <input
               type="text"
               placeholder="Talla"
-              {...register("talla", { required: true })}
+              {...register("talla", { required: true, valueAsNumber: true })}
               className="form-control"
             />
+            {errors.talla && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
             <label className="form-label">IMC (Kg/m^2):</label>
             <input
               type="number"
+              step="0.01"
               placeholder="IMC"
-              {...register("imc", { required: true })}
+              {...register("imc", { required: true, valueAsNumber: true })}
               className="form-control"
             />
+            {errors.imc && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
             <label className="form-label">Circunferencia abdominal (cm):</label>
             <input
               type="number"
+              step="0.01"
               placeholder="Circunferencia del abdomen"
-              {...register("circunferencia_abd", { required: true })}
+              {...register("circunferencia_abd", {
+                required: true,
+                valueAsNumber: true,
+              })}
               className="form-control"
             />
+            {errors.circunferencia_abd && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2">
@@ -1282,10 +1523,19 @@ const handlePlanificacionFamiliar = (evt) => {
             </label>
             <input
               type="number"
+              step="0.01"
               placeholder="Circunferencia cadera"
-              {...register("circunferencia_cadera", { required: true })}
+              {...register("circunferencia_cadera", {
+                required: true,
+                valueAsNumber: true,
+              })}
               className="form-control"
             />
+            {errors.circunferencia_cadera && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-2 offset-md-1">
@@ -1295,6 +1545,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("observaciones_antropometria", { required: true })}
               className="form-control"
             ></textarea>
+            {errors.observaciones_antropometria && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <h3 className="offset-md-1 col-md-11">6. EXÁMEN FÍSICO</h3>
@@ -1307,6 +1562,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("EF_cabeza", { required: true })}
               className="form-control"
             />
+            {errors.EF_cabeza && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -1317,6 +1577,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("EF_cuello", { required: true })}
               className="form-control"
             />
+            {errors.EF_cuello && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -1325,9 +1590,13 @@ const handlePlanificacionFamiliar = (evt) => {
               type="text"
               placeholder="Torax"
               {...register("EF_torax", { required: true })}
-              class
               className="form-control"
             />
+            {errors.EF_torax && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3 offset-md-1">
@@ -1338,6 +1607,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("EF_abdomen", { required: true })}
               className="form-control"
             />
+            {errors.EF_abdomen && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <h4 className="offset-md-1 col-md-11">Extremidades</h4>
@@ -1350,6 +1624,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("EF_EXT_sup", { required: true })}
               className="form-control"
             />
+            {errors.EF_EXT_sup && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -1360,6 +1639,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("EF_EXT_inf", { required: true })}
               className="form-control"
             />
+            {errors.EF_EXT_inf && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -1370,6 +1654,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("EF_EXT_rodillas", { required: true })}
               className="form-control"
             />
+            {errors.EF_EXT_rodillas && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3 offset-md-1">
@@ -1380,6 +1669,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("EF_EXT_pelvis", { required: true })}
               className="form-control"
             />
+            {errors.EF_EXT_pelvis && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -1390,6 +1684,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("EF_EXT_pies", { required: true })}
               className="form-control"
             />
+            {errors.EF_EXT_pies && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <h3 className="offset-md-1 col-md-11">7. EXÁMENES DE LABORATORIO</h3>
@@ -1402,6 +1701,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("biometria_hematica", { required: true })}
               className="form-control"
             />
+            {errors.biometria_hematica && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -1412,6 +1716,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("quimica_sanguinea", { required: true })}
               className="form-control"
             />
+            {errors.quimica_sanguinea && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -1422,6 +1731,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("vdrl", { required: true })}
               className="form-control"
             />
+            {errors.vdrl && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3 offset-md-1">
@@ -1432,6 +1746,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("prueba_vih", { required: true })}
               className="form-control"
             />
+            {errors.prueba_vih && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -1442,6 +1761,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("antidoping", { required: true })}
               className="form-control"
             />
+            {errors.antidoping && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -1452,6 +1776,11 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("examen_orina", { required: true })}
               className="form-control"
             />
+            {errors.examen_orina && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
 
           <div className="col-md-10 offset-md-1">
@@ -1461,7 +1790,13 @@ const handlePlanificacionFamiliar = (evt) => {
               {...register("diagnostico", { required: true })}
               className="form-control"
             ></textarea>
+            {errors.diagnostico && (
+              <div className="alert alert-danger" role="alert">
+                ⚠ Este campo es requerido
+              </div>
+            )}
           </div>
+
           <div className="col-md-3 offset-md-1 mt-4 mb-4">
             <button className="button-guardar btn btn-success">Guardar</button>
           </div>

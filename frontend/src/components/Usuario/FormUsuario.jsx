@@ -2,20 +2,19 @@ import { useContext, useState, useEffect } from "react";
 import { setToken } from "../../services/HeaderAuthorization";
 import AuthContext from "../../context/AuthProvider";
 
-export function FormUsuario({ onSubmit, register }) {
+export function FormUsuario({ onSubmit, register, errors }) {
   const { authTokens } = useContext(AuthContext);
 
   return (
     <>
       <div className="container-fluid">
         <div className="row g-3 mt-2">
-         
-        <div className="text-with-lines">
+          <div className="text-with-lines">
             <div className="line line-top"></div>
             <p className="display-5 fw-bold">REGISTRO DE USUARIO</p>
             <div className="line line-bottom"></div>
           </div>
-          
+
           <form onSubmit={onSubmit}>
             <div className="col-md-9 offset-md-1">
               <label htmlFor="nombre" className="form-label">
@@ -26,9 +25,22 @@ export function FormUsuario({ onSubmit, register }) {
                 name="nombre"
                 id="nombre"
                 placeholder="Nombre"
-                {...register("first_name", { required: true })}
+                {...register("first_name", {
+                  required: true,
+                  minLength: 2,
+                  maxLength: 50,
+                })}
                 className="form-control"
               />
+              {errors.first_name?.type === "required" && (
+                <p className="errors">Ingrese su nombre</p>
+              )}
+              {errors.first_name?.type === "minLength" && (
+                <p className="errors">Ingrese mínimo 2 caracteres</p>
+              )}
+              {errors.first_name?.type === "maxLength" && (
+                <p className="errors">Ingrese máximo 50 caracteres</p>
+              )}
             </div>
 
             <div className="col-md-9 offset-md-1">
@@ -41,9 +53,22 @@ export function FormUsuario({ onSubmit, register }) {
                 name="apellido"
                 id="apellido"
                 placeholder="Apellido"
-                {...register("last_name", { required: true })}
+                {...register("last_name", {
+                  required: true,
+                  minLength: 2,
+                  maxLength: 50,
+                })}
                 className="form-control"
               />
+              {errors.last_name?.type === "required" && (
+                <p className="errors">Ingrese su apellido</p>
+              )}
+              {errors.last_name?.type === "minLength" && (
+                <p className="errors">Ingrese mínimo 2 caracteres</p>
+              )}
+              {errors.last_name?.type === "maxLength" && (
+                <p className="errors">Ingrese máximo 50 caracteres</p>
+              )}
             </div>
 
             <div className="col-md-9 offset-md-1">
@@ -56,9 +81,19 @@ export function FormUsuario({ onSubmit, register }) {
                 name="segundoApellido"
                 id="segundoApellido"
                 placeholder="segundo Apellido"
-                {...register("second_last_name", { required: true })}
+                {...register("second_last_name", {
+                  required: false,
+                  minLength: 2,
+                  maxLength: 50,
+                })}
                 className="form-control"
               />
+              {errors.second_last_name?.type === "minLength" && (
+                <p className="errors">Ingrese mínimo 2 caracteres</p>
+              )}
+              {errors.second_last_name?.type === "maxLength" && (
+                <p className="errors">Ingrese máximo 50 caracteres</p>
+              )}
             </div>
 
             <div className="col-md-4 offset-md-1">
@@ -71,9 +106,27 @@ export function FormUsuario({ onSubmit, register }) {
                 name="correo"
                 id="correo"
                 placeholder="Correo"
-                {...register("email", { required: true })}
+                {...register("email", {
+                  required: true,
+                  minLength: 2,
+                  maxLength: 100,
+                  pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
+                })}
                 className="form-control"
               />
+
+              {errors.email?.type === "required" && (
+                <p className="errors">Ingrese su correo</p>
+              )}
+              {errors.email?.type === "minLength" && (
+                <p className="errors">Ingrese mínimo 2 caracteres</p>
+              )}
+              {errors.email?.type === "maxLength" && (
+                <p className="errors">Ingrese máximo 100 caracteres</p>
+              )}
+              {errors.email?.type === "pattern" && (
+                <p className="errors">El formato del correo no es valido</p>
+              )}
             </div>
 
             <div className="col-md-4 offset-md-1">
@@ -89,58 +142,92 @@ export function FormUsuario({ onSubmit, register }) {
                   className="form-check-input"
                 />
               </div>
+              {errors.is_active?.type === "required" && (
+                <p className="errors">Marque el estado</p>
+              )}
             </div>
 
-                <div className="col-md-2 offset-md-1 " >
-                <label htmlFor="rol" className="form-label">Selecciona un rol:</label>
+            <div className="col-md-2 offset-md-1 ">
+              <label htmlFor="rol" className="form-label">
+                Selecciona un rol:
+              </label>
 
-                     <select
-              name="rol"
-              id="rol"
-              {...register("idRol", { required: true })}
-              className="form-select"
-
-            >
-              <option value={1}>Psicologo</option>
-              <option value={2}>Recepcionista</option>
-              <option value={3}>Medico General</option>
-              <option value={4}>Odontologo</option>
-              <option value={5}>Nutriologo</option>
-
-
-            </select>
-                </div>
-           
+              <select
+                name="rol"
+                id="rol"
+                {...register("idRol", { required: true })}
+                className="form-select"
+              >
+                <option value={1}>Psicologo</option>
+                <option value={2}>Recepcionista</option>
+                <option value={3}>Medico General</option>
+                <option value={4}>Odontologo</option>
+                <option value={5}>Nutriologo</option>
+              </select>
+              {errors.idRol?.type === "required" && (
+                <p className="errors">Seleccione un rol</p>
+              )}
+            </div>
 
             <div className="col-md-2 offset-md-1">
-            <label htmlFor="username" className="form-label">nombre de usuario:</label>
+              <label htmlFor="username" className="form-label">
+                nombre de usuario:
+              </label>
 
-                <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Nombre de usuario"
-              {...register("username", { required: true })}
-              className="form-control"
-            />
+              <input
+                type="text"
+                name="username"
+                id="username"
+                placeholder="Nombre de usuario"
+                {...register("username", {
+                  required: true,
+                  minLength: 2,
+                  maxLength: 20,
+                })}
+                className="form-control"
+              />
+              {errors.username?.type === "required" && (
+                <p className="errors">Ingrese su nombre de usuario</p>
+              )}
+              {errors.username?.type === "minLength" && (
+                <p className="errors">Ingrese mínimo 2 caracteres</p>
+              )}
+              {errors.username?.type === "maxLength" && (
+                <p className="errors">Ingrese máximo 20 caracteres</p>
+              )}
             </div>
-            
 
-            <div className="col-md-2 offset-md-1" >
-            <label htmlFor="password" className="form-label">Contraseña:</label>
-                <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Contraseña"
-              {...register("password", { required: true })}
-              className="form-control"
-            />
+            <div className="col-md-2 offset-md-1">
+              <label htmlFor="password" className="form-label">
+                Contraseña:
+              </label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Contraseña"
+                {...register("password", {
+                  required: true,
+                  minLength: 2,
+                  maxLength: 20,
+                })}
+                className="form-control"
+              />
+              {errors.password?.type === "required" && (
+                <p className="errors">Ingrese su contraseña</p>
+              )}
+              {errors.password?.type === "minLength" && (
+                <p className="errors">Ingrese mínimo 2 caracteres</p>
+              )}
+              {errors.password?.type === "maxLength" && (
+                <p className="errors">Ingrese máximo 20 caracteres</p>
+              )}
             </div>
-            
 
             <div className="col-md-5 offset-1 mt-4 mb-4">
-              <button className="button-guardar btn btn-success">Guardar</button>
+              <button className="button-guardar btn btn-success">
+                Guardar
+              </button>
             </div>
           </form>
         </div>

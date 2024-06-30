@@ -78,20 +78,21 @@ function App() {
           <Route path="/ver_evento/:idEvento" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1, 2, 3, 4, 5]}><ViewEvento /></ProtectedRoute>} />
 
 
-          <Route path="/buscar_paciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1, 2, 3, 4, 5]}><BuscarPacientePage /></ProtectedRoute>} />
-          <Route path="/buscar_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[2]}><ViewPaciente /></ProtectedRoute>} />
-          <Route path="/citas_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1, 2, 3, 4, 5]}><CitasPacientePage /></ProtectedRoute>} />
-          <Route path="/citas" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[2]}><CitasPage /></ProtectedRoute>} />
-          <Route path="/historial-clinico/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1, 2, 3, 4, 5]}><HistorialClinico /></ProtectedRoute>} />
-          <Route path="/examen-medico/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1, 2, 3, 4, 5]}><ExamenMedico /></ProtectedRoute>} />
-          <Route path="/calendario" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1, 2, 3, 4, 5,]}><CalendarioPage /></ProtectedRoute>} />
-          <Route path="/registrar_evaluacionclinica" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3, 4, 5]}><ReHojaEvaluacion /></ProtectedRoute>} />
-          <Route path="/registrar_examenmedico" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3, 4, 5]}><ReExamenMedico /></ProtectedRoute>} />
-          <Route path="/ver_evaluacionClinica" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1, 3, 4, 5]}><VerHojasDeEvaluacionPage /></ProtectedRoute>} />
-          <Route path="/ver_evaluacionClinica/:idHojaClinica" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1, 3, 4, 5]}><ViewHojaDeEvaluacion /></ProtectedRoute>} />
-          <Route path="/ver_examenMedico" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1, 3, 4, 5]}><VerExamenMedico /></ProtectedRoute>} />
-          <Route path="/ver_examenMedico/:idExamenMedico" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1, 3, 4, 5]}><ViewExamenMedico /></ProtectedRoute>} />
-          <Route path="/reportes" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1, 2, 3, 4, 5]}><ReportePage /></ProtectedRoute>} />
+
+            <Route path="/buscar_paciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5]}><BuscarPacientePage /></ProtectedRoute>} />
+            <Route path="/buscar_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[2]}><ViewPaciente /></ProtectedRoute>} />
+            <Route path="/citas_paciente/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5]}><CitasPacientePage /></ProtectedRoute>} />
+            <Route path="/citas" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[2]}><CitasPage /></ProtectedRoute>} />
+            <Route path="/historial-clinico/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5]}><HistorialClinico /></ProtectedRoute>} />
+            <Route path="/examen-medico/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5]}><ExamenMedico /></ProtectedRoute>} />
+            <Route path="/calendario" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5,]}><CalendarioPage /></ProtectedRoute>} />
+            <Route path="/registrar_evaluacionclinica" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5]}><ReHojaEvaluacion/></ProtectedRoute>} />
+            <Route path="/registrar_examenmedico" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5]}><ReExamenMedico/></ProtectedRoute>} />
+            <Route path="/ver_evaluacionClinica" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3,4,5]}><VerHojasDeEvaluacionPage/></ProtectedRoute>} />
+            <Route path="/ver_evaluacionClinica/:idHojaClinica" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3,4,5]}><ViewHojaDeEvaluacion/></ProtectedRoute>} />
+            <Route path="/ver_examenMedico" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3,4,5]}><VerExamenMedico/></ProtectedRoute>} />
+            <Route path="/ver_examenMedico/:idExamenMedico" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3,4,5]}><ViewExamenMedico/></ProtectedRoute>} />
+            <Route path="/reportes" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5]}><ReportePage/></ProtectedRoute>} />
 
 
           <Route path="/visualizar_fichapsiadulto" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1]}><VFichaPsicoAdultoPage /></ProtectedRoute>} />

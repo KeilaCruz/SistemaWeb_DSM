@@ -100,6 +100,11 @@ class FichaPsicologicaNiño(models.Model):
 
     def __str__(self):
         return self.expedienteFicha
+    
+    
+def ruta_hoja_clinica(instance, filename):
+    # Genera la ruta de almacenamiento para el archivo
+    return "documentoHistorialClinico/{0}/{1}".format(instance.id, filename)
 
 
 class HojaEvaluacionClinica(models.Model):
@@ -108,6 +113,7 @@ class HojaEvaluacionClinica(models.Model):
     idPaciente = models.ForeignKey(Paciente, on_delete=models.DO_NOTHING)
     nota_medica = models.TextField(default="")
     datos_nota_enfermeria = models.JSONField()
+    archivo = models.FileField(upload_to=ruta_hoja_clinica, null=True, blank=True)
 
     def __str__(self):
         return self.idHojaClinica

@@ -64,9 +64,24 @@ class FichaPsicoAdultoSerializer(serializers.ModelSerializer):
 
 
 class HistorialClinicoSerializer(serializers.ModelSerializer):
+    
+    archivo = serializers.FileField(required=False)
+
     class Meta:
         model = HojaEvaluacionClinica
         fields = "__all__"
+
+    def create(self, validated_data):
+        archivo = validated_data.pop("archivo", None)
+        historial = HojaEvaluacionClinica.objects.create(**validated_data)
+
+        if archivo:
+            historial.archivo = archivo
+            historial.save()
+
+        return historial
+    
+    
 
 
 class LoginSessionInfoSerializer(TokenObtainPairSerializer):
