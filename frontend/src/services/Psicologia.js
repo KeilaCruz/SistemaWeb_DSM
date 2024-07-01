@@ -1,5 +1,6 @@
 import axios from "axios";
-import { getConfig } from "./HeaderAuthorization";
+import Swal from "sweetalert2";
+import { getConfig, getConfigFiles } from "./HeaderAuthorization";
 
 const SAVE_URL_FICHAPSICO_NIÑO = "http://127.0.0.1:8000/api/registrar_fichapsi_nino";
 const SAVE_URL_FICHAPSICO_ADULTO = "http://127.0.0.1:8000/api/registrar_fichapsi_adulto";
@@ -13,10 +14,20 @@ const URL_GETEVOLUCION_ADULTO = "http://127.0.0.1:8000/api/visualizar_evolucion_
 const URL_GETEVOLUCION_NINO = "http://127.0.0.1:8000/api/visualizar_evolucion_ninio/"
 export const registerFichaPsiNiño = async (fichaPsicoNiño) => {
     try {
-        const config = await getConfig()
+        const config = await getConfigFiles()
         const response = await axios.post(SAVE_URL_FICHAPSICO_NIÑO, fichaPsicoNiño, config)
         if (response.status === 201) {
-            alert("Registrada historia psicologica del niño")
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Registrado con exito.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log('Se hizo clic en Aceptar');
+                }
+            });
         } else {
             return response
         }
@@ -26,10 +37,20 @@ export const registerFichaPsiNiño = async (fichaPsicoNiño) => {
 }
 export const registerFichaPsiAdulto = async (fichaPsicoAdulto) => {
     try {
-        const config = await getConfig()
+        const config = await getConfigFiles()
         const response = await axios.post(SAVE_URL_FICHAPSICO_ADULTO, fichaPsicoAdulto, config)
         if (response.status === 201) {
-            alert("Registrada historia psicologica del adulto")
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Registrado con exito.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log('Se hizo clic en Aceptar');
+                }
+            });
         } else {
             return response;
         }

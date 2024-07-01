@@ -8,11 +8,13 @@ export function FormHojaDeEvaluacion({
   onSubmit,
   register,
   pacienteSelect,
+  setPacienteSelect,
   errors,
 }) {
   const { authTokens } = useContext(AuthContext);
   const [criterio, setCriterio] = useState("");
   const [paciente, setPaciente] = useState([]);
+  const [archivosSeleccionados, setArchivosSeleccionados] = useState([])
 
   const handleBarraBusqueda = (evt) => {
     setCriterio(evt.target.value);
@@ -29,9 +31,13 @@ export function FormHojaDeEvaluacion({
   };
 
   const selectPaciente = (CURP) => {
-    pacienteSelect(CURP);
-  };
-
+    setPacienteSelect(CURP)
+  }
+  const handleFileChange = (evt) => {
+    const archivos = evt.target.files;
+    const nombreArchivos = Array.from(archivos).map((archivo) => archivo.name)
+    setArchivosSeleccionados(nombreArchivos)
+  }
   return (
     <div>
       <div className="container-fluid">
@@ -76,6 +82,8 @@ export function FormHojaDeEvaluacion({
               paciente={paciente}
               key={paciente.CURP}
               handleSelect={selectPaciente}
+              setPacienteSelect={setPacienteSelect}
+              isSelected={paciente.CURP === pacienteSelect}
             />
           ))}
         </div>
@@ -318,15 +326,11 @@ export function FormHojaDeEvaluacion({
             <label htmlFor="archivo" className="form-label">
               Archivo:
             </label>
-            <input
-              id="archivo"
-              type="file"
-              multiple
-              {...register("archivo", { required: false })}
-              className="form-control"
-            ></input>
+            <input type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} className="form-control" />
+            {archivosSeleccionados.map((nombreArchivo, index) => (
+              <label key={index}>{nombreArchivo}</label>
+            ))}
           </div>
-
           <div className="col-md-5 offset-1 mt-4 mb-4">
             <button className="button-guardar btn btn-success">Guardar</button>
           </div>

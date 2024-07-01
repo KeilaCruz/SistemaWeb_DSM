@@ -69,7 +69,8 @@ class HistoriaNutricion(models.Model):
     def __str__(self):
         return self.idHistoriaNutricion
 
-
+def ruta_fichapsico_adulto(instance, filename):
+    return "docsPsicoAdulto/{0}/{1}".format(instance.idPaciente, filename)
 class FichaPsicologicaAdulto(models.Model):
     expedienteFicha = models.CharField(max_length=20, primary_key=True)
     idPaciente = models.ForeignKey(Paciente, on_delete=models.DO_NOTHING)
@@ -83,11 +84,12 @@ class FichaPsicologicaAdulto(models.Model):
     datos_familiares = models.JSONField()
     datos_medico_quirurgica = models.JSONField()
     datos_sexual = models.JSONField()
-
+    archivo = models.FileField(upload_to=ruta_fichapsico_adulto, null=True, blank=True)
     def __str__(self):
         return self.expedienteFicha
 
-
+def ruta_fichapsico_nino(instance, filename):
+    return "docsPsicoNiño/{0}/{1}".format(instance.idPaciente, filename)
 class FichaPsicologicaNiño(models.Model):
     expedienteFicha = models.CharField(max_length=20, primary_key=True)
     idPaciente = models.ForeignKey(Paciente, on_delete=models.DO_NOTHING)
@@ -97,14 +99,14 @@ class FichaPsicologicaNiño(models.Model):
     antecedentes_padecimiento = models.JSONField()
     antecedentes_desarrollo = models.JSONField()
     datos_escolares = models.JSONField()
-
+    archivo = models.FileField(upload_to=ruta_fichapsico_nino, null=True, blank=True)
     def __str__(self):
         return self.expedienteFicha
-    
-    
+
+
 def ruta_hoja_clinica(instance, filename):
     # Genera la ruta de almacenamiento para el archivo
-    return "documentoHistorialClinico/{0}/{1}".format(instance.id, filename)
+    return "docsHistorialClinico/{0}/{1}".format(instance.idPaciente, filename)
 
 
 class HojaEvaluacionClinica(models.Model):
@@ -117,6 +119,10 @@ class HojaEvaluacionClinica(models.Model):
 
     def __str__(self):
         return self.idHojaClinica
+
+
+def ruta_examen_medico(instance, filename):
+    return "docsExamenMedico/{0}/{1}".format(instance.idPaciente, filename)
 
 
 class ExamenMedico(models.Model):
@@ -133,6 +139,7 @@ class ExamenMedico(models.Model):
     datos_antropometria = models.JSONField()
     datos_examen_medico = models.JSONField()
     datos_examenes_laboratorio = models.JSONField()
+    archivo = models.FileField(upload_to=ruta_examen_medico, null=True, blank=True)
 
     def __str__(self):
         return self.idExamenMedico

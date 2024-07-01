@@ -4,13 +4,15 @@ import { setToken } from "../../services/HeaderAuthorization";
 import { searchPaciente } from "../../services/Recepcionista";
 import { PacienteCard } from "../Paciente/PacienteCard";
 
-export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect, errors }) {
+export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect, setPacienteSelect, errors }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages] = useState(4);
     const { authTokens } = useContext(AuthContext);
     const [criterio, setCriterio] = useState("")
     const [paciente, setPaciente] = useState([])
     const [isResult, setIsResult] = useState(true)
+    const [archivosSeleccionados, setArchivosSeleccionados] = useState([])
+
     const handleBarraBusqueda = (evt) => {
         setCriterio(evt.target.value)
     }
@@ -30,13 +32,18 @@ export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect, errors
         }
     }
     const selectPaciente = (CURP) => {
-        pacienteSelect(CURP)
+        setPacienteSelect(CURP)
     }
     const handleNextPage = () => {
         setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
     }
     const handlePrevPage = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    }
+    const handleFileChange = (evt) => {
+        const archivos = evt.target.files;
+        const nombreArchivos = Array.from(archivos).map((archivo) => archivo.name)
+        setArchivosSeleccionados(nombreArchivos)
     }
     return (
         <>
@@ -82,7 +89,7 @@ export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect, errors
                                 {isResult ? (
                                     <div>
                                         {paciente.map(paciente => (
-                                            <PacienteCard paciente={paciente} key={paciente.CURP} handleSelect={selectPaciente} register={register}/>
+                                            <PacienteCard paciente={paciente} key={paciente.CURP} handleSelect={selectPaciente} isSelected={paciente.CURP === pacienteSelect} />
                                         ))}
                                     </div>
                                 ) : (
@@ -930,6 +937,12 @@ export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect, errors
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                     )
                                 }
+                            </div>
+                            <div>
+                                <input type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
+                                {archivosSeleccionados.map((nombreArchivo, index) => (
+                                    <label key={index}>{nombreArchivo}</label>
+                                ))}
                             </div>
                             <div className="col-md-8 offset-1 mt-4 mb-4">
                                 <button type="submit" className="button-guardar mx-auto rounded">Guardar</button>

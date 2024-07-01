@@ -9,12 +9,14 @@ export function FormExamenMedico({
   onSubmit,
   register,
   pacienteSelect,
+  setPacienteSelect,
   errors,
 }) {
   const { authTokens } = useContext(AuthContext);
   const [criterio, setCriterio] = useState("");
   const [paciente, setPaciente] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
+  const [archivosSeleccionados, setArchivosSeleccionados] = useState([])
 
   useEffect(() => {
     const fetchUsuarios = async () => {
@@ -45,9 +47,14 @@ export function FormExamenMedico({
   };
 
   const selectPaciente = (CURP) => {
-    pacienteSelect(CURP);
-  };
-
+    setPacienteSelect(CURP)
+  }
+  
+  const handleFileChange = (evt) => {
+    const archivos = evt.target.files;
+    const nombreArchivos = Array.from(archivos).map((archivo) => archivo.name)
+    setArchivosSeleccionados(nombreArchivos)
+  }
   const [showmadreViva, setShowMadreViva] = useState(false);
   const [showpadreVivo, setShowPadreVivo] = useState(false);
   const [showhermanoVivo, setShowHermanoVivo] = useState(false);
@@ -181,6 +188,7 @@ export function FormExamenMedico({
             paciente={paciente}
             key={paciente.CURP}
             handleSelect={selectPaciente}
+            isSelected={paciente.CURP === pacienteSelect}
           />
         ))}
       </div>
@@ -1796,7 +1804,12 @@ export function FormExamenMedico({
               </div>
             )}
           </div>
-
+          <div className="col-md-4 offset-md-1">
+            <input type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
+            {archivosSeleccionados.map((nombreArchivo, index) => (
+              <label key={index}>{nombreArchivo}</label>
+            ))}
+          </div>
           <div className="col-md-3 offset-md-1 mt-4 mb-4">
             <button className="button-guardar btn btn-success">Guardar</button>
           </div>

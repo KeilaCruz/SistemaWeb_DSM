@@ -12,7 +12,9 @@ export function AddHistorialNutricion() {
 
     const onSubmit = handleSubmit(async (data) => {
         const formData = new FormData();
-        const parseBoolean = (value) => value === "true"
+        const parseBoolean = (value) => {
+            return value === "true"
+        }
         formData.append('datos_personales', JSON.stringify({
             num_expediente: data.num_expediente,
             fecha_nacimiento: data.fecha_nacimiento,

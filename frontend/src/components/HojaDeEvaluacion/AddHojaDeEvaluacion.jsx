@@ -6,7 +6,7 @@ import { registerHojaEvaluacion } from "../../services/DoctorGeneral"
 import { setToken } from "../../services/HeaderAuthorization"
 
 export function AddHojaDeEvaluacion() {
-    const { register, handleSubmit, formState:{errors} } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
     const { authTokens } = useContext(AuthContext)
     const [pacienteSelect, setPacienteSelect] = useState("")
 
@@ -14,37 +14,37 @@ export function AddHojaDeEvaluacion() {
 
         const formData = new FormData();
 
-    // Añadir archivos a FormData si existen
-    if (data.archivo !== null && data.archivo.length > 0) {
-        for (let i = 0; i < data.archivo.length; i++) {
-            formData.append('archivo', data.archivo[i]);
+        // Añadir archivos a FormData si existen
+        /*if (data.archivo !== null && data.archivo.length > 0) {
+            for (let i = 0; i < data.archivo.length; i++) {
+                formData.append('archivo', data.archivo[i]);
+            }
         }
-    }
-
-        const hojaEvaluacion = {
-            fecha_revision: data.fecha_revision,
-            nota_medica: data.nota_medica,
-            "datos_nota_enfermeria": {
-                tension_arterial: data.tension_arterial,
-                frecuencia_cardiaca: data.frecuencia_cardiaca,
-                frecuencia_respiratoria: data. frecuencia_respiratoria,
-                temperatura: data.temperatura,
-                imc: data.imc,
-                saturacion_oxigeno: data.saturacion_oxigeno,
-                glucosa: data.glucosa,
-                peso: data.peso,
-                talla: data.talla,
-                cintura: data.cintura,
-            },
-            idPaciente: pacienteSelect,
-            
-        };
-         // Añadir el objeto hojaEvaluacion a FormData
-    formData.append('hojaEvaluacion', JSON.stringify(hojaEvaluacion));
-
+        */
+        formData.append('fecha_revision', data.fecha_revision)
+        formData.append('nota_medica', data.nota_medica)
+        formData.append('datos_nota_enfermeria', JSON.stringify({
+            tension_arterial: data.tension_arterial,
+            frecuencia_cardiaca: data.frecuencia_cardiaca,
+            frecuencia_respiratoria: data.frecuencia_respiratoria,
+            temperatura: data.temperatura,
+            imc: data.imc,
+            saturacion_oxigeno: data.saturacion_oxigeno,
+            glucosa: data.glucosa,
+            peso: data.peso,
+            talla: data.talla,
+            cintura: data.cintura,
+        }))
+        formData.append('idPaciente', pacienteSelect)
+        if (data.archivo && data.archivo[0] instanceof File) {
+            formData.append('archivo', data.archivo[0]);
+        } else {
+            console.error('El archivo no es válido');
+            return;
+        }
         try {
             await setToken(authTokens.access);
-            const response = await registerHojaEvaluacion(hojaEvaluacion);
+            const response = await registerHojaEvaluacion(formData);
             console.log(response)
         } catch (error) {
             console.error(error)
@@ -53,7 +53,7 @@ export function AddHojaDeEvaluacion() {
     })
     return (
         <>
-            <FormHojaDeEvaluacion register={register} onSubmit={onSubmit} pacienteSelect={setPacienteSelect} errors={errors} />
+            <FormHojaDeEvaluacion register={register} onSubmit={onSubmit} pacienteSelect={pacienteSelect} setPacienteSelect={setPacienteSelect} errors={errors} />
         </>
     )
 }
