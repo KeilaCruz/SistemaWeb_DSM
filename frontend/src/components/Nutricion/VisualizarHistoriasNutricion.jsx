@@ -24,9 +24,11 @@ export function VisualizarHistoriasNutricion() {
         }
         loadHistorias()
     }, [])
+
     const handleHistorias = (idPaciente) => {
         navigate(`/historia_nutricion/${idPaciente}`)
     }
+    
     return (
         <>
             <div className="container-fluid">

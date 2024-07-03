@@ -67,10 +67,10 @@ function App() {
           <Route path="/registrarpaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[2]}><RePacientePage /></ProtectedRoute>} />
           <Route path="/agendarcita" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[2]}><AgendarCitaPage /></ProtectedRoute>} />
           <Route path="/crear_usuario" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[2]}><CrearUsuario /></ProtectedRoute>} />
-          <Route path="/ver_usuario" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[2, 1]}><VerUsuariosPage /></ProtectedRoute>} />
-          <Route path="/ver_usuario/:id" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[2, 1]}><ViewUsuario /></ProtectedRoute>} />
+          <Route path="/ver_usuario" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[2]}><VerUsuariosPage /></ProtectedRoute>} />
+          <Route path="/ver_usuario/:id" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[2]}><ViewUsuario /></ProtectedRoute>} />
 
-          <Route path="/registrar_historianutricion" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[3]}><ReHistoriaNPage /></ProtectedRoute>} />
+          <Route path="/registrar_historianutricion" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[5]}><ReHistoriaNPage /></ProtectedRoute>} />
           <Route path="/registrar_fichapsiniño" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1]}><ReFichaPsicoNiñoPage /></ProtectedRoute>} />
           <Route path="/registrar_fichapsiadulto" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1]}><ReFichaPsicoAdultoPage /></ProtectedRoute>} />
           <Route path="/registrar_evento" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1, 2, 3, 4, 5]}><ReEvento /></ProtectedRoute>} />
@@ -85,9 +85,9 @@ function App() {
             <Route path="/citas" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[2]}><CitasPage /></ProtectedRoute>} />
             <Route path="/historial-clinico/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5]}><HistorialClinico /></ProtectedRoute>} />
             <Route path="/examen-medico/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5]}><ExamenMedico /></ProtectedRoute>} />
-            <Route path="/calendario" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5,]}><CalendarioPage /></ProtectedRoute>} />
-            <Route path="/registrar_evaluacionclinica" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5]}><ReHojaEvaluacion/></ProtectedRoute>} />
-            <Route path="/registrar_examenmedico" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,2,3,4,5]}><ReExamenMedico/></ProtectedRoute>} />
+            <Route path="/calendario" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[2]}><CalendarioPage /></ProtectedRoute>} />
+            <Route path="/registrar_evaluacionclinica" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3,4,5]}><ReHojaEvaluacion/></ProtectedRoute>} />
+            <Route path="/registrar_examenmedico" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3,4,5]}><ReExamenMedico/></ProtectedRoute>} />
             <Route path="/ver_evaluacionClinica" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3,4,5]}><VerHojasDeEvaluacionPage/></ProtectedRoute>} />
             <Route path="/ver_evaluacionClinica/:idHojaClinica" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3,4,5]}><ViewHojaDeEvaluacion/></ProtectedRoute>} />
             <Route path="/ver_examenMedico" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1,3,4,5]}><VerExamenMedico/></ProtectedRoute>} />
@@ -100,8 +100,8 @@ function App() {
           <Route path="/fichapsico_adulto/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1]}><FichaPsicoAdulto /></ProtectedRoute>} />
           <Route path="/fichapsico_niño/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1]}><FichaPsicoNiño /></ProtectedRoute>} />
 
-          <Route path="/visualizar_historianutricion" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[3]}><VHistoriasNutricionPage /></ProtectedRoute>} />
-          <Route path="/historia_nutricion/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[3]}><HistoriaNutricion /></ProtectedRoute>} />
+          <Route path="/visualizar_historianutricion" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[5]}><VHistoriasNutricionPage /></ProtectedRoute>} />
+          <Route path="/historia_nutricion/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[5]}><HistoriaNutricion /></ProtectedRoute>} />
           <Route path="/visualizar_fichapsiadulto" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1]}><VFichaPsicoAdultoPage /></ProtectedRoute>} />
           <Route path="/visualizar_fichapsiniño" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1]}><VFichaPsicoNiñoPage /></ProtectedRoute>} />
           <Route path="/visualizar_evolucion_adulto/:idPaciente" element={<ProtectedRoute redirectTo="/noautorizado" rolesPermitidos={[1]}> <EvoluciónPsicologicaAdulto /></ProtectedRoute>} />

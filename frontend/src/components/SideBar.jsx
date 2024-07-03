@@ -59,48 +59,38 @@ export function SideBar() {
                               <span>Home</span>
                           </a>
                       </li>
-                     
-
-                     
 
                       <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                              <i className="fa-solid fa-brain" ></i>
-                              <span>Psicología</span>
+                              data-bs-target="#auth1" aria-expanded="false" aria-controls="auth1">
+                                <i class="fa-solid fa-child-reaching"></i>
+                              <span>Niño</span>
                           </a>
-                          <ul id="multi" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                          <ul id="auth1" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                               <li className="sidebar-item">
-                                  <a href="#" className="sidebar-link collapsed" data-bs-toggle="collapse"
-                                      data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
-                                      Niño
-                                  </a>
-                                  <ul id="multi-two" className="sidebar-dropdown list-unstyled collapse">
-                                      <li className="sidebar-item">
-                                          <a href="/registrar_fichapsiniño" className="sidebar-link">Crear Ficha</a>
-                                      </li>
-                                      <li className="sidebar-item">
-                                          <a href="/visualizar_fichapsiniño" className="sidebar-link">Ver Ficha</a>
-                                      </li>
-                                  </ul>
+                                  <a href="/registrar_fichapsiniño" className="sidebar-link">Crear ficha</a>
                               </li>
+                              <li className="sidebar-item">
+                                  <a href="/visualizar_fichapsiniño" className="sidebar-link">Ver ficha</a>
+                              </li>
+                              
                           </ul>
+                      </li>
 
-                          <ul id="multi" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                      <li className="sidebar-item">
+                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                              data-bs-target="#auth2" aria-expanded="false" aria-controls="auth2">
+                                <i class="fa-solid fa-person-cane"></i>
+                              <span>Adulto</span>
+                          </a>
+                          <ul id="auth2" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                               <li className="sidebar-item">
-                                  <a href="#" className="sidebar-link collapsed" data-bs-toggle="collapse"
-                                      data-bs-target="#multi-three" aria-expanded="false" aria-controls="multi-three">
-                                      Adulto
-                                  </a>
-                                  <ul id="multi-three" className="sidebar-dropdown list-unstyled collapse">
-                                      <li className="sidebar-item">
-                                          <a href="/registrar_fichapsiadulto" className="sidebar-link">Crear Ficha</a>
-                                      </li>
-                                      <li className="sidebar-item">
-                                          <a href="/visualizar_fichapsiadulto" className="sidebar-link">Ver Ficha</a>
-                                      </li>
-                                  </ul>
+                                  <a href="/registrar_fichapsiadulto" className="sidebar-link">Crear ficha</a>
                               </li>
+                              <li className="sidebar-item">
+                                  <a href="/visualizar_fichapsiadulto" className="sidebar-link">Ver ficha</a>
+                              </li>
+                              
                           </ul>
                       </li>
 
@@ -258,39 +248,7 @@ export function SideBar() {
                           </ul>
                       </li>
 
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth4" aria-expanded="false" aria-controls="auth4">
-                                <i class="fa-solid fa-file-waveform"></i>
-                              <span>Examen médico</span>
-                          </a>
-                          <ul id="auth4" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/registrar_examenmedico" className="sidebar-link">Crear examen</a>
-                              </li>
-                              <li className="sidebar-item">
-                                  <a href="/ver_examenMedico" className="sidebar-link">Buscar examen</a>
-                              </li>
-                              
-                          </ul>
-                      </li>
-
-                      <li className="sidebar-item">
-                          <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth5" aria-expanded="false" aria-controls="auth5">
-                                <i class="fa-solid fa-file-medical"></i>
-                              <span>Historial clínico</span>
-                          </a>
-                          <ul id="auth5" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                              <li className="sidebar-item">
-                                  <a href="/registrar_evaluacionclinica" className="sidebar-link">Crear historial</a>
-                              </li>
-                              <li className="sidebar-item">
-                                  <a href="/ver_evaluacionClinica" className="sidebar-link">Buscar historial</a>
-                              </li>
-                              
-                          </ul>
-                      </li>
+                      
 
                       <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
@@ -500,7 +458,10 @@ export function SideBar() {
                           </a>
                           <ul id="auth" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                               <li className="sidebar-item">
-                                  <a href="/registrar_historianutricion" className="sidebar-link">Historia nutrición</a>
+                                  <a href="/registrar_historianutricion" className="sidebar-link">Registrar historial</a>
+                              </li>
+                              <li className="sidebar-item">
+                                  <a href="/visualizar_historianutricion" className="sidebar-link">Ver historial</a>
                               </li>
                               
                           </ul>
@@ -508,11 +469,11 @@ export function SideBar() {
 
                     <li className="sidebar-item">
                           <a href="#" className="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                              data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                              data-bs-target="#auth1" aria-expanded="false" aria-controls="auth1">
                                 <i class="fa-solid fa-hospital-user"></i>
                               <span>Paciente</span>
                           </a>
-                          <ul id="auth" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                          <ul id="auth1" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                               <li className="sidebar-item">
                                   <a href="/buscar_paciente" className="sidebar-link">Buscar Pacientes</a>
                               </li>

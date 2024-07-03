@@ -2,52 +2,65 @@ import { getAllExamenes } from "../../services/DoctorGeneral";
 import { setToken } from "../../services/HeaderAuthorization";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthProvider";
-import { ExamenMedicoCard } from "./ExamenMedicoCard";
+import { useNavigate } from "react-router-dom";
 import { getPaciente } from "../../services/Recepcionista";
+
 
 export function ExamenMedicoList() {
   const [examenesOriginales, setExamenesOriginales] = useState([]);
   const [examenesFiltrados, setExamenesFiltrados] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
   const { authTokens } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentExamenes = examenesFiltrados.slice(indexOfFirstItem, indexOfLastItem);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     async function loadExamenes() {
       try {
         await setToken(authTokens.access);
         const examenesData = await getAllExamenes();
-
         const examenesConPaciente = await Promise.all(
           examenesData.map(async (examen) => {
             const pacienteData = await getPaciente(examen.idPaciente);
             return { ...examen, paciente: pacienteData };
           })
         );
-
-        setExamenesOriginales(examenesConPaciente);
-        setExamenesFiltrados(examenesConPaciente);
+        // Ordenar los exámenes por fecha en orden descendente
+        const sortedExamenes = examenesConPaciente.sort((a, b) => new Date(b.fecha_revision) - new Date(a.fecha_revision));
+        setExamenesOriginales(sortedExamenes);
+        setExamenesFiltrados(sortedExamenes);
       } catch (error) {
         console.error("Error al cargar los exámenes:", error);
       }
     }
     loadExamenes();
-  }, []);
+  }, [authTokens]);
+
+  const searchExamenes = () => {
+    const filteredExamenes = examenesOriginales.filter(examen => {
+      const nombreCompleto = `${examen.paciente.datos_personales.nombre} ${examen.paciente.datos_personales.apePaterno} ${examen.paciente.datos_personales.apeMaterno}`;
+      return nombreCompleto.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    setExamenesFiltrados(filteredExamenes);
+  };
 
   useEffect(() => {
-    const searchExamenes = () => {
-      const filteredExamenes = examenesOriginales.filter((examen) => {
-        const nombreCompleto = `${examen.paciente.datos_personales.nombre} ${examen.paciente.datos_personales.apePaterno} ${examen.paciente.datos_personales.apeMaterno}`;
-        return nombreCompleto.toLowerCase().includes(searchTerm.toLowerCase());
-      });
-      setExamenesFiltrados(filteredExamenes);
-    };
-
-    if (searchTerm === "") {
+    if (searchTerm === '') {
       setExamenesFiltrados(examenesOriginales);
     } else {
       searchExamenes();
     }
-  }, [searchTerm, examenesOriginales]);
+  }, [searchTerm]);
+
+  const handleNavigate = (idExamenMedico) => {
+    navigate(`/ver_examenMedico/${idExamenMedico}`);
+  };
 
   return (
     <div className="container-fluid">
@@ -64,19 +77,47 @@ export function ExamenMedicoList() {
             />
           </form>
         </div>
-
         <div className="py-3">
           <div className="container">
-            {examenesFiltrados.length === 0 && (
-              <p>No se encontraron resultados.</p>
-            )}
+            {examenesFiltrados.length === 0 && <p>No se encontraron resultados.</p>}
             <div className="row hidden-md-up">
-              {examenesFiltrados.map((examen) => (
-                <ExamenMedicoCard
-                  key={examen.idExamenMedico}
-                  examen={examen}
-                  paciente={examen.paciente}
-                />
+              <table className="table-bordered">
+                <thead className="cabecera">
+                  <tr>
+                    <th className="colum">Nombre del Paciente</th>
+                    <th className="colum">Fecha de Examen</th>
+                    <th className="colum">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentExamenes.map((examen) => (
+                    <tr key={examen.id}>
+                      <td className="fila">
+                        {`${examen.paciente.datos_personales.nombre} ${examen.paciente.datos_personales.apePaterno} ${examen.paciente.datos_personales.apeMaterno}`}
+                      </td>
+                      <td className="fila">{examen.fecha_revision}</td>
+                      <td className="fila">
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => handleNavigate(examen.idExamenMedico)}
+                        >
+                          Ver
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="pagination mt-2 col-md-10 offset-md-1">
+              {[...Array(Math.ceil(examenesFiltrados.length / itemsPerPage)).keys()].map(number => (
+                <button
+                  key={number}
+                  onClick={() => paginate(number + 1)}
+                  className="page-link button-pagination rounded"
+                >
+                  {number + 1}
+                </button>
               ))}
             </div>
           </div>
