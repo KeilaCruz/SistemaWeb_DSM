@@ -152,7 +152,7 @@ export function FormEvento({ onSubmit, register, usuarioSelect, errors }) {
 </div>
 
 
-            <div className="col-md-3 mt-4 mb-4">
+            <div className="col-md-3 mt-4 mb-4 offset-md-1">
               <button className="btn btn-success">Guardar</button>
             </div>
           </form>
