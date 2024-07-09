@@ -1805,13 +1805,13 @@ export function FormExamenMedico({
             )}
           </div>
           <div className="col-md-4 offset-md-1">
-            <input type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
+            <input className="form-control "type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
             {archivosSeleccionados.map((nombreArchivo, index) => (
               <label key={index}>{nombreArchivo}</label>
             ))}
           </div>
-          <div className="col-md-3 offset-md-1 mt-4 mb-4">
-            <button className="button-guardar btn btn-success">Guardar</button>
+          <div className="col-md-9 offset-md-1 mt-4 mb-4">
+            <button className="button-guardar rounded btn btn-success">Guardar</button>
           </div>
         </form>
       </div>

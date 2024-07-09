@@ -62,11 +62,13 @@ export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect, setPac
                                 <i class="lni lni-angle-double-left"></i> Anterior
                             </button>
                         </div>
-                        <div className="col-md-2 offset-md-6">
-                            <button type="button" onClick={handleNextPage} className="button-pagination rounded">
-                                Siguiente <i class="lni lni-angle-double-right"></i>
-                            </button>
-                        </div>
+                        {currentPage != 4 && (
+                            <div className="col-md-2 offset-md-6">
+                                <button type="button" onClick={handleNextPage} className="button-pagination rounded">
+                                    Siguiente <i class="lni lni-angle-double-right"></i>
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <form onSubmit={onSubmit} className="row g-3 mt-2 align-items-center">
@@ -938,14 +940,14 @@ export function FormFichaPsicoNiño({ onSubmit, register, pacienteSelect, setPac
                                     )
                                 }
                             </div>
-                            <div>
-                                <input type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
+                            <div className="col-md-5 offset-md-1 mt-2">
+                                <input className="form-control" type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
                                 {archivosSeleccionados.map((nombreArchivo, index) => (
                                     <label key={index}>{nombreArchivo}</label>
                                 ))}
                             </div>
                             <div className="col-md-8 offset-1 mt-4 mb-4">
-                                <button type="submit" className="button-guardar mx-auto rounded">Guardar</button>
+                                <button type="submit" className="button-guardar btn rounded">Guardar</button>
                             </div>
                         </div>
                     )}

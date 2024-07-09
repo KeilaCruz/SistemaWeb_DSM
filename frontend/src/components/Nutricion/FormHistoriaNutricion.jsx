@@ -70,11 +70,13 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <i class="lni lni-angle-double-left"></i> Anterior
                                 </button>
                             </div>
-                            <div className="col-md-3 offset-md-5">
-                                <button onClick={handleNextPage} className="button-pagination rounded">
-                                    Siguiente <i class="lni lni-angle-double-right"></i>
-                                </button>
-                            </div>
+                            {currentPage != 5 && (
+                                <div className="col-md-3 offset-md-5">
+                                    <button onClick={handleNextPage} className="button-pagination rounded">
+                                        Siguiente <i class="lni lni-angle-double-right"></i>
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <form onSubmit={onSubmit}>
@@ -109,12 +111,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" id="num_expediente" placeholder="Número expediente" type="number" {...register("num_expediente", { required: true, pattern: /^[A-Za-z0-9]+$/ })} />
                                     {errors.num_expediente?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.num_expediente?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -123,7 +125,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="date" id="fecha_nacimiento" placeholder="Fecha de nacimiento" {...register("fecha_nacimiento", { required: true })} />
                                     {errors.fecha_nacimiento?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -132,12 +134,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="text" id="municipio_nacimiento" placeholder="Municipio de nacimiento" {...register("municipio_nacimiento", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.municipio_nacimiento?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.municipio_nacimiento?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -146,12 +148,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="text" id="estado_nacimiento" placeholder="Estado de nacimiento" {...register("estado_nacimiento", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.estado_nacimiento?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.estado_nacimiento?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -162,12 +164,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     })}></textarea>
                                     {errors.motivo_consulta?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.motivo_consulta?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -181,7 +183,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.sexo?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -205,7 +207,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.AHF_diabetes?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -222,7 +224,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.AHF_hipertension?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -230,7 +232,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="text" placeholder="¿Quién?" {...register("quien_hipertension", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.quien_hipertension?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                 </div>
@@ -244,7 +246,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.AHF_dislipidemias?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -252,7 +254,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input id="quien_dislipidemias" className="form-control input-form" type="text" placeholder="¿Quién?" {...register("quien_dislipidemias", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
                                     {errors.quien_dislipidemias?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                 </div>
@@ -273,7 +275,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.AP_diabetes_mellitus?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -287,7 +289,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.AP_hipertension?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -301,7 +303,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.AP_dislipidemias?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -315,7 +317,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.problema_gastrointestinal?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -324,12 +326,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input id="cual_problema_gastro" className="form-control input-form" type="text" placeholder="¿Cuál?" {...register("cual_problema_gastrointestinal", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.cual_problema_gastrointestinal?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.cual_problema_gastrointestinal?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -338,12 +340,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <textarea id="observaciones_gastro" className="input-form form-control" placeholder="Observaciones" {...register("observaciones_patologicas", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })}></textarea>
                                     {errors.observaciones_patologicas?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.observaciones_patologicas?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -357,7 +359,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.observaciones_patologicas?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -365,12 +367,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input id="cual_intervencion_quirurgica" className="input-form form-control" type="text" placeholder="¿Cuál?" {...register("cual_intervencion_quirurgica", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.cual_intervencion_quirurgica?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.cual_intervencion_quirurgica?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -384,7 +386,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.alergia_alimento?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -392,12 +394,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input id="cual_alergia_alimento" className="input-form form-control" type="text" placeholder="¿Cuál?" {...register("cual_alergia_alimento", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.cual_alergia_alimento?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.cual_alergia_alimento?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -412,7 +414,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.consume_farmaco_alergia?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -420,12 +422,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="text" placeholder="¿Cuál?" {...register("cual_alergia_farmaco", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.cual_alergia_farmaco?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.cual_alergia_farmaco?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -433,12 +435,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="text" placeholder="¿Desde cuándo?" {...register("desde_cuando_farmaco", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú\d]+$/ })} />
                                     {errors.desde_cuando_farmaco?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.desde_cuando_farmaco?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -459,7 +461,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.realiza_actividad_fisica?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -467,12 +469,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="text" placeholder="¿Cuál?" {...register("cual_actividad_fisica", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.cual_actividad_fisica?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.cual_actividad_fisica?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -480,12 +482,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="text" placeholder="Duración" {...register("duracion", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú\d]+$/ })} />
                                     {errors.duracion?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.duracion?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -503,7 +505,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.consume_alcohol?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -517,7 +519,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.consume_tabaco?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -531,7 +533,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     </label>
                                     {errors.consume_droga?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Seleccione el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Seleccione el campo</p>
                                         )
                                     }
                                 </div>
@@ -546,7 +548,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                                 <input id="num_gestas" className="form-control input-form" type="number" placeholder="Número de gestas" {...register("numero_gestas", { pattern: /^[\d]+$/ })} />
                                                 {errors.numero_gestas?.type === "pattern" &&
                                                     (
-                                                        <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                                        <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                                     )
                                                 }
                                             </div>
@@ -555,7 +557,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                                 <input id="num_partos_cesarea" className="form-control input-form" type="number" placeholder="Número de partos cesarea" {...register("numero_partos_cesarea", { pattern: /^[\d]+$/ })} />
                                                 {errors.numero_partos_cesarea?.type === "pattern" &&
                                                     (
-                                                        <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                                        <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                                     )
                                                 }
                                             </div>
@@ -564,7 +566,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                                 <input id="num_abortos" className="form-control input-form" type="number" placeholder="Número de abortos" {...register("numero_abortos", { pattern: /^[\d]+$/ })} />
                                                 {errors.numero_abortos?.type === "pattern" &&
                                                     (
-                                                        <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                                        <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                                     )
                                                 }
                                             </div>
@@ -607,12 +609,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="frecuencia_cereales" placeholder="Frecuencia de cereales" {...register("frecuencia_cereales", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_cereales?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.frecuencia_cereales?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -620,12 +622,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="frecuencia_frutas" placeholder="Frecuencia de frutas" {...register("frecuencia_frutas", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_frutas?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.frecuencia_frutas?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -633,12 +635,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="frecuencia_verduras" placeholder="Frecuencia de verduras" {...register("frecuencia_verduras", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_verduras?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.frecuencia_verduras?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -646,12 +648,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="frecuencia_carne" placeholder="Frecuencia de carne roja" {...register("frecuencia_carne_roja", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_verduras?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.frecuencia_verduras?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -659,12 +661,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="frecuencia_pollo" placeholder="Frecuencia de pollo" {...register("frecuencia_pollo", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_pollo?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.frecuencia_pollo?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -672,12 +674,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="frecuencias_lacteos" placeholder="Frecuencia de lacteos" {...register("frecuencia_lacteos", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_lacteos?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.frecuencia_lacteos?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -685,12 +687,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="frecuencia_leguminosas" placeholder="Frecuencia de leguminosas" {...register("frecuencia_leguminosas", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_leguminosas?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.frecuencia_leguminosas?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -698,12 +700,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="frecuencias_azucar" placeholder="Frecuencia de azucar" {...register("frecuencia_azucar", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_azucar?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.frecuencia_azucar?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -711,12 +713,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="frecuencias_grasas" placeholder="Frecuencia de grasas" {...register("frecuencia_grasas", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_grasas?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.frecuencia_grasas?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -724,12 +726,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="frecuencia_pescado" placeholder="Frecuencia de pescado" {...register("frecuencia_pescado", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_pescado?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.frecuencia_pescado?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -739,12 +741,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="veces_come" placeholder="¿Cuántas veces?" {...register("cuantas_veces_come", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.cuantas_veces_come?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.cuantas_veces_come?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -753,12 +755,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="text" id="quien_prepara_ali" placeholder="¿Quién?" {...register("quien_prepara_alimentos", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.quien_prepara_alimentos?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.quien_prepara_alimentos?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -767,12 +769,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="litros_agua" placeholder="Litros de agua que consume" step="0.01" {...register("litro_consume_agua", { required: true, valueAsNumber: true })} />
                                     {errors.litro_consume_agua?.type === "valueAsNumber" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese un número válido</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese un número válido</p>
                                         )
                                     }
                                     {errors.litro_consume_agua?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -781,12 +783,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="litros_refresco" placeholder="Litros de refresco que consume" step="0.01" {...register("litro_consume_refresco", { required: true, valueAsNumber: true })} />
                                     {errors.litro_consume_refresco?.type === "valueAsNumber" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese un número válido</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese un número válido</p>
                                         )
                                     }
                                     {errors.litro_consume_refresco?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -795,12 +797,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" id="grasa_alimentos" type="text" placeholder="Aceite vegetal, manteca o mantequilla" {...register("tipo_grasa_preparar_alimentos", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,]+$/ })} />
                                     {errors.tipo_grasa_preparar_alimento?.type === "valueAsNumber" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.tipo_grasa_preparar_alimento?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -809,12 +811,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <input className="form-control input-form" type="number" id="litros_cafe" placeholder="Litros de café que consume" step="0.01" {...register("litro_consume_cafe", { required: true, valueAsNumber: true })} />
                                     {errors.litro_consume_cafe?.type === "valueAsNumber" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese un número válido</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese un número válido</p>
                                         )
                                     }
                                     {errors.litro_consume_cafe?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -823,12 +825,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <textarea className="form-control input-form" id="alimentos_malestar" placeholder="Alimentos que causan malestar" {...register("alimentos_causan_malestar", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,]+$/ })} ></textarea>
                                     {errors.alimentos_causan_malestar?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.alimentos_causan_malestar?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -839,12 +841,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <textarea className="form-control input-form" id="r24_desayuno" placeholder="Desayuno" {...register("r24_desayuno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
                                     {errors.r24_desayuno?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.r24_desayuno?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -852,12 +854,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <textarea className="form-control input-form" id="r24_colacion_uno" placeholder="Colacion" {...register("r24_colacion_uno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
                                     {errors.r24_colacion_uno?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.r24_colacion_uno?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -865,12 +867,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <textarea className="form-control input-form" id="r24_comida" placeholder="Comida" {...register("r24_comida", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
                                     {errors.r24_comida?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.r24_comida?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -878,12 +880,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <textarea className="form-control input-form" id="r24_colacion_dos" placeholder="Colación dos" {...register("r24_colacion_dos", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
                                     {errors.r24_colacion_dos?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.r24_colacion_dos?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -891,12 +893,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <textarea className="form-control input-form" id="r24_cena" placeholder="Cena" {...register("r24_cena", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
                                     {errors.r24_cena?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.r24_cena?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -905,12 +907,12 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <textarea className="form-control input-form" id="diagnostico_nutricio" placeholder="Diagnostico nutricional" {...register("diagnostico_nutricio", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} ></textarea>
                                     {errors.diagnostico_nutricio?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.diagnostico_nutricio?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
@@ -919,25 +921,25 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <textarea className="form-control input-form" id="tratamiento_nutricional" placeholder="Tratamiento nutricional" {...register("tratamiento_nutricional", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} ></textarea>
                                     {errors.tratamiento_nutricional?.type === "pattern" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                         )
                                     }
                                     {errors.tratamiento_nutricional?.type === "required" &&
                                         (
-                                            <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
+                                            <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
                                         )
                                     }
                                 </div>
 
-                                <div>
-                                    <input type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
+                                <div className="col-md-5 offset-md-1 mt-2">
+                                    <input className="form-control" type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
                                     {archivosSeleccionados.map((nombreArchivo, index) => (
                                         <label key={index}>{nombreArchivo}</label>
                                     ))}
                                 </div>
 
-                                <div className="col-md-5 offset-1 mt-4 mb-4">
-                                    <button className="button-guardar rounded">Guardar</button>
+                                <div className="col-md-9 offset-1 mt-2 mb-4">
+                                    <button className="button-guardar btn rounded">Guardar</button>
                                 </div>
                             </div>
                         )}

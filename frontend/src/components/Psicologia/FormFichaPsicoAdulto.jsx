@@ -171,11 +171,13 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect, setPa
                                 <i class="lni lni-angle-double-left"></i> Anterior
                             </button>
                         </div>
-                        <div className="col-md-2 offset-md-6">
-                            <button type="button" onClick={handleNextPage} className="button-pagination rounded">
-                                Siguiente <i class="lni lni-angle-double-right"></i>
-                            </button>
-                        </div>
+                        {currentPage != 6 && (
+                            <div className="col-md-2 offset-md-6">
+                                <button type="button" onClick={handleNextPage} className="button-pagination rounded">
+                                    Siguiente <i class="lni lni-angle-double-right"></i>
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <form onSubmit={onSubmit}>
@@ -1129,7 +1131,7 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect, setPa
                                     </div>
                                 </div>
                             )}
-                            <div className="col-md-4 offset-md-1 mt-1">
+                            <div className="col-md-9 offset-md-1 mt-1">
                                 <label htmlFor="relaciones_diferentes" className="form-label label-form">¿Ha tenido relaciones distintas a las heterosexuales?</label>
                                 <input id="cual_relacion" className="form-control input-form" type="text" placeholder="¿Cuál relación?" {...register("tenido_relaciones_distintas_heterosexuales", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]$/ })} />
                                 {errors.tenido_relaciones_distintas_heterosexuales?.type === "required" &&
@@ -1142,15 +1144,15 @@ export function FormFichaPsicoAdulto({ onSubmit, register, pacienteSelect, setPa
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Formato incorrecto</p>
                                     )
                                 }
-                                <div>
-                                    <input type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
-                                    {archivosSeleccionados.map((nombreArchivo, index) => (
-                                        <label key={index}>{nombreArchivo}</label>
-                                    ))}
-                                </div>
-                                <div className="col-md-9 offset-1 mt-3">
-                                    <button className="button-guardar rounded">Guardar</button>
-                                </div>
+                            </div>
+                            <div className="col-md-5 offset-md-1 mt-2">
+                                <input className="form-control" type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
+                                {archivosSeleccionados.map((nombreArchivo, index) => (
+                                    <label key={index}>{nombreArchivo}</label>
+                                ))}
+                            </div>
+                            <div className="col-md-6 offset-md-1 mt-3">
+                                <button className="button-guardar btn rounded">Guardar</button>
                             </div>
                         </div>
                     )}

@@ -55,11 +55,14 @@ export function FormPaciente({ onSubmit, register, errors }) {
                                 <i class="lni lni-angle-double-left"></i> Anterior
                             </button>
                         </div>
-                        <div className="col-md-3 offset-md-5">
-                            <button onClick={handleNextPage} className="button-pagination rounded">
-                                Siguiente <i class="lni lni-angle-double-right"></i>
-                            </button>
-                        </div>
+                        {currentPage != 3 && (
+                            <div className="col-md-3 offset-md-5">
+                                <button onClick={handleNextPage} className="button-pagination rounded">
+                                    Siguiente <i class="lni lni-angle-double-right"></i>
+                                </button>
+                            </div>
+                        )
+                        }
                     </div>
                 </div>
                 <form onSubmit={onSubmit} className="mt-3">
@@ -397,7 +400,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                                 )}
                             </div>
                             <div className="col-md-4 offset-md-1">
-                                <button className="button-guardar rounded">Registrar</button>
+                                <button className="button-guardar btn rounded">Registrar</button>
                             </div>
                         </div>
                     )}

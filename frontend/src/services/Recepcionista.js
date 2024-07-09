@@ -98,13 +98,14 @@ export const searchPaciente = async (criterio) => {
 
 export const registerCita = async (cita) => {
     try {
-        const config = await getConfig()
-        const response = await axios.post(SAVE_CITA_URL, cita, config)
+        const config = await getConfig();
+        const response = await axios.post(SAVE_CITA_URL, cita, config);
+
         if (response.status === 201) {
             Swal.fire({
                 icon: 'success',
                 title: '¡Operación exitosa!',
-                text: 'Cita registrado correctamente.',
+                text: 'Cita registrada correctamente.',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Aceptar'
             }).then((result) => {
@@ -114,19 +115,24 @@ export const registerCita = async (cita) => {
                 }
             });
         } else {
-            console.log("error al registrar")
+            console.log("Error al registrar la cita:", response);
             Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "¡Algo salio mal!",
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Algo salió mal!',
                 footer: '<a href="#">Intente de nuevo</a>'
             });
-            return response
         }
     } catch (error) {
-        console.error(error)
+        console.error('Error en la solicitud:', error);
+        Swal.fire({
+            icon: 'error',
+            title: '¡Oops!',
+            text: 'La cita no puede estar programada en una fecha anterior.',
+            footer: '<a href="#">Intente de nuevo</a>'
+        });
     }
-}
+};
 
 
 export const getAllCitas = async () => {
