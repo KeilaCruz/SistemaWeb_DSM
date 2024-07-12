@@ -7,9 +7,18 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
     const [criterio, setCriterio] = useState("")
     const [paciente, setPaciente] = useState([])
     const [isResult, setIsResult] = useState(true)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(5);
+    //Calculos para hacer la paginacion
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentPacientes = paciente.slice(indexOfFirstItem, indexOfLastItem);
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     const handleBarraBusqueda = (evt) => {
         setCriterio(evt.target.value)
     }
+
     useEffect(() => {
         const loadPaciente = async () => {
             try {
@@ -31,7 +40,7 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
 
     return (
         <>
-            <div className="container-fluid pb-5">
+            <div className="container-fluid">
                 <div className="row g-3 ">
                     <div className="col-md-10 offset-md-1 text-center mt-2">
                         <hr />
@@ -48,7 +57,7 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
                         <input className="form-control input-form" id="fecha_cita" type="date" placeholder="fecha de cita" {...register('fecha_cita', { required: true })} />
                         {errors.fecha_cita?.type === "required" &&
                             (
-                                <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese la fecha de la cita</p>
+                                <p className="errors"> <i class="lni lni-warning"></i> Ingrese la fecha de la cita</p>
                             )
                         }
                     </div>
@@ -57,7 +66,7 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
                         <input className="form-control input-form" id="horario_cita" type="time" placeholder="hora_cita" {...register('hora_cita', { required: true })} />
                         {errors.hora_cita?.type === "required" &&
                             (
-                                <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese la hora</p>
+                                <p className="errors"> <i class="lni lni-warning"></i> Ingrese la hora</p>
                             )
                         }
                     </div>
@@ -72,11 +81,11 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
                         </select>
                         {errors.especialidad?.type === "required" &&
                             (
-                                <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i>Seleccione la especialidad</p>
+                                <p className="errors"> <i class="lni lni-warning"></i>Seleccione la especialidad</p>
                             )
                         }
                     </div>
-                    <div className="col-md-10 offset-md-1 mt-5">
+                    <div className="col-md-10 offset-md-1">
                         {isResult ? (
                             <table className="table-bordered">
                                 <thead className="cabecera">
@@ -91,7 +100,7 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {paciente.map(paciente => (
+                                    {currentPacientes.map(paciente => (
                                         <tr key={paciente.CURP}>
                                             <td className="fila">
                                                 <input id="select_paciente" name="select_paciente" type="radio" value={paciente.CURP} onChange={() => selectPaciente(paciente.CURP)} />
@@ -109,6 +118,13 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
                         ) : (
                             <p className="text-center text-danger">NO SE ENCONTRARON RESULTADOS DE BÚSQUEDA</p>
                         )}
+                    </div>
+                    <div className="pagination mt-2 col-md-10 offset-md-1">
+                        {[...Array(Math.ceil(paciente.length / itemsPerPage)).keys()].map(number => (
+                            <button type="button" key={number} onClick={() => paginate(number + 1)} className="page-link button-pagination rounded">
+                                {number + 1}
+                            </button>
+                        ))}
                     </div>
                     <div className="col-md-1 offset-md-1">
                         <button type="submit" className="button-guardar rounded">Guardar</button>

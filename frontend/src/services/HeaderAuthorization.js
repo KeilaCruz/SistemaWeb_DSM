@@ -19,3 +19,19 @@ export const getConfig = async () => {
         }
     }
 }
+
+export const getConfigFiles = async () => {
+    /**
+     * Crea la configuracion del encabezado con el token de acceso
+     */
+    if (!tokenConfig) {
+        throw new Error('Token no enviado');
+    }
+    return {
+        headers: {
+            Authorization: `Bearer ${tokenConfig}`,
+            'Content-Type': 'multipart/form-data',
+        }
+    }
+
+}

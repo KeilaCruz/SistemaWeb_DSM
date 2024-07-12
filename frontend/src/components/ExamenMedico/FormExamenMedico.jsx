@@ -9,6 +9,7 @@ export function FormExamenMedico({
   onSubmit,
   register,
   pacienteSelect,
+  setPacienteSelect,
   errors,
 }) {
   const { authTokens } = useContext(AuthContext);
@@ -18,6 +19,7 @@ export function FormExamenMedico({
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages] = useState(9);
+  const [archivosSeleccionados, setArchivosSeleccionados] = useState([])
 
   useEffect(() => {
     const fetchUsuarios = async () => {
@@ -48,8 +50,8 @@ export function FormExamenMedico({
   };
 
   const selectPaciente = (CURP) => {
-    pacienteSelect(CURP);
-  };
+    setPacienteSelect(CURP)
+  }
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
@@ -57,7 +59,12 @@ export function FormExamenMedico({
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
-
+  
+  const handleFileChange = (evt) => {
+    const archivos = evt.target.files;
+    const nombreArchivos = Array.from(archivos).map((archivo) => archivo.name)
+    setArchivosSeleccionados(nombreArchivos)
+  }
   const [showmadreViva, setShowMadreViva] = useState(false);
   const [showpadreVivo, setShowPadreVivo] = useState(false);
   const [showhermanoVivo, setShowHermanoVivo] = useState(false);
@@ -200,7 +207,8 @@ export function FormExamenMedico({
                 paciente={paciente}
                 key={paciente.CURP}
                 handleSelect={selectPaciente}
-              />
+                isSelected={paciente.CURP === pacienteSelect}
+          />
             ))}
           </div>
         </div>
@@ -1862,11 +1870,15 @@ export function FormExamenMedico({
                   </div>
                 )}
               </div>
-              <div className="col-md-3 offset-md-1 mt-4 mb-4">
-                <button className="button-guardar btn btn-success">
-                  Guardar
-                </button>
-              </div>
+              <div className="col-md-4 offset-md-1">
+            <input className="form-control "type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
+            {archivosSeleccionados.map((nombreArchivo, index) => (
+              <label key={index}>{nombreArchivo}</label>
+            ))}
+          </div>
+          <div className="col-md-9 offset-md-1 mt-4 mb-4">
+            <button className="button-guardar rounded btn btn-success">Guardar</button>
+          </div>
             </div>
           )}
         </form>

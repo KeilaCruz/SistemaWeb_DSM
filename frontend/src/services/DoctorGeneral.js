@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getConfig } from "./HeaderAuthorization";
+import { getConfig, getConfigFiles } from "./HeaderAuthorization";
 import Swal from 'sweetalert2'
 
 const SAVE_EXAMEN_MEDICO_URL = "http://127.0.0.1:8000/api/registrar_examen_medico/"
@@ -26,7 +26,7 @@ export const getAllExamenes = async () => {
 
 export const registerExamenMedico = async (examen) => {
     try {
-        const config = await getConfig();
+        const config = await getConfigFiles();
         const response = await axios.post(SAVE_EXAMEN_MEDICO_URL, examen, config);
 
         if (response.status === 201) {
@@ -118,7 +118,7 @@ export const getAllHojasEvaluacion = async () => {
 
 export const registerHojaEvaluacion = async (evaluacion) => {
     try {
-        const config = await getConfig()
+        const config = await getConfigFiles()
         const response = await axios.post(SAVE_HOJA_DE_EVALUACION_URL, evaluacion, config)
         if (response.status === 201) {
            Swal.fire({

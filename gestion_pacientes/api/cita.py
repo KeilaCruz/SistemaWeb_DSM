@@ -40,6 +40,13 @@ class AgendarCitaAPIView(APIView):
         )
 
         ultima_cita = Cita.objects.filter(datos_cita__especialidad=especialidad).last()
+        # Verificar si la cita esta programada en fecha anterior
+        fecha_actual = datetime.today().strftime("%Y-%m-%d")
+
+        if fecha_cita < fecha_actual:
+            return Response(
+                status=status.HTTP_406_NOT_ACCEPTABLE,
+            )
 
         if ultima_cita:
             ultima_cita_fecha_hora = datetime.strptime(
@@ -123,4 +130,3 @@ class MarcarAsistenciaCita(APIView):
         cita.estado = request.data
         cita.save()
         return Response({"message": "El estado de la cita ha sido actualizado"})
-

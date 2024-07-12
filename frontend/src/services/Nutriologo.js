@@ -1,10 +1,10 @@
 import axios from "axios";
-import { getConfig } from "./HeaderAuthorization";
+import { getConfig, getConfigFiles } from "./HeaderAuthorization";
 import Swal from "sweetalert2";
 
 
 const SAVE_HISTORIANUTRICION_URL = "http://127.0.0.1:8000/api/registrar_historia_nutricion"
-const LIST_HISTORIA_NUTRICION_URL ="http://127.0.0.1:8000/api/historia_nutricion/"
+const LIST_HISTORIA_NUTRICION_URL = "http://127.0.0.1:8000/api/historia_nutricion/"
 const CALCULADORA_IMC_URL = "http://127.0.0.1:8000/api/calcular_imc"
 const CALCULADORA_CIRCUFERENCIA_URL = "http://127.0.0.1:8000/api/calculadora_circuferencia"
 const VISUALIZAR_URL = "http://127.0.0.1:8000/api/visualizar_historia_nutricion"
@@ -15,7 +15,7 @@ export const getAllHistoriaNutricion = async () => {
     try {
         const config = await getConfig();
         const response = await axios.get(LIST_HISTORIA_NUTRICION_URL, config);
-        
+
         if (response.status === 200) {
             return response.data;
         } else {
@@ -42,7 +42,7 @@ export const visualizarHistorias = async () => {
 
 export const registerHistoriaNutricion = async (historiaNutricion) => {
     try {
-        const config = await getConfig()
+        const config = await getConfigFiles();
         const response = await axios.post(SAVE_HISTORIANUTRICION_URL, historiaNutricion, config)
         if (response.status === 201) {
             Swal.fire({
@@ -51,11 +51,11 @@ export const registerHistoriaNutricion = async (historiaNutricion) => {
                 text: 'Registrado con exito.',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Aceptar'
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                  console.log('Se hizo clic en Aceptar');
+                    console.log('Se hizo clic en Aceptar');
                 }
-              });
+            });
         } else {
             return response
         }

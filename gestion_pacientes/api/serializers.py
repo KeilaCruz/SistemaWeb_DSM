@@ -10,7 +10,7 @@ from gestion_pacientes.models import (
     HojaEvaluacionClinica,
     EvaluaciónPsicologicaNiños,
     EvaluaciónPsicologicaAdultos,
-    ExamenMedico
+    ExamenMedico,
 )
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -34,9 +34,21 @@ class UsuarioSerializer(serializers.ModelSerializer):
 
 
 class HistoriaNutricionSerializer(serializers.ModelSerializer):
+    archivo = serializers.FileField(required=False)
+
     class Meta:
         model = HistoriaNutricion
         fields = "__all__"
+
+    def create(self, validated_data):
+        archivo = validated_data.pop("archivo", None)
+        historial = HistoriaNutricion.objects.create(**validated_data)
+
+        if archivo:
+            historial.archivo = archivo
+            historial.save()
+
+        return historial
 
 
 class FichaPsicoNiñoSerializer(serializers.ModelSerializer):
@@ -80,13 +92,14 @@ class LoginSessionInfoSerializer(TokenObtainPairSerializer):
         token["username"] = user.username
         token["idRol_id"] = user.idRol_id
         return token
-    
+
 
 class EventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evento
         fields = "__all__"
-        
+
+
 class ExamenMedicoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExamenMedico
