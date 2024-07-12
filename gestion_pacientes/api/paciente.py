@@ -10,7 +10,6 @@ from .serializers import PacienteSerializer, HistorialClinicoSerializer, ExamenM
 from django.shortcuts import get_object_or_404
 
 
-@permission_classes([IsAuthenticated])
 class PacienteAPIView(APIView):
     def get(self, request):
         pacientes = Paciente.objects.all()

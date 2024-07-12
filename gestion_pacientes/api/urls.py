@@ -63,7 +63,9 @@ from gestion_pacientes.api.hojaEvaluacion import (
     EditarHojaEvaluacionAPIView,
 )
 
-
+from gestion_pacientes.api.exportExcel import (
+    ExportPacientesVIEW,
+)
 urlpatterns = [
     path("paciente/", PacienteAPIView.as_view(), name="visualizar_pacientes"),
     path("registrar_paciente/", RegistrarPacienteAPIView.as_view(), name="registrar_paciente"),
@@ -113,4 +115,7 @@ urlpatterns = [
     path("historial_clinico/<str:idPaciente>/", HistorialClinicoAPIView.as_view(), name='historial_clinico'),
     path("examen_medico_new/<str:idPaciente>/", NewExamenMedicoAPIView.as_view(), name='historial_clinico'),
     path("marcar_asistencia/<int:idCita>/", MarcarAsistenciaCita.as_view(), name='marcar_asistencia_cita'),
+    
+    
+    path("exportar/pacientes/", ExportPacientesVIEW.as_view(), name='exportar_pacientes'),
 ]
