@@ -16,6 +16,7 @@ from .serializers import (
     EvaluacionPsicoNiñoSerializer,
 )
 from django.db.models import Max
+from rest_framework.exceptions import NotFound
 
 
 @permission_classes([IsAuthenticated])
@@ -160,3 +161,33 @@ class VisualizarEvaluacionNiño(APIView):
             )
         except EvaluaciónPsicologicaNiños.DoesNotExist:
             raise "No existe"
+
+
+class BuscarFichasPsicologiaAdulto(APIView):
+    def get(self, request, idPaciente):
+        fichas = self.get_citas(idPaciente)
+        ficha_serializer = FichaPsicoAdultoSerializer(fichas, many=True)
+        return Response(ficha_serializer.data)
+
+    def get_citas(self, idPaciente):
+        fichas = FichaPsicologicaAdulto.objects.filter(idPaciente=idPaciente)
+        if not fichas.exists():
+            raise NotFound(
+                "No existe historial de nutrición para el paciente proporcionado."
+            )
+        return fichas
+
+
+class BuscarFichasPsicologiaNiño(APIView):
+    def get(self, request, idPaciente):
+        fichas = self.get_citas(idPaciente)
+        ficha_serializer = FichaPsicoNiñoSerializer(fichas, many=True)
+        return Response(ficha_serializer.data)
+
+    def get_citas(self, idPaciente):
+        fichas = FichaPsicologicaNiño.objects.filter(idPaciente=idPaciente)
+        if not fichas.exists():
+            raise NotFound(
+                "No existe historial de nutrición para el paciente proporcionado."
+            )
+        return fichas

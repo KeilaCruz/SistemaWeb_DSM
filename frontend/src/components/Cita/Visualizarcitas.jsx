@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import AuthContext from "../../context/AuthProvider"
 import { setToken } from "../../services/HeaderAuthorization";
-import { getAllCitas, getCita, getCitasInactivas, marcarAsistencia, reagendarCita } from "../../services/Recepcionista";
+import { buscarCitas, getAllCitas, getCita, getCitasInactivas, marcarAsistencia, reagendarCita } from "../../services/Recepcionista";
 import { Modal, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 export function VisualizarCitas() {
@@ -12,6 +12,8 @@ export function VisualizarCitas() {
   const [showModal, setShowModal] = useState(false)
   const { authTokens } = useContext(AuthContext);
   const [currentPage, setCurrentPage] = useState(1);
+  const [criterio, setCriterio] = useState("")
+  const [isResult, setIsResult] = useState(true)
   const [itemsPerPage] = useState(10);
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -25,9 +27,11 @@ export function VisualizarCitas() {
         if (filtro) {
           await setToken(authTokens.access)
           citas = await getAllCitas();
+          setIsResult(citas.length > 0)
         } else {
           await setToken(authTokens.access)
           citas = await getCitasInactivas();
+          setIsResult(citas.length > 0)
         }
         setCitas(citas);
       } catch (error) {
@@ -99,8 +103,34 @@ export function VisualizarCitas() {
       console.error(error);
     }
   }
+  const handleBuscarCitas = async () => {
+    try {
+      await setToken(authTokens.access);
+      if (criterio.trim() === "") {
+        const response = await getAllCitas();
+        setCitas(response)
+        setIsResult(response.length > 0);
+      } else {
+        const response = await buscarCitas(criterio);
+        if (response && Array.isArray(response)) {
+          setCitas(response);
+          setIsResult(response.length > 0);
+        } else {
+          setCitas([]);
+          setIsResult(false);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      setCitas([]);
+      setIsResult(false);
+    }
+  };
   const handleFiltro = (filtro) => {
     setFiltro(filtro)
+  }
+  const handleBarraBusqueda = (evt) => {
+    setCriterio(evt.target.value)
   }
   return (
     <>
@@ -110,6 +140,16 @@ export function VisualizarCitas() {
             <hr />
             <h3 className="title">CITAS AGENDADAS</h3>
             <hr />
+          </div>
+          <div className="row">
+            <div className="col-md-5 offset-1 mt-2 mb-2">
+              <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP del paciente" onChange={handleBarraBusqueda} />
+            </div>
+            <div className="col-md-3 mt-2">
+              <button type="button" onClick={handleBuscarCitas} className="button-buscar">
+                <i class="lni lni-search-alt"></i>
+              </button>
+            </div>
           </div>
         </div>
         <div className="row">
@@ -123,43 +163,48 @@ export function VisualizarCitas() {
 
         {/**Citas activas */}
         <div className="col-md-10 offset-md-1 mt-2">
-          <table className="table-bordered">
-            <thead className="cabecera">
-              <tr>
-                <th className="columv2">Número</th>
-                <th className="colum">Curp</th>
-                <th className="colum">Fecha horario</th>
-                <th className="colum">Especialidad</th>
-                <th className="colum">Estado</th>
-                <th className="colum">Marcar asistencia</th>
-                <th className="columv2"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentCitas.map(cita => (
-                <tr key={cita.idCita}>
-                  <td className="fila">{cita.idCita}</td>
-                  <td className="fila">{cita.idPaciente}</td>
-                  <td className="fila">{cita.datos_cita.fecha_cita} {cita.datos_cita.horario_cita}</td>
-                  <td className="fila">{cita.datos_cita.especialidad}</td>
-                  {cita.estado ? (
-                    <td className="fila">Activa</td>
-                  ) : (
-                    <td className="fila">Asistida</td>
-                  )}
-                  <td className="fila">
-                    <input id="marcar_asistencia" checked={!cita.estado} type="checkbox" onChange={() => handleMarcarAsistencia(cita.idCita)} />
-                  </td>
-                  <td className="fila">
-                    <button className="button-filter mx-auto rounded" onClick={() => handleOpenModal(cita.idCita)}>
-                      <i class="lni lni-pencil"></i>
-                    </button>
-                  </td>
+          {isResult ? (
+            <table className="table-bordered">
+              <thead className="cabecera">
+                <tr>
+                  <th className="columv2">Número</th>
+                  <th className="colum">Curp</th>
+                  <th className="colum">Fecha horario</th>
+                  <th className="colum">Especialidad</th>
+                  <th className="colum">Estado</th>
+                  <th className="colum">Marcar asistencia</th>
+                  <th className="columv2"></th>
                 </tr>
-              ))
-              }
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {currentCitas.map(cita => (
+                  <tr key={cita.idCita}>
+                    <td className="fila">{cita.idCita}</td>
+                    <td className="fila">{cita.idPaciente}</td>
+                    <td className="fila">{cita.datos_cita.fecha_cita} {cita.datos_cita.horario_cita}</td>
+                    <td className="fila">{cita.datos_cita.especialidad}</td>
+                    {cita.estado ? (
+                      <td className="fila">Activa</td>
+                    ) : (
+                      <td className="fila">Asistida</td>
+                    )}
+                    <td className="fila">
+                      <input id="marcar_asistencia" checked={!cita.estado} type="checkbox" onChange={() => handleMarcarAsistencia(cita.idCita)} />
+                    </td>
+                    <td className="fila">
+                      <button className="button-filter mx-auto rounded" onClick={() => handleOpenModal(cita.idCita)}>
+                        <i class="lni lni-pencil"></i>
+                      </button>
+                    </td>
+                  </tr>
+                ))
+                }
+              </tbody>
+            </table>
+          ) : (
+            <p className="text-center text-danger mt-4">NO SE ENCONTRARON RESULTADOS DE BÚSQUEDA</p>
+          )}
+
         </div>
         <div className="pagination mt-2 col-md-10 offset-md-1">
           {[...Array(Math.ceil(citas.length / itemsPerPage)).keys()].map(number => (

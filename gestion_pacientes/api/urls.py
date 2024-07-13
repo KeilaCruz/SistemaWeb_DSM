@@ -14,6 +14,7 @@ from gestion_pacientes.api.cita import (
     VisualizarCitasPaciente,
     ReagendarCitasPaciente,
     MarcarAsistenciaCita,
+    BuscarCitas,
 )
 from gestion_pacientes.api.paciente import (
     PacienteAPIView,
@@ -29,7 +30,7 @@ from gestion_pacientes.api.nutricion import (
     CalculadoraCircuferenciaCintura,
     HistoriaNutricionAPIView,
     VisualizarFichaNutricionPaciente,
-    
+    BuscarHistoriaNutricion,
 )
 from gestion_pacientes.api.psicologia import (
     RegistrarFichaPsiNiñoAPIView,
@@ -41,7 +42,9 @@ from gestion_pacientes.api.psicologia import (
     RegistrarEvaluacionAdulto,
     RegistrarEvaluacionNiño,
     VisualizarEvaluacionAdulto,
-    VisualizarEvaluacionNiño
+    VisualizarEvaluacionNiño,
+    BuscarFichasPsicologiaAdulto,
+    BuscarFichasPsicologiaNiño,
 )
 
 from gestion_pacientes.api.evento import (
@@ -99,6 +102,11 @@ urlpatterns = [
     path("registrar_evento/", RegistrarEventoAPIView.as_view()),
     path("evento/", EventoAPIView.as_view()),
     path("editar_evento/<str:idEvento>/", EditarEventoAPIView.as_view()),
+    path("buscar_historia_nutricion/<str:idPaciente>/", BuscarHistoriaNutricion.as_view(), name="buscar_historia_nutricion"),
+    path("buscar_cita/<str:idPaciente>/", BuscarCitas.as_view(), name="buscar_citas"),
+    path("buscar_ficha_psico_adulto/<str:idPaciente>/", BuscarFichasPsicologiaAdulto.as_view(), name="buscar_fichas_adulto"),
+    path("buscar_ficha_psico_ninio/<str:idPaciente>/", BuscarFichasPsicologiaNiño.as_view(), name="buscar_fichas_niño"),
+
 
     path("registrar_examen_medico/", RegistrarExamenMedicoAPIView.as_view()),
     path("examen_medico/", ExamenMedicoAPIView.as_view()),

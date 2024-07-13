@@ -6,6 +6,7 @@ from rest_framework.decorators import permission_classes
 from gestion_pacientes.models import HistoriaNutricion
 from .serializers import HistoriaNutricionSerializer
 from django.db.models import Max
+from rest_framework.exceptions import NotFound
 
 
 @permission_classes([IsAuthenticated])
@@ -126,3 +127,19 @@ class VisualizarFichaNutricionPaciente(APIView):
             return HistoriaNutricion.objects.filter(idPaciente=idPaciente)
         except HistoriaNutricion.DoesNotExist:
             raise "No existe"
+
+
+@permission_classes([IsAuthenticated])
+class BuscarHistoriaNutricion(APIView):
+    def get(self, request, idPaciente):
+        historia = self.get_historias(idPaciente)
+        historia_serializer = HistoriaNutricionSerializer(historia, many=True)
+        return Response(historia_serializer.data)
+
+    def get_historias(self, idPaciente):
+        historias = HistoriaNutricion.objects.filter(idPaciente=idPaciente)
+        if not historias.exists():
+            raise NotFound(
+                "No existe historial de nutrición para el paciente proporcionado."
+            )
+        return historias

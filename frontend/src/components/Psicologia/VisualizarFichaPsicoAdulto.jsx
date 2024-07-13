@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import AuthContext from '../../context/AuthProvider'
 import { setToken } from '../../services/HeaderAuthorization'
-import { getAllFichasPsiAdultos } from '../../services/Psicologia'
+import { buscarFichaAdulto, getAllFichasPsiAdultos } from '../../services/Psicologia'
 import { useNavigate } from 'react-router-dom'
 import { FormEvoluciónPsicoAdulto } from './FormEvolucionPsicoAdulto.jxs'
 
@@ -13,6 +13,8 @@ export function VisualizarFichaPsicoAdulto() {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
     const { authTokens } = useContext(AuthContext)
+    const [criterio, setCriterio] = useState("")
+    const [isResult, setIsResult] = useState(true)
     const navigate = useNavigate()
 
     //calculos para hacer la paginación
@@ -26,6 +28,7 @@ export function VisualizarFichaPsicoAdulto() {
             await setToken(authTokens.access)
             const response = await getAllFichasPsiAdultos();
             setFichas(response)
+            setIsResult(response.length > 0)
         }
         loadFichas()
     }, [])
@@ -43,6 +46,32 @@ export function VisualizarFichaPsicoAdulto() {
     const handleCloseModal = () => {
         setShowModal(false)
     }
+    const handleBarraBusqueda = (evt) => {
+        setCriterio(evt.target.value)
+    }
+    const handleBuscarFicha = async () => {
+        try {
+            await setToken(authTokens.access);
+            if (criterio.trim() === "") {
+                const response = await getAllFichasPsiAdultos();
+                setFichas(response);
+                setIsResult(response.length > 0);
+            } else {
+                const response = await buscarFichaAdulto(criterio);
+                if (response && Array.isArray(response)) {
+                    setFichas(response);
+                    setIsResult(response.length > 0);
+                } else {
+                    setFichas([]);
+                    setIsResult(false);
+                }
+            }
+        } catch (error) {
+            console.error(error);
+            setFichas([]);
+            setIsResult(false);
+        }
+    };
     return (
         <>
             <div className='container-fluid'>
@@ -52,48 +81,63 @@ export function VisualizarFichaPsicoAdulto() {
                         <h3 className="title">FICHAS DE IDENTIFICACIÓN ADULTOS</h3>
                         <hr />
                     </div>
+                    <div className="row">
+                        <div className="col-md-5 offset-1 mt-2 mb-2">
+                            <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP del paciente" onChange={handleBarraBusqueda} />
+                        </div>
+                        <div className="col-md-3 mt-2">
+                            <button type="button" onClick={handleBuscarFicha} className="button-buscar">
+                                <i class="lni lni-search-alt"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div className='col-md-10 offset-md-1'>
-                    <table className="table-bordered">
-                        <thead className='cabecera'>
-                            <tr>
-                                <th className='colum'>Número expediente</th>
-                                <th className='colum'>Fecha registro</th>
-                                <th className='colum'>Motivo consulta</th>
-                                <th className='colum'>Curp paciente</th>
-                                <th className='colum'>Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {currentFichas.map(ficha => (
+                    {isResult ? (
+                        <table className="table-bordered">
+                            <thead className='cabecera'>
                                 <tr>
-                                    <td className='fila'>{ficha.expedienteFicha}</td>
-                                    <td className='fila'>{ficha.fecha_registro}</td>
-                                    <td className='fila'>{ficha.datos_generales.motivo_consulta}</td>
-                                    <td className='fila'>{ficha.idPaciente}</td>
-                                    <td className="fila">
-                                        <div className='row'>
-                                            <div className="col-md-2 offset-md-1">
-                                                <button type="button" className="button-filter mx-auto rounded" onClick={() => handleFichas(ficha.idPaciente)}>
-                                                    <i class="lni lni-folder"></i>
-                                                </button>
-                                            </div>
-                                            <div className="col-md-2 offset-md-1">
-                                                <button type="button" className="button-filter mx-auto rounded" onClick={() => handleModal(ficha)}>
-                                                    <i class="lni lni-add-files"></i>
-                                                </button>
-                                            </div>
-                                            <div className="col-md-2 offset-md-1">
-                                                <button type="button" className="button-filter mx-auto rounded" onClick={() => handleNotas(ficha.idPaciente)}>
-                                                    <i class="lni lni-empty-file"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <th className='colum'>Número expediente</th>
+                                    <th className='colum'>Fecha registro</th>
+                                    <th className='colum'>Motivo consulta</th>
+                                    <th className='colum'>Curp paciente</th>
+                                    <th className='colum'>Opciones</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {currentFichas.map(ficha => (
+                                    <tr>
+                                        <td className='fila'>{ficha.expedienteFicha}</td>
+                                        <td className='fila'>{ficha.fecha_registro}</td>
+                                        <td className='fila'>{ficha.datos_generales.motivo_consulta}</td>
+                                        <td className='fila'>{ficha.idPaciente}</td>
+                                        <td className="fila">
+                                            <div className='row'>
+                                                <div className="col-md-2 offset-md-1">
+                                                    <button type="button" className="button-filter mx-auto rounded" onClick={() => handleFichas(ficha.idPaciente)}>
+                                                        <i class="lni lni-folder"></i>
+                                                    </button>
+                                                </div>
+                                                <div className="col-md-2 offset-md-1">
+                                                    <button type="button" className="button-filter mx-auto rounded" onClick={() => handleModal(ficha)}>
+                                                        <i class="lni lni-add-files"></i>
+                                                    </button>
+                                                </div>
+                                                <div className="col-md-2 offset-md-1">
+                                                    <button type="button" className="button-filter mx-auto rounded" onClick={() => handleNotas(ficha.idPaciente)}>
+                                                        <i class="lni lni-empty-file"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <p className="text-center text-danger mt-4">NO SE ENCONTRARON RESULTADOS DE BÚSQUEDA</p>
+                    )}
+
                 </div>
 
                 <div className="pagination mt-2 col-md-10 offset-md-1">

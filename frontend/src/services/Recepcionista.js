@@ -21,7 +21,7 @@ const LIST_REAGENDARCITA_URL = "http://127.0.0.1:8000/api/reagendar_cita/";
 const LIST_HISTORIALCLINICO_URL = "http://127.0.0.1:8000/api/historial_clinico/"
 const LIST_EXAMEN_MEDICO_URL = "http://127.0.0.1:8000/api/examen_medico_new/"
 const MARCAR_ASISTENCIA_URL = "http://127.0.0.1:8000/api/marcar_asistencia/"
-
+const SEARCH_CITA_URL = "http://127.0.0.1:8000/api/buscar_cita"
 export const getAllPacientes = async () => {
     try {
         const config = await getConfig()
@@ -460,6 +460,19 @@ export const editarEvento = async (idEvento, evento) => {
     }
 }
 
+export const buscarCitas = async (idPaciente) => {
+    try {
+        const config = await getConfig()
+        const response = await axios.get(`${SEARCH_CITA_URL}/${idPaciente}/`, config)
+        if (response.status === 200) {
+            return response.data
+        } else {
+            console.log("Error al citas")
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 
 

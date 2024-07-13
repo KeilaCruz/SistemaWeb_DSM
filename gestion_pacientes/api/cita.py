@@ -7,6 +7,7 @@ from gestion_pacientes.models import Cita
 from .serializers import CitaSerializer
 from datetime import datetime, timedelta
 from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import NotFound
 
 
 @permission_classes([IsAuthenticated])
@@ -130,3 +131,18 @@ class MarcarAsistenciaCita(APIView):
         cita.estado = request.data
         cita.save()
         return Response({"message": "El estado de la cita ha sido actualizado"})
+
+
+class BuscarCitas(APIView):
+    def get(self, request, idPaciente):
+        citas = self.get_citas(idPaciente)
+        cita_serializer = CitaSerializer(citas, many=True)
+        return Response(cita_serializer.data)
+
+    def get_citas(self, idPaciente):
+        citas = Cita.objects.filter(idPaciente=idPaciente)
+        if not citas.exists():
+            raise NotFound(
+                "No existe historial de nutrición para el paciente proporcionado."
+            )
+        return citas
