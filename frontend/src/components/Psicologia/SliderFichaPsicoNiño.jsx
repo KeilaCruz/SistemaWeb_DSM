@@ -8,6 +8,7 @@ export function SliderFichaPsicoNiño({ ficha }) {
     const [medicamentoEmbarazo, setMedicamentoEmbarazo] = useState(false)
     const [alimentacionSeno, setAlimentoSeno] = useState(false)
     const [controlEsfinger, setControlEsfinger] = useState(false)
+    const [baseUrl] = useState("http://localhost:8000")
 
     const textoTomaMedicamento = tomaMedicamento ? 'Si' : 'No'
     const textoMedicamentoEmbarazo = medicamentoEmbarazo ? 'Si' : 'No'
@@ -323,6 +324,11 @@ export function SliderFichaPsicoNiño({ ficha }) {
                                 <label htmlFor="conducta_niño" className="form-label label-form"> Conducta del niño al ingresar a la escuela de acuerdo a padres y maestros</label>
                                 <input id="conducta_niño" className="form-control input-form" type="text" value={ficha.datos_escolares.conducta_ingreso} disabled={true} />
                             </div>
+                            {ficha.archivo && (
+                                <div>
+                                    <a id="archivo_ficha_niño" href={baseUrl + ficha.archivo} target="_blank" rel="noopener noreferrer">Ver archivo</a>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </Slider>

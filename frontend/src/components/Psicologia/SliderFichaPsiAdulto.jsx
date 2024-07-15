@@ -24,6 +24,7 @@ export function SliderFichaPsiAdulto({ ficha }) {
     const [tratamientoPsicomatico, setTratamiendoPsicomatico] = useState(false)
     const [sexualmenteActivo, setSexualmenteActivo] = useState(false)
     const [utilizaConceptivo, setUtilizaConceptivo] = useState(false)
+    const [baseUrl] = useState("http://localhost:8000")
 
     var textoPsicologia = atencionPsicologica ? 'Si' : 'No'
     var textoMascotas = tieneMascotas ? 'Si' : 'No'
@@ -286,6 +287,11 @@ export function SliderFichaPsiAdulto({ ficha }) {
                                     </div>
                                 )}
                             </div>
+                            {ficha.archivo && (
+                                <div>
+                                    <a id="archivo_ficha_adulto" href={baseUrl + ficha.archivo} target="_blank" rel="noopener noreferrer">Ver archivo</a>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </Slider >

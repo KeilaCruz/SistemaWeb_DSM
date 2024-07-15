@@ -106,7 +106,7 @@ class FichaPsicologicaNiño(models.Model):
 
 def ruta_hoja_clinica(instance, filename):
     # Genera la ruta de almacenamiento para el archivo
-    return "docsHistorialClinico/{0}/{1}".format(instance.idPaciente, filename)
+    return "docsHistorialClinico/{0}/{1}".format(instance.idHojaClinica, filename)
 
 
 class HojaEvaluacionClinica(models.Model):

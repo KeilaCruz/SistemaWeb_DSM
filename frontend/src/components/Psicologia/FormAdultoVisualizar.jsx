@@ -11,7 +11,7 @@ export function FormAdultoVisualizar({ ficha }) {
     const [tratamientoPsicomatico, setTratamiendoPsicomatico] = useState(false)
     const [sexualmenteActivo, setSexualmenteActivo] = useState(false)
     const [utilizaConceptivo, setUtilizaConceptivo] = useState(false)
-
+    const [baseUrl] = useState("http://localhost:8000")
     var textoPsicologia = atencionPsicologica ? 'Si' : 'No'
     var textoMascotas = tieneMascotas ? 'Si' : 'No'
     var textoPsicomaticos = tienePsicomaticos ? 'Si' : 'No'
@@ -267,6 +267,11 @@ export function FormAdultoVisualizar({ ficha }) {
                                             <label className="form-label label-form" htmlFor="cual_metodo_conceptivo">Cuál metodo conceptivo:</label>
                                             <input className="form-control input-form" id="cual_metodo_conceptivo" value={ficha.datos_sexual.cual_metodo_conceptivo} disabled={true} />
                                         </div>
+                                    </div>
+                                )}
+                                {ficha.archivo && (
+                                    <div>
+                                        <a id="archivo_ficha_adulto" href={baseUrl + ficha.archivo} target="_blank" rel="noopener noreferrer">Ver archivo</a>
                                     </div>
                                 )}
                             </div>

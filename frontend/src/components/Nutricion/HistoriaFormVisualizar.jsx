@@ -17,7 +17,8 @@ export function HistoriaFormVisualizar({ historia }) {
     const [consumeDrogas, setConsumeDroga] = useState(false)
     const [actualmenteLactando, setActualmenteLactando] = useState(false)
     const [presentaMenoupasia, setPresentaMenopausia] = useState(false)
-
+    const [baseUrl] = useState("http://localhost:8000");
+    
     const textoDiabetesAHF = diabetesAHF ? 'Si' : 'No'
     const textoHipertensionAHF = hipertensionAHF ? 'Si' : 'No'
     const textoDislipidemiasAHF = dislipidemiasAHF ? 'Si' : 'No'
@@ -56,6 +57,7 @@ export function HistoriaFormVisualizar({ historia }) {
         }
         loadInput()
     }, [])
+
     return (
         <>
 
@@ -342,6 +344,11 @@ export function HistoriaFormVisualizar({ historia }) {
                         <label htmlFor="diagnostico_nutricional" className="form-label label-form">Tratamiento nutricional</label>
                         <textarea className="form-control input-form" id="tratamiento_nutricional" placeholder="Tratamiento nutricional" value={historia.diagnostico.tratamiento_nutricional} ></textarea>
                     </div>
+                    {historia.archivo && (
+                        <div>
+                            <a id="archivo_nutricion" href={baseUrl + historia.archivo} target="_blank" rel="noopener noreferrer">Ver archivo</a>
+                        </div>
+                    )}
                 </div>
             ))}
 

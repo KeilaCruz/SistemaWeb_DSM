@@ -28,6 +28,7 @@ export function SliderHistoriaNutricion({ historia }) {
     const [consumeDrogas, setConsumeDroga] = useState(false)
     const [actualmenteLactando, setActualmenteLactando] = useState(false)
     const [presentaMenoupasia, setPresentaMenopausia] = useState(false)
+    const [baseUrl] = useState("http://localhost:8000");
 
     const textoDiabetesAHF = diabetesAHF ? 'Si' : 'No'
     const textoHipertensionAHF = hipertensionAHF ? 'Si' : 'No'
@@ -64,6 +65,7 @@ export function SliderHistoriaNutricion({ historia }) {
             setConsumeDroga(historia[0].anp.consume_droga)
             setActualmenteLactando(historia[0].ago.actualmente_lactando)
             setPresentaMenopausia(historia[0].ago.presenta_menopausia)
+            setUrlArchivo(historia[0].archivo)
         }
         loadInput()
     }, [])
@@ -356,7 +358,11 @@ export function SliderHistoriaNutricion({ historia }) {
                                     <textarea className="form-control input-form" id="tratamiento_nutricional" placeholder="Tratamiento nutricional" value={historia.diagnostico.tratamiento_nutricional} ></textarea>
                                 </div>
                             </div>
-
+                            {historia.archivo && (
+                                <div>
+                                    <a id="archivo_nutricion" href={baseUrl + historia.archivo} target="_blank" rel="noopener noreferrer">Ver archivo</a>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </Slider>
