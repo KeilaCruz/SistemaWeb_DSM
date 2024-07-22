@@ -96,7 +96,7 @@ export function VisualizarHistoriasNutricion() {
                                         <td className="fila">{historia.datos_personales.motivo_consulta}</td>
                                         <td className="fila">{historia.idPaciente}</td>
                                         <td className="fila">
-                                            <button type="button" className="button-filter rounded" onClick={() => handleHistorias(historia.idPaciente)}>
+                                            <button type="button" className="button-filter rounded" onClick={() => handleHistorias(historia.idPaciente)} title="Visualizar historia nutrición">
                                                 <i class="lni lni-weight"></i>
                                             </button>
                                         </td>

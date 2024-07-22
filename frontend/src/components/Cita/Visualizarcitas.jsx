@@ -154,10 +154,10 @@ export function VisualizarCitas() {
         </div>
         <div className="row">
           <div className="col-md-1 offset-md-1">
-            <button type="button" className="button-filter rounded" onClick={() => handleFiltro(true)}>Pendientes</button>
+            <button type="button" className="button-filter rounded" onClick={() => handleFiltro(true)} title="Mostrar citas pendientes">Pendientes</button>
           </div>
           <div className="col-md-1">
-            <button type="button" className="button-filter rounded" onClick={() => handleFiltro(false)}>Asistidas</button>
+            <button type="button" className="button-filter rounded" onClick={() => handleFiltro(false)} title="Mostrar citas asistidas">Asistidas</button>
           </div>
         </div>
 
@@ -192,7 +192,7 @@ export function VisualizarCitas() {
                       <input id="marcar_asistencia" checked={!cita.estado} type="checkbox" onChange={() => handleMarcarAsistencia(cita.idCita)} />
                     </td>
                     <td className="fila">
-                      <button className="button-filter mx-auto rounded" onClick={() => handleOpenModal(cita.idCita)}>
+                      <button className="button-filter mx-auto rounded" onClick={() => handleOpenModal(cita.idCita)} title="Ver cita">
                         <i class="lni lni-pencil"></i>
                       </button>
                     </td>

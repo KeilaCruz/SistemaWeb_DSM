@@ -113,17 +113,17 @@ export function VisualizarFichaPsicoNiño() {
                                         <td className="fila">
                                             <div className="row">
                                                 <div className="col-md-2 offset-md-1">
-                                                    <button type="button" className="button-filter mx-auto rounded" onClick={() => handleFichas(ficha.idPaciente)}>
+                                                    <button type="button" className="button-filter mx-auto rounded" onClick={() => handleFichas(ficha.idPaciente)} title="Visualizar expediente psicologico">
                                                         <i class="lni lni-folder"></i>
                                                     </button>
                                                 </div>
                                                 <div className="col-md-2 offset-md-1">
-                                                    <button type="button" className="button-filter mx-auto rounded" onClick={() => handleModal(ficha)}>
+                                                    <button type="button" className="button-filter mx-auto rounded" onClick={() => handleModal(ficha)} title="Agregar nota de evolución">
                                                         <i class="lni lni-add-files"></i>
                                                     </button>
                                                 </div>
                                                 <div className="col-md-2 offset-md-1">
-                                                    <button type="button" className="button-filter mx-auto rounded" onClick={() => handleNotas(ficha.idPaciente)}>
+                                                    <button type="button" className="button-filter mx-auto rounded" onClick={() => handleNotas(ficha.idPaciente)} title="Visualizar notas de evolución">
                                                         <i class="lni lni-empty-file"></i>
                                                     </button>
                                                 </div>
