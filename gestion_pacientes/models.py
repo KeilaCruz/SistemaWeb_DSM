@@ -42,6 +42,7 @@ class Paciente(models.Model):
 
 class Cita(models.Model):
     idCita = models.BigAutoField(primary_key=True)
+    fecha_registro = models.DateField(default=datetime.date.today)
     idPaciente = models.ForeignKey(Paciente, on_delete=models.DO_NOTHING)
     datos_cita = models.JSONField(default=dict)
     estado = models.BooleanField(default=False)
