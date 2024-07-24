@@ -66,9 +66,9 @@ export function FormHojaDeEvaluacion({
             <div className="col-md-3 mt-1">
               <button
                 onClick={handleBuscarPaciente}
-                className="button-buscar btn btn-primary"
+                className="button-buscar"
               >
-                Buscar
+                <i class="lni lni-search-alt"></i>
               </button>
             </div>
           </div>

@@ -114,7 +114,7 @@ export function Login() {
                 {/* Recuperar contraseña */}
                 <div className="d-flex justify-content-between align-items-center">
                   <a href="#!" className="text-body">
-                    Recuperar contraseña
+                    {/* Recuperar contraseña */}
                   </a>
                 </div>
 

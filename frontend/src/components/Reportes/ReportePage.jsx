@@ -13,71 +13,93 @@ export function ReportePage() {
 
 
 
-
+  function getMonthName(mes) {
+    const nombresMeses = [
+      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+    ];
+    return nombresMeses[mes];
+  }
 
   const generatePDF = () => {
-    
-    // Generar el PDF con react-pdf-render
-    const MyDocument = () => (
-      <Document>
-      <Page size="A4" style={{ paddingLeft: 40, paddingRight: 40, color: '#902829' }}>
-        
-        {/* Renderizar las dos imágenes en el PDF */}
+  const MyDocument = () => (
+    <Document>
+      <Page size="A4" style={{ paddingLeft: 10, paddingRight: 40, color: '#902829', paddingBottom: 15, paddingTop:15 }}>
+        {/* Renderizar las imágenes y sus datos correspondientes */}
         {chartRefs.current.map((chartRef, index) => (
-          <Image
-            key={index}
-            src={getImageBase64(chartRef)}
-            style={{ width: '600px', height: 'auto', marginBottom: '30px', marginTop:"20px" }}
-          />
+          <View key={index} style={{ marginBottom: '30px', marginTop: '20px' }}>
+            <Image
+              src={getImageBase64(chartRef)}
+              style={{ width: '600px', height: 'auto' }}
+            />
+            {index === 0 && (
+              <>
+                <Text style={{ color: '#5570c7', fontSize: 30}}>Cantidad de pacientes por género</Text>
+                <Text>Total de pacientes: {totalPacientes}</Text>
+                <Text>Mujeres: {cantidadFemenino}</Text>
+                <Text>Hombres: {cantidadMasculinos}</Text>
+                <Text>No binarios: {cantidadNoBinarios}</Text>
+                <Text>Otros: {cantidadOtros}</Text>
+              </>
+            )}
+            {index === 1 && (
+              <>
+                <Text style={{ color: '#5570c7', fontSize: 30 }}>Enfermedades crónicas</Text>
+{Object.entries(patientsByMonth).map(([enfermedad, pacientesPorMes], index) => (
+  <View key={index}>
+    <Text style={{ paddingBottom: 30 }}></Text>
+    <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>{enfermedad}:</Text>
+    {pacientesPorMes.map((cantidad, mes) => (
+      <Text key={mes}>{getMonthName(mes)}: {cantidad}</Text>
+    ))}
+  </View>
+))}
+
+              </>
+            )}
+            {index === 2 && (
+              <>
+                <Text style={{ color: '#5570c7', fontSize: 30 }}>Derechohabiencia</Text>
+                <Text>IMSS: {cantidadIMSS}</Text>
+                <Text>ISSSTE: {cantidadISSSTE}</Text>
+                <Text>PEMEX: {cantidadPEMEX}</Text>
+                <Text>SEDENA: {cantidadSEDENA}</Text>
+                <Text>SEDMAR: {cantidadSEDMAR}</Text>
+                <Text>SSA/SESVER: {cantidadSSA_SESVER}</Text>
+              </>
+            )}
+          </View>
         ))}
-        <Text  style={{ color: '#5570c7', fontSize: 30 }}>Datos de la primera grafica</Text>
-        <Text>Total de pacientes: {totalPacientes}</Text>
-        <Text>Mujeres: {cantidadFemenino}</Text>
-        <Text>Hombres: {cantidadMasculinos}</Text>
-        <Text>No binarios: {cantidadNoBinarios}</Text>
-        <Text>Otros: {cantidadOtros}</Text>
-
-
-
-
-        <Text style={{ color: '#5570c7', fontSize: 30 }}>Datos de la segunda grafica grafica</Text>
-      {Object.entries(patientsByMonth).map(([enfermedad, pacientesPorMes], index) => (
-        <View key={index}>
-          <Text style={{paddingBottom:30}}></Text>
-          <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>{enfermedad}:</Text>
-          {pacientesPorMes.map((cantidad, mes) => (
-            <Text key={mes}>Mes {mes + 1}: {cantidad}</Text>
-          ))}
-        </View>
-      ))}
-        <Text style={{ color: '#5570c7', fontSize: 30 }}>Datos de la tercera grafica</Text>
-        <Text>IMSS: {cantidadIMSS}</Text>
-        <Text>ISSSTE: {cantidadISSSTE}</Text>
-        <Text>PEMEX: {cantidadPEMEX}</Text>
-        <Text>SEDENA: {cantidadSEDENA}</Text>
-        <Text>SEDMAR: {cantidadSEDMAR}</Text>
-        <Text>SSA/SESVER: {cantidadSSA_SESVER}</Text>
       </Page>
     </Document>
-    
-    );
+  );
 
-    // Convertir el documento PDF en un enlace de descarga
-    const pdfURL = (
-      <PDFDownloadLink document={<MyDocument />} fileName="Reporte.pdf">
-        {({ blob, url, loading, error }) => (loading ? 'Generando PDF...' : 'Descargar PDF')}
-      </PDFDownloadLink>
-    );
+  const pdfURL = (
+    <PDFDownloadLink document={<MyDocument />} fileName="Reporte.pdf">
+      {({ blob, url, loading, error }) => (loading ? 'Generando PDF...' : 'Descargar PDF')}
+    </PDFDownloadLink>
+  );
 
-    // Actualizar el estado con el enlace de descarga del PDF
-    setPdfDataURL(pdfURL);
-  };
+  setPdfDataURL(pdfURL);
+};
 
-  const getImageBase64 = (chartRef) => {
-    if (!chartRef) return null;
-    const canvas = chartRef.getElementsByTagName('canvas')[0];
-    return canvas.toDataURL();
-  };
+const getImageBase64 = (chartRef) => {
+  if (!chartRef) return null;
+  const canvas = chartRef.getElementsByTagName('canvas')[0];
+
+  const scale = 2;
+  const width = canvas.width;
+  const height = canvas.height;
+  const scaledCanvas = document.createElement('canvas');
+  scaledCanvas.width = width * scale;
+  scaledCanvas.height = height * scale;
+  const ctx = scaledCanvas.getContext('2d');
+  ctx.scale(scale, scale);
+  ctx.drawImage(canvas, 0, 0);
+
+  return scaledCanvas.toDataURL();
+};
+
 
 
 /* Primera grafica ----------------------------------------------------------------------------------------------------------- */
@@ -104,7 +126,7 @@ useEffect(() => {
       setCantidadNoBinarios(noBinarios)
       setCantidadOtros(otro)
       
-      setTotalPacientes(pacientes.length); // "length" es una propiedad, no una función
+      setTotalPacientes(pacientes.length); 
     } catch (error) {
       console.error("Error al obtener la cantidad de pacientes:", error);
     }
@@ -117,7 +139,7 @@ useEffect(() => {
   useEffect(() => {
     const data1 = {
       title: {
-        text: 'Cantidad de pacientes por genero',
+        text: 'Cantidad de pacientes por género',
         subtext: 'Datos 2024',
         left: 'center'
       },
@@ -206,7 +228,7 @@ useEffect(() => {
 
     const data2 = {
       title: {
-        text: 'Enfermedades cronicas',
+        text: 'Enfermedades crónicas',
         subtext: '2024',
         left: 'center'
       },
@@ -350,10 +372,7 @@ useEffect(() => {
         <div className="row g-3">
           <div className="offset-md-1 col-md-6">
             <p className="h1">Total de pacientes: {totalPacientes}</p>
-            {/* <p className="h3">Mujeres: {cantidadFemenino}</p>
-            <p className="h3">Hombres: {cantidadMasculinos}</p>
-            <p className="h3">No binarios: {cantidadNoBinarios}</p>
-            <p className="h3">Otro: {cantidadOtros}</p> */}
+            
 
           </div>
           <div className="offset-md-1 col-md-3">
@@ -368,7 +387,7 @@ useEffect(() => {
           <hr />
 
           <div className="offset-md-1 col-md-3 mt-2">
-            <p className="h1">Enfermedades cronicas</p>
+            <p className="h1">Enfermedades crónicas</p>
           </div>
 
           <div style={{ height: '500px' }} ref={el => chartRefs.current[1] = el}></div>
