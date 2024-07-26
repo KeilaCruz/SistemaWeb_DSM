@@ -4,6 +4,15 @@ import { useState, useEffect, useContext } from "react"
 import AuthContext from "../../context/AuthProvider"
 import { editarPaciente } from "../../services/Recepcionista"
 import { setToken } from "../../services/HeaderAuthorization"
+import {
+    PDFDownloadLink,
+    Document,
+    Page,
+    Image,
+    StyleSheet,
+    View,
+    Text,
+  } from "@react-pdf/renderer";
 
 export function EditPacienteForm({ paciente }) {
     const { register, setValue, handleSubmit } = useForm()
@@ -13,6 +22,141 @@ export function EditPacienteForm({ paciente }) {
     const [programaFederal, setProgramaFederal] = useState(false);
     const [programaEstatal, setProgramaEstatal] = useState(false);
     const [programaMunicipal, setProgramaMunicipal] = useState(false);
+
+    const [pdfDataURL, setPdfDataURL] = useState(null);
+
+    // Define styles
+const styles = StyleSheet.create({
+    page: {
+        padding: 40,
+        backgroundColor: '#fff',
+        border: '5px solid black',
+        position: 'relative', // Necesario para que funcione el posicionamiento absoluto del pie de página
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      },
+  section: {
+    marginBottom: 20,  // Aumenta el espacio entre secciones
+  },
+  header: {
+    fontSize: 18,
+    marginBottom: 15,  // Aumenta el espacio debajo del encabezado
+    fontFamily: 'Times-Roman',
+    textAlign: 'center',
+  },
+  text: {
+    fontSize: 12,
+    fontFamily: 'Times-Roman',
+    marginBottom: 10,  // Aumenta el espacio entre bloques de texto
+  },
+  table: {
+    display: 'table',
+    width: 'auto',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#bfbfbf',
+    marginBottom: 10,
+  },
+  tableRow: {
+    flexDirection: 'row',
+  },
+  tableCol: {
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#bfbfbf',
+    padding: 5,
+  },
+  tableCell: {
+    fontSize: 10,
+    fontFamily: 'Times-Roman',
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 30,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
+    fontSize: 12,
+    fontFamily: 'Times-Roman',
+  },
+});
+
+const getCurrentDate = () => {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0
+    const year = today.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+  
+
+
+
+const generatePDF = () => {
+  const MyDocument = () => (
+    <Document>
+      <Page size="A4" style={styles.page}>
+      <View style={styles.table}>
+          <View style={styles.tableRow}>
+            <View style={styles.tableCol}><Text style={styles.tableCell}>Fecha </Text></View>
+            <View style={styles.tableCol}><Text style={styles.tableCell}>{getCurrentDate()}</Text></View>
+            <View style={styles.tableCol}><Text style={styles.tableCell}>Paciente </Text></View>
+            <View style={styles.tableCol}><Text style={styles.tableCell}>{paciente.datos_personales?.nombre || ''} {paciente.datos_personales?.apePaterno || ''} {paciente.datos_personales?.apeMaterno || ''}</Text></View>
+          </View>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.header}>DATOS PERSONALES</Text>            
+          <Text style={styles.text}>NOMBRE: {paciente.datos_personales?.nombre || ''}</Text>
+          <Text style={styles.text}>APELLIDO PATERNO: {paciente.datos_personales?.apePaterno || ''}</Text>
+          <Text style={styles.text}>APELLIDO MATERNO: {paciente.datos_personales?.apeMaterno || ''}</Text>
+          <Text style={styles.text}>EDAD: {paciente.datos_personales?.edad || ''}</Text>
+          <Text style={styles.text}>ESTADO CIVIL: {paciente.datos_personales?.estado_civil || ''}</Text>
+          <Text style={styles.text}>CURP: {paciente.CURP}</Text>
+          <Text style={styles.text}>ESCOLARIDAD: {paciente.datos_personales?.escolaridad || ''}</Text>
+          <Text style={styles.text}>SEXO: {paciente.datos_personales?.sexo || ''}</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.header}>DIRECCIÓN</Text>
+          <Text style={styles.text}>COLONIA: {paciente.datos_direccion?.colonia || ''}</Text>
+          <Text style={styles.text}>CALLE: {paciente.datos_direccion?.calle || ''}</Text>
+          <Text style={styles.text}>NUMERO EXTERIOR: {paciente.datos_direccion?.numero_exterior || ''}</Text>
+          <Text style={styles.text}>REFERENCIA: {paciente.datos_direccion?.referencia || ''}</Text>
+          <Text style={styles.text}>CÓDIGO POSTAL: {paciente.datos_direccion?.CP || ''}</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.header}>CONTACTO</Text>
+          <Text style={styles.text}>TELÉFONO: {paciente.datos_contacto?.telefono || ''}</Text>
+          <Text style={styles.text}>DERECHOHABIENCIA: {paciente.datos_contacto?.derecho_habiencia || ''}</Text>
+          <Text style={styles.text}>UNIDAD DE SALUD:: {paciente.datos_contacto?.unidad_salud || ''}</Text>
+          <Text style={styles.text}>ÚLTIMA VISITA AL MÉDICO: {paciente.datos_contacto?.ultima_visita_medico || ''}</Text>
+          <Text style={styles.text}>NÚMERO DE PERSONAS CON LAS QUE VIVE: {paciente.datos_contacto?.numero_personas_vive || ''}</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.header}>PROGRAMAS DE GOBIERNO</Text>
+          <Text style={styles.text}>PARTICIPA EN PROGRAMA FEDERAL: {paciente.otros_datos?.participa_programa_federal ? 'Sí' : 'No'}</Text>
+          <Text style={styles.text}>NOMBRE DEL PROGRAMA FEDERAL: {paciente.otros_datos?.nombre_programa_federal || 'Sin nombre'}</Text>
+          <Text style={styles.text}>PARTICIPA EN PROGRAMA ESTATAL: {paciente.otros_datos?.participa_programa_estatal ? 'Sí' : 'No'}</Text>
+          <Text style={styles.text}>NOMBRE DEL PROGRAMA ESTATAL: {paciente.otros_datos?.nombre_programa_estatal || 'Sin nombre'}</Text>
+          <Text style={styles.text}>PARTICIPA EN PROGRAMA MUNICIPAL: {paciente.otros_datos?.participa_programa_municipal ? 'Sí' : 'No'}</Text>
+          <Text style={styles.text}>NOMBRE DEL PROGRAMA MUNICIPAL: {paciente.otros_datos?.nombre_programa_municipal || 'Sin nombre'}</Text>
+        </View>
+        <Text style={styles.footer} render={({ pageNumber, totalPages}) => (`Página ${pageNumber} de ${totalPages}`)} fixed />
+      </Page>
+    </Document>
+  );
+
+  const pdfURL = (
+    <PDFDownloadLink document={<MyDocument />} fileName="Datos_Paciente.pdf">
+      {({ blob, url, loading, error }) =>
+        loading ? "Generando PDF..." : "Descargar PDF"
+      }
+    </PDFDownloadLink>
+  );
+
+  setPdfDataURL(pdfURL);
+};
+      
+
 
     const handleActivateEditar = () => {
         setActiEdit(!activateEdit)
@@ -121,12 +265,23 @@ export function EditPacienteForm({ paciente }) {
     return (
         <>
             <div className="container-fluid">
-                <div className="row g-2 mt-5">
-                    <div className="col-md-10 offset-md-1 text-center mt-5">
+                <div className="row g-2 mt-1">
+                    <div className="col-md-10 offset-md-1 text-center ">
                         <hr />
                         <h3 className="title">FICHA DE IDENTIDAD DEL PACIENTE</h3>
                         <hr />
                     </div>
+
+                    <div className="offset-md-1 col-md-3">
+            <button onClick={generatePDF} className=" btn btn-secondary">
+              Generar{" "}
+              <i
+                className="fa-solid fa-file-pdf"
+                style={{ fontSize: "30px", color: "red" }}
+              ></i>{" "}
+            </button>
+            {pdfDataURL}
+          </div>
                 </div>
                 <form onSubmit={onSubmit} className="row g-3 align-items-center">
                     <div className="col-md-4 offset-md-1">

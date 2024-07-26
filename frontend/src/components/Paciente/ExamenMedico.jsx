@@ -3,6 +3,15 @@ import { setToken } from "../../services/HeaderAuthorization"
 import { useParams } from "react-router-dom"
 import { examenMedicoPaciente } from "../../services/Recepcionista"
 import AuthContext from "../../context/AuthProvider"
+import {
+  PDFDownloadLink,
+  Document,
+  Page,
+  Image,
+  StyleSheet,
+  View,
+  Text,
+} from "@react-pdf/renderer";
 
 export function ExamenMedico(){
     const [examen, setExamen] = useState([])
@@ -10,6 +19,9 @@ export function ExamenMedico(){
     const [examenPaciente, setExamenPaciente] = useState([])
     const { idPaciente } = useParams()
     const { authTokens } = useContext(AuthContext)
+    const [pdfDataURL, setPdfDataURL] = useState(null);
+    
+
 
     useEffect(() => {
         async function loadExamen() {
@@ -32,7 +44,228 @@ export function ExamenMedico(){
             setExamenPaciente(examenPaciente)
         }
         loadExamen()
-    }, [])
+    }, [authTokens.access, idPaciente])
+
+    const styles = StyleSheet.create({
+      page: {
+        padding: 40,
+        backgroundColor: '#fff',
+        border: '5px solid black',
+      },
+      section: {
+        marginBottom: 20,
+      },
+      header: {
+        fontSize: 19,
+        marginBottom: 10,
+        marginTop: 18,
+        fontFamily: 'Times-Roman',
+        textAlign: 'center',
+        fontWeight: 'bold',
+      },
+      text: {
+        fontSize: 14,
+        fontFamily: 'Times-Roman',
+        color: '#000',
+        marginBottom :9,
+      },
+      footer: {
+        position: 'absolute',
+        bottom: 30,
+        left: 0,
+        right: 0,
+        textAlign: 'center',
+        fontSize: 12,
+        fontFamily: 'Times-Roman',
+      },
+    });
+
+    const buttonStyles = {
+      display: 'inline-block',
+      padding: '10px 20px',
+      fontSize: '16px',
+      color: '#FF0000',
+      backgroundColor: '#D3D3D3',
+      border: 'none',
+      borderRadius: '5px',
+      textAlign: 'center',
+      textDecoration: 'none',
+      cursor: 'pointer',
+    };
+
+    const MyDocument = ({ examenPaciente }) => (
+      <Document>
+        <Page size="A4" style={styles.page}>
+            <Text style={styles.header}>DATOS DEL PACIENTE</Text>
+            <Text style={styles.text}>CURP: {examenPaciente[0]?.paciente.CURP}</Text>
+            <Text style={styles.text}>Nombre: {`${examenPaciente[0]?.paciente.nombre} ${examenPaciente[0]?.paciente.apePaterno} ${examenPaciente[0]?.paciente.apeMaterno}`}</Text>
+            <Text style={styles.text}>Edad: {examenPaciente[0]?.paciente.edad}</Text>
+
+        <View>
+          <Text style={styles.header}>DATOS DEL EXAMEN MÉDICO</Text>
+        <Text style={styles.text}>Fecha de Revisión: {examenPaciente[0]?.fecha_revision}</Text>
+        <Text style={styles.text}>ID de Usuario: {examenPaciente[0]?.idUsuario}</Text>
+        </View>
+        
+
+
+        <View>
+          <Text style={styles.header}>ANTECEDENTES HEREDOFAMILIARES</Text>
+        <Text style={styles.text}>Madre Viva: {examenPaciente[0]?.antecedentes_heredofamiliares.madre_viva ? 'Sí' : 'No'}</Text>
+        <Text style={styles.text}>Causa de muerte: {examenPaciente[0]?.antecedentes_heredofamiliares.madre_finada}</Text>
+        <Text style={styles.text}>Padre Vivo: {examenPaciente[0]?.antecedentes_heredofamiliares.padre_vivo ? 'Sí' : 'No'}</Text>
+        <Text style={styles.text}>Causa de muerte: {examenPaciente[0]?.antecedentes_heredofamiliares.padre_finado}</Text>
+        <Text style={styles.text}>Hermano Vivo: {examenPaciente[0]?.antecedentes_heredofamiliares.hermano_vivo ? 'Sí' : 'No'}</Text>
+        <Text style={styles.text}>Causa de muerte: {examenPaciente[0]?.antecedentes_heredofamiliares.hermano_finado}</Text>
+        <Text style={styles.text}>Hijos Vivos: {examenPaciente[0]?.antecedentes_heredofamiliares.hijos_vivos ? 'Sí' : 'No'}</Text>
+        <Text style={styles.text}>Causa de muerte: {examenPaciente[0]?.antecedentes_heredofamiliares.hijos_finados}</Text>
+
+        </View>
+        
+        <View>
+          <Text style={styles.header}>OTRAS ENFERMEDADES</Text>
+        <Text style={styles.text}>Agudeza Visual: {examenPaciente[0]?.datos_enfermedades.agudeza_visual}</Text>
+        <Text style={styles.text}>Hipertensión: {examenPaciente[0]?.datos_enfermedades.hiper_tension}</Text>
+        <Text style={styles.text}>Diabetes Mellitus: {examenPaciente[0]?.datos_enfermedades.diabetes_mellitus}</Text>
+        <Text style={styles.text}>Obesidad: {examenPaciente[0]?.datos_enfermedades.obesidad}</Text>
+        <Text style={styles.text}>Asma: {examenPaciente[0]?.datos_enfermedades.asma}</Text>
+        <Text style={styles.text}>Epilepsia: {examenPaciente[0]?.datos_enfermedades.epilepsia}</Text>
+        <Text style={styles.text}>Lupus: {examenPaciente[0]?.datos_enfermedades.lupus}</Text>
+        <Text style={styles.text}>Nefropatías: {examenPaciente[0]?.datos_enfermedades.nefropatias}</Text>
+        <Text style={styles.text}>Artropatía: {examenPaciente[0]?.datos_enfermedades.artropatia}</Text>
+        <Text style={styles.text}>Otras Enfermedades: {examenPaciente[0]?.datos_enfermedades.otras_enfermedades}</Text>
+        <Text style={styles.text}>Observaciones Enfermedades: {examenPaciente[0]?.datos_enfermedades.observaciones_enfermedades}</Text>
+        </View>
+        
+
+        <View>
+          <Text style={styles.header}>ANTECEDENTES PERSONALES NO PATOLÓGICOS</Text>
+        <Text style={styles.text}>Lugar de Nacimiento: {examenPaciente[0]?.antecedentes_no_patologicos.lugar_nacimiento}</Text>
+        <Text style={styles.text}>Fecha de Nacimiento: {examenPaciente[0]?.antecedentes_no_patologicos.fecha_nacimiento}</Text>
+        <Text style={styles.text}>Escolaridad: {examenPaciente[0]?.antecedentes_no_patologicos.escolaridad}</Text>
+        <Text style={styles.text}>Trabajo Actual: {examenPaciente[0]?.antecedentes_no_patologicos.trabajo_actual}</Text>
+        <Text style={styles.text}>Práctica Ejercicio: {examenPaciente[0]?.antecedentes_no_patologicos.practica_ejercicio ? 'Sí' : 'No'}</Text>
+        <Text style={styles.text}>Ejercicio: {examenPaciente[0]?.antecedentes_no_patologicos.ejercicio_cual}</Text>
+        <Text style={styles.text}>Practica Tabaquismo: {examenPaciente[0]?.antecedentes_no_patologicos.tabaquismo ? 'Sí' : 'No'}</Text>
+        <Text style={styles.text}>Edad en la que inicio: {examenPaciente[0]?.antecedentes_no_patologicos.tabaquismo_edad}</Text>
+        <Text style={styles.text}>Cantidad por dia: {examenPaciente[0]?.antecedentes_no_patologicos.tabaquismo_cantidad}</Text>
+        <Text style={styles.text}>Es Alcoholico: {examenPaciente[0]?.antecedentes_no_patologicos.alcoholismo ? 'Sí' : 'No'}</Text>
+        <Text style={styles.text}>Edad en la que inicio: {examenPaciente[0]?.antecedentes_no_patologicos.alcoholismo_edad}</Text>
+        <Text style={styles.text}>Inmunizaciones: {examenPaciente[0]?.antecedentes_no_patologicos.inmunizaciones}</Text>
+        <Text style={styles.text}>Hábitos Higiénicos: {examenPaciente[0]?.antecedentes_no_patologicos.habitos_higienicos}</Text>
+        <Text style={styles.text}>Hábitos Alimenticios: {examenPaciente[0]?.antecedentes_no_patologicos.habitos_alimenticios}</Text>
+        <Text style={styles.text}>Especifique Hábitos: {examenPaciente[0]?.antecedentes_no_patologicos.especifique_habitos}</Text>
+        </View>
+        
+
+        <View>
+          <Text style={styles.header}>ANTECEDENTES GINECO OBSTÉTRICOS</Text>
+        <Text style={{fontFamily: 'Times-Roman',textAlign: 'center', fontSize: 10}}>(Solo mujeres)</Text>
+        <Text style={styles.text}>Edad Menarca: {examenPaciente[0]?.antecedentes_gineco_obstreticos.edad_menarca}</Text>
+        <Text style={styles.text}>Frecuencia/Duración: {examenPaciente[0]?.antecedentes_gineco_obstreticos.frecuencia_duracion}</Text>
+        <Text style={styles.text}>Última Menstruación: {examenPaciente[0]?.antecedentes_gineco_obstreticos.ultima_menstruacion}</Text>
+        <Text style={styles.text}>Número de Embarazos: {examenPaciente[0]?.antecedentes_gineco_obstreticos.num_embarazos}</Text>
+        <Text style={styles.text}>Número de Partos: {examenPaciente[0]?.antecedentes_gineco_obstreticos.num_partos}</Text>
+        <Text style={styles.text}>Número de Cesáreas: {examenPaciente[0]?.antecedentes_gineco_obstreticos.num_cesareas}</Text>
+        <Text style={styles.text}>Número de Abortos: {examenPaciente[0]?.antecedentes_gineco_obstreticos.num_abortos}</Text>
+        <Text style={styles.text}>Último Parto: {examenPaciente[0]?.antecedentes_gineco_obstreticos.ultimo_parto}</Text>
+        <Text style={styles.text}>Último Aborto: {examenPaciente[0]?.antecedentes_gineco_obstreticos.ultimo_aborto}</Text>
+        <Text style={styles.text}>Planificación Familiar: {examenPaciente[0]?.antecedentes_gineco_obstreticos.planificacion_familiar ? 'Sí' : 'No'}</Text>
+        <Text style={styles.text}>Método de Planificación: {examenPaciente[0]?.antecedentes_gineco_obstreticos.metodo_planificacion}</Text>
+
+        </View>
+        
+        <View>
+          <Text style={styles.header}>ANTECEDENTES PERSONALES PATOLÓGICOS</Text>
+        <Text style={styles.text}>Traumatismos: {examenPaciente[0]?.antecedentes_personales_patologicos.traumatismos}</Text>
+        <Text style={styles.text}>Quirúrgicos: {examenPaciente[0]?.antecedentes_personales_patologicos.quirurgicos}</Text>
+        <Text style={styles.text}>Transfusiones: {examenPaciente[0]?.antecedentes_personales_patologicos.transfusiones}</Text>
+        <Text style={styles.text}>Grupo Sanguíneo: {examenPaciente[0]?.antecedentes_personales_patologicos.grupo_sanguineo}</Text>
+        <Text style={styles.text}>Factor RH: {examenPaciente[0]?.antecedentes_personales_patologicos.factor_rh}</Text>
+        <Text style={styles.text}>Alergias: {examenPaciente[0]?.antecedentes_personales_patologicos.alergias}</Text>
+        <Text style={styles.text}>Infecciones: {examenPaciente[0]?.antecedentes_personales_patologicos.infecciones}</Text>
+        <Text style={styles.text}>Dengue/Paludismo: {examenPaciente[0]?.antecedentes_personales_patologicos.dengue_paludismo}</Text>
+        <Text style={styles.text}>Tatuajes: {examenPaciente[0]?.antecedentes_personales_patologicos.tatuajes}</Text>
+        </View>
+        
+
+
+        <View>
+          <Text style={styles.header}>EXPLORACIÓN FÍSICA</Text>
+        <Text style={styles.text}>Tensión Arterial: {examenPaciente[0]?.datos_exploracion_fisica.tension_arterial}</Text>
+        <Text style={styles.text}>Frecuencia Cardiaca: {examenPaciente[0]?.datos_exploracion_fisica.frecuencia_cardiaca}</Text>
+        <Text style={styles.text}>Frecuencia Respiratoria: {examenPaciente[0]?.datos_exploracion_fisica.frecuencia_respiratoria}</Text>
+        <Text style={styles.text}>Oxigenación: {examenPaciente[0]?.datos_exploracion_fisica.oxigenacion}</Text>
+        <Text style={styles.text}>Temperatura: {examenPaciente[0]?.datos_exploracion_fisica.temperatura}</Text>
+        </View>
+        
+
+        <View>
+          <Text style={styles.header}>ANTROPOMETRÍA</Text>
+        <Text style={styles.text}>Peso Actual: {examenPaciente[0]?.datos_antropometria.peso_actual}</Text>
+        <Text style={styles.text}>Talla: {examenPaciente[0]?.datos_antropometria.talla}</Text>
+        <Text style={styles.text}>IMC: {examenPaciente[0]?.datos_antropometria.imc}</Text>
+        <Text style={styles.text}>Circunferencia Abdominal: {examenPaciente[0]?.datos_antropometria.circunferencia_abd}</Text>
+        <Text style={styles.text}>Circunferencia de Cadera: {examenPaciente[0]?.datos_antropometria.circunferencia_cadera}</Text>
+        <Text style={styles.text}>Observaciones Antropometría: {examenPaciente[0]?.datos_antropometria.observaciones_antropometria}</Text>
+        </View>
+        
+
+      <View>
+        <Text style={styles.header}>EXÁMEN FÍSICO</Text>
+        <Text style={styles.text}>Cabeza: {examenPaciente[0]?.datos_examen_medico.EF_cabeza}</Text>
+        <Text style={styles.text}>Cuello: {examenPaciente[0]?.datos_examen_medico.EF_cuello}</Text>
+        <Text style={styles.text}>Tórax: {examenPaciente[0]?.datos_examen_medico.EF_torax}</Text>
+        <Text style={styles.text}>Abdomen: {examenPaciente[0]?.datos_examen_medico.EF_abdomen}</Text>
+        <Text style={styles.text}>Extremdidades Superiores: {examenPaciente[0]?.datos_examen_medico.EF_EXT_sup}</Text>
+        <Text style={styles.text}>Extremdidades Inferiores: {examenPaciente[0]?.datos_examen_medico.EF_EXT_inf}</Text>
+        <Text style={styles.text}>Extremdidades Rodillas: {examenPaciente[0]?.datos_examen_medico.EF_EXT_rodillas}</Text>
+        <Text style={styles.text}>Extremdidades Pelvis: {examenPaciente[0]?.datos_examen_medico.EF_EXT_pelvis}</Text>
+        <Text style={styles.text}>Extremdidades Pies: {examenPaciente[0]?.datos_examen_medico.EF_EXT_pies}</Text>
+      </View>
+        
+
+        <View>
+        <Text style={styles.header}>EXÁMENES DE LABORATORIO</Text>
+        <Text style={styles.text}>Biometría Hemática: {examenPaciente[0]?.datos_examenes_laboratorio.biometria_hematica}</Text>
+        <Text style={styles.text}>Química Sanguínea: {examenPaciente[0]?.datos_examenes_laboratorio.quimica_sanguinea}</Text>
+        <Text style={styles.text}>VDRL: {examenPaciente[0]?.datos_examenes_laboratorio.vdrl}</Text>
+        <Text style={styles.text}>Prueba VIH: {examenPaciente[0]?.datos_examenes_laboratorio.prueba_vih}</Text>
+        <Text style={styles.text}>Antidoping: {examenPaciente[0]?.datos_examenes_laboratorio.antidoping}</Text>
+        <Text style={styles.text}>Examen de Orina: {examenPaciente[0]?.datos_examenes_laboratorio.examen_orina}</Text>
+        <Text style={styles.text}>Diagnóstico: {examenPaciente[0]?.datos_examenes_laboratorio.diagnostico}</Text>
+        </View>
+        
+
+        <Text style={styles.footer} render={({ pageNumber, totalPages}) => (`Página ${pageNumber} de ${totalPages}`)} fixed />
+
+          </Page>
+  </Document>
+);
+
+useEffect(() => {
+  if (examenPaciente.length > 0) {
+    const pdfURL = (
+      <PDFDownloadLink document={<MyDocument examenPaciente={examenPaciente} />} fileName="examenPaciente.pdf">
+        {({ blob, url, loading, error }) =>
+          loading ? (
+            <button style={buttonStyles} >Generando PDF...</button>
+          ) : (
+            <a href={url} style={buttonStyles} download="examenPaciente.pdf" >
+              Descargar{" "}
+              <i
+                className="fa-solid fa-file-pdf"
+                style={{ fontSize: "30px", color: "red" }}
+              ></i>{" "}
+            </a>
+          )
+        }
+      </PDFDownloadLink>
+    );
+    setPdfDataURL(pdfURL);
+  }
+}, [examenPaciente]);
+    
 
     return (
         <>
@@ -45,6 +278,10 @@ export function ExamenMedico(){
           <div className="line line-bottom"></div>
         </div>
       </div>
+
+      <div className="offset-md-1" >
+      {pdfDataURL}
+    </div>
 
       {examenPaciente.length === 0 && (
         <div className="d-flex justify-content-center">

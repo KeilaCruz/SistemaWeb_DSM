@@ -159,7 +159,8 @@ export function FormPaciente({ onSubmit, register, errors }) {
                                     <option value="Primaria">Primaria</option>
                                     <option value="Secundaria">Secundaria</option>
                                     <option value="Bachillerato">Bachillerato</option>
-                                    <option value="Divorciado">Universidad</option>
+                                    <option value="Universidad">Universidad</option>
+                                    <option value="Otro">Otro</option>
                                 </select>
                                 {errors.escolaridad?.type === "required" &&
                                     (
