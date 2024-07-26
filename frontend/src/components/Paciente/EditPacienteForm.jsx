@@ -92,7 +92,6 @@ const getCurrentDate = () => {
 
 
 
-const generatePDF = () => {
   const MyDocument = () => (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -145,15 +144,16 @@ const generatePDF = () => {
     </Document>
   );
 
-  const pdfURL = (
-    <PDFDownloadLink document={<MyDocument />} fileName="Datos_Paciente.pdf">
-      {({ blob, url, loading, error }) =>
-        loading ? "Generando PDF..." : "Descargar PDF"
-      }
-    </PDFDownloadLink>
-  );
+  const generatePDF = () => {
+    const pdfURL = (
+        <PDFDownloadLink document={<MyDocument />} fileName="Datos_Paciente.pdf">
+        {({ blob, url, loading, error }) =>
+            loading ? "Generando PDF..." : "Descargar PDF"
+        }
+        </PDFDownloadLink>
+    );
 
-  setPdfDataURL(pdfURL);
+    setPdfDataURL(pdfURL);
 };
       
 
