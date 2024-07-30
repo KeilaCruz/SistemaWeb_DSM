@@ -32,12 +32,15 @@ export function FormPaciente({ onSubmit, register, errors }) {
         }
     }
     const handleNextPage = () => {
-        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+        if (currentPage < 3) {
+            setCurrentPage(currentPage + 1);
+        }
     }
     const handlePrevPage = () => {
-        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
     }
-
     return (
         <>
             <div className="container-fluid pb-5">
@@ -48,23 +51,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                         <hr />
                     </div>
                 </div>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-3 offset-md-1">
-                            <button onClick={handlePrevPage} className="button-pagination rounded">
-                                <i class="lni lni-angle-double-left"></i> Anterior
-                            </button>
-                        </div>
-                        {currentPage != 3 && (
-                            <div className="col-md-3 offset-md-5">
-                                <button onClick={handleNextPage} className="button-pagination rounded">
-                                    Siguiente <i class="lni lni-angle-double-right"></i>
-                                </button>
-                            </div>
-                        )
-                        }
-                    </div>
-                </div>
+
                 <form onSubmit={onSubmit} className="mt-3">
                     {currentPage === 1 && (
                         <div className="row">
@@ -296,7 +283,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-4 offset-md-1 mt-1">
                                 <label htmlFor="unidad_salud" className="form-label label-form" >Unidad de salud</label>
-                                <input className="form-control input-form" type="text" placeholder="Unidad de salud" {...register("unidad_salud", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]$/ })} />
+                                <input className="form-control input-form" type="text" placeholder="Unidad de salud" {...register("unidad_salud", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]+$/ })} />
                                 {errors.unidad_salud?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -399,11 +386,14 @@ export function FormPaciente({ onSubmit, register, errors }) {
                                     </div>
                                 )}
                             </div>
-                            <div className="col-md-4 offset-md-1">
-                                <button className="button-guardar btn rounded">Registrar</button>
-                            </div>
                         </div>
                     )}
+                    <div className=" col-md-9 mt-4 d-flex  offset-md-1 justify-content-between">
+                        {currentPage > 1 && <button type="button" className="btn rounded button-pagination" onClick={handlePrevPage}>Anterior</button>}
+                        {currentPage < 3 && <button type="button" className="btn rounded button-pagination" onClick={handleNextPage}>Siguiente</button>}
+                        {currentPage === 3 && <button type="submit" className="button-guardar btn rounded">Enviar</button>}
+                    </div>
+                 
                 </form>
             </div>
         </>

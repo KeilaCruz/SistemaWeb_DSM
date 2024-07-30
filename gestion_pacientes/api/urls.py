@@ -69,6 +69,11 @@ from gestion_pacientes.api.hojaEvaluacion import (
 from gestion_pacientes.api.exportExcel import (
     ExportPacientesVIEW,
     ExportCitasVIEW,
+    ExportHistoriaNutricionVIEW,
+    ExportFichaPsicoAdultoVIEW,
+    ExportFichaPsicoNinoVIEW, 
+    ExportHojaEvaluacionVIEW,
+    ExportExamenMedicoVIEW,
 )
 urlpatterns = [
     path("paciente/", PacienteAPIView.as_view(), name="visualizar_pacientes"),
@@ -117,8 +122,6 @@ urlpatterns = [
     path("editar_hoja_evaluacion/<str:idHojaClinica>/", EditarHojaEvaluacionAPIView.as_view()),
 
 
-    
-    
     path("citas_paciente/<str:CURP>/", VisualizarCitasPaciente.as_view(), name='citas_paciente'),
     path("reagendar_cita/<int:idCita>/", ReagendarCitasPaciente.as_view(), name='reagendar_cita'),
     path("historial_clinico/<str:idPaciente>/", HistorialClinicoAPIView.as_view(), name='historial_clinico'),
@@ -128,5 +131,10 @@ urlpatterns = [
     
     path("exportar/pacientes/", ExportPacientesVIEW.as_view(), name='exportar_pacientes'),
     path("exportar/citas/", ExportCitasVIEW.as_view(), name='exportar_citas'),
+    path("exportar/historias/nutricion/", ExportHistoriaNutricionVIEW.as_view(), name='exportar_historias_nutricion'),
+    path("exportar/fichas/psicologicas/adulto", ExportFichaPsicoAdultoVIEW.as_view(), name='exportar_fichas_adulto'),
+    path("exportar/fichas/psicologicas/nino", ExportFichaPsicoNinoVIEW.as_view(), name='exportar_fichas_nino'),
+    path("exportar/hojas/evaluacion/clinica", ExportHojaEvaluacionVIEW.as_view(), name='exportar_hojas_evaluacion_clinica'),
+    path("exportar/examen/medico", ExportExamenMedicoVIEW.as_view(), name='exportar_examen_medico'),
 
 ]
