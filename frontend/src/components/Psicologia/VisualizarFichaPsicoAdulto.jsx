@@ -4,6 +4,7 @@ import { setToken } from '../../services/HeaderAuthorization'
 import { buscarFichaAdulto, getAllFichasPsiAdultos } from '../../services/Psicologia'
 import { useNavigate } from 'react-router-dom'
 import { FormEvoluciónPsicoAdulto } from './FormEvolucionPsicoAdulto.jxs'
+import { getReporteFichaPsicoAdulto } from '../../services/Reportes'
 
 
 export function VisualizarFichaPsicoAdulto() {
@@ -72,6 +73,10 @@ export function VisualizarFichaPsicoAdulto() {
             setIsResult(false);
         }
     };
+    const handleDownloadFichaPsicoAdulto = async () => { 
+        await setToken(authTokens.access)
+        await getReporteFichaPsicoAdulto()
+    }
     return (
         <>
             <div className='container-fluid'>
@@ -81,6 +86,8 @@ export function VisualizarFichaPsicoAdulto() {
                         <h3 className="title">FICHAS DE IDENTIFICACIÓN ADULTOS</h3>
                         <hr />
                     </div>
+                </div>
+                <div className='container-fluid'>
                     <div className="row">
                         <div className="col-md-5 offset-1 mt-2 mb-2">
                             <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP del paciente" onChange={handleBarraBusqueda} />
@@ -88,6 +95,11 @@ export function VisualizarFichaPsicoAdulto() {
                         <div className="col-md-3 mt-2">
                             <button type="button" onClick={handleBuscarFicha} className="button-buscar">
                                 <i class="lni lni-search-alt"></i>
+                            </button>
+                        </div>
+                        <div className="col-md-2">
+                            <button type="button" className="btn rounded btn-success" onClick={handleDownloadFichaPsicoAdulto}>
+                                <i class="lni lni-download"> Descargar excel</i>
                             </button>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ import { setToken } from "../../services/HeaderAuthorization"
 import { useContext, useEffect, useState } from "react"
 import AuthContext from "../../context/AuthProvider"
 import { PacienteCardResumen } from "./PacienteCardResumen"
+import { getReportePacientes } from "../../services/Reportes"
 
 export function BuscarPacientes() {
     const [pacientes, setPacientes] = useState([])
@@ -54,17 +55,32 @@ export function BuscarPacientes() {
             setIsResult(false)
         }
     }
-
+    const handleDownloadPacientes = async () => {
+        await setToken(authTokens.access)
+        await getReportePacientes();
+    }
     return (
         <>
             <div className="container-fluid">
+                <div className="row g-2">
+                    <div className="col-md-12 text-center ">
+                        <hr />
+                        <h3 className="title">PACIENTES REGISTRADOS</h3>
+                        <hr />
+                    </div>
+                </div>
                 <div className="row mt-4">
                     <div className="col-md-6">
-                        <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP, primer nombre o teléfono" onChange={handleBarraBusqueda} />
+                        <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por primer nombre, curp o número telefónico" onChange={handleBarraBusqueda} />
                     </div>
                     <div className="col-md-2">
-                        <button type="submit" onClick={handleBuscarPaciente} className="button-buscar">
+                        <button type="button" onClick={handleBuscarPaciente} className="button-buscar">
                             <i class="lni lni-search-alt"></i>
+                        </button>
+                    </div>
+                    <div className="col-md-3">
+                        <button type="button" className="btn rounded btn-success" onClick={handleDownloadPacientes}>
+                            <i class="lni lni-download"> Descargar excel</i>
                         </button>
                     </div>
                     {stateTexto ? (<h3 className="sub-title mt-1">RESULTADO DE BÚSQUEDA</h3>) : (<p></p>)}

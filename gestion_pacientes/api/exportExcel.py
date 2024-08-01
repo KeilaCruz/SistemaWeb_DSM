@@ -1,5 +1,7 @@
 from rest_framework.views import APIView
 from django.http import HttpResponse
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
 from ..resources import (
     PacienteResource,
     CitaResource,
@@ -21,6 +23,7 @@ from ..models import (
 from tablib import Dataset
 
 
+@permission_classes([IsAuthenticated])
 class ExportPacientesVIEW(APIView):
     def get(self, request, *args, **kwargs):
         paciente_resource = PacienteResource()
@@ -38,7 +41,7 @@ class ExportPacientesVIEW(APIView):
         )
         return response
 
-
+@permission_classes([IsAuthenticated])
 class ExportCitasVIEW(APIView):
     def get(self, request, *args, **kwargs):
         cita_resource = CitaResource()
@@ -56,7 +59,7 @@ class ExportCitasVIEW(APIView):
         )
         return response
 
-
+@permission_classes([IsAuthenticated])
 class ExportHistoriaNutricionVIEW(APIView):
     def get(self, request, *args, **kwargs):
         historia_nutricion_resource = HistoriaNutricionResource()

@@ -9,6 +9,7 @@ from django.db.models import Max
 from rest_framework.exceptions import NotFound
 
 
+@permission_classes([IsAuthenticated])
 class HistoriaNutricionAPIView(APIView):
     def get(self, resquest):
         historias_nutricion = HistoriaNutricion.objects.values("idPaciente").annotate(

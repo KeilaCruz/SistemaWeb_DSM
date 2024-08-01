@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import AuthContext from "../../context/AuthProvider"
 import { setToken } from "../../services/HeaderAuthorization"
 import { buscarHistoriaNutricion, visualizarHistorias } from "../../services/Nutriologo"
+import { getReporteHistoriaNutricion } from "../../services/Reportes"
 
 export function VisualizarHistoriasNutricion() {
     const [historias, setHistorias] = useState([]);
@@ -57,6 +58,10 @@ export function VisualizarHistoriasNutricion() {
     const handleBarraBusqueda = (evt) => {
         setCriterio(evt.target.value)
     }
+    const handleDownloadHistoriasNutricion = async () => {
+        await setToken(authTokens.access)
+        await getReporteHistoriaNutricion()
+    }
     return (
         <>
             <div className="container-fluid">
@@ -66,14 +71,21 @@ export function VisualizarHistoriasNutricion() {
                         <h3 className="title">HISTORIAS DE NUTRICIÓN</h3>
                         <hr />
                     </div>
-                    <div className="row">
-                        <div className="col-md-5 offset-1 mt-2 mb-2">
-                            <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP del paciente" onChange={handleBarraBusqueda} />
-                        </div>
-                        <div className="col-md-3 mt-2">
-                            <button type="button" onClick={handleBuscarHistoria} className="button-buscar">
-                                <i class="lni lni-search-alt"></i>
-                            </button>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-md-5 offset-1 mt-2 mb-2">
+                                <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP del paciente" onChange={handleBarraBusqueda} />
+                            </div>
+                            <div className="col-md-3 mt-2">
+                                <button type="button" onClick={handleBuscarHistoria} className="button-buscar">
+                                    <i class="lni lni-search-alt"></i>
+                                </button>
+                            </div>
+                            <div className="col-md-2">
+                                <button type="button" className="btn rounded btn-success" onClick={handleDownloadHistoriasNutricion}>
+                                    <i class="lni lni-download"> Descargar excel</i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

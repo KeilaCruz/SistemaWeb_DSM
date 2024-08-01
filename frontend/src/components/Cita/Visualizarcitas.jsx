@@ -4,6 +4,7 @@ import { setToken } from "../../services/HeaderAuthorization";
 import { buscarCitas, getAllCitas, getCita, getCitasInactivas, marcarAsistencia, reagendarCita } from "../../services/Recepcionista";
 import { Modal, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { getReporteCitas } from "../../services/Reportes";
 export function VisualizarCitas() {
   const [citas, setCitas] = useState([])
   const { register, setValue, handleSubmit, formState: { errors } } = useForm()
@@ -132,6 +133,10 @@ export function VisualizarCitas() {
   const handleBarraBusqueda = (evt) => {
     setCriterio(evt.target.value)
   }
+  const handleDownloadCitas = async () => {
+    await setToken(authTokens.access)
+    await getReporteCitas()
+  }
   return (
     <>
       <div className="container-fluid">
@@ -141,18 +146,25 @@ export function VisualizarCitas() {
             <h3 className="title">CITAS AGENDADAS</h3>
             <hr />
           </div>
-          <div className="row">
-            <div className="col-md-5 offset-1 mt-2 mb-2">
+        </div>
+        <div className="container-fluid">
+          <div className="row offset-md-1 mt-2 mb-2">
+            <div className="col-md-5">
               <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP del paciente" onChange={handleBarraBusqueda} />
             </div>
-            <div className="col-md-3 mt-2">
+            <div className="col-md-3">
               <button type="button" onClick={handleBuscarCitas} className="button-buscar">
                 <i class="lni lni-search-alt"></i>
               </button>
             </div>
+            <div className="col-md-2">
+              <button type="button" className="btn rounded btn-success" onClick={handleDownloadCitas}>
+                <i class="lni lni-download"> Descargar excel</i>
+              </button>
+            </div>
           </div>
         </div>
-        <div className="row">
+        <div className="row mt-3">
           <div className="col-md-1 offset-md-1">
             <button type="button" className="button-filter rounded" onClick={() => handleFiltro(true)} title="Mostrar citas pendientes">Pendientes</button>
           </div>
@@ -192,7 +204,7 @@ export function VisualizarCitas() {
                       <input id="marcar_asistencia" checked={!cita.estado} type="checkbox" onChange={() => handleMarcarAsistencia(cita.idCita)} />
                     </td>
                     <td className="fila">
-                      <button className="button-filter mx-auto rounded" onClick={() => handleOpenModal(cita.idCita)} title="Ver cita">
+                      <button className="button-filter mx-auto rounded" onClick={() => handleOpenModal(cita.idCita)} title="Editar cita">
                         <i class="lni lni-pencil"></i>
                       </button>
                     </td>

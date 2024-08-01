@@ -4,6 +4,7 @@ import AuthContext from "../../context/AuthProvider"
 import { setToken } from "../../services/HeaderAuthorization"
 import { buscarFichaNino, getAllFichasPsiNiños } from "../../services/Psicologia"
 import { FormEvoluciónPsicoNiño } from "./FormEvolucionPsicoNiño"
+import { getReporteFichaPsicoNino } from "../../services/Reportes"
 
 
 export function VisualizarFichaPsicoNiño() {
@@ -71,6 +72,10 @@ export function VisualizarFichaPsicoNiño() {
             setIsResult(false);
         }
     };
+    const handleDownloadFichaPsicoNino = async () => {
+        await setToken(authTokens.access)
+        await getReporteFichaPsicoNino()
+    }
     return (
         <>
             <div className='container-fluid'>
@@ -80,6 +85,8 @@ export function VisualizarFichaPsicoNiño() {
                         <h3 className="title">FICHAS DE IDENTIFICACIÓN NIÑOS</h3>
                         <hr />
                     </div>
+                </div>
+                <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-5 offset-1 mt-2 mb-2">
                             <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP del paciente" onChange={handleBarraBusqueda} />
@@ -87,6 +94,11 @@ export function VisualizarFichaPsicoNiño() {
                         <div className="col-md-3 mt-2">
                             <button type="button" onClick={handleBuscarFicha} className="button-buscar">
                                 <i class="lni lni-search-alt"></i>
+                            </button>
+                        </div>
+                        <div className="col-md-2">
+                            <button type="button" className="btn rounded btn-success" onClick={handleDownloadFichaPsicoNino}>
+                                <i class="lni lni-download"> Descargar excel</i>
                             </button>
                         </div>
                     </div>
