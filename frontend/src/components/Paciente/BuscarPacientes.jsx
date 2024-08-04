@@ -71,14 +71,14 @@ export function BuscarPacientes() {
                 </div>
                 <div className="row mt-4">
                     <div className="col-md-6">
-                        <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por primer nombre, curp o número telefónico" onChange={handleBarraBusqueda} />
+                        <input className="form-control " type="search" id="busqueda_paciente" placeholder="Buscar por primer nombre, curp o número telefónico" onChange={handleBarraBusqueda} />
                     </div>
                     <div className="col-md-2">
-                        <button type="button" onClick={handleBuscarPaciente} className="button-buscar">
+                        <button type="button" onClick={handleBuscarPaciente} className="button-buscar rounded">
                             <i class="lni lni-search-alt"></i>
                         </button>
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-md-3 offset-md-1">
                         <button type="button" className="btn rounded btn-success" onClick={handleDownloadPacientes}>
                             <i class="lni lni-download"> Descargar excel</i>
                         </button>

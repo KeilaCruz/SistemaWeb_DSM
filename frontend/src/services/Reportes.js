@@ -7,6 +7,8 @@ const URL_DOWNLOAD_LIST_CITAS = "http://127.0.0.1:8000/api/exportar/citas"
 const URL_DOWNLOAD_LIST_HISTORIAS_NUTRICION = "http://127.0.0.1:8000/api/exportar/historias/nutricion"
 const URL_DOWNLOAD_LIST_FICHA_PSICO_ADULTO = "http://127.0.0.1:8000/api/exportar/fichas/psicologicas/adulto"
 const URL_DOWNLOAD_LIST_FICHA_PSICO_NINO = "http://127.0.0.1:8000/api/exportar/fichas/psicologicas/nino"
+const URL_DOWNLOAD_LIST_HOJAS_CLINICAS = "http://127.0.0.1:8000/api/exportar/hojas/evaluacion/clinica"
+const URL_DOWNLOAD_LIST_EXAMEN_MEDICO = "http://127.0.0.1:8000/api/exportar/examen/medico"
 
 export const getReportePacientes = async () => {
     try {
@@ -184,6 +186,88 @@ export const getReporteFichaPsicoNino = async () => {
             const link = document.createElement('a')
             link.href = url
             link.setAttribute('download', 'Lista de fichas psicologicas niño.xlsx')
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Se ha descargado el excel correctamente.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log('Se hizo clic en Aceptar');
+                }
+            });
+        } else {
+            throw new Error("Error al descargar el reporte");
+        }
+    } catch (error) {
+        console.error("Error al descargar el reporte", error);
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "¡Algo salió mal!",
+            footer: '<a href="#">Intente de nuevo</a>'
+        });
+    }
+}
+
+export const getReporteHojasEvaluacion = async () => {
+    try {
+        const config = await getConfig();
+        const response = await axios.get(URL_DOWNLOAD_LIST_HOJAS_CLINICAS, {
+            ...config,
+            responseType: 'blob'
+        })
+        if (response.status === 200) {
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement('a')
+            link.href = url
+            link.setAttribute('download', 'Lista de Hojas de evaluación clinica.xlsx')
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            Swal.fire({
+                icon: 'success',
+                title: '¡Operación exitosa!',
+                text: 'Se ha descargado el excel correctamente.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log('Se hizo clic en Aceptar');
+                }
+            });
+        } else {
+            throw new Error("Error al descargar el reporte");
+        }
+    } catch (error) {
+        console.error("Error al descargar el reporte", error);
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "¡Algo salió mal!",
+            footer: '<a href="#">Intente de nuevo</a>'
+        });
+    }
+}
+
+export const getReporteExamenMedico = async () => {
+    try {
+        const config = await getConfig();
+        const response = await axios.get(URL_DOWNLOAD_LIST_EXAMEN_MEDICO, {
+            ...config,
+            responseType: 'blob'
+        })
+        if (response.status === 200) {
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement('a')
+            link.href = url
+            link.setAttribute('download', 'Lista de Exámenes médicos.xlsx')
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);

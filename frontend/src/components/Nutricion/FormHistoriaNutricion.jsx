@@ -6,7 +6,6 @@ import AuthContext from "../../context/AuthProvider"
 
 export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setPacienteSelect, errors }) {
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages] = useState(5)
     const { authTokens } = useContext(AuthContext);
     const [showCampusFem, setShowCampus] = useState(false)
     const [criterio, setCriterio] = useState("")
@@ -44,10 +43,14 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
         setPacienteSelect(CURP)
     }
     const handleNextPage = () => {
-        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+        if (currentPage < 4) {
+            setCurrentPage(currentPage + 1);
+        }
     }
     const handlePrevPage = () => {
-        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
     }
     const handleFileChange = (evt) => {
         const archivos = evt.target.files;
@@ -63,31 +66,16 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                         <h3 className="title">HISTORIA CLÍNICA-NUTRICIÓN</h3>
                         <hr />
                     </div>
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-md-3 offset-md-1">
-                                <button onClick={handlePrevPage} className="button-pagination rounded">
-                                    <i class="lni lni-angle-double-left"></i> Anterior
-                                </button>
-                            </div>
-                            {currentPage != 5 && (
-                                <div className="col-md-3 offset-md-5">
-                                    <button onClick={handleNextPage} className="button-pagination rounded">
-                                        Siguiente <i class="lni lni-angle-double-right"></i>
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+
                     <form onSubmit={onSubmit}>
                         {currentPage === 1 && (
                             <div className="row">
                                 <div className="row">
                                     <div className="col-md-6 offset-1">
-                                        <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por primer nombre, telefono o CURP" onChange={handleBarraBusqueda} />
+                                        <input className="form-control " type="search" id="busqueda_paciente" placeholder="Buscar por primer nombre, telefono o CURP" onChange={handleBarraBusqueda} />
                                     </div>
                                     <div className="col-md-3 mt-1">
-                                        <button type="button" onClick={handleBuscarPaciente} className="button-buscar">
+                                        <button type="button" onClick={handleBuscarPaciente} className="button-buscar rounded">
                                             <i class="lni lni-search-alt"></i>
                                         </button>
                                     </div>
@@ -108,7 +96,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-3 offset-1 mt-1">
                                     <label htmlFor="num_expediente" className="form-label label-form">Número expediente</label>
-                                    <input className="form-control input-form" id="num_expediente" placeholder="Número expediente" type="number" {...register("num_expediente", { required: true, pattern: /^[A-Za-z0-9]+$/ })} />
+                                    <input className="form-control " id="num_expediente" placeholder="Número expediente" type="number" {...register("num_expediente", { required: true, pattern: /^[A-Za-z0-9]+$/ })} />
                                     {errors.num_expediente?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -122,7 +110,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-3 mt-1">
                                     <label htmlFor="fecha_nacimiento" className="form-label label-form">Fecha de nacimiento</label>
-                                    <input className="form-control input-form" type="date" id="fecha_nacimiento" placeholder="Fecha de nacimiento" {...register("fecha_nacimiento", { required: true })} />
+                                    <input className="form-control " type="date" id="fecha_nacimiento" placeholder="Fecha de nacimiento" {...register("fecha_nacimiento", { required: true })} />
                                     {errors.fecha_nacimiento?.type === "required" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -131,7 +119,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-4 mt-1">
                                     <label htmlFor="municipio_nacimiento" className="form-label label-form">Municipio de nacimiento</label>
-                                    <input className="form-control input-form" type="text" id="municipio_nacimiento" placeholder="Municipio de nacimiento" {...register("municipio_nacimiento", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
+                                    <input className="form-control " type="text" id="municipio_nacimiento" placeholder="Municipio de nacimiento" {...register("municipio_nacimiento", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.municipio_nacimiento?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -145,7 +133,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-3 offset-1 mt-1">
                                     <label htmlFor="estado_nacimiento" className="form-label label-form">Estado de nacimiento</label>
-                                    <input className="form-control input-form" type="text" id="estado_nacimiento" placeholder="Estado de nacimiento" {...register("estado_nacimiento", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
+                                    <input className="form-control " type="text" id="estado_nacimiento" placeholder="Estado de nacimiento" {...register("estado_nacimiento", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.estado_nacimiento?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -159,7 +147,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-7 mt-1">
                                     <label htmlFor="motivo_consulta" className="form-label label-form">Motivo de consulta</label>
-                                    <textarea id="motivo_consulta" className="form-control input-form" placeholder="Motivo de consulta" {...register("motivo_consulta", {
+                                    <textarea id="motivo_consulta" className="form-control " placeholder="Motivo de consulta" {...register("motivo_consulta", {
                                         required: true, pattern: { value: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ }
                                     })}></textarea>
                                     {errors.motivo_consulta?.type === "pattern" &&
@@ -212,7 +200,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-6 offset-1 mt-2">
-                                    <input id="quien_diabetes" className="form-control input-form" type="text" placeholder="¿Quién?" {...register("quien_diabetes")} />
+                                    <input id="quien_diabetes" className="form-control " type="text" placeholder="¿Quién?" {...register("quien_diabetes")} />
                                 </div>
                                 <div className="col-md-3 offset-1 mt-1">
                                     <label htmlFor="hipetension" className="form-label label-form">Hipertensión</label>
@@ -229,7 +217,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-6 offset-1 mt-1">
-                                    <input className="form-control input-form" type="text" placeholder="¿Quién?" {...register("quien_hipertension", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
+                                    <input className="form-control " type="text" placeholder="¿Quién?" {...register("quien_hipertension", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.quien_hipertension?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -251,7 +239,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-6 offset-1 mt-2">
-                                    <input id="quien_dislipidemias" className="form-control input-form" type="text" placeholder="¿Quién?" {...register("quien_dislipidemias", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
+                                    <input id="quien_dislipidemias" className="form-control " type="text" placeholder="¿Quién?" {...register("quien_dislipidemias", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
                                     {errors.quien_dislipidemias?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -323,7 +311,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-10 offset-1 mt-1">
                                     <label htmlFor="cual_problema_gastro" className="form-label label-form">¿Cuál es su padecimiento gastrointestinal?</label>
-                                    <input id="cual_problema_gastro" className="form-control input-form" type="text" placeholder="¿Cuál?" {...register("cual_problema_gastrointestinal", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
+                                    <input id="cual_problema_gastro" className="form-control " type="text" placeholder="¿Cuál?" {...register("cual_problema_gastrointestinal", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.cual_problema_gastrointestinal?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -337,7 +325,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-10 offset-1 mt-1">
                                     <label htmlFor="observaciones_gastro" className="form-label label-form">Observaciones gastrointestinal</label>
-                                    <textarea id="observaciones_gastro" className="input-form form-control" placeholder="Observaciones" {...register("observaciones_patologicas", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })}></textarea>
+                                    <textarea id="observaciones_gastro" className=" form-control" placeholder="Observaciones" {...register("observaciones_patologicas", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })}></textarea>
                                     {errors.observaciones_patologicas?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -364,7 +352,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-6 mt-2">
-                                    <input id="cual_intervencion_quirurgica" className="input-form form-control" type="text" placeholder="¿Cuál?" {...register("cual_intervencion_quirurgica", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
+                                    <input id="cual_intervencion_quirurgica" className=" form-control" type="text" placeholder="¿Cuál?" {...register("cual_intervencion_quirurgica", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.cual_intervencion_quirurgica?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -391,7 +379,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-6 mt-2">
-                                    <input id="cual_alergia_alimento" className="input-form form-control" type="text" placeholder="¿Cuál?" {...register("cual_alergia_alimento", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
+                                    <input id="cual_alergia_alimento" className=" form-control" type="text" placeholder="¿Cuál?" {...register("cual_alergia_alimento", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.cual_alergia_alimento?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -419,7 +407,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-4 mt-2">
-                                    <input className="form-control input-form" type="text" placeholder="¿Cuál?" {...register("cual_alergia_farmaco", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
+                                    <input className="form-control " type="text" placeholder="¿Cuál?" {...register("cual_alergia_farmaco", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.cual_alergia_farmaco?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -432,7 +420,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-2 mt-2">
-                                    <input className="form-control input-form" type="text" placeholder="¿Desde cuándo?" {...register("desde_cuando_farmaco", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú\d]+$/ })} />
+                                    <input className="form-control " type="text" placeholder="¿Desde cuándo?" {...register("desde_cuando_farmaco", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú\d]+$/ })} />
                                     {errors.desde_cuando_farmaco?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -466,7 +454,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-6 offset-1 mt-1">
-                                    <input className="form-control input-form" type="text" placeholder="¿Cuál?" {...register("cual_actividad_fisica", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
+                                    <input className="form-control " type="text" placeholder="¿Cuál?" {...register("cual_actividad_fisica", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.cual_actividad_fisica?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -479,7 +467,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-2 mt-1">
-                                    <input className="form-control input-form" type="text" placeholder="Duración" {...register("duracion", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú\d]+$/ })} />
+                                    <input className="form-control " type="text" placeholder="Duración" {...register("duracion", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú\d]+$/ })} />
                                     {errors.duracion?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -545,7 +533,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                             </div>
                                             <div className="col-md-2 offset-1 mt-1">
                                                 <label htmlFor="num_gestas" className="form-label label-form">Número de gestas</label>
-                                                <input id="num_gestas" className="form-control input-form" type="number" placeholder="Número de gestas" {...register("numero_gestas", { pattern: /^[\d]+$/ })} />
+                                                <input id="num_gestas" className="form-control " type="number" placeholder="Número de gestas" {...register("numero_gestas", { pattern: /^[\d]+$/ })} />
                                                 {errors.numero_gestas?.type === "pattern" &&
                                                     (
                                                         <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -554,7 +542,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                             </div>
                                             <div className="col-md-3 offset-1 mt-1">
                                                 <label htmlFor="num_partos" className="form-label label-form">Números de partos y/o cesárea</label>
-                                                <input id="num_partos_cesarea" className="form-control input-form" type="number" placeholder="Número de partos cesarea" {...register("numero_partos_cesarea", { pattern: /^[\d]+$/ })} />
+                                                <input id="num_partos_cesarea" className="form-control " type="number" placeholder="Número de partos cesarea" {...register("numero_partos_cesarea", { pattern: /^[\d]+$/ })} />
                                                 {errors.numero_partos_cesarea?.type === "pattern" &&
                                                     (
                                                         <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -563,7 +551,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                             </div>
                                             <div className="col-md-3 offset-1 mt-1">
                                                 <label htmlFor="num_abortos" className="form-label label-form">Abortos</label>
-                                                <input id="num_abortos" className="form-control input-form" type="number" placeholder="Número de abortos" {...register("numero_abortos", { pattern: /^[\d]+$/ })} />
+                                                <input id="num_abortos" className="form-control " type="number" placeholder="Número de abortos" {...register("numero_abortos", { pattern: /^[\d]+$/ })} />
                                                 {errors.numero_abortos?.type === "pattern" &&
                                                     (
                                                         <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -572,7 +560,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                             </div>
                                             <div className="col-md-2 mt-4 offset-1 mt-1">
                                                 <label htmlFor="ultima_mestruacion" className="form-label label-form">Última menstruación</label>
-                                                <input className="form-control input-form" id="ultima_menstruacion" type="date" placeholder="Ultima menstruación" {...register("fecha_ultima_menstruacion")} />
+                                                <input className="form-control " id="ultima_menstruacion" type="date" placeholder="Ultima menstruación" {...register("fecha_ultima_menstruacion")} />
                                             </div>
                                             <div className="col-md-4 offset-1 mt-4">
                                                 <label htmlFor="actualmente_lactando" className="form-label label-form">Actualmente lactando</label>
@@ -606,7 +594,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <label htmlFor="frecuencia_alimentos" className="form-label label-form">Frecuencia de grupo de alimentos</label>
                                 </div>
                                 <div className="col-md-2 offset-1 mt-1">
-                                    <input className="form-control input-form" type="number" id="frecuencia_cereales" placeholder="Frecuencia de cereales" {...register("frecuencia_cereales", { required: true, pattern: /^[\d]+$/ })} />
+                                    <input className="form-control " type="number" id="frecuencia_cereales" placeholder="Frecuencia de cereales" {...register("frecuencia_cereales", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_cereales?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -619,7 +607,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-2 mt-1">
-                                    <input className="form-control input-form" type="number" id="frecuencia_frutas" placeholder="Frecuencia de frutas" {...register("frecuencia_frutas", { required: true, pattern: /^[\d]+$/ })} />
+                                    <input className="form-control " type="number" id="frecuencia_frutas" placeholder="Frecuencia de frutas" {...register("frecuencia_frutas", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_frutas?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -632,7 +620,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-2 mt-1">
-                                    <input className="form-control input-form" type="number" id="frecuencia_verduras" placeholder="Frecuencia de verduras" {...register("frecuencia_verduras", { required: true, pattern: /^[\d]+$/ })} />
+                                    <input className="form-control " type="number" id="frecuencia_verduras" placeholder="Frecuencia de verduras" {...register("frecuencia_verduras", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_verduras?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -645,7 +633,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-2 mt-1">
-                                    <input className="form-control input-form" type="number" id="frecuencia_carne" placeholder="Frecuencia de carne roja" {...register("frecuencia_carne_roja", { required: true, pattern: /^[\d]+$/ })} />
+                                    <input className="form-control " type="number" id="frecuencia_carne" placeholder="Frecuencia de carne roja" {...register("frecuencia_carne_roja", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_verduras?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -658,7 +646,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-2 mt-1">
-                                    <input className="form-control input-form" type="number" id="frecuencia_pollo" placeholder="Frecuencia de pollo" {...register("frecuencia_pollo", { required: true, pattern: /^[\d]+$/ })} />
+                                    <input className="form-control " type="number" id="frecuencia_pollo" placeholder="Frecuencia de pollo" {...register("frecuencia_pollo", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_pollo?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -671,7 +659,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-2 offset-1 mt-1">
-                                    <input className="form-control input-form" type="number" id="frecuencias_lacteos" placeholder="Frecuencia de lacteos" {...register("frecuencia_lacteos", { required: true, pattern: /^[\d]+$/ })} />
+                                    <input className="form-control " type="number" id="frecuencias_lacteos" placeholder="Frecuencia de lacteos" {...register("frecuencia_lacteos", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_lacteos?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -684,7 +672,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-2 mt-1">
-                                    <input className="form-control input-form" type="number" id="frecuencia_leguminosas" placeholder="Frecuencia de leguminosas" {...register("frecuencia_leguminosas", { required: true, pattern: /^[\d]+$/ })} />
+                                    <input className="form-control " type="number" id="frecuencia_leguminosas" placeholder="Frecuencia de leguminosas" {...register("frecuencia_leguminosas", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_leguminosas?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -697,7 +685,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-2 mt-1">
-                                    <input className="form-control input-form" type="number" id="frecuencias_azucar" placeholder="Frecuencia de azucar" {...register("frecuencia_azucar", { required: true, pattern: /^[\d]+$/ })} />
+                                    <input className="form-control " type="number" id="frecuencias_azucar" placeholder="Frecuencia de azucar" {...register("frecuencia_azucar", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_azucar?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -710,7 +698,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-2 mt-1">
-                                    <input className="form-control input-form" type="number" id="frecuencias_grasas" placeholder="Frecuencia de grasas" {...register("frecuencia_grasas", { required: true, pattern: /^[\d]+$/ })} />
+                                    <input className="form-control " type="number" id="frecuencias_grasas" placeholder="Frecuencia de grasas" {...register("frecuencia_grasas", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_grasas?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -723,7 +711,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-2 mt-1">
-                                    <input className="form-control input-form" type="number" id="frecuencia_pescado" placeholder="Frecuencia de pescado" {...register("frecuencia_pescado", { required: true, pattern: /^[\d]+$/ })} />
+                                    <input className="form-control " type="number" id="frecuencia_pescado" placeholder="Frecuencia de pescado" {...register("frecuencia_pescado", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.frecuencia_pescado?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -738,7 +726,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
 
                                 <div className="col-md-3 offset-1 mt-1">
                                     <label htmlFor="veces_come" className="form-label label-form">¿Cuántas veces come al día?</label>
-                                    <input className="form-control input-form" type="number" id="veces_come" placeholder="¿Cuántas veces?" {...register("cuantas_veces_come", { required: true, pattern: /^[\d]+$/ })} />
+                                    <input className="form-control " type="number" id="veces_come" placeholder="¿Cuántas veces?" {...register("cuantas_veces_come", { required: true, pattern: /^[\d]+$/ })} />
                                     {errors.cuantas_veces_come?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -752,7 +740,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-4 mt-1">
                                     <label htmlFor="quien_prepara_alimentos" className="form-label label-form">¿Quién preparara los alimentos?</label>
-                                    <input className="form-control input-form" type="text" id="quien_prepara_ali" placeholder="¿Quién?" {...register("quien_prepara_alimentos", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
+                                    <input className="form-control " type="text" id="quien_prepara_ali" placeholder="¿Quién?" {...register("quien_prepara_alimentos", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/ })} />
                                     {errors.quien_prepara_alimentos?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -766,7 +754,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-3 mt-1">
                                     <label htmlFor="litros_agua" className="form-label label-form">¿Cuánto consume de agua?</label>
-                                    <input className="form-control input-form" type="number" id="litros_agua" placeholder="Litros de agua que consume" step="0.01" {...register("litro_consume_agua", { required: true, valueAsNumber: true })} />
+                                    <input className="form-control " type="number" id="litros_agua" placeholder="Litros de agua que consume" step="0.01" {...register("litro_consume_agua", { required: true, valueAsNumber: true })} />
                                     {errors.litro_consume_agua?.type === "valueAsNumber" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese un número válido</p>
@@ -780,7 +768,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-3 offset-1 mt-1">
                                     <label htmlFor="litros_refresco" className="form-label label-form">¿Cuánto consume de refresco?</label>
-                                    <input className="form-control input-form" type="number" id="litros_refresco" placeholder="Litros de refresco que consume" step="0.01" {...register("litro_consume_refresco", { required: true, valueAsNumber: true })} />
+                                    <input className="form-control " type="number" id="litros_refresco" placeholder="Litros de refresco que consume" step="0.01" {...register("litro_consume_refresco", { required: true, valueAsNumber: true })} />
                                     {errors.litro_consume_refresco?.type === "valueAsNumber" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese un número válido</p>
@@ -794,7 +782,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-4 mt-1">
                                     <label htmlFor="tipo_grasa_alimentos" className="form-label label-form">¿Qué tipo de grasa utiliza para preparar sus alimentos?</label>
-                                    <input className="form-control input-form" id="grasa_alimentos" type="text" placeholder="Aceite vegetal, manteca o mantequilla" {...register("tipo_grasa_preparar_alimentos", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,]+$/ })} />
+                                    <input className="form-control " id="grasa_alimentos" type="text" placeholder="Aceite vegetal, manteca o mantequilla" {...register("tipo_grasa_preparar_alimentos", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,]+$/ })} />
                                     {errors.tipo_grasa_preparar_alimento?.type === "valueAsNumber" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -808,7 +796,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-3 mt-1">
                                     <label htmlFor="litros_cafe" className="form-label label-form">¿Cuánto consume de café?</label>
-                                    <input className="form-control input-form" type="number" id="litros_cafe" placeholder="Litros de café que consume" step="0.01" {...register("litro_consume_cafe", { required: true, valueAsNumber: true })} />
+                                    <input className="form-control " type="number" id="litros_cafe" placeholder="Litros de café que consume" step="0.01" {...register("litro_consume_cafe", { required: true, valueAsNumber: true })} />
                                     {errors.litro_consume_cafe?.type === "valueAsNumber" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Ingrese un número válido</p>
@@ -822,7 +810,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-10 offset-1 mt-1">
                                     <label htmlFor="alimentos_malestar" className="form-label label-form">Alimentos que causan malestar</label>
-                                    <textarea className="form-control input-form" id="alimentos_malestar" placeholder="Alimentos que causan malestar" {...register("alimentos_causan_malestar", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,]+$/ })} ></textarea>
+                                    <textarea className="form-control " id="alimentos_malestar" placeholder="Alimentos que causan malestar" {...register("alimentos_causan_malestar", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,]+$/ })} ></textarea>
                                     {errors.alimentos_causan_malestar?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -838,7 +826,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     <label htmlFor="R24" className="form-label label-form">R24</label>
                                 </div>
                                 <div className="col-md-5 offset-1 mt-1">
-                                    <textarea className="form-control input-form" id="r24_desayuno" placeholder="Desayuno" {...register("r24_desayuno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
+                                    <textarea className="form-control " id="r24_desayuno" placeholder="Desayuno" {...register("r24_desayuno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
                                     {errors.r24_desayuno?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -851,7 +839,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-5 offset-0.6 mt-1">
-                                    <textarea className="form-control input-form" id="r24_colacion_uno" placeholder="Colacion" {...register("r24_colacion_uno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
+                                    <textarea className="form-control " id="r24_colacion_uno" placeholder="Colacion" {...register("r24_colacion_uno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
                                     {errors.r24_colacion_uno?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -864,7 +852,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-5 offset-1 mt-1">
-                                    <textarea className="form-control input-form" id="r24_comida" placeholder="Comida" {...register("r24_comida", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
+                                    <textarea className="form-control " id="r24_comida" placeholder="Comida" {...register("r24_comida", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
                                     {errors.r24_comida?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -877,7 +865,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-5 offset-0.6 mt-1">
-                                    <textarea className="form-control input-form" id="r24_colacion_dos" placeholder="Colación dos" {...register("r24_colacion_dos", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
+                                    <textarea className="form-control " id="r24_colacion_dos" placeholder="Colación dos" {...register("r24_colacion_dos", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
                                     {errors.r24_colacion_dos?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -890,7 +878,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     }
                                 </div>
                                 <div className="col-md-5 offset-1 mt-1">
-                                    <textarea className="form-control input-form" id="r24_cena" placeholder="Cena" {...register("r24_cena", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
+                                    <textarea className="form-control " id="r24_cena" placeholder="Cena" {...register("r24_cena", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} />
                                     {errors.r24_cena?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -904,7 +892,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-10 offset-1 mt-1">
                                     <label htmlFor="diagnostico_nutricional" className="form-label label-form">Diagnóstico nutricio</label>
-                                    <textarea className="form-control input-form" id="diagnostico_nutricio" placeholder="Diagnostico nutricional" {...register("diagnostico_nutricio", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} ></textarea>
+                                    <textarea className="form-control " id="diagnostico_nutricio" placeholder="Diagnostico nutricional" {...register("diagnostico_nutricio", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} ></textarea>
                                     {errors.diagnostico_nutricio?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -918,7 +906,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                 </div>
                                 <div className="col-md-10 offset-1 mt-1">
                                     <label htmlFor="diagnostico_nutricional" className="form-label label-form">Tratamiento nutricional</label>
-                                    <textarea className="form-control input-form" id="tratamiento_nutricional" placeholder="Tratamiento nutricional" {...register("tratamiento_nutricional", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} ></textarea>
+                                    <textarea className="form-control " id="tratamiento_nutricional" placeholder="Tratamiento nutricional" {...register("tratamiento_nutricional", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú,.;\d]+$/ })} ></textarea>
                                     {errors.tratamiento_nutricional?.type === "pattern" &&
                                         (
                                             <p className="mt-2 mb-2 errors"> <i class="lni lni-warning"></i> Formato incorrecto</p>
@@ -938,11 +926,13 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                                     ))}
                                 </div>
 
-                                <div className="col-md-9 offset-1 mt-2 mb-4">
-                                    <button className="button-guardar btn rounded">Guardar</button>
-                                </div>
                             </div>
                         )}
+                        <div className=" col-md-9 mt-4 d-flex  offset-md-1 justify-content-between">
+                            {currentPage > 1 && <button type="button" className="btn rounded button-pagination" onClick={handlePrevPage}>Anterior</button>}
+                            {currentPage < 4 && <button type="button" className="btn rounded button-pagination" onClick={handleNextPage}>Siguiente</button>}
+                            {currentPage === 4 && <button type="submit" className="button-guardar btn rounded">Enviar</button>}
+                        </div>
                     </form>
                 </div>
             </div>

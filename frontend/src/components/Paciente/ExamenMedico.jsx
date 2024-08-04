@@ -73,11 +73,11 @@ export function ExamenMedico(){
 
         <div className="col-md-3 mx-4 mt-4">
             <label className="form-label label-form" htmlFor="paciente_nombre">Nombre:</label>
-            <input className="form-control input-form" id="paciente_nombre" value={`${examen.paciente.nombre} ${examen.paciente.apePaterno} ${examen.paciente.apeMaterno}`} disabled={true} />
+            <input className="form-control " id="paciente_nombre" value={`${examen.paciente.nombre} ${examen.paciente.apePaterno} ${examen.paciente.apeMaterno}`} disabled={true} />
         </div>
         <div className="col-md-1 mx-4 mt-4" >
             <label className="form-label label-form" htmlFor="paciente_edad">Edad:</label>
-            <input className="form-control input-form" id="paciente_edad" value={examen.paciente.edad} disabled={true} />
+            <input className="form-control " id="paciente_edad" value={examen.paciente.edad} disabled={true} />
         </div>
 
         

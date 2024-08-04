@@ -150,21 +150,21 @@ export function VisualizarCitas() {
         <div className="container-fluid">
           <div className="row offset-md-1 mt-2 mb-2">
             <div className="col-md-5">
-              <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP del paciente" onChange={handleBarraBusqueda} />
+              <input className="form-control " type="search" id="busqueda_paciente" placeholder="Buscar por CURP del paciente" onChange={handleBarraBusqueda} />
             </div>
             <div className="col-md-3">
-              <button type="button" onClick={handleBuscarCitas} className="button-buscar">
+              <button type="button" onClick={handleBuscarCitas} className="button-buscar rounded">
                 <i class="lni lni-search-alt"></i>
               </button>
             </div>
-            <div className="col-md-2">
+            <div className="col-md-2 offset-md-1">
               <button type="button" className="btn rounded btn-success" onClick={handleDownloadCitas}>
                 <i class="lni lni-download"> Descargar excel</i>
               </button>
             </div>
           </div>
         </div>
-        <div className="row mt-3">
+        <div className="row mt-3 mb-3">
           <div className="col-md-1 offset-md-1">
             <button type="button" className="button-filter rounded" onClick={() => handleFiltro(true)} title="Mostrar citas pendientes">Pendientes</button>
           </div>
@@ -237,15 +237,15 @@ export function VisualizarCitas() {
           <form onSubmit={onSubmit} className="row g-3">
             <div className="col-md-2 offset-md-2">
               <label htmlFor="id_cita" className="form-label label-form">Número</label>
-              <input type="number" id="id_cita" className="form-control input-form" {...register("idCita", { required: true })} disabled={true} />
+              <input type="number" id="id_cita" className="form-control " {...register("idCita", { required: true })} disabled={true} />
             </div>
             <div className="col-md-6">
               <label htmlFor="curp_paciente" className="form-label label-form">Curp paciente</label>
-              <input type="text" id="curp_paciente" className="form-control input-form" {...register("idPaciente", { required: true })} disabled={true} />
+              <input type="text" id="curp_paciente" className="form-control " {...register("idPaciente", { required: true })} disabled={true} />
             </div>
             <div className="col-md-8 offset-md-2">
               <label htmlFor="fecha_cita" className="form-label label-form">Fecha de cita</label>
-              <input type="date" id="fecha_cita" className="form-control input-form" {...register("fecha_cita", { required: true })} />
+              <input type="date" id="fecha_cita" className="form-control " {...register("fecha_cita", { required: true })} />
               {errors.fecha_cita?.type === "required" &&
                 (
                   <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese la fecha de la cita</p>
@@ -254,7 +254,7 @@ export function VisualizarCitas() {
             </div>
             <div className="col-md-8 offset-md-2">
               <label htmlFor="horario_cita" className="form-label label-form">Hora de cita</label>
-              <input type="time" id="horario_cita" className="form-control input-form" {...register("horario_cita", { required: true })} />
+              <input type="time" id="horario_cita" className="form-control " {...register("horario_cita", { required: true })} />
               {errors.horario_cita?.type === "required" &&
                 (
                   <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese la hora de la cita</p>
@@ -263,7 +263,7 @@ export function VisualizarCitas() {
             </div>
             <div className="col-md-8 offset-md-2">
               <label htmlFor="especialidad" className="form-label label-form">Especialidad</label>
-              <select className="form-select input-form" id="especialidad" {...register("especialidad", { required: true })}>
+              <select className="form-select " id="especialidad" {...register("especialidad", { required: true })}>
                 <option value="" disabled>Elija especialidad</option>
                 <option value="Nutricion">Nutrición</option>
                 <option value="Medico-general">Medico general</option>

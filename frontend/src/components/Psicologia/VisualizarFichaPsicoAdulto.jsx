@@ -93,18 +93,18 @@ export function VisualizarFichaPsicoAdulto() {
                             <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP del paciente" onChange={handleBarraBusqueda} />
                         </div>
                         <div className="col-md-3 mt-2">
-                            <button type="button" onClick={handleBuscarFicha} className="button-buscar">
+                            <button type="button" onClick={handleBuscarFicha} className="button-buscar rounded">
                                 <i class="lni lni-search-alt"></i>
                             </button>
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-md-2 mt-2">
                             <button type="button" className="btn rounded btn-success" onClick={handleDownloadFichaPsicoAdulto}>
                                 <i class="lni lni-download"> Descargar excel</i>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div className='col-md-10 offset-md-1'>
+                <div className='col-md-10 offset-md-1 mt-2'>
                     {isResult ? (
                         <table className="table-bordered">
                             <thead className='cabecera'>

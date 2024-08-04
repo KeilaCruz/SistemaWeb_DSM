@@ -74,10 +74,10 @@ export function VisualizarHistoriasNutricion() {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-md-5 offset-1 mt-2 mb-2">
-                                <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP del paciente" onChange={handleBarraBusqueda} />
+                                <input className="form-control " type="search" id="busqueda_paciente" placeholder="Buscar por CURP del paciente" onChange={handleBarraBusqueda} />
                             </div>
                             <div className="col-md-3 mt-2">
-                                <button type="button" onClick={handleBuscarHistoria} className="button-buscar">
+                                <button type="button" onClick={handleBuscarHistoria} className="button-buscar rounded">
                                     <i class="lni lni-search-alt"></i>
                                 </button>
                             </div>

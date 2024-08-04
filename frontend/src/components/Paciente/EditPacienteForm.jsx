@@ -131,23 +131,23 @@ export function EditPacienteForm({ paciente }) {
                 <form onSubmit={onSubmit} className="row g-3 align-items-center">
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="CURP" className="form-label label-form">CURP</label>
-                        <input id="CURP" className="form-control input-form" type="text" {...register("CURP")} disabled={true} />
+                        <input id="CURP" className="form-control " type="text" {...register("CURP")} disabled={true} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="nombre" className="form-label label-form">Nombre(s)</label>
-                        <input type="text" id="nombre" name="nombre" className="form-control input-form" {...register("nombre")} disabled={true} />
+                        <input type="text" id="nombre" name="nombre" className="form-control " {...register("nombre")} disabled={true} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="apePaterno" className="form-label label-form">Apellido paterno</label>
-                        <input type="text" id="apePaterno" name="apePaterno" className="form-control input-form" {...register("apePaterno")} disabled={true} />
+                        <input type="text" id="apePaterno" name="apePaterno" className="form-control " {...register("apePaterno")} disabled={true} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="apeMaterno" className="form-label label-form">Apellido materno</label>
-                        <input type="text" id="apeMaterno" className="form-control input-form" {...register("apeMaterno")} disabled={true} />
+                        <input type="text" id="apeMaterno" className="form-control " {...register("apeMaterno")} disabled={true} />
                     </div>
                     <div className="col-md-2 offset-md-1">
                         <label htmlFor="estado_civil" className="form-label label-form">Estado civil</label>
-                        <select id="estado_civil" className="form-select input-form" {...register("estado_civil")} disabled={!activateEdit}>
+                        <select id="estado_civil" className="form-select " {...register("estado_civil")} disabled={!activateEdit}>
                             <option value="" disabled selected>Elija estado civil</option>
                             <option value="Soltero">Soltero</option>
                             <option value="Casado">Casado</option>
@@ -157,7 +157,7 @@ export function EditPacienteForm({ paciente }) {
 
                     <div className="col-md-2 offset-md-0.6">
                         <label htmlFor="estado_civil" className="form-label label-form">Sexo</label>
-                        <select id="estado_civil" className="form-select input-form" {...register("sexo")} disabled={!activateEdit}>
+                        <select id="estado_civil" className="form-select " {...register("sexo")} disabled={!activateEdit}>
                             <option value="" disabled selected>Elija su sexo</option>
                             <option value="masculino">Masculino</option>
                             <option value="femenino">Femenino</option>
@@ -168,7 +168,7 @@ export function EditPacienteForm({ paciente }) {
 
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="escolaridad" className="form-label label-form" >Escolaridad</label>
-                        <select name="escolaridad" className="form-select input-form" {...register("escolaridad")} disabled={!activateEdit}>
+                        <select name="escolaridad" className="form-select " {...register("escolaridad")} disabled={!activateEdit}>
                             <option value="" disabled selected>Elija estado civil</option>
                             <option value="Primaria">Primaria</option>
                             <option value="Secundaria">Secundaria</option>
@@ -178,35 +178,35 @@ export function EditPacienteForm({ paciente }) {
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="colonia" className="form-label label-form">Colonia</label>
-                        <input type="text" id="colonia" className="form-control input-form" {...register("colonia")} disabled={!activateEdit} />
+                        <input type="text" id="colonia" className="form-control " {...register("colonia")} disabled={!activateEdit} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="calle" className="form-label label-form">Calle</label>
-                        <input type="text" id="calle" className="form-control input-form" {...register("calle")} disabled={!activateEdit} />
+                        <input type="text" id="calle" className="form-control " {...register("calle")} disabled={!activateEdit} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="referencia" className="form-label label-form">Entre calles o referencia</label>
-                        <textarea type="text" id="referencia" className="form-control input-form" {...register("referencia")} disabled={!activateEdit} />
+                        <textarea type="text" id="referencia" className="form-control " {...register("referencia")} disabled={!activateEdit} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="telefono" className="form-label label-form">Telefono</label>
-                        <input type="text" id="telefono" className="form-control input-form" {...register("telefono")} disabled={!activateEdit} />
+                        <input type="text" id="telefono" className="form-control " {...register("telefono")} disabled={!activateEdit} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="derecho_habiencia" className="form-label label-form">Derechohabiencia</label>
-                        <input id="derecho_habiencia" className="form-control input-form" {...register("derecho_habiencia")} disabled={!activateEdit} />
+                        <input id="derecho_habiencia" className="form-control " {...register("derecho_habiencia")} disabled={!activateEdit} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="georeferencia" className="form-label label-form">Georeferencia</label>
-                        <input type="text" id="georeferencia" className="form-control input-form" {...register("unidad_salud")} disabled={!activateEdit} />
+                        <input type="text" id="georeferencia" className="form-control " {...register("unidad_salud")} disabled={!activateEdit} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="ultima_visita_medico" className="form-label label-form">Última visita al médico</label>
-                        <input type="date" id="ultima_visita_medico" className="form-control input-form" {...register("ultima_visita_medico")} disabled={!activateEdit} />
+                        <input type="date" id="ultima_visita_medico" className="form-control " {...register("ultima_visita_medico")} disabled={!activateEdit} />
                     </div>
                     <div className="col-md-4 offset-md-1">
                         <label htmlFor="num_persona_vive" className="form-label label-form">Número de personas con la que vive</label>
-                        <input type="number" id="num_persona_vive" className="form-control input-form"  {...register("numero_personas_vive")} disabled={!activateEdit}></input>
+                        <input type="number" id="num_persona_vive" className="form-control "  {...register("numero_personas_vive")} disabled={!activateEdit}></input>
                     </div>
                     <div className="col-md-10 offset-md-1">
                         <label className="form-label label-form">Es beneficiario de algún programa de gobierno</label>
@@ -230,7 +230,7 @@ export function EditPacienteForm({ paciente }) {
 
                     {programaFederal && (
                         <div className="col-md-4 offset-md-1">
-                            <input type="text" className="form-control input-form" id="programa_federal" {...register("cual_programa_federal")} disabled={!activateEdit} />
+                            <input type="text" className="form-control " id="programa_federal" {...register("cual_programa_federal")} disabled={!activateEdit} />
                         </div>
                     )}
 
@@ -252,7 +252,7 @@ export function EditPacienteForm({ paciente }) {
 
                     {programaEstatal && (
                         <div className="col-md-4 offset-md-1">
-                            <input className="form-control input-form" type="text" id="programa_estatal" {...register("cual_programa_estatal")} disabled={!activateEdit} />
+                            <input className="form-control " type="text" id="programa_estatal" {...register("cual_programa_estatal")} disabled={!activateEdit} />
                         </div>
                     )}
 
@@ -274,18 +274,18 @@ export function EditPacienteForm({ paciente }) {
 
                     {programaMunicipal && (
                         <div className="col-md-4 offset-md-1">
-                            <input className="form-control input-form" type="text" id="programa_municipal" {...register("cual_programa_municipal")} disabled={!activateEdit} />
+                            <input className="form-control " type="text" id="programa_municipal" {...register("cual_programa_municipal")} disabled={!activateEdit} />
                         </div>
                     )}
 
                     {activateEdit && (
                         <div className="col-md-9 offset-md-1">
-                            <button className="button-guardar rounded">Guardar</button>
+                            <button className="button-guardar btn rounded">Guardar</button>
                         </div>
                     )}
                 </form>
                 <div className="col-md-4 offset-md-1 mt-2">
-                    <button type="button" className="rounded mb-2 button-editar" onClick={handleActivateEditar}>Editar</button>
+                    <button type="button" className="rounded mb-2 btn button-editar" onClick={handleActivateEditar}>Editar</button>
                 </div>
             </div>
         </>

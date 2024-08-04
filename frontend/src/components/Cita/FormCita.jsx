@@ -48,13 +48,13 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
                         <hr />
                     </div>
                     <div className="col-md-5 offset-1 mt-4">
-                        <input className="form-control input-form" type="search" id="busqueda_paciente" placeholder="Buscar por CURP, primer nombre o teléfono" onChange={handleBarraBusqueda} />
+                        <input className="form-control " type="search" id="busqueda_paciente" placeholder="Buscar por CURP, primer nombre o teléfono" onChange={handleBarraBusqueda} />
                     </div>
                 </div>
                 <form onSubmit={onSubmit} className="row g-3 mt-2">
                     <div className="col-md-3 offset-md-1">
                         <label htmlFor="fecha_cita" className="form-label label-form">Fecha de cita</label>
-                        <input className="form-control input-form" id="fecha_cita" type="date" placeholder="fecha de cita" {...register('fecha_cita', { required: true })} />
+                        <input className="form-control " id="fecha_cita" type="date" placeholder="fecha de cita" {...register('fecha_cita', { required: true })} />
                         {errors.fecha_cita?.type === "required" &&
                             (
                                 <p className="errors"> <i class="lni lni-warning"></i> Ingrese la fecha de la cita</p>
@@ -63,7 +63,7 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
                     </div>
                     <div className="col-md-3 mx-5">
                         <label htmlFor="horario_cita" className="form-label label-form">Horario de cita</label>
-                        <input className="form-control input-form" id="horario_cita" type="time" placeholder="hora_cita" {...register('hora_cita', { required: true })} />
+                        <input className="form-control " id="horario_cita" type="time" placeholder="hora_cita" {...register('hora_cita', { required: true })} />
                         {errors.hora_cita?.type === "required" &&
                             (
                                 <p className="errors"> <i class="lni lni-warning"></i> Ingrese la hora</p>
@@ -72,7 +72,7 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
                     </div>
                     <div className="col-md-3 mx-4">
                         <label htmlFor="especialidad_cita" className="form-label label-form">Especialidad de cita</label>
-                        <select className="form-select input-form" id="especialidad" {...register("especialidad", { required: true })}>
+                        <select className="form-select " id="especialidad" {...register("especialidad", { required: true })}>
                             <option value="" disabled selected>Elija especialidad</option>
                             <option value="Nutricion">Nutrición</option>
                             <option value="Medico-general">Medico general</option>
@@ -85,7 +85,7 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
                             )
                         }
                     </div>
-                    <div className="col-md-10 offset-md-1">
+                    <div className="offset-md-1">
                         {isResult ? (
                             <table className="table-bordered">
                                 <thead className="cabecera">
@@ -93,7 +93,7 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
                                         <th className="columv2">Sl.</th>
                                         <th className="colum">CURP</th>
                                         <th className="colum">Nombre</th>
-                                        <th className="columv2">Edad</th>
+                                        <th className="colum">Edad</th>
                                         <th className="colum">Colonia</th>
                                         <th className="colum">Calle</th>
                                         <th className="colum">Telefono</th>
@@ -119,7 +119,7 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
                             <p className="text-center text-danger">NO SE ENCONTRARON RESULTADOS DE BÚSQUEDA</p>
                         )}
                     </div>
-                    <div className="pagination mt-2 col-md-10 offset-md-1">
+                    <div className="pagination mt-2 offset-md-1 col-md-10">
                         {[...Array(Math.ceil(paciente.length / itemsPerPage)).keys()].map(number => (
                             <button type="button" key={number} onClick={() => paginate(number + 1)} className="page-link button-pagination rounded">
                                 {number + 1}
@@ -127,7 +127,7 @@ export function FormCita({ onSubmit, register, pacienteSelect, errors }) {
                         ))}
                     </div>
                     <div className="col-md-1 offset-md-1">
-                        <button type="submit" className="button-guardar rounded">Guardar</button>
+                        <button type="submit" className="button-guardar btn rounded">Guardar</button>
                     </div>
                 </form>
             </div>

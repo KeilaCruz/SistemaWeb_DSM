@@ -50,7 +50,7 @@ export function CalculadoraCircuferencia() {
 
                             <div className="col-md-4">
                                 <label htmlFor="circuferencia" className="form-label label-form">Circuferencia</label>
-                                <input className="form-control input-form" type="number" id="circuferencia" placeholder="cm" step="any" name="circuferencia" value={circuferencia} onChange={handleChangeCircuferencia} />
+                                <input className="form-control " type="number" id="circuferencia" placeholder="cm" step="any" name="circuferencia" value={circuferencia} onChange={handleChangeCircuferencia} />
                             </div>
                             <div className="col-md-8 mt-4">
                                 <label className="form-label label-form">Género:</label>

@@ -5,7 +5,6 @@ export function FormPaciente({ onSubmit, register, errors }) {
     const [showCualEstatal, setShowEstatal] = useState(false)
     const [showCualFederal, setShowFederal] = useState(false)
     const [showCualMunicipal, setShowMunicipal] = useState(false)
-    const [totalPages] = useState(3);
     //activar campo para ingresar nombre de programa en el cuál es beneficiario
     const handleFederal = (evt) => {
         let valor = evt.target.value === 'true'
@@ -57,7 +56,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                         <div className="row">
                             <div className="col-md-4 offset-md-1 mt-1">
                                 <label htmlFor="Nombre" className="form-label label-form">Nombres(s)</label>
-                                <input id="Nombre" className="form-control input-form" type="text" placeholder="Nombre" {...register("nombre", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]$/ })} />
+                                <input id="Nombre" className="form-control" type="text" placeholder="Nombre" {...register("nombre", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]$/ })} />
                                 {errors.nombre?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -71,7 +70,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-4 offset-md-1 mt-1">
                                 <label htmlFor="apePaterno" className="form-label label-form">Apellido paterno</label>
-                                <input className="form-control input-form" type="text" placeholder="Apellido paterno" {...register("apePaterno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]$/ })} />
+                                <input className="form-control " type="text" placeholder="Apellido paterno" {...register("apePaterno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]$/ })} />
                                 {errors.apePaterno?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -85,7 +84,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-4 offset-md-1 mt-1">
                                 <label htmlFor="apeMaterno" className="form-label label-form" >Apellido materno</label>
-                                <input className="form-control input-form" type="text" placeholder="Apellido materno" {...register("apeMaterno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]$/ })} />
+                                <input className="form-control " type="text" placeholder="Apellido materno" {...register("apeMaterno", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]$/ })} />
                                 {errors.apeMaterno?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -99,7 +98,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-2 offset-md-1 mt-1">
                                 <label htmlFor="edad" className="form-label label-form" >Edad</label>
-                                <input className="form-control input-form" type="number" placeholder="Edad" {...register("edad", { required: true })} />
+                                <input className="form-control " type="number" placeholder="Edad" {...register("edad", { required: true })} />
                                 {errors.edad?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -113,7 +112,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-2 offset-md-0.6 mt-1">
                                 <label htmlFor="estado_civil" className="form-label label-form" >Estado civil</label>
-                                <select className="form-select input-form" name="estado_civil" {...register("estado_civil", { required: true })}>
+                                <select className="form-select " name="estado_civil" {...register("estado_civil", { required: true })}>
                                     <option value="" disabled selected>Elija estado civil</option>
                                     <option value="Soltero">Soltero</option>
                                     <option value="Casado">Casado</option>
@@ -127,7 +126,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-4 offset-md-1 mt-1">
                                 <label htmlFor="curp" className="form-label label-form">CURP</label>
-                                <input className="form-control input-form" type="text" placeholder="CURP" {...register("CURP", { required: true, pattern: /^[A-Z]{1,4}\d{1,6}[A-Z]{1,7}\d{1}$/ })} />
+                                <input className="form-control " type="text" placeholder="CURP" {...register("CURP", { required: true, pattern: /^[A-Z]{1,4}\d{1,6}[A-Z]{1,7}\d{1}$/ })} />
                                 {errors.CURP?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -141,7 +140,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-2 offset-md-1 mt-1">
                                 <label htmlFor="escolaridad" className="form-label label-form">Escolaridad</label>
-                                <select className="form-select input-form" name="escolaridad" {...register("escolaridad", { required: true })}>
+                                <select className="form-select " name="escolaridad" {...register("escolaridad", { required: true })}>
                                     <option value="" disabled selected>Elija escolaridad</option>
                                     <option value="Primaria">Primaria</option>
                                     <option value="Secundaria">Secundaria</option>
@@ -157,7 +156,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
 
                             <div className="col-md-2 offset-md-0.6 mt-1">
                                 <label htmlFor="sexo" className="form-label label-form">Sexo</label>
-                                <select className="form-select input-form" name="sexo" {...register("sexo", { required: true })}>
+                                <select className="form-select " name="sexo" {...register("sexo", { required: true })}>
                                     <option value="" disabled selected>Elija su sexo</option>
                                     <option value="masculino">Masculino</option>
                                     <option value="femenino">Femenino</option>
@@ -177,7 +176,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                         <div className="row">
                             <div className="col-md-4 offset-md-1 mt-1">
                                 <label htmlFor="colonia" className="form-label label-form" >Colonia</label>
-                                <input className="form-control input-form" type="text" placeholder="Colonia" {...register("colonia", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]$/ })} />
+                                <input className="form-control " type="text" placeholder="Colonia" {...register("colonia", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]$/ })} />
                                 {errors.colonia?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -191,7 +190,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-4 offset-md-1 mt-1">
                                 <label className="form-label label-form" >Calle</label>
-                                <input className="form-control input-form" type="text" placeholder="Calle" {...register("calle", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]$/ })} />
+                                <input className="form-control " type="text" placeholder="Calle" {...register("calle", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]$/ })} />
                                 {errors.calle?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -205,7 +204,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-2 offset-md-1 mt-1">
                                 <label htmlFor="numero_exterior" className="form-label label-form" >Número exterior</label>
-                                <input className="form-control input-form" type="number" placeholder="Número" {...register("numero_exterior", { required: true })} />
+                                <input className="form-control " type="number" placeholder="Número" {...register("numero_exterior", { required: true })} />
                                 {errors.numero_exterior?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -219,7 +218,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-2 offset-md-0.8 mt-1">
                                 <label htmlFor="cp" className="form-label label-form" >CP</label>
-                                <input className="form-control input-form" type="number" placeholder="CP" {...register("CP", { required: true })} />
+                                <input className="form-control " type="number" placeholder="CP" {...register("CP", { required: true })} />
                                 {errors.CP?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -233,7 +232,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-4 offset-md-1">
                                 <label htmlFor="referencia" className="form-label label-form" >Entre que calles o referencia</label>
-                                <textarea className="form-control input-form" placeholder="Entre calles o referencia" {...register("referencia", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]$/ })}></textarea>
+                                <textarea className="form-control " placeholder="Entre calles o referencia" {...register("referencia", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]$/ })}></textarea>
                                 {errors.referencia?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -247,7 +246,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-2 offset-md-1">
                                 <label htmlFor="telefono" className="form-label label-form" >Teléfono</label>
-                                <input className="form-control input-form" type="text" placeholder="Telefono" {...register("telefono", { required: true, pattern: /^\d{1,10}$/ })} />
+                                <input className="form-control " type="text" placeholder="Telefono" {...register("telefono", { required: true, pattern: /^\d{1,10}$/ })} />
                                 {errors.telefono?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -266,7 +265,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                         <div className="row">
                             <div className="col-md-3 offset-md-1 mt-1">
                                 <label htmlFor="derecho_habiencia" className="form-label label-form" >Derechohabiencia</label>
-                                <select className="form-select input-form" name="derecho_habiencia" {...register("derecho_habiencia", { required: true })}>
+                                <select className="form-select " name="derecho_habiencia" {...register("derecho_habiencia", { required: true })}>
                                     <option value="" disabled selected>Elija derechohabiencia</option>
                                     <option value="IMSS">IMSS</option>
                                     <option value="ISSSTE">ISSSTE</option>
@@ -283,7 +282,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-4 offset-md-1 mt-1">
                                 <label htmlFor="unidad_salud" className="form-label label-form" >Unidad de salud</label>
-                                <input className="form-control input-form" type="text" placeholder="Unidad de salud" {...register("unidad_salud", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]+$/ })} />
+                                <input className="form-control " type="text" placeholder="Unidad de salud" {...register("unidad_salud", { required: true, pattern: /^[A-Za-z .#,ÁÉÍÓÚáéíóú\d]+$/ })} />
                                 {errors.unidad_salud?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -297,7 +296,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-3 offset-md-1 mt-1">
                                 <label className="form-label label-form" >Última visita al médico</label>
-                                <input className="form-control input-form" type="date" placeholder="Ultima visita con su medico" {...register("ultima_visita_medico", { required: true })} />
+                                <input className="form-control " type="date" placeholder="Ultima visita con su medico" {...register("ultima_visita_medico", { required: true })} />
                                 {errors.ultima_visita_medico?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -306,7 +305,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                             </div>
                             <div className="col-md-4 offset-md-1 mt-1">
                                 <label htmlFor="num_persona_vive" className="form-label label-form">Número de personas con la que vive</label>
-                                <input className="form-control input-form" type="number" placeholder="¿Cuantas personas vive con usted?" {...register("numero_personas_vive", { required: true })} />
+                                <input className="form-control " type="number" placeholder="¿Cuantas personas vive con usted?" {...register("numero_personas_vive", { required: true })} />
                                 {errors.numero_personas_vive?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -336,7 +335,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                                 {showCualFederal && (
                                     <div>
                                         <label htmlFor="cual_federal" className="form-label label-form">¿Cuál?</label>
-                                        <input className="form-control input-form" type="text" placeholder="Nombre del programa federal" {...register("cual_programa_federal")}
+                                        <input className="form-control " type="text" placeholder="Nombre del programa federal" {...register("cual_programa_federal")}
                                         />
                                     </div>
                                 )}
@@ -359,7 +358,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                                 {showCualEstatal && (
                                     <div>
                                         <label htmlFor="cual_estatal" className="form-label label-form">¿Cuál??</label>
-                                        <input className="form-control input-form" type="text" placeholder="Nombre del programa estatal" {...register("cual_programa_estatal")}
+                                        <input className="form-control " type="text" placeholder="Nombre del programa estatal" {...register("cual_programa_estatal")}
                                         />
                                     </div>
                                 )}
@@ -382,7 +381,7 @@ export function FormPaciente({ onSubmit, register, errors }) {
                                 {showCualMunicipal && (
                                     <div>
                                         <label htmlFor="cual_municipal" className="form-label label-form">¿Cuál?</label>
-                                        <input className="form-control input-form" type="text" placeholder="Nombre del programa municipal" {...register("cual_programa_municipal")} />
+                                        <input className="form-control " type="text" placeholder="Nombre del programa municipal" {...register("cual_programa_municipal")} />
                                     </div>
                                 )}
                             </div>
@@ -393,7 +392,6 @@ export function FormPaciente({ onSubmit, register, errors }) {
                         {currentPage < 3 && <button type="button" className="btn rounded button-pagination" onClick={handleNextPage}>Siguiente</button>}
                         {currentPage === 3 && <button type="submit" className="button-guardar btn rounded">Enviar</button>}
                     </div>
-                 
                 </form>
             </div>
         </>

@@ -360,7 +360,7 @@ export function SliderHistoriaNutricion({ historia }) {
                             </div>
                             {historia.archivo && (
                                 <div>
-                                    <a id="archivo_nutricion" href={baseUrl + historia.archivo} target="_blank" rel="noopener noreferrer">Ver archivo</a>
+                                    <a style={{ background: "green", color: "white", padding: "5px" }} className="rounded" id="archivo_nutricion" href={baseUrl + historia.archivo} target="_blank" rel="noopener noreferrer">Ver archivo</a>
                                 </div>
                             )}
                         </div>

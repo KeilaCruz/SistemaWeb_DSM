@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { getPaciente } from "../../services/Recepcionista";
+import { getReporteExamenMedico } from "../../services/Reportes";
 
 
 export function ExamenMedicoList() {
@@ -61,7 +62,10 @@ export function ExamenMedicoList() {
   const handleNavigate = (idExamenMedico) => {
     navigate(`/ver_examenMedico/${idExamenMedico}`);
   };
-
+  const handleDownloadExamenMedico = async () => {
+    await setToken(authTokens.access)
+    await getReporteExamenMedico();
+  }
   return (
     <div className="container-fluid">
       <div className="row g-3">
@@ -76,6 +80,11 @@ export function ExamenMedicoList() {
               aria-label="Search"
             />
           </form>
+        </div>
+        <div className="col-md-2">
+          <button type="button" className="btn rounded btn-success" onClick={handleDownloadExamenMedico}>
+            <i class="lni lni-download"> Descargar excel</i>
+          </button>
         </div>
         <div className="py-3">
           <div className="container">

@@ -47,15 +47,15 @@ export function CalculadoraImc() {
                         <div className="row">
                             <div className="col-md-2 offset-md-1">
                                 <label htmlFor="peso_paciente" className="form-label label-form">Peso:</label>
-                                <input className="form-control input-form" id="peso_paciente" type="number" step="any" placeholder="kg" name="peso" value={peso} onChange={handleInputChange} />
+                                <input className="form-control " id="peso_paciente" type="number" step="any" placeholder="kg" name="peso" value={peso} onChange={handleInputChange} />
                             </div>
                             <div className="col-md-2">
                                 <label htmlFor="altura_paciente" className="form-label label-form">Altura:</label>
-                                <input className="form-control input-form" id="altura_paciente" type="number" step="any" placeholder="m" name="altura" value={altura} onChange={handleInputChange} />
+                                <input className="form-control " id="altura_paciente" type="number" step="any" placeholder="m" name="altura" value={altura} onChange={handleInputChange} />
                             </div>
                             <div className="col-md-2">
                                 <label htmlFor="imc_paciente" className="form-label label-form">IMC:</label>
-                                <input className="form-control input-form" id="imc_paciente" type="number" step="any" value={imc} placeholder="kg/m2" />
+                                <input className="form-control " id="imc_paciente" type="number" step="any" value={imc} placeholder="kg/m2" />
                             </div>
                             <div className="col-md-2 mt-4">
                                 <button className="button-guardar" onClick={handleCalcularImc}>Calcular</button>
