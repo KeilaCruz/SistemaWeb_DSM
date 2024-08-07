@@ -43,7 +43,7 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
         setPacienteSelect(CURP)
     }
     const handleNextPage = () => {
-        if (currentPage < 4) {
+        if (currentPage < 5) {
             setCurrentPage(currentPage + 1);
         }
     }
@@ -930,8 +930,8 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                         )}
                         <div className=" col-md-9 mt-4 d-flex  offset-md-1 justify-content-between">
                             {currentPage > 1 && <button type="button" className="btn rounded button-pagination" onClick={handlePrevPage}>Anterior</button>}
-                            {currentPage < 4 && <button type="button" className="btn rounded button-pagination" onClick={handleNextPage}>Siguiente</button>}
-                            {currentPage === 4 && <button type="submit" className="button-guardar btn rounded">Enviar</button>}
+                            {currentPage < 5 && <button type="button" className="btn rounded button-pagination" onClick={handleNextPage}>Siguiente</button>}
+                            {currentPage === 5 && <button type="submit" className="button-guardar btn rounded">Enviar</button>}
                         </div>
                     </form>
                 </div>

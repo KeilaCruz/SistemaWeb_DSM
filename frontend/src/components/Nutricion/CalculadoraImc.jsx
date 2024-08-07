@@ -1,17 +1,19 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { setToken } from "../../services/HeaderAuthorization"
 import AuthContext from "../../context/AuthProvider"
 import { calcularIMC } from "../../services/Nutriologo"
 import { Modal, Button } from "react-bootstrap"
 
-export function CalculadoraImc() {
+export function CalculadoraImc({ status, handleCloseModal }) {
     const { authTokens } = useContext(AuthContext)
     const [categoria, setCategoria] = useState(1)
     const [peso, setPeso] = useState('')
     const [altura, setAltura] = useState('')
     const [imc, setIMC] = useState('')
-    const [showModal, setShowModal] = useState(false)
-
+    const [showModal, setShowModal] = useState(status)
+    useEffect(() => {
+        setShowModal(status);
+    }, [status]);
     const handleCalcularImc = async () => {
         await setToken(authTokens.access)
         const response = await calcularIMC(peso, altura);
@@ -28,15 +30,9 @@ export function CalculadoraImc() {
         setIMC('')
         setCategoria(1)
     }
-    const handleShowModal = () => {
-        setShowModal(true)
-    }
-    const handleCloseModal = () => {
-        setShowModal(false)
-    }
+
     return (
         <>
-            <button onClick={handleShowModal}>Mostrar</button>
             <Modal Modal show={showModal} onHide={handleCloseModal} dialogClassName="my-modal">
                 <Modal.Header>
                     <Modal.Title>Calculadora IMC
@@ -58,10 +54,10 @@ export function CalculadoraImc() {
                                 <input className="form-control " id="imc_paciente" type="number" step="any" value={imc} placeholder="kg/m2" />
                             </div>
                             <div className="col-md-2 mt-4">
-                                <button className="button-guardar" onClick={handleCalcularImc}>Calcular</button>
+                                <button className="button-guardar btn rounded" onClick={handleCalcularImc}>Calcular</button>
                             </div>
                             <div className="col-md-1 mt-4">
-                                <button className="button-limpiar" onClick={handleClearInputs}>Limpiar</button>
+                                <button className="button-limpiar btn rounded" onClick={handleClearInputs}>Limpiar</button>
                             </div>
                         </div>
 
