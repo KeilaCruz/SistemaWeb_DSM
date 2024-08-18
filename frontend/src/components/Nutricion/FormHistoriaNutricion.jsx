@@ -4,7 +4,7 @@ import { setToken } from "../../services/HeaderAuthorization"
 import { PacienteCard } from "../Paciente/PacienteCard"
 import AuthContext from "../../context/AuthProvider"
 
-export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setPacienteSelect, errors }) {
+export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setPacienteSelect, errors, trigger }) {
     const [currentPage, setCurrentPage] = useState(1);
     const { authTokens } = useContext(AuthContext);
     const [showCampusFem, setShowCampus] = useState(false)
@@ -42,8 +42,9 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
     const selectPaciente = (CURP) => {
         setPacienteSelect(CURP)
     }
-    const handleNextPage = () => {
-        if (currentPage < 5) {
+    const handleNextPage = async () => {
+        const isValid = await trigger()
+        if (isValid && currentPage < 5) {
             setCurrentPage(currentPage + 1);
         }
     }
@@ -929,9 +930,14 @@ export function FormHistoriaNutricion({ onSubmit, register, pacienteSelect, setP
                             </div>
                         )}
                         <div className=" col-md-9 mt-4 d-flex  offset-md-1 justify-content-between">
-                            {currentPage > 1 && <button type="button" className="btn rounded button-pagination" onClick={handlePrevPage}>Anterior</button>}
-                            {currentPage < 5 && <button type="button" className="btn rounded button-pagination" onClick={handleNextPage}>Siguiente</button>}
-                            {currentPage === 5 && <button type="submit" className="button-guardar btn rounded">Enviar</button>}
+                            {currentPage > 1 && (
+                                <button type="button" className="btn button-pagination me-2 rounded" onClick={handlePrevPage}>Anterior</button>
+                            )}
+                            {currentPage < 5 ? (
+                                <button type="button" className="btn button-pagination rounded" onClick={handleNextPage}>Siguiente</button>
+                            ) : (
+                                <button type="submit" className="btn button-guardar rounded">Enviar</button>
+                            )}
                         </div>
                     </form>
                 </div>
