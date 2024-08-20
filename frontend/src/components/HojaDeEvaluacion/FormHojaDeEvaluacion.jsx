@@ -3,6 +3,8 @@ import { searchPaciente } from "../../services/Recepcionista";
 import { setToken } from "../../services/HeaderAuthorization";
 import { PacienteCard } from "../Paciente/PacienteCard";
 import AuthContext from "../../context/AuthProvider";
+import { CalculadoraCircuferencia } from "../Nutricion/CalculadoraCircuferencia";
+import { CalculadoraImc } from "../Nutricion/CalculadoraImc";
 
 export function FormHojaDeEvaluacion({
   onSubmit,
@@ -15,6 +17,8 @@ export function FormHojaDeEvaluacion({
   const [criterio, setCriterio] = useState("");
   const [paciente, setPaciente] = useState([]);
   const [archivosSeleccionados, setArchivosSeleccionados] = useState([])
+  const [showModalCircuferencia, setShowModalCircuferencia] = useState(false)
+  const [showModalIMC, setShowModalIMC] = useState(false)
 
   const handleBarraBusqueda = (evt) => {
     setCriterio(evt.target.value);
@@ -38,6 +42,18 @@ export function FormHojaDeEvaluacion({
     const nombreArchivos = Array.from(archivos).map((archivo) => archivo.name)
     setArchivosSeleccionados(nombreArchivos)
   }
+  const handleModalCircuferencia = () => {
+    setShowModalCircuferencia(true)
+  }
+  const handleCloseModalCircuferencia = () => {
+    setShowModalCircuferencia(false)
+  }
+  const handleModalIMC = () => {
+    setShowModalIMC(true)
+  }
+  const handleCloseModalIMC = () => {
+    setShowModalIMC(false)
+  }
   return (
     <div>
       <div className="container-fluid">
@@ -51,7 +67,18 @@ export function FormHojaDeEvaluacion({
             <div className="line line-bottom"></div>
           </div>
         </div>
-
+        {/**Llamada a las calculadoras*/}
+        <div className="row offset-md-1">
+          <div className="col-md-3 mt-2 mb-2">
+            <button type="button" onClick={handleModalCircuferencia} className="btn rounded button-calculadora">Calculadora circuferencia</button>
+          </div>
+          <div className="col-md-3 mt-2 mb-2">
+            <button type="button" onClick={handleModalIMC} className="btn rounded button-calculadora">Calculadora IMC</button>
+          </div>
+        </div>
+        <CalculadoraCircuferencia status={showModalCircuferencia} handleCloseModal={handleCloseModalCircuferencia} />
+        <CalculadoraImc status={showModalIMC} handleCloseModal={handleCloseModalIMC} />
+        {/**Llamada a las calculadoras*/}
         <div>
           <div className="row">
             <div className="col-md-6 offset-1">

@@ -30,15 +30,15 @@ export function FormEvoluciónPsicoAdulto({ estado, datos, handleCloseModal }) {
                         <form onSubmit={onSubmit} className="row">
                             <div className="col-md-4 offset-md-1 mt-1">
                                 <label className="label-form form-label" htmlFor="num_expediente">No.expediente</label>
-                                <input className="input-form form-control" id="num_expediente" placeholder="Número de expediente" type="text" value={datos.expedienteFicha} {...register("numero_expediente", { required: true })} />
+                                <input className=" form-control" id="num_expediente" placeholder="Número de expediente" type="text" value={datos.expedienteFicha} {...register("numero_expediente", { required: true })} />
                             </div>
                             <div className="col-md-6 mt-1">
                                 <label className="label-form form-label" htmlFor="CURP">CURP</label>
-                                <input className="input-form form-control" id="CURP" value={datos.idPaciente} placeholder="CURP" type="text" {...register("CURP", { required: true })} />
+                                <input className=" form-control" id="CURP" value={datos.idPaciente} placeholder="CURP" type="text" {...register("CURP", { required: true })} />
                             </div>
                             <div className="col-md-10 offset-md-1 mt-2">
                                 <label className="label-form form-label" htmlFor="nombre_paciente">Nombre del paciente</label>
-                                <input className="input-form form-control" id="nombre_paciente" placeholder="nombre del paciente" type="text" {...register("nombre_paciente", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]$/ })} />
+                                <input className=" form-control" id="nombre_paciente" placeholder="nombre del paciente" type="text" {...register("nombre_paciente", { required: true, pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]$/ })} />
                                 {errors.nombre_paciente?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -52,7 +52,7 @@ export function FormEvoluciónPsicoAdulto({ estado, datos, handleCloseModal }) {
                             </div>
                             <div className="col-md-10 offset-md-1 mt-2">
                                 <label className="label-form form-label" htmlFor="nota_evolucion">Evolución</label>
-                                <textarea className="input-form form-control" id="nota_evolucion" placeholder="Escriba sus comentarios aquí"{...register("nota_evolucion", { required: true, pattern: /^[A-Za-z ,.;ÁÉÍÓÚáéíóú\d]$/ })}></textarea>
+                                <textarea className=" form-control" id="nota_evolucion" placeholder="Escriba sus comentarios aquí"{...register("nota_evolucion", { required: true, pattern: /^[A-Za-z ,.;ÁÉÍÓÚáéíóú\d]$/ })}></textarea>
                                 {errors.nota_evolucion?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>
@@ -66,7 +66,7 @@ export function FormEvoluciónPsicoAdulto({ estado, datos, handleCloseModal }) {
                             </div>
                             <div className="col-md-5 offset-md-1 mt-2">
                                 <label className="label-form form-label" htmlFor="proxima_cita">Próxima cita</label>
-                                <input className="input-form form-control" id="proxima_cita" type="date" {...register("proxima_cita", { required: true })} />
+                                <input className=" form-control" id="proxima_cita" type="date" {...register("proxima_cita", { required: true })} />
                                 {errors.proxima_cita?.type === "required" &&
                                     (
                                         <p className="mt-2 mb-2 text-informativo"> <i class="lni lni-warning"></i> Ingrese el campo</p>

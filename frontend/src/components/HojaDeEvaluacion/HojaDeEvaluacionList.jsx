@@ -4,6 +4,7 @@ import AuthContext from "../../context/AuthProvider";
 import { getPaciente } from "../../services/Recepcionista";
 import { getAllHojasEvaluacion } from "../../services/DoctorGeneral";
 import { setToken } from "../../services/HeaderAuthorization";
+import { getReporteHojasEvaluacion } from "../../services/Reportes";
 
 export function HojaDeEvaluacionList() {
   const [evaluacionesOriginales, setEvaluacionesOriginales] = useState([]);
@@ -59,6 +60,10 @@ export function HojaDeEvaluacionList() {
     navigate(`/ver_evaluacionClinica/${idHojaClinica}`);
   };
 
+  const handleDownloadHojaEvaluacion = async () => {
+    await setToken(authTokens.access)
+    await getReporteHojasEvaluacion()
+  }
   return (
     <div className="container-fluid">
       <div className="row g-3">
@@ -73,6 +78,11 @@ export function HojaDeEvaluacionList() {
               aria-label="Search"
             />
           </form>
+        </div>
+        <div className="col-md-2">
+          <button type="button" className="btn rounded btn-success" onClick={handleDownloadHojaEvaluacion}>
+            <i class="lni lni-download"> Descargar excel</i>
+          </button>
         </div>
         <div className="py-3">
           <div className="container">

@@ -13,7 +13,7 @@ export function PacienteCardv2({ paciente }) {
                                         <p>Curp:</p>
                                     </div>
                                     <div className="col-md-6 card-text">
-                                        <p>{paciente.CURP || ""}</p>
+                                        <p style={{ color: "white" }}>{paciente.CURP || ""}</p>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -21,7 +21,7 @@ export function PacienteCardv2({ paciente }) {
                                         <p>Nombre:</p>
                                     </div>
                                     <div className="col-md-6 card-text">
-                                        <p>{paciente.datos_personales?.nombre || ""} {paciente.datos_personales?.apePaterno || ""} {paciente.datos_personales?.apeMaterno || ""}</p>
+                                        <p style={{ color: "white" }}>{paciente.datos_personales?.nombre || ""} {paciente.datos_personales?.apePaterno || ""} {paciente.datos_personales?.apeMaterno || ""}</p>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -29,7 +29,7 @@ export function PacienteCardv2({ paciente }) {
                                         <p>Edad:</p>
                                     </div>
                                     <div className="col-md-6 card-text">
-                                        <p>{paciente.datos_personales?.edad || ""} </p>
+                                        <p style={{ color: "white" }}>{paciente.datos_personales?.edad || ""} </p>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -37,7 +37,7 @@ export function PacienteCardv2({ paciente }) {
                                         <p>Estado civil:</p>
                                     </div>
                                     <div className="col-md-6 card-text">
-                                        <p>{paciente.datos_personales?.estado_civil || ""}</p>
+                                        <p style={{ color: "white" }}>{paciente.datos_personales?.estado_civil || ""}</p>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -45,7 +45,7 @@ export function PacienteCardv2({ paciente }) {
                                         <p>Escolaridad:</p>
                                     </div>
                                     <div className="col-md-6 card-text">
-                                        <p>{paciente.datos_personales?.escolaridad || ""}</p>
+                                        <p style={{ color: "white" }}>{paciente.datos_personales?.escolaridad || ""}</p>
                                     </div>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@ export function PacienteCardv2({ paciente }) {
                                         <p>Colonia:</p>
                                     </div>
                                     <div className="col-md-6 card-text">
-                                        <p>{paciente.datos_direccion?.colonia || ""}</p>
+                                        <p style={{ color: "white" }}>{paciente.datos_direccion?.colonia || ""}</p>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -63,7 +63,7 @@ export function PacienteCardv2({ paciente }) {
                                         <p>Calle:</p>
                                     </div>
                                     <div className="col-md-6 card-text">
-                                        <p>{paciente.datos_direccion?.calle || ""} {paciente.datos_direccion?.numero_exterior || ""}</p>
+                                        <p style={{ color: "white" }}>{paciente.datos_direccion?.calle || ""} {paciente.datos_direccion?.numero_exterior || ""}</p>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -71,7 +71,7 @@ export function PacienteCardv2({ paciente }) {
                                         <p>Telefono:</p>
                                     </div>
                                     <div className="col-md-6 card-text">
-                                        <p>{paciente.datos_contacto?.telefono || ""}</p>
+                                        <p style={{ color: "white" }}>{paciente.datos_contacto?.telefono || ""}</p>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -79,7 +79,7 @@ export function PacienteCardv2({ paciente }) {
                                         <p>Derechohabiencia:</p>
                                     </div>
                                     <div className="col-md-6 card-text">
-                                        <p>{paciente.datos_contacto?.derecho_habiencia || ""}</p>
+                                        <p style={{ color: "white" }}>{paciente.datos_contacto?.derecho_habiencia || ""}</p>
                                     </div>
                                 </div>
                             </div>

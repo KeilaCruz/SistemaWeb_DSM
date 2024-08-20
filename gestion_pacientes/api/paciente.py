@@ -9,7 +9,6 @@ from django.db.models import Q
 from .serializers import PacienteSerializer, HistorialClinicoSerializer, ExamenMedicoSerializer
 from django.shortcuts import get_object_or_404
 
-
 class PacienteAPIView(APIView):
     def get(self, request):
         pacientes = Paciente.objects.all()

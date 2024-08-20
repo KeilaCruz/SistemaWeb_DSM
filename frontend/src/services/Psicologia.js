@@ -12,6 +12,9 @@ const URL_EVOLUCION_ADULTO = "http://127.0.0.1:8000/api/registrar_evolucion_adul
 const URL_EVOLUCION_NIÑO = "http://127.0.0.1:8000/api/registrar_evolucion_nino";
 const URL_GETEVOLUCION_ADULTO = "http://127.0.0.1:8000/api/visualizar_evolucion_adulto/"
 const URL_GETEVOLUCION_NINO = "http://127.0.0.1:8000/api/visualizar_evolucion_ninio/"
+const SEARCH_URL_ADULTO = "http://127.0.0.1:8000/api/buscar_ficha_psico_ninio"
+const SEARCH_URL_NINO = "http://127.0.0.1:8000/api/buscar_ficha_psico_adulto"
+
 export const registerFichaPsiNiño = async (fichaPsicoNiño) => {
     try {
         const config = await getConfigFiles()
@@ -165,6 +168,32 @@ export const getNotasNiño = async (idPaciente) => {
             return response.data
         } else {
             console.log("Error al retornar los datos")
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+export const buscarFichaAdulto = async (idPaciente) => {
+    try {
+        const config = await getConfig()
+        const response = await axios.get(`${SEARCH_URL_ADULTO}/${idPaciente}/`, config)
+        if (response.status === 200) {
+            return response.data
+        } else {
+            console.log("Error al retornar ficha adulto")
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+export const buscarFichaNino = async (idPaciente) => {
+    try {
+        const config = await getConfig()
+        const response = await axios.get(`${SEARCH_URL_NINO}/${idPaciente}/`, config)
+        if (response.status === 200) {
+            return response.data
+        } else {
+            console.log("Error al retornar ficha nino")
         }
     } catch (error) {
         console.error(error)

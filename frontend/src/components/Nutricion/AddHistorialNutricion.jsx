@@ -6,7 +6,7 @@ import { registerHistoriaNutricion } from "../../services/Nutriologo"
 import { setToken } from "../../services/HeaderAuthorization"
 
 export function AddHistorialNutricion() {
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors }, trigger} = useForm()
     const { authTokens } = useContext(AuthContext)
     const [pacienteSelect, setPacienteSelect] = useState("")
 
@@ -110,7 +110,7 @@ export function AddHistorialNutricion() {
     })
     return (
         <>
-            <FormHistoriaNutricion register={register} onSubmit={onSubmit} pacienteSelect={pacienteSelect} setPacienteSelect={setPacienteSelect} errors={errors} />
+            <FormHistoriaNutricion register={register} onSubmit={onSubmit} pacienteSelect={pacienteSelect} setPacienteSelect={setPacienteSelect} errors={errors} trigger={trigger}/>
         </>
     )
 }

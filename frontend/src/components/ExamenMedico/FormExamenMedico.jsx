@@ -4,6 +4,8 @@ import { searchPaciente } from "../../services/Recepcionista";
 import { setToken } from "../../services/HeaderAuthorization";
 import { PacienteCard } from "../Paciente/PacienteCard";
 import AuthContext from "../../context/AuthProvider";
+import { CalculadoraCircuferencia } from "../Nutricion/CalculadoraCircuferencia";
+import { CalculadoraImc } from "../Nutricion/CalculadoraImc";
 
 export function FormExamenMedico({
   onSubmit,
@@ -16,6 +18,8 @@ export function FormExamenMedico({
   const [criterio, setCriterio] = useState("");
   const [paciente, setPaciente] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
+  const [showModalCircuferencia, setShowModalCircuferencia] = useState(false)
+  const [showModalIMC, setShowModalIMC] = useState(false)
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages] = useState(9);
@@ -59,7 +63,7 @@ export function FormExamenMedico({
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
-  
+
   const handleFileChange = (evt) => {
     const archivos = evt.target.files;
     const nombreArchivos = Array.from(archivos).map((archivo) => archivo.name)
@@ -146,7 +150,18 @@ export function FormExamenMedico({
       setShowPlanificacionFamiliar(false);
     }
   };
-
+  const handleModalCircuferencia = () => {
+    setShowModalCircuferencia(true)
+  }
+  const handleCloseModalCircuferencia = () => {
+    setShowModalCircuferencia(false)
+  }
+  const handleModalIMC = () => {
+    setShowModalIMC(true)
+  }
+  const handleCloseModalIMC = () => {
+    setShowModalIMC(false)
+  }
   return (
     <>
       {/* Titulo */}
@@ -178,7 +193,18 @@ export function FormExamenMedico({
           </div>
         </div>
       </div>
-
+      {/**Llamada a las calculadoras*/}
+      <div className="row offset-md-1">
+        <div className="col-md-3 mt-2 mb-2">
+          <button type="button" onClick={handleModalCircuferencia} className="btn rounded button-calculadora">Calculadora circuferencia</button>
+        </div>
+        <div className="col-md-3 mt-2 mb-2">
+          <button type="button" onClick={handleModalIMC} className="btn rounded button-calculadora">Calculadora IMC</button>
+        </div>
+      </div>
+      <CalculadoraCircuferencia status={showModalCircuferencia} handleCloseModal={handleCloseModalCircuferencia} />
+      <CalculadoraImc status={showModalIMC} handleCloseModal={handleCloseModalIMC} />
+      {/**Llamada a las calculadoras*/}
       {currentPage === 1 && (
         <div>
           <div className="row">
@@ -198,6 +224,7 @@ export function FormExamenMedico({
             </div>
           </div>
 
+
           <div className="col-md-2 offset-1">
             <label className="form-label label-section">DATOS PERSONALES</label>
           </div>
@@ -208,7 +235,7 @@ export function FormExamenMedico({
                 key={paciente.CURP}
                 handleSelect={selectPaciente}
                 isSelected={paciente.CURP === pacienteSelect}
-          />
+              />
             ))}
           </div>
         </div>
@@ -1394,8 +1421,8 @@ export function FormExamenMedico({
 
           {currentPage === 6 && (
             <div className="row">
-              <h3 className="offset-md-1 col-md-11">4. EXPLORACIÓN FÍSICA</h3>
 
+              <h3 className="offset-md-1 col-md-11">4. EXPLORACIÓN FÍSICA</h3>
               <div className="col-md-2 offset-md-1">
                 <label htmlFor="" className="form-label">
                   Tensión arterial (mmHg):
@@ -1871,14 +1898,14 @@ export function FormExamenMedico({
                 )}
               </div>
               <div className="col-md-4 offset-md-1">
-            <input className="form-control "type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
-            {archivosSeleccionados.map((nombreArchivo, index) => (
-              <label key={index}>{nombreArchivo}</label>
-            ))}
-          </div>
-          <div className="col-md-9 offset-md-1 mt-4 mb-4">
-            <button className="button-guardar rounded btn btn-success">Guardar</button>
-          </div>
+                <input className="form-control " type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
+                {archivosSeleccionados.map((nombreArchivo, index) => (
+                  <label key={index}>{nombreArchivo}</label>
+                ))}
+              </div>
+              <div className="col-md-9 offset-md-1 mt-4 mb-4">
+                <button className="button-guardar rounded btn btn-success">Guardar</button>
+              </div>
             </div>
           )}
         </form>

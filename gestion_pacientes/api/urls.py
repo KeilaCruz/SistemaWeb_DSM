@@ -14,6 +14,7 @@ from gestion_pacientes.api.cita import (
     VisualizarCitasPaciente,
     ReagendarCitasPaciente,
     MarcarAsistenciaCita,
+    BuscarCitas,
 )
 from gestion_pacientes.api.paciente import (
     PacienteAPIView,
@@ -29,7 +30,7 @@ from gestion_pacientes.api.nutricion import (
     CalculadoraCircuferenciaCintura,
     HistoriaNutricionAPIView,
     VisualizarFichaNutricionPaciente,
-    
+    BuscarHistoriaNutricion,
 )
 from gestion_pacientes.api.psicologia import (
     RegistrarFichaPsiNiñoAPIView,
@@ -41,7 +42,9 @@ from gestion_pacientes.api.psicologia import (
     RegistrarEvaluacionAdulto,
     RegistrarEvaluacionNiño,
     VisualizarEvaluacionAdulto,
-    VisualizarEvaluacionNiño
+    VisualizarEvaluacionNiño,
+    BuscarFichasPsicologiaAdulto,
+    BuscarFichasPsicologiaNiño,
 )
 
 from gestion_pacientes.api.evento import (
@@ -65,6 +68,12 @@ from gestion_pacientes.api.hojaEvaluacion import (
 
 from gestion_pacientes.api.exportExcel import (
     ExportPacientesVIEW,
+    ExportCitasVIEW,
+    ExportHistoriaNutricionVIEW,
+    ExportFichaPsicoAdultoVIEW,
+    ExportFichaPsicoNinoVIEW, 
+    ExportHojaEvaluacionVIEW,
+    ExportExamenMedicoVIEW,
 )
 urlpatterns = [
     path("paciente/", PacienteAPIView.as_view(), name="visualizar_pacientes"),
@@ -99,6 +108,11 @@ urlpatterns = [
     path("registrar_evento/", RegistrarEventoAPIView.as_view()),
     path("evento/", EventoAPIView.as_view()),
     path("editar_evento/<str:idEvento>/", EditarEventoAPIView.as_view()),
+    path("buscar_historia_nutricion/<str:idPaciente>/", BuscarHistoriaNutricion.as_view(), name="buscar_historia_nutricion"),
+    path("buscar_cita/<str:idPaciente>/", BuscarCitas.as_view(), name="buscar_citas"),
+    path("buscar_ficha_psico_adulto/<str:idPaciente>/", BuscarFichasPsicologiaAdulto.as_view(), name="buscar_fichas_adulto"),
+    path("buscar_ficha_psico_ninio/<str:idPaciente>/", BuscarFichasPsicologiaNiño.as_view(), name="buscar_fichas_niño"),
+
 
     path("registrar_examen_medico/", RegistrarExamenMedicoAPIView.as_view()),
     path("examen_medico/", ExamenMedicoAPIView.as_view()),
@@ -108,8 +122,6 @@ urlpatterns = [
     path("editar_hoja_evaluacion/<str:idHojaClinica>/", EditarHojaEvaluacionAPIView.as_view()),
 
 
-    
-    
     path("citas_paciente/<str:CURP>/", VisualizarCitasPaciente.as_view(), name='citas_paciente'),
     path("reagendar_cita/<int:idCita>/", ReagendarCitasPaciente.as_view(), name='reagendar_cita'),
     path("historial_clinico/<str:idPaciente>/", HistorialClinicoAPIView.as_view(), name='historial_clinico'),
@@ -118,4 +130,11 @@ urlpatterns = [
     
     
     path("exportar/pacientes/", ExportPacientesVIEW.as_view(), name='exportar_pacientes'),
+    path("exportar/citas/", ExportCitasVIEW.as_view(), name='exportar_citas'),
+    path("exportar/historias/nutricion/", ExportHistoriaNutricionVIEW.as_view(), name='exportar_historias_nutricion'),
+    path("exportar/fichas/psicologicas/adulto", ExportFichaPsicoAdultoVIEW.as_view(), name='exportar_fichas_adulto'),
+    path("exportar/fichas/psicologicas/nino", ExportFichaPsicoNinoVIEW.as_view(), name='exportar_fichas_nino'),
+    path("exportar/hojas/evaluacion/clinica", ExportHojaEvaluacionVIEW.as_view(), name='exportar_hojas_evaluacion_clinica'),
+    path("exportar/examen/medico", ExportExamenMedicoVIEW.as_view(), name='exportar_examen_medico'),
+
 ]

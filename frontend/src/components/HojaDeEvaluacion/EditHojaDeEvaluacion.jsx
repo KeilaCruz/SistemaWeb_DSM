@@ -5,34 +5,34 @@ import AuthContext from "../../context/AuthProvider"
 import { editarHojaEvaluacion } from "../../services/DoctorGeneral"
 import { setToken } from "../../services/HeaderAuthorization"
 
-export function EditHojaDeEvaluacion({hojaClinica}) {
+export function EditHojaDeEvaluacion({ hojaClinica }) {
   const { register, setValue, handleSubmit } = useForm()
-    const { authTokens } = useContext(AuthContext)
-    const [activateEdit, setActiEdit] = useState(false)
+  const { authTokens } = useContext(AuthContext)
+  const [activateEdit, setActiEdit] = useState(false)
+  const [baseUrl] = useState("http://localhost:8000");
 
+  const handleActivateEditar = () => {
+    setActiEdit(!activateEdit)
 
-    const handleActivateEditar = () => {
-      setActiEdit(!activateEdit)
-      
   }
 
   useEffect(() => {
-    async function loadInput (){
+    async function loadInput() {
       try {
-            setValue("fecha_revision", hojaClinica?.fecha_revision || '');
-            setValue("tension_arterial", hojaClinica.datos_nota_enfermeria?.tension_arterial || '');
-            setValue("frecuencia_cardiaca", hojaClinica.datos_nota_enfermeria?.frecuencia_cardiaca || '');
-            setValue("frecuencia_respiratoria", hojaClinica.datos_nota_enfermeria?.frecuencia_respiratoria || '');
-            setValue("temperatura", hojaClinica.datos_nota_enfermeria?.temperatura || '');
-            setValue("imc", hojaClinica.datos_nota_enfermeria?.imc || '');
-            setValue("saturacion_oxigeno", hojaClinica.datos_nota_enfermeria?.saturacion_oxigeno || '');
-            setValue("glucosa", hojaClinica.datos_nota_enfermeria?.glucosa || '');
-            setValue("peso", hojaClinica.datos_nota_enfermeria?.peso || '');
-            setValue("talla", hojaClinica.datos_nota_enfermeria?.talla || '');
-            setValue("cintura", hojaClinica.datos_nota_enfermeria?.cintura || '');
-            setValue("nota_medica", hojaClinica?.nota_medica || '');
+        setValue("fecha_revision", hojaClinica?.fecha_revision || '');
+        setValue("tension_arterial", hojaClinica.datos_nota_enfermeria?.tension_arterial || '');
+        setValue("frecuencia_cardiaca", hojaClinica.datos_nota_enfermeria?.frecuencia_cardiaca || '');
+        setValue("frecuencia_respiratoria", hojaClinica.datos_nota_enfermeria?.frecuencia_respiratoria || '');
+        setValue("temperatura", hojaClinica.datos_nota_enfermeria?.temperatura || '');
+        setValue("imc", hojaClinica.datos_nota_enfermeria?.imc || '');
+        setValue("saturacion_oxigeno", hojaClinica.datos_nota_enfermeria?.saturacion_oxigeno || '');
+        setValue("glucosa", hojaClinica.datos_nota_enfermeria?.glucosa || '');
+        setValue("peso", hojaClinica.datos_nota_enfermeria?.peso || '');
+        setValue("talla", hojaClinica.datos_nota_enfermeria?.talla || '');
+        setValue("cintura", hojaClinica.datos_nota_enfermeria?.cintura || '');
+        setValue("nota_medica", hojaClinica?.nota_medica || '');
       } catch (error) {
-          console.error("error al cargar input", error)
+        console.error("error al cargar input", error)
       }
     }
     loadInput();
@@ -41,32 +41,32 @@ export function EditHojaDeEvaluacion({hojaClinica}) {
 
   const onSubmit = handleSubmit(async (data) => {
     const hojaEvaluacion = {
-        fecha_revision: data.fecha_revision,
-        nota_medica: data.nota_medica,
-        "datos_nota_enfermeria": {
-            tension_arterial: data.tension_arterial,
-            frecuencia_cardiaca: data.frecuencia_cardiaca,
-            frecuencia_respiratoria: data. frecuencia_respiratoria,
-            temperatura: data.temperatura,
-            imc: data.imc,
-            saturacion_oxigeno: data.saturacion_oxigeno,
-            glucosa: data.glucosa,
-            peso: data.peso,
-            talla: data.talla,
-            cintura: data.cintura,
-        },
-        idPaciente: hojaClinica.idPaciente,
-        
+      fecha_revision: data.fecha_revision,
+      nota_medica: data.nota_medica,
+      "datos_nota_enfermeria": {
+        tension_arterial: data.tension_arterial,
+        frecuencia_cardiaca: data.frecuencia_cardiaca,
+        frecuencia_respiratoria: data.frecuencia_respiratoria,
+        temperatura: data.temperatura,
+        imc: data.imc,
+        saturacion_oxigeno: data.saturacion_oxigeno,
+        glucosa: data.glucosa,
+        peso: data.peso,
+        talla: data.talla,
+        cintura: data.cintura,
+      },
+      idPaciente: hojaClinica.idPaciente,
+
     }
     try {
-        await setToken(authTokens.access);
-        const response = await editarHojaEvaluacion(hojaClinica.idHojaClinica, hojaEvaluacion);
-        console.log(response)
+      await setToken(authTokens.access);
+      const response = await editarHojaEvaluacion(hojaClinica.idHojaClinica, hojaEvaluacion);
+      console.log(response)
     } catch (error) {
-        console.error(error)
+      console.error(error)
     }
 
-})
+  })
 
   return (
     <>
@@ -82,16 +82,16 @@ export function EditHojaDeEvaluacion({hojaClinica}) {
           </div>
         </div>
 
-       
 
-        
+
+
 
         <form onSubmit={onSubmit} className="row g-3 mt-5">
           <div className="col-md-11 offset-md-1">
             <h3>INFORMACIÓN GENERAL</h3>
           </div>
 
-          
+
 
           <div className="col-md-3 offset-md-1">
             <label htmlFor="fecha-revision" className="form-label">
@@ -102,7 +102,7 @@ export function EditHojaDeEvaluacion({hojaClinica}) {
               placeholder="Fecha de revision"
               id="fecha-revision"
               {...register("fecha_revision", { required: true })}
-              disabled ={true}
+              disabled={true}
               className="form-control"
             />
           </div>
@@ -150,7 +150,7 @@ export function EditHojaDeEvaluacion({hojaClinica}) {
               disabled={!activateEdit}
               className="form-control"
             />
-            
+
           </div>
 
           <div className="col-md-3 offset-md-1">
@@ -265,19 +265,23 @@ export function EditHojaDeEvaluacion({hojaClinica}) {
               className="form-control"
             ></textarea>
           </div>
-          
+          {hojaClinica.archivo && (
+            <div>
+              <a id="archivo_hoja_clina" href={baseUrl + hojaClinica.archivo} target="_blank" rel="noopener noreferrer">Ver archivo</a>
+            </div>
+          )}
           {activateEdit && (
-                        <div className="col-md-5 offset-1 mt-4 mb-4">
-                            <button className="btn btn-success">Guardar</button>
-                        </div>
-                    )}
+            <div className="col-md-5 offset-1 mt-4 mb-4">
+              <button className="btn btn-success">Guardar</button>
+            </div>
+          )}
         </form>
 
         {!activateEdit && (
-                        <div className="col-md-5 offset-1 mt-4 mb-4">
-                            <button className="btn btn-primary"  onClick={handleActivateEditar}>Editar</button>
-                        </div>
-                    )}
+          <div className="col-md-5 offset-1 mt-4 mb-4">
+            <button className="btn btn-primary" onClick={handleActivateEditar}>Editar</button>
+          </div>
+        )}
       </div>
     </>
   )

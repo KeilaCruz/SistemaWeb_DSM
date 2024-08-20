@@ -6,7 +6,7 @@ import { setToken } from "../../services/HeaderAuthorization";
 import { registerFichaPsiNiño } from "../../services/Psicologia";
 
 export function AddFichaPsiNiño() {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, trigger } = useForm();
     const { authTokens } = useContext(AuthContext)
     const [pacienteSelect, setPacienteSelect] = useState("")
     const onSubmit = handleSubmit(async (data) => {
@@ -104,7 +104,7 @@ export function AddFichaPsiNiño() {
     })
     return (
         <>
-            <FormFichaPsicoNiño register={register} onSubmit={onSubmit} pacienteSelect={pacienteSelect} setPacienteSelect={setPacienteSelect} errors={errors} />
+            <FormFichaPsicoNiño register={register} onSubmit={onSubmit} pacienteSelect={pacienteSelect} setPacienteSelect={setPacienteSelect} errors={errors} trigger={trigger}/>
         </>
     )
 }

@@ -1,16 +1,20 @@
 
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { Modal, Button } from "react-bootstrap"
 import AuthContext from "../../context/AuthProvider"
 import { setToken } from "../../services/HeaderAuthorization"
 import { calcularCircuferencia } from "../../services/Nutriologo"
 
-export function CalculadoraCircuferencia() {
+export function CalculadoraCircuferencia({ status, handleCloseModal }) {
     const { authTokens } = useContext(AuthContext)
     const [genero, setGenero] = useState('')
     const [circuferencia, setCircuferencia] = useState('')
     const [riesgo, setRiesgo] = useState(0)
-    const [showModal, setModal] = useState(false)
+    const [showModal, setShowModal] = useState(status)
+
+    useEffect(() => {
+        setShowModal(status);
+    }, [status]);
 
     const handleCalcularCircuferencia = async () => {
         await setToken(authTokens.access)
@@ -30,15 +34,9 @@ export function CalculadoraCircuferencia() {
         setCircuferencia('')
         setRiesgo(0)
     }
-    const handleShowModal = () => {
-        setModal(true)
-    }
-    const handleCloseModal = () => {
-        setModal(false)
-    }
+
     return (
         <>
-            <button onClick={handleShowModal}>Mostrar</button>
 
             <Modal Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header>
@@ -50,7 +48,7 @@ export function CalculadoraCircuferencia() {
 
                             <div className="col-md-4">
                                 <label htmlFor="circuferencia" className="form-label label-form">Circuferencia</label>
-                                <input className="form-control input-form" type="number" id="circuferencia" placeholder="cm" step="any" name="circuferencia" value={circuferencia} onChange={handleChangeCircuferencia} />
+                                <input className="form-control " type="number" id="circuferencia" placeholder="cm" step="any" name="circuferencia" value={circuferencia} onChange={handleChangeCircuferencia} />
                             </div>
                             <div className="col-md-8 mt-4">
                                 <label className="form-label label-form">Género:</label>
@@ -62,10 +60,10 @@ export function CalculadoraCircuferencia() {
                                 </label>
                             </div>
                             <div className="col-md-3 mt-2">
-                                <button className="button-guardar" onClick={handleCalcularCircuferencia}>Calcular</button>
+                                <button className="button-guardar btn rounded" onClick={handleCalcularCircuferencia}>Calcular</button>
                             </div>
                             <div className="col-md-3 mt-2">
-                                <button className="button-limpiar" onClick={handleClearInputs}>Limpiar</button>
+                                <button className="button-limpiar btn rounded" onClick={handleClearInputs}>Limpiar</button>
                             </div>
                         </div>
 

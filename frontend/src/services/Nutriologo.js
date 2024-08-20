@@ -8,7 +8,7 @@ const LIST_HISTORIA_NUTRICION_URL = "http://127.0.0.1:8000/api/historia_nutricio
 const CALCULADORA_IMC_URL = "http://127.0.0.1:8000/api/calcular_imc"
 const CALCULADORA_CIRCUFERENCIA_URL = "http://127.0.0.1:8000/api/calculadora_circuferencia"
 const VISUALIZAR_URL = "http://127.0.0.1:8000/api/visualizar_historia_nutricion"
-
+const SEARCH_URL = "http://127.0.0.1:8000/api/buscar_historia_nutricion"
 
 
 export const getAllHistoriaNutricion = async () => {
@@ -100,6 +100,19 @@ export const visualizarHistoriasPaciente = async (idPaciente) => {
             return response.data
         } else {
             console.log("Error al retornar historia del paciente")
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+export const buscarHistoriaNutricion = async (idPaciente) => {
+    try {
+        const config = await getConfig()
+        const response = await axios.get(`${SEARCH_URL}/${idPaciente}/`, config)
+        if (response.status === 200) {
+            return response.data
+        } else {
+            console.log("Error al retornar historia nutricion")
         }
     } catch (error) {
         console.error(error)

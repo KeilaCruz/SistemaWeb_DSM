@@ -42,6 +42,7 @@ class Paciente(models.Model):
 
 class Cita(models.Model):
     idCita = models.BigAutoField(primary_key=True)
+    fecha_registro = models.DateField(default=datetime.date.today)
     idPaciente = models.ForeignKey(Paciente, on_delete=models.DO_NOTHING)
     datos_cita = models.JSONField(default=dict)
     estado = models.BooleanField(default=False)
@@ -106,7 +107,7 @@ class FichaPsicologicaNiño(models.Model):
 
 def ruta_hoja_clinica(instance, filename):
     # Genera la ruta de almacenamiento para el archivo
-    return "docsHistorialClinico/{0}/{1}".format(instance.idPaciente, filename)
+    return "docsHistorialClinico/{0}/{1}".format(instance.idHojaClinica, filename)
 
 
 class HojaEvaluacionClinica(models.Model):
