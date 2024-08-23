@@ -13,6 +13,7 @@ export function FormExamenMedico({
   pacienteSelect,
   setPacienteSelect,
   errors,
+  trigger,
 }) {
   const { authTokens } = useContext(AuthContext);
   const [criterio, setCriterio] = useState("");
@@ -22,7 +23,6 @@ export function FormExamenMedico({
   const [showModalIMC, setShowModalIMC] = useState(false)
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages] = useState(9);
   const [archivosSeleccionados, setArchivosSeleccionados] = useState([])
 
   useEffect(() => {
@@ -57,12 +57,17 @@ export function FormExamenMedico({
     setPacienteSelect(CURP)
   }
 
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
-  };
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-  };
+  const handleNextPage = async () => {
+    const isValid = await trigger()
+    if (isValid && currentPage < 6) {
+        setCurrentPage(currentPage + 1);
+    }
+}
+const handlePrevPage = () => {
+    if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+    }
+}
 
   const handleFileChange = (evt) => {
     const archivos = evt.target.files;
@@ -173,26 +178,7 @@ export function FormExamenMedico({
         </div>
       </div>
 
-      <div className="container-fluid pb-3">
-        <div className="row">
-          <div className="col-md-3 offset-md-1">
-            <button
-              onClick={handlePrevPage}
-              className="button-pagination rounded"
-            >
-              <i class="lni lni-angle-double-left"></i> Anterior
-            </button>
-          </div>
-          <div className="col-md-3 offset-md-5">
-            <button
-              onClick={handleNextPage}
-              className="button-pagination rounded"
-            >
-              Siguiente <i class="lni lni-angle-double-right"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+      
       {/**Llamada a las calculadoras*/}
       <div className="row offset-md-1">
         <div className="col-md-3 mt-2 mb-2">
@@ -1908,6 +1894,17 @@ export function FormExamenMedico({
               </div>
             </div>
           )}
+
+            <div className=" col-md-9 mt-4 d-flex  offset-md-1 justify-content-between">
+              {currentPage > 1 && (
+                  <button type="button" className="btn button-pagination me-2 rounded" onClick={handlePrevPage}>Anterior</button>
+              )}
+              {currentPage < 6 ? (
+                  <button type="button" className="btn button-pagination rounded" onClick={handleNextPage}>Siguiente</button>
+              ) : (
+                  <button type="submit" className="btn button-guardar rounded">Enviar</button>
+              )}
+          </div>
         </form>
       </div>
     </>

@@ -27,6 +27,12 @@ export function Login() {
         case 5:
           navigate("/homeNutriologo");
           break;
+          case 6:
+          navigate("/homeAuxiliar");
+          break;
+          case 7:
+          navigate("/homeDirector");
+          break;
         // Agrega más casos según los roles que tengas
         default:
           navigate("/homeOtroRol");

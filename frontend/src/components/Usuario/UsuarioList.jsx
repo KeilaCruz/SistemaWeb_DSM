@@ -45,6 +45,10 @@ export function UsuarioList() {
         return "Odontologo";
       case 5:
         return "Nutriologo";
+      case 6:
+        return "Auxiliar";
+      case 7:
+        return "Director";
       default:
         return "Desconocido";
     }

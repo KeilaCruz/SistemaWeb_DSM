@@ -41,7 +41,6 @@ class VisualizarUsuarioView(APIView):
         return Response(usuario_serializer.data)
 
 
-@permission_classes([IsAuthenticated])
 class CrearUsuarioView(CreateAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer

@@ -6,7 +6,7 @@ import { registerExamenMedico } from "../../services/DoctorGeneral";
 import { setToken } from "../../services/HeaderAuthorization";
 
 export function AddExamenMedico() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, trigger } = useForm();
   const { authTokens } = useContext(AuthContext)
   const [pacienteSelect, setPacienteSelect] = useState("")
 
@@ -159,6 +159,7 @@ export function AddExamenMedico() {
         pacienteSelect={pacienteSelect}
         setPacienteSelect={setPacienteSelect}
         errors={errors}
+        trigger = {trigger}
 
       />
     </>

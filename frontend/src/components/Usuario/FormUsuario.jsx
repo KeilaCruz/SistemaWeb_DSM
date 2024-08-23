@@ -163,6 +163,8 @@ export function FormUsuario({ onSubmit, register, errors }) {
                 <option value={3}>Medico General</option>
                 <option value={4}>Odontologo</option>
                 <option value={5}>Nutriologo</option>
+                <option value={6}>Auxiliar</option>
+                <option value={7}>Director</option>
               </select>
               {errors.idRol?.type === "required" && (
                 <p className="errors">Seleccione un rol</p>
