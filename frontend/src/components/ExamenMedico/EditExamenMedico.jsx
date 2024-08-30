@@ -1579,7 +1579,7 @@ export function EditExamenMedico({ examenMedico }) {
             ></textarea>
           </div>
           {examenMedico.archivo && (
-            <div>
+            <div className="offset-md-1">
               <a id="archivo_examen_medico" href={baseUrl + examenMedico.archivo} target="_blank" rel="noopener noreferrer">Ver archivo</a>
             </div>
           )}

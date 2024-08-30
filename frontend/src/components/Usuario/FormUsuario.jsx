@@ -29,6 +29,7 @@ export function FormUsuario({ onSubmit, register, errors }) {
                   required: true,
                   minLength: 2,
                   maxLength: 50,
+                  pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/
                 })}
                 className="form-control"
               />
@@ -41,6 +42,10 @@ export function FormUsuario({ onSubmit, register, errors }) {
               {errors.first_name?.type === "maxLength" && (
                 <p className="errors">Ingrese máximo 50 caracteres</p>
               )}
+              {errors.first_name?.type === "pattern" && (
+                <p className="errors">Formato incorrecto</p>
+              )}
+              
             </div>
 
             <div className="col-md-9 offset-md-1">
@@ -57,6 +62,7 @@ export function FormUsuario({ onSubmit, register, errors }) {
                   required: true,
                   minLength: 2,
                   maxLength: 50,
+                  pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/
                 })}
                 className="form-control"
               />
@@ -68,6 +74,9 @@ export function FormUsuario({ onSubmit, register, errors }) {
               )}
               {errors.last_name?.type === "maxLength" && (
                 <p className="errors">Ingrese máximo 50 caracteres</p>
+              )}
+              {errors.last_name?.type === "pattern" && (
+                <p className="errors">Formato incorrecto</p>
               )}
             </div>
 
@@ -85,6 +94,7 @@ export function FormUsuario({ onSubmit, register, errors }) {
                   required: false,
                   minLength: 2,
                   maxLength: 50,
+                  pattern: /^[A-Za-z ÁÉÍÓÚáéíóú]+$/
                 })}
                 className="form-control"
               />
@@ -93,6 +103,9 @@ export function FormUsuario({ onSubmit, register, errors }) {
               )}
               {errors.second_last_name?.type === "maxLength" && (
                 <p className="errors">Ingrese máximo 50 caracteres</p>
+              )}
+              {errors.second_last_name?.type === "pattern" && (
+                <p className="errors">Formato incorrecto</p>
               )}
             </div>
 
@@ -185,6 +198,7 @@ export function FormUsuario({ onSubmit, register, errors }) {
                   required: true,
                   minLength: 2,
                   maxLength: 20,
+                  pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_-]+$/,
                 })}
                 className="form-control"
               />
@@ -196,6 +210,9 @@ export function FormUsuario({ onSubmit, register, errors }) {
               )}
               {errors.username?.type === "maxLength" && (
                 <p className="errors">Ingrese máximo 20 caracteres</p>
+              )}
+              {errors.username?.type === "pattern" && (
+                <p className="errors">Formato incorrecto</p>
               )}
             </div>
 

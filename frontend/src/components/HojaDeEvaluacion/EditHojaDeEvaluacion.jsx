@@ -266,7 +266,7 @@ export function EditHojaDeEvaluacion({ hojaClinica }) {
             ></textarea>
           </div>
           {hojaClinica.archivo && (
-            <div>
+            <div className="offset-md-1">
               <a id="archivo_hoja_clina" href={baseUrl + hojaClinica.archivo} target="_blank" rel="noopener noreferrer">Ver archivo</a>
             </div>
           )}

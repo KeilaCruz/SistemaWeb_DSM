@@ -161,6 +161,11 @@ export function FormHojaDeEvaluacion({
             {errors.tension_arterial?.type === "required" && (
               <p className="errors"> ⚠ Ingresa la tension arterial</p>
             )}
+            {errors.tension_arterial?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -181,6 +186,11 @@ export function FormHojaDeEvaluacion({
 
             {errors.frecuencia_cardiaca?.type === "required" && (
               <p className="errors"> ⚠ Ingrese la frecuencia cardiaca</p>
+            )}
+            {errors.frecuencia_cardiaca?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
             )}
           </div>
 
@@ -203,6 +213,11 @@ export function FormHojaDeEvaluacion({
             {errors.frecuencia_respiratoria?.type === "required" && (
               <p className="errors"> ⚠ Ingrese la frecuencia respiratoria</p>
             )}
+            {errors.frecuencia_respiratoria?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+            )}
           </div>
 
           <div className="col-md-3 offset-md-1">
@@ -223,6 +238,11 @@ export function FormHojaDeEvaluacion({
             {errors.temperatura?.type === "required" && (
               <p className="errors"> ⚠ Ingrese la temperatura </p>
             )}
+            {errors.temperatura?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -240,6 +260,11 @@ export function FormHojaDeEvaluacion({
 
             {errors.imc?.type === "required" && (
               <p className="errors"> ⚠ Ingrese el IMC </p>
+            )}
+            {errors.imc?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
             )}
           </div>
 
@@ -262,6 +287,11 @@ export function FormHojaDeEvaluacion({
             {errors.saturacion_oxigeno?.type === "required" && (
               <p className="errors"> ⚠ Ingrese la saturación de oxígeno </p>
             )}
+            {errors.saturacion_oxigeno?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+            )}
           </div>
 
           <div className="col-md-3 offset-md-1">
@@ -278,6 +308,11 @@ export function FormHojaDeEvaluacion({
             />
             {errors.glucosa?.type === "required" && (
               <p className="errors"> ⚠ Ingrese el nivel de glucosa </p>
+            )}
+            {errors.glucosa?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
             )}
           </div>
 
@@ -296,6 +331,11 @@ export function FormHojaDeEvaluacion({
             {errors.peso?.type === "required" && (
               <p className="errors"> ⚠ Ingrese el peso </p>
             )}
+            {errors.peso?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+            )}
           </div>
 
           <div className="col-md-3">
@@ -313,6 +353,11 @@ export function FormHojaDeEvaluacion({
             {errors.talla?.type === "required" && (
               <p className="errors"> ⚠ Ingrese la talla </p>
             )}
+            {errors.talla?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+            )}
           </div>
 
           <div className="col-md-3 offset-md-1">
@@ -329,6 +374,11 @@ export function FormHojaDeEvaluacion({
             />
             {errors.cintura?.type === "required" && (
               <p className="errors"> ⚠ Ingresar cintura </p>
+            )}
+            {errors.cintura?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
             )}
           </div>
 

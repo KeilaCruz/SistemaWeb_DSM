@@ -70,8 +70,7 @@ export function FormEvento({ onSubmit, register, usuarioSelect, errors }) {
     name="nom_evento"
     className="form-control"
     placeholder="Nombre del Evento"
-    {...register("nom_evento", { required: true, minLength: 2, maxLength: 100 })}
-  />
+    {...register("nom_evento", { required: true, minLength: 2, maxLength: 100, patter: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_-]+$/ })}/>
   {errors.nom_evento?.type === "required" && (
     <p className="errors">⚠ Ingrese el nombre del evento</p>
   )}
@@ -80,6 +79,9 @@ export function FormEvento({ onSubmit, register, usuarioSelect, errors }) {
   )}
   {errors.nom_evento?.type === "maxLength" && (
     <p className="errors">⚠ Ingrese máximo 100 caracteres</p>
+  )}
+  {errors.nom_evento?.type === "pattern" && (
+    <p className="errors">El formato no es valido</p>
   )}
 </div>
 
@@ -124,9 +126,9 @@ export function FormEvento({ onSubmit, register, usuarioSelect, errors }) {
     placeholder="Lugar"
     id="ubicacion"
     name="Ubicación"
-    {...register("lugar", { required: true, minLength: 2, maxLength: 100 })}
+    {...register("lugar", { required: true, minLength: 2, maxLength: 100, patter: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_-]+$/ })}
     className="form-control"
-  />
+/>
   {errors.lugar?.type === "required" && (
     <p className="errors">⚠ Ingrese el lugar del evento</p>
   )}
@@ -135,6 +137,9 @@ export function FormEvento({ onSubmit, register, usuarioSelect, errors }) {
   )}
   {errors.lugar?.type === "maxLength" && (
     <p className="errors">⚠ Ingrese máximo 100 caracteres</p>
+  )}
+  {errors.lugar?.type === "pattern" && (
+    <p className="errors">El formato no es valido</p>
   )}
 </div>
 

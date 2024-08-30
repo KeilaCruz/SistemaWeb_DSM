@@ -59,7 +59,7 @@ export function FormExamenMedico({
 
   const handleNextPage = async () => {
     const isValid = await trigger()
-    if (isValid && currentPage < 6) {
+    if (isValid && currentPage < 8) {
         setCurrentPage(currentPage + 1);
     }
 }
@@ -265,6 +265,9 @@ const handlePrevPage = () => {
                     </option>
                   ))}
                 </select>
+                {errors.idUsuario?.type === "required" && (
+                  <p className="errors">⚠ Seleccione un especialista</p>
+                )}
               </div>
 
               <h3 className="offset-md-1 col-md-11">
@@ -323,8 +326,11 @@ const handlePrevPage = () => {
                     placeholder="Causas de muerte"
                     className="form-control"
                     id="madre-causa"
-                    {...register("madre_finada", { required: false })}
+                    {...register("madre_finada", { required: false, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   />
+                  {errors.madre_finada?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
                 </div>
               )}
               <div className="col-md-11"></div>
@@ -380,9 +386,12 @@ const handlePrevPage = () => {
                     type="text"
                     placeholder="Causas de muerte"
                     id="padre-causa"
-                    {...register("padre_finado", { required: false })}
+                    {...register("padre_finado", { required: false, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                     className="form-control"
                   />
+                  {errors.padre_finado?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
                 </div>
               )}
 
@@ -439,9 +448,12 @@ const handlePrevPage = () => {
                     type="text"
                     placeholder="Causas de muerte"
                     id="hermano-causa"
-                    {...register("hermano_finado", { required: false })}
+                    {...register("hermano_finado", { required: false, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                     className="form-control"
                   />
+                  {errors.hermano_finado?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
                 </div>
               )}
 
@@ -498,9 +510,12 @@ const handlePrevPage = () => {
                     type="text"
                     placeholder="Causas de muerte"
                     id="hijo-causa"
-                    {...register("hijos_finados", { required: false })}
+                    {...register("hijos_finados", { required: false, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                     className="form-control"
                   />
+                  {errors.hijos_finados?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
                 </div>
               )}
 
@@ -520,7 +535,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Agudeza visual"
                   id="agudeza-visual"
-                  {...register("agudeza_visual", { required: true })}
+                  {...register("agudeza_visual", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.agudeza_visual && (
@@ -528,6 +543,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.agudeza_visual?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -538,7 +556,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Hipertension"
                   id="hipertension"
-                  {...register("hiper_tension", { required: true })}
+                  {...register("hiper_tension", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.hiper_tension && (
@@ -546,6 +564,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.hiper_tension?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -556,7 +577,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Diabetes"
                   id="diabetes"
-                  {...register("diabetes_mellitus", { required: true })}
+                  {...register("diabetes_mellitus", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.diabetes_mellitus && (
@@ -564,6 +585,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.diabetes_mellitus?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -574,7 +598,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Obesidad"
                   id="obesidad"
-                  {...register("obesidad", { required: true })}
+                  {...register("obesidad", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.obesidad && (
@@ -582,6 +606,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.obesidad?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -592,7 +619,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Asma"
                   id="asma"
-                  {...register("asma", { required: true })}
+                  {...register("asma", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.asma && (
@@ -600,6 +627,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.asma?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2 offset-md-1">
@@ -610,7 +640,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Epilépsia"
                   id="epilepsia"
-                  {...register("epilepsia", { required: true })}
+                  {...register("epilepsia", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.epilepsia && (
@@ -618,6 +648,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.epilepsia?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -628,7 +661,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Lupus"
                   id="lupus"
-                  {...register("lupus", { required: true })}
+                  {...register("lupus", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.lupus && (
@@ -636,6 +669,7 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                
               </div>
 
               <div className="col-md-2">
@@ -646,7 +680,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Nefropatias"
                   id="nefropatias"
-                  {...register("nefropatias", { required: true })}
+                  {...register("nefropatias", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.nefropatias && (
@@ -654,6 +688,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.nefropatias?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -664,7 +701,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Artropatias"
                   id="artropatia"
-                  {...register("artropatia", { required: true })}
+                  {...register("artropatia", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.artropatia && (
@@ -672,6 +709,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.artropatia?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -682,7 +722,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Otras enfermedades"
                   id="otras-enfermedades"
-                  {...register("otras_enfermedades", { required: true })}
+                  {...register("otras_enfermedades", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.otras_enfermedades && (
@@ -690,6 +730,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.otras_enfermedades?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2 offset-md-1">
@@ -700,7 +743,7 @@ const handlePrevPage = () => {
                   placeholder="Observaciones"
                   id="observaciones"
                   {...register("observaciones_enfermedades", {
-                    required: true,
+                    required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/
                   })}
                   className="form-control"
                 ></textarea>
@@ -709,6 +752,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.observaciones_enfermedades?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
             </div>
           )}
@@ -727,7 +773,7 @@ const handlePrevPage = () => {
                   type="text"
                   id="nacimiento"
                   placeholder="Lugar de nacimiento"
-                  {...register("lugar_nacimiento", { required: true })}
+                  {...register("lugar_nacimiento", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.lugar_nacimiento && (
@@ -735,6 +781,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.lugar_nacimiento?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -753,6 +802,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.fecha_nacimiento?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3">
@@ -763,7 +815,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Escolaridad"
                   id="escolaridad"
-                  {...register("escolaridad", { required: true })}
+                  {...register("escolaridad", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.escolaridad && (
@@ -771,6 +823,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.escolaridad?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3">
@@ -781,7 +836,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Trabajo actual"
                   id="trabajo-actual"
-                  {...register("trabajo_actual", { required: true })}
+                  {...register("trabajo_actual", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.trabajo_actual && (
@@ -789,6 +844,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.trabajo_actual?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div class="col-md-1 offset-md-1 fw-bold">
@@ -844,9 +902,12 @@ const handlePrevPage = () => {
                     type="text"
                     id="cual-ejercicio"
                     placeholder="¿Cual ejercicio?"
-                    {...register("ejercicio_cual", { required: false })}
+                    {...register("ejercicio_cual", { required: false, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                     className="form-control"
                   />
+                  {errors.ejercicio_cual?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
                 </div>
               )}
 
@@ -997,7 +1058,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Inmunizaciones"
                   id="inmunizaciones"
-                  {...register("inmunizaciones", { required: true })}
+                  {...register("inmunizaciones", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.inmunizaciones && (
@@ -1005,6 +1066,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.inmunizaciones?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-4">
@@ -1015,7 +1079,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Habitos higienicos"
                   id="habitos-higienicos"
-                  {...register("habitos_higienicos", { required: true })}
+                  {...register("habitos_higienicos", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.habitos_higienicos && (
@@ -1023,6 +1087,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.habitos_higienicos?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-4">
@@ -1033,7 +1100,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Habitos alimenticios"
                   id="alimenticios"
-                  {...register("habitos_alimenticios", { required: true })}
+                  {...register("habitos_alimenticios", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.habitos_alimenticios && (
@@ -1041,6 +1108,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.habitos_alimenticios?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-4 offset-md-1">
@@ -1051,13 +1121,16 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Especifique habitos"
                   id="habitos"
-                  {...register("especifique_habitos", { required: true })}
+                  {...register("especifique_habitos", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.especifique_habitos && (
                   <div className="alert alert-danger" role="alert">
                     ⚠ Este campo es requerido
                   </div>
+                )}
+                {errors.especifique_habitos?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
                 )}
               </div>
             </div>
@@ -1080,6 +1153,12 @@ const handlePrevPage = () => {
                   {...register("edad_menarca", { required: false })}
                   className="form-control"
                 />
+                {errors.edad_menarca?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+                )}
+                
               </div>
 
               <div className="col-md-2">
@@ -1093,6 +1172,11 @@ const handlePrevPage = () => {
                   {...register("frecuencia_duracion", { required: false })}
                   className="form-control"
                 />
+                {errors.frecuencia_duracion?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+                )}
               </div>
 
               <div className="col-md-2">
@@ -1103,9 +1187,12 @@ const handlePrevPage = () => {
                   type="text"
                   id="ultima-menstruacion"
                   placeholder="Ultima menstruacion"
-                  {...register("ultima_menstruacion", { required: false })}
+                  {...register("ultima_menstruacion", { required: false, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
+                {errors.ultima_menstruacion?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -1119,6 +1206,11 @@ const handlePrevPage = () => {
                   {...register("num_embarazos", { required: false })}
                   className="form-control"
                 />
+                {errors.num_embarazos?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+                )}
               </div>
 
               <div className="col-md-2">
@@ -1132,6 +1224,11 @@ const handlePrevPage = () => {
                   {...register("num_partos", { required: false })}
                   className="form-control"
                 />
+                {errors.num_partos?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+                )}
               </div>
 
               <div className="col-md-2 offset-md-1">
@@ -1145,6 +1242,11 @@ const handlePrevPage = () => {
                   {...register("num_cesareas", { required: false })}
                   className="form-control"
                 />
+                {errors.num_cesareas?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+                )}
               </div>
 
               <div className="col-md-2">
@@ -1158,6 +1260,11 @@ const handlePrevPage = () => {
                   {...register("num_abortos", { required: false })}
                   className="form-control"
                 />
+                {errors.num_abortos?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+                )}
               </div>
 
               <div className="col-md-3">
@@ -1168,9 +1275,12 @@ const handlePrevPage = () => {
                   type="text"
                   id="ultimo-parto"
                   placeholder="Ultimo parto"
-                  {...register("ultimo_parto", { required: false })}
+                  {...register("ultimo_parto", { required: false, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
+                {errors.ultimo_parto?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3">
@@ -1181,9 +1291,12 @@ const handlePrevPage = () => {
                   type="text"
                   id="ultimo-aborto"
                   placeholder="Ultimo aborto"
-                  {...register("ultimo_aborto", { required: false })}
+                  {...register("ultimo_aborto", { required: false, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
+                {errors.ultimo_aborto?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div class="col-md-1 offset-md-1 fw-bold">
@@ -1234,9 +1347,12 @@ const handlePrevPage = () => {
                     type="text"
                     id="metodo-familiar"
                     placeholder="Método"
-                    {...register("metodo_planificacion", { required: false })}
+                    {...register("metodo_planificacion", { required: false, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/  })}
                     className="form-control"
                   />
+                  {errors.metodo_planificacion?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
                 </div>
               )}
 
@@ -1258,7 +1374,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Luxación y Fracturas"
                   id="traumaticos"
-                  {...register("traumatismos", { required: true })}
+                  {...register("traumatismos", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/  })}
                   className="form-control"
                 />
                 {errors.traumatismos && (
@@ -1266,6 +1382,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.traumatismos?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -1276,7 +1395,7 @@ const handlePrevPage = () => {
                   type="text"
                   placeholder="Quirurgicos"
                   id="quirurgicos"
-                  {...register("quirurgicos", { required: true })}
+                  {...register("quirurgicos", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/  })}
                   className="form-control"
                 />
                 {errors.quirurgicos && (
@@ -1284,6 +1403,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.quirurgicos?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -1293,7 +1415,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Transfusiones"
-                  {...register("transfusiones", { required: true })}
+                  {...register("transfusiones", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/  })}
                   className="form-control"
                 />
                 {errors.transfusiones && (
@@ -1301,6 +1423,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.transfusiones?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -1308,7 +1433,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Grupo sanguineo"
-                  {...register("grupo_sanguineo", { required: true })}
+                  {...register("grupo_sanguineo", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/  })}
                   className="form-control"
                 />
                 {errors.grupo_sanguineo && (
@@ -1316,6 +1441,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.grupo_sanguineo?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -1325,7 +1453,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Factor RH"
-                  {...register("factor_rh", { required: true })}
+                  {...register("factor_rh", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/  })}
                   className="form-control"
                 />
                 {errors.factor_rh && (
@@ -1333,6 +1461,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.factor_rh?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2 offset-md-1">
@@ -1342,7 +1473,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Alergias"
-                  {...register("alergias", { required: true })}
+                  {...register("alergias", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/  })}
                   className="form-control"
                 />
                 {errors.alergias && (
@@ -1350,6 +1481,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.alegrias?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -1359,13 +1493,15 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Infecciones"
-                  {...register("infecciones", { required: true })}
+                  {...register("infecciones", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/  })}
                   className="form-control"
                 />
                 {errors.infecciones && (
                   <div className="alert alert-danger" role="alert">
                     ⚠ Este campo es requerido
                   </div>
+                )}{errors.infecciones?.type === "pattern" && (
+                  <p className="errors">Formato incorrecto</p>
                 )}
               </div>
 
@@ -1376,7 +1512,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Dengue Paludismo"
-                  {...register("dengue_paludismo", { required: true })}
+                  {...register("dengue_paludismo", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/  })}
                   className="form-control"
                 />
                 {errors.dengue_paludismo && (
@@ -1384,6 +1520,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.dengue_paludismo?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-2">
@@ -1393,7 +1532,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Tatuajes"
-                  {...register("tatuajes", { required: true })}
+                  {...register("tatuajes", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/  })}
                   className="form-control"
                 />
                 {errors.tatuajes && (
@@ -1401,6 +1540,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.tatuajes?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
             </div>
           )}
@@ -1428,6 +1570,11 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.tension_arterial?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+                )}
               </div>
 
               <div className="col-md-2">
@@ -1447,6 +1594,11 @@ const handlePrevPage = () => {
                 {errors.frecuencia_cardiaca && (
                   <div className="alert alert-danger" role="alert">
                     ⚠ Este campo es requerido
+                  </div>
+                )}
+                {errors.frecuencia_cardiaca?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
                   </div>
                 )}
               </div>
@@ -1470,6 +1622,11 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.frecuencia_respiratoria?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+                )}
               </div>
 
               <div className="col-md-2">
@@ -1489,6 +1646,11 @@ const handlePrevPage = () => {
                 {errors.oxigenacion && (
                   <div className="alert alert-danger" role="alert">
                     ⚠ Este campo es requerido
+                  </div>
+                )}
+                {errors.oxigenacion?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
                   </div>
                 )}
               </div>
@@ -1512,6 +1674,11 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.temperatura?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+                )}
               </div>
 
               <h3 className="offset-md-1 col-md-11">5. ANTROPOMETRÍA</h3>
@@ -1533,6 +1700,11 @@ const handlePrevPage = () => {
                 {errors.peso_actual && (
                   <div className="alert alert-danger" role="alert">
                     ⚠ Este campo es requerido
+                  </div>
+                )}
+                {errors.peso_actual?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
                   </div>
                 )}
               </div>
@@ -1569,6 +1741,11 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.imc?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+                )}
               </div>
 
               <div className="col-md-2">
@@ -1590,6 +1767,11 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.circunferencia_abd?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
+                  </div>
+                )}
               </div>
 
               <div className="col-md-2">
@@ -1609,6 +1791,11 @@ const handlePrevPage = () => {
                 {errors.circunferencia_cadera && (
                   <div className="alert alert-danger" role="alert">
                     ⚠ Este campo es requerido
+                  </div>
+                )}
+                {errors.circunferencia_cadera?.type === "valueAsNumber" && (
+                  <div className="alert alert-danger" role="alert">
+                    ⚠ Formato incorrecto
                   </div>
                 )}
               </div>
@@ -1640,7 +1827,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Cabeza"
-                  {...register("EF_cabeza", { required: true })}
+                  {...register("EF_cabeza", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.EF_cabeza && (
@@ -1648,6 +1835,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.EF_cabeza?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3">
@@ -1655,7 +1845,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Cuello"
-                  {...register("EF_cuello", { required: true })}
+                  {...register("EF_cuello", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.EF_cuello && (
@@ -1663,6 +1853,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.EF_cuello?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3">
@@ -1670,7 +1863,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Torax"
-                  {...register("EF_torax", { required: true })}
+                  {...register("EF_torax", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.EF_torax && (
@@ -1678,6 +1871,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.EF_torax?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3 offset-md-1">
@@ -1685,7 +1881,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Abdomen"
-                  {...register("EF_abdomen", { required: true })}
+                  {...register("EF_abdomen", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.EF_abdomen && (
@@ -1693,6 +1889,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.EF_abdomen?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <h4 className="offset-md-1 col-md-11">Extremidades</h4>
@@ -1702,7 +1901,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Superiores"
-                  {...register("EF_EXT_sup", { required: true })}
+                  {...register("EF_EXT_sup", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.EF_EXT_sup && (
@@ -1710,6 +1909,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.EF_EXT_sup?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3">
@@ -1717,7 +1919,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Inferiores"
-                  {...register("EF_EXT_inf", { required: true })}
+                  {...register("EF_EXT_inf", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.EF_EXT_inf && (
@@ -1725,6 +1927,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.EF_EXT_inf?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3">
@@ -1732,7 +1937,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Rodillas"
-                  {...register("EF_EXT_rodillas", { required: true })}
+                  {...register("EF_EXT_rodillas", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.EF_EXT_rodillas && (
@@ -1740,6 +1945,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.EF_EXT_rodillas?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3 offset-md-1">
@@ -1747,7 +1955,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Pelvis"
-                  {...register("EF_EXT_pelvis", { required: true })}
+                  {...register("EF_EXT_pelvis", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.EF_EXT_pelvis && (
@@ -1755,6 +1963,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.EF_EXT_pelvis?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3">
@@ -1762,7 +1973,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Pies"
-                  {...register("EF_EXT_pies", { required: true })}
+                  {...register("EF_EXT_pies", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.EF_EXT_pies && (
@@ -1770,6 +1981,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.EF_EXT_pies?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
             </div>
           )}
@@ -1785,7 +1999,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Biometria hematica"
-                  {...register("biometria_hematica", { required: true })}
+                  {...register("biometria_hematica", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.biometria_hematica && (
@@ -1793,6 +2007,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.biometria_hematica?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3">
@@ -1800,7 +2017,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Quimica sanguinea"
-                  {...register("quimica_sanguinea", { required: true })}
+                  {...register("quimica_sanguinea", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.quimica_sanguinea && (
@@ -1808,6 +2025,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.quimica_sanguinea?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3">
@@ -1815,7 +2035,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="VDRL"
-                  {...register("vdrl", { required: true })}
+                  {...register("vdrl", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.vdrl && (
@@ -1823,6 +2043,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.vdrl?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3 offset-md-1">
@@ -1830,7 +2053,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Prueba VIH"
-                  {...register("prueba_vih", { required: true })}
+                  {...register("prueba_vih", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.prueba_vih && (
@@ -1838,6 +2061,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.prueba_vih?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3">
@@ -1845,7 +2071,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Antidoping"
-                  {...register("antidoping", { required: true })}
+                  {...register("antidoping", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.antidoping && (
@@ -1853,6 +2079,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.antidoping?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-3">
@@ -1860,7 +2089,7 @@ const handlePrevPage = () => {
                 <input
                   type="text"
                   placeholder="Examen de orina"
-                  {...register("examen_orina", { required: true })}
+                  {...register("examen_orina", { required: true, pattern: /^[A-Za-z0-9ÁÉÍÓÚáéíóú_.-]+$/ })}
                   className="form-control"
                 />
                 {errors.examen_orina && (
@@ -1868,6 +2097,9 @@ const handlePrevPage = () => {
                     ⚠ Este campo es requerido
                   </div>
                 )}
+                {errors.examen_orina?.type === "pattern" && (
+                    <p className="errors">Formato incorrecto</p>
+                  )}
               </div>
 
               <div className="col-md-10 offset-md-1">
@@ -1883,15 +2115,17 @@ const handlePrevPage = () => {
                   </div>
                 )}
               </div>
-              <div className="col-md-4 offset-md-1">
-                <input className="form-control " type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} />
-                {archivosSeleccionados.map((nombreArchivo, index) => (
-                  <label key={index}>{nombreArchivo}</label>
-                ))}
-              </div>
-              <div className="col-md-9 offset-md-1 mt-4 mb-4">
-                <button className="button-guardar rounded btn btn-success">Guardar</button>
-              </div>
+              
+              <div className="col-md-8 offset-md-1">
+            <label htmlFor="archivo" className="form-label">
+              Archivo:
+            </label>
+            <input type="file" id="archivo" onChange={handleFileChange} multiple {...register("archivo")} className="form-control" />
+            {archivosSeleccionados.map((nombreArchivo, index) => (
+              <label key={index}>{nombreArchivo}</label>
+            ))}
+          </div>
+              
             </div>
           )}
 
@@ -1899,7 +2133,7 @@ const handlePrevPage = () => {
               {currentPage > 1 && (
                   <button type="button" className="btn button-pagination me-2 rounded" onClick={handlePrevPage}>Anterior</button>
               )}
-              {currentPage < 6 ? (
+              {currentPage < 8 ? (
                   <button type="button" className="btn button-pagination rounded" onClick={handleNextPage}>Siguiente</button>
               ) : (
                   <button type="submit" className="btn button-guardar rounded">Enviar</button>
